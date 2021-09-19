@@ -1,7 +1,6 @@
 name: Release
 on:
   push:
-    tags: [ 'v*.*.*' ]
 jobs:
   release-fedora:
     name: Release on Fedora Latest (Container)
