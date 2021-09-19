@@ -3,7 +3,7 @@ on:
   push:
 jobs:
   release-fedora:
-    name: Release on Fedora Latest (Container)
+    name: Release on Fedora Latest 
     runs-on: ubuntu-latest
     container:
       image: fedora:latest
