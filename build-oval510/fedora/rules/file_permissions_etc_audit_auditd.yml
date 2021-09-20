@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/file_permissions_etc_audit_auditd/rule.yml
+description: '
+
+  To properly set the permissions of <code>/etc/audit/auditd.conf</code>, run the
+  command:
+
+  <pre>$ sudo chmod 0640 /etc/audit/auditd.conf</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,rhel8
+rationale: 'Without the capability to restrict the roles and individuals that can
+  select which events
+
+  are audited, unauthorized personnel may be able to prevent the auditing of critical
+
+  events. Misconfigured audits may degrade the system''s performance by overwhelming
+
+  the audit log. Misconfigured audits may also make it more difficult to establish,
+
+  correlate, and investigate the events relating to an incident or identify
+
+  those responsible for one.'
+references:
+  disa: CCI-000171
+  nist: AU-12(b)
+  srg: SRG-OS-000063-GPOS-00032
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    allow_stricter_permissions: 'true'
+    filemode: '0640'
+    filepath: /etc/audit/auditd.conf
+title: Verify Permissions on /etc/audit/auditd.conf
+warnings: []

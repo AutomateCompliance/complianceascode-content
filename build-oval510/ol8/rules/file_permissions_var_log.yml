@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_var_log_dir/file_permissions_var_log/rule.yml
+description: '
+
+  To properly set the permissions of <code>/var/log</code>, run the command:
+
+  <pre>$ sudo chmod 0755 /var/log</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/var/log</code>,
+
+  run the command:
+
+  <pre>$ ls -l /var/log</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>drwxr-xr-x</code>'
+ocil_clause: /var/log has unix mode drwxr-xr-x
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/var/log</tt> directory contains files with logs of error
+
+  messages in the system and should only be accessed by authorized
+
+  personnel.'
+references:
+  disa: CCI-001314
+  srg: SRG-OS-000206-GPOS-00084
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0755'
+    filepath: /var/log/
+title: Verify Permissions on /var/log Directory
+warnings: []

@@ -1,0 +1,825 @@
+<?xml version="1.0"?>
+<Benchmark xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="http://purl.org/dc/elements/1.1/" id="product-name" xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.1 xccdf-1.1.4.xsd" style="SCAP_1.1" resolved="false" xml:lang="en-US">
+  <status date="2021-09-19">draft</status>
+  <title>Guide to the Secure Configuration of McAfee VirusScan Enterprise for Linux</title>
+  <description>This guide presents a catalog of security-relevant
+configuration settings for McAfee VirusScan Enterprise for Linux. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <tt>scap-security-guide</tt> package which is developed at
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<br/><br/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <em>catalog, not a
+checklist</em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <em>Profiles</em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for McAfee VirusScan Enterprise for Linux,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</description>
+  <notice id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter>The SCAP Security Guide Project<br/>
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter>Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:mcafee:virusscan_enterprise_for_linux:1.9"/>
+  <platform idref="cpe:/a:mcafee:virusscan_enterprise_for_linux:2.0"/>
+  <version>0.9</version>
+  <metadata/>
+  <Profile id="stig">
+    <title override="true">McAfee VirusScan Enterprise for Linux (VSEL) STIG</title>
+    <description override="true">The McAfee VirusScan Enterprise for Linux software provides a realtime virus scanner for Linux systems.</description>
+    <select idref="dats_auto_update" selected="true"/>
+    <select idref="dats_updated" selected="true"/>
+    <select idref="oas_action_app_primary" selected="true"/>
+    <select idref="oas_action_app_secondary" selected="true"/>
+    <select idref="oas_action_default_primary" selected="true"/>
+    <select idref="oas_action_default_secondary" selected="true"/>
+    <select idref="oas_action_error" selected="true"/>
+    <select idref="oas_action_timeout" selected="true"/>
+    <select idref="oas_allFiles" selected="true"/>
+    <select idref="oas_decompArchive" selected="true"/>
+    <select idref="oas_enabled" selected="true"/>
+    <select idref="oas_exclusions" selected="true"/>
+    <select idref="oas_heuristicAnalysis" selected="true"/>
+    <select idref="oas_macroAnalysis" selected="true"/>
+    <select idref="oas_program" selected="true"/>
+    <select idref="oas_scanMaxTmo" selected="true"/>
+    <select idref="oas_scanNWFiles" selected="true"/>
+    <select idref="oas_scanOnRead" selected="true"/>
+    <select idref="oas_scanOnWrite" selected="true"/>
+    <select idref="ods_action_app_primary" selected="true"/>
+    <select idref="ods_action_app_secondary" selected="true"/>
+    <select idref="ods_action_default_primary" selected="true"/>
+    <select idref="ods_action_default_secondary" selected="true"/>
+    <select idref="ods_allFiles" selected="true"/>
+    <select idref="ods_decompArchive" selected="true"/>
+    <select idref="ods_enabled" selected="true"/>
+    <select idref="ods_exclusions" selected="true"/>
+    <select idref="ods_extensions" selected="true"/>
+    <select idref="ods_heuristicAnalysis" selected="true"/>
+    <select idref="ods_macroAnalysis" selected="true"/>
+    <select idref="ods_mime" selected="true"/>
+    <select idref="ods_program" selected="true"/>
+    <select idref="ods_scanNWFiles_local" selected="true"/>
+    <select idref="restricted_user" selected="true"/>
+    <select idref="scanned_media" selected="true"/>
+    <select idref="updates_source" selected="true"/>
+    <select idref="virus_notification" selected="true"/>
+    <select idref="web_client_disabled" selected="true"/>
+    <select idref="web_client_firewalled" selected="true"/>
+  </Profile>
+  <Value id="conditional_clause" type="string">
+    <title>A conditional clause for check statements.</title>
+    <description>A conditional clause for check statements.</description>
+    <value selector="">This is a placeholder</value>
+  </Value>
+  <Group id="remediation_functions">
+    <title>Remediation functions used by the SCAP Security Guide Project</title>
+    <description>XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="vsel">
+    <title>McAfee VirusScan Enterprise for Linux (VSEL)</title>
+    <description>The McAfee VirusScan Enterprise for Linux software provides a realtime virus scanner for Linux systems.</description>
+    <Group id="general_settings">
+      <title>General VSEL Settings</title>
+      <description>To support a secured and compliant configuration, a number of 
+settings need to be modified from their default configuration and locked so 
+that they are prevented from being changed.</description>
+      <Rule id="dats_auto_update" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to receive automatic updates</title>
+        <description>Anti-virus signature files are updated almost daily by anti-virus software vendors. These files are made available to anti-virus 
+clients as they are published. Keeping virus signature files as current as possible is vital to the security of any system.
+
+To check that anti-virus signature files are updated, you have to login to the VSEL Web Monitor.
+In the VSEL WEB Monitor, under <tt>View</tt>, select <tt>Scheduled Tasks</tt>.
+Under <tt>Scheduled Tasks</tt>, under <tt>Task Summaries</tt>, with the assistance of the McAfee VSEL SA, identify the VirusScan DAT update task.
+Verify the <tt>Type</tt> is <tt>Update</tt> and the <tt>Status</tt> is <tt>Completed</tt> with Results of <tt>Update Finished</tt>.
+Under <tt>Task Details</tt> for the task, click on the <tt>Modify</tt> button.
+Choose <tt>2. Choose what to update</tt> and verify the <tt>Virus definition files (also known as DAT files)</tt> is selected.    </description>
+        <rationale>The anti-virus software product must be configured to receive those updates automatically in order to afford the expected protection.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-002"/>
+        <oval id="dats_auto_update"/>
+        <ocil clause="the VirusScan DAT update task doesn't exist or &lt;tt&gt;2. Choose what to update&lt;/tt&gt; does not have &lt;tt&gt;Virus definition files (also known as DAT files)&lt;/tt&gt; selected">To verify that anti-virus signature files are updated, login to VSEL Web Monitor and verify the following:
+Under <tt>View</tt>, select <tt>Scheduled Tasks</tt>.
+Under <tt>Scheduled Tasks</tt>, under <tt>Task Summaries</tt>, with the assistance of the McAfee VSEL SA, identify the VirusScan DAT update task.
+Verify the <tt>Type</tt> is <tt>Update</tt> and the <tt>Status</tt> is <tt>Completed</tt> with Results of <tt>Update Finished</tt>.
+Under <tt>Task Details</tt> for the task, click on the <tt>Modify</tt> button.
+Choose <tt>2. Choose what to update</tt> and verify the <tt>Virus definition files (also known as DAT files)</tt> is selected.</ocil>
+      </Rule>
+      <Rule id="dats_updated" severity="high">
+        <title>The anti-virus signature file age must not exceed 7 days</title>
+        <description>Anti-virus signature files are updated almost daily by anti-virus software vendors. These files are made available to anti-virus 
+clients as they are published. Keeping virus signature files as current as possible is vital to the security of any system.
+
+To check that anti-virus signature files are updated, you have to login to the VSEL Web Monitor.
+In the VSEL WEB Monitor, under <tt>View</tt>, select <tt>Host Summary</tt>.
+In the <tt>Host Summary</tt>, verify the <tt>DAT Date:</tt> is within the last 7 days.</description>
+        <rationale>By configuring a system to attempt an anti-virus update on a daily basis, the system is ensured of maintaining an anti-virus signature 
+age of 7 days or less. If the update attempt were to be configured for only once a week, and that attempt failed, the system would be 
+immediately out of date.</rationale>
+        <ref disa="CCI-001240" nist="SI-3" srg="SRG-APP-000276" stigid="DTAVSEL-001"/>
+        <oval id="dats_updated"/>
+        <ocil clause="the &lt;tt&gt;DAT Date:&lt;/tt&gt; is older than 7 days">To verify that anti-virus signature files are updated, login to VSEL Web Monitor and verify the following:
+Under <tt>View</tt>, select <tt>Host Summary</tt>.
+In the <tt>Host Summary</tt>, verify the <tt>DAT Date:</tt> is within the last 7 days.</ocil>
+      </Rule>
+      <Rule id="restricted_user" severity="medium">
+        <title>The nails user and nailsgroup group must be restricted to the least privilege access required for the intended role</title>
+        <description>The McAfee VirusScan Enterprise for Linux software runs its processes under the nails user, which is part of the nailsgroup group. 
+The WEB GUI is also accessed using the nails user. 
+
+To check that nails and nailsgroup are configured correctly, access the Linux system console command line as root.
+Execute the following commands. This command will pipe the results to text files for easier review. 
+
+<tt>find / -group nailsgroup &gt;nailsgroup.txt</tt>
+<tt>find / -user nails &gt;nails.txt</tt>
+
+Execute the following commands to individually review each of the text files of results, pressing space bar to move to each page 
+until the end of the exported text. 
+
+<tt>more nailsgroup.txt</tt>
+<tt>more nails.txt</tt>
+
+When reviewing the results, verify the nailsgroup group and nails user only own the following paths.
+The following paths assume an INSTALLDIR of <tt>/opt/NAI/LinuxShield</tt> and a RUNTIMEDIR of <tt>/var/opt/NAI/LinuxShield</tt>. 
+If alternative folders were used, replace the following paths accordingly when validating.
+
+<tt>/var/opt/NAI</tt> and sub-folders
+<tt>/opt/NAI</tt> and sub-folders
+<tt>/McAfee/lib</tt>
+<tt>/var/spool/mail/nails</tt>
+<tt>/proc/#####</tt> (where ##### represents the various process IDs for the VSEL processes.)
+
+If any other folder is owned by either the nailsgroup group or the nails user, this is a finding.</description>
+        <rationale>Ensuring the nails user/nailsgroup group only has access to the required functions necessary for its 
+intended role will mitigate the possibility of the nails user/nailsgroup group from being used to perform malicious destruction to the 
+system in the event of a compromise.</rationale>
+        <ref disa="CCI-002235" nist="AC-6(10)" srg="SRG-APP-000340" stigid="DTAVSEL-202"/>
+        <oval id="restricted_user"/>
+      </Rule>
+      <Rule id="scanned_media" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must scan all media used for system maintenance prior to use</title>
+        <description>It is imperative to protect Linux systems from malware introduced from removable media by ensuring they are scanned before use.
+
+Consult with the System Administrator of the Linux system being reviewed.
+
+Verify procedures are documented which require the manual scanning of all media used for system maintenance before media is used.
+
+If a procedure is not documented requiring the manual scanning of all media used for system maintenance before media is used, 
+this is a finding.</description>
+        <rationale>Removable media such as CD/DVDs allow a path for malware to be introduced to a Linux System.</rationale>
+        <ref disa="CCI-000870" nist="MA-3(2)" srg="SRG-APP-000073" stigid="DTAVSEL-200"/>
+        <oval id="scanned_media"/>
+      </Rule>
+      <Rule id="updates_source" severity="medium">
+        <title>The McAfee VirusScan Enterprise must be configured to receive all patches, service packs and updates from a DoD-managed source</title>
+        <description>Anti-virus signature files are updated almost daily by anti-virus software vendors. 
+These files are made available to anti-virus clients as they are published. 
+Keeping virus signature files as current as possible is vital to the security of any system. 
+The anti-virus software product must be configured to receive those updates automatically in order to afford the expected protection.
+
+To check that VSEL settings are configured correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor (WEB interface) 
+of the Linux system being reviewed from a desktop browser window and logon with the nails user account.
+
+In the VSEL WEB Monitor, under <tt>Configure</tt>, select <tt>Repositories</tt>.
+Under <tt>Repository List</tt>, verify all repositories listed point to a local or DoD-managed repository.
+
+If all repositories listed do not point to local or DoD-managed repository, this is a finding.</description>
+        <rationale>While obtaining updates, patches, service packs and updates from the vendor are timelier, 
+the possibility of corruption or malware being introduced to the system is higher. 
+By obtaining these from an official DoD source and/or downloading them to a separate system 
+first and validating them before making them available to systems, the possibility of 
+malware being introduced is mitigated.</rationale>
+        <ref disa="CCI-001749" nist="CM-5" srg="SRG-APP-000131" stigid="DTAVSEL-201"/>
+        <oval id="updates_source"/>
+      </Rule>
+      <Rule id="virus_notification" severity="medium">
+        <title>A notification mechanism or process must be in place to notify Administrators of out of date DAT, detected malware and error codes</title>
+        <description>Failure of anti-virus signature updates will eventually render the software to be useless in protecting the Linux system from malware. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>notifications.virusDetected.active: true</tt>,
+Administrators will be notified of events detected.</description>
+        <rationale>Administration notification for failed updates, via SMTP, will ensure timely remediation of errors causing DATs to not be updated.</rationale>
+        <ref disa="CCI-001240" nist="SI-3" srg="SRG-APP-000276" stigid="DTAVSEL-205"/>
+        <oval id="virus_notification"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;notifications.virusDetected.active: true&lt;/pre&gt; line">To verify that Administrators will be notified of events detected, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>notifications.virusDetected.active: true</pre> line:
+<pre>grep 'notifications.virusDetected.active: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="web_client_disabled" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux Web interface must be disabled unless the system is on a segregated network</title>
+        <description>The McAfee VirusScan Enterprise for Linux WEB GUI is the method for configuring the McAfee VSEL on a non-managed Linux system. 
+The WEB GUI on the system could be used maliciously to gain unauthorized access to the system. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.disableCltWebUI: true</tt>,
+the WEB GUI will be disabled by default.</description>
+        <rationale>By restricting access to interface by implementing firewall rules, the risk of unauthorized access will be mitigated.</rationale>
+        <ref disa="CCI-001813" nist="CM-5(1)" srg="SRG-APP-000380" stigid="DTAVSEL-000"/>
+        <oval id="web_client_disabled"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.disableCltWebUI: true&lt;/pre&gt; line">To verify that the WEB GUI will be disabled by default, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.disableCltWebUI: true</pre> line:
+<pre>grep 'nailsd.disableCltWebUI: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="web_client_firewalled" severity="medium">
+        <title>Access to the McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x Web UI must be enforced by firewall rules</title>
+        <description>The McAfee VirusScan Enterprise for Linux WEB GUI is the method for configuring the McAfee VSEL on a non-managed Linux system. 
+The WEB GUI on the system could be used maliciously to gain unauthorized access to the system. 
+
+To check that the WEB GUI is restricted, review the iptables configuration and confirm that access is restricted to authorized hosts</description>
+        <rationale>By restricting access to interface by implementing firewall rules, the risk of unauthorized access will be mitigated.</rationale>
+        <ref disa="CCI-001813" nist="CM-5" srg="SRG-APP-000380" stigid="DTAVSEL-301"/>
+        <oval id="web_client_firewalled"/>
+      </Rule>
+    </Group>
+    <Group id="on_access_settings">
+      <title>On Access VSEL Settings</title>
+      <description>This section defines the settings required for on access scans.</description>
+      <Rule id="oas_action_app_primary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Clean as first action when a virus or Trojan is detected</title>
+        <description>Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, deleting the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.action.App.primary: Clean</tt>,
+files will attempted to be cleaned first, preserving the file data.</description>
+        <rationale>Malware may have infected a file that is necessary to the user.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-013"/>
+        <oval id="oas_action_app_primary"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.App.primary: Clean&lt;/pre&gt; line">To verify that files will attempted to be cleaned first, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.action.App.primary: Clean</pre> line:
+<pre>grep 'nailsd.profile.OAS.action.App.primary: Clean' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_action_app_secondary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Quarantine if first action fails when a virus or Trojan is detected</title>
+        <description>Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.action.App.secondary: Quarantine</tt>,
+files that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <rationale>Malware may have infected a file that is necessary to the user.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-014"/>
+        <oval id="oas_action_app_secondary"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.App.secondary: Quarantine&lt;/pre&gt; line">To verify that files that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.action.App.secondary: Quarantine</pre> line:
+<pre>grep 'nailsd.profile.OAS.action.App.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_action_default_primary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Clean as first action when programs and jokes are found</title>
+        <description>Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.action.Default.primary: Clean</tt>,
+programs/jokes will attempted to be cleaned first, preserving the file data.</description>
+        <rationale>Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-015"/>
+        <oval id="oas_action_default_primary"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.Default.primary: Clean&lt;/pre&gt; line">To verify that programs/jokes will attempted to be cleaned first, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.action.Default.primary: Clean</pre> line:
+<pre>grep 'nailsd.profile.OAS.action.Default.primary: Clean' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_action_default_secondary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Quarantine if first action fails when programs and jokes are found</title>
+        <description>Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.action.Default.secondary: Quarantine</tt>,
+programs/jokes that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <rationale>Malware may have infected a file that is necessary to the user.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-016"/>
+        <oval id="oas_action_default_secondary"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.Default.secondary: Quarantine&lt;/pre&gt; line">To verify that programs/jokes that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.action.Default.secondary: Quarantine</pre> line:
+<pre>grep 'nailsd.profile.OAS.action.Default.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_action_error" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to deny access to the file if an error occurs during scanning</title>
+        <description>Anti-virus software is the most commonly used technical control for malware threat mitigation.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.action.error: Block</tt>,
+any file resulting in an error reading the file will be blocked.</description>
+        <rationale>Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-017"/>
+        <oval id="oas_action_error"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.error: Block&lt;/pre&gt; line">To verify that any file resulting in an error reading the file will be blocked, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.action.error: Block</pre> line:
+<pre>grep 'nailsd.profile.OAS.action.error: Block' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_action_timeout" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to allow access to files if scanning times out</title>
+        <description>Anti-virus software is the most commonly used technical control for malware threat mitigation.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.action.timeout: Pass</tt>,
+any file resulting in a timeout reading the file will be passed.</description>
+        <rationale>Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-018"/>
+        <oval id="oas_action_timeout"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.timeout: Pass&lt;/pre&gt; line">To verify that any file resulting in a timeout reading the file will be passed, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.action.timeout: Pass</pre> line:
+<pre>grep 'nailsd.profile.OAS.action.timeout: Pass' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_allFiles" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan all file types</title>
+        <description>When scanning for malware, excluding specific file types will increase the risk of a malware-infected file going undetected.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.allFiles: true</tt>,
+all file types will be scanned.</description>
+        <rationale>By configuring anti-virus software to scan all file types, the scanner has a higher success rate at detecting and eradicating malware.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-010"/>
+        <oval id="oas_allFiles"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.allFiles: true&lt;/pre&gt; line">To verify that all file types will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.allFiles: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.allFiles: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_decompArchive" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to decompress archives when scanning</title>
+        <description>Malware can be hidden within archived files and passed from system to system undetected unless the archive is decompressed and each file scanned. 
+By disabling the archive scanning capability, archives such as .tar and .tgz files will not be decompressed and any infected files in the archives would go undetected. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.decompArchive: true</tt>,
+compressed archives will be decompressed before being scanned.</description>
+        <rationale>Decompression can slow performance, however; any virus-infected file inside an archive cannot become active until it has been extracted.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-004"/>
+        <oval id="oas_decompArchive"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.decompArchive: true&lt;/pre&gt; line">To verify that compressed archives will be decompressed before being scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.decompArchive: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.decompArchive: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_enabled" severity="high">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to enable On-Access scanning</title>
+        <description>For anti-virus software to be effective, it must be running at all times, beginning from the point of the system's initial startup. 
+Otherwise, the risk is greater for viruses, Trojans, and other malware infecting the system during that startup phase.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.oasEnabled: true</tt>,
+the antivirus software will be running at initial startup of the system.</description>
+        <rationale>For anti-virus software to be effective, it must be running at all times, beginning from the point of the system's initial startup.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-003"/>
+        <oval id="oas_enabled"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.oasEnabled: true&lt;/pre&gt; line">To verify that the antivirus software will be running at initial startup of the system, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.oasEnabled: true</pre> line:
+<pre>grep 'nailsd.oasEnabled: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_exclusions" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must only be configured with exclusions that are documented and approved by the ISSO/ISSM/AO</title>
+        <description>When scanning for malware, excluding specific files will increase the risk of a malware-infected file going undetected.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.filter.varlog.type: exclude-path</tt>, and the line <tt>nailsd.profile.OAS.filter.varlog.path: /var/log</tt>
+no unapproved exclusions are defined.</description>
+        <rationale>By configuring anti-virus software without any exclusions, the scanner has a higher success rate at detecting and eradicating malware. </rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-012"/>
+        <oval id="oas_exclusions"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the lines &lt;pre&gt;nailsd.profile.OAS.filter.varlog.type: exclude-path&lt;/pre&gt; and &lt;tt&gt;nailsd.profile.OAS.filter.varlog.path: /var/log&lt;/tt&gt;">To verify that all file types will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.filter.varlog.type: exclude-path</pre> and <tt>nailsd.profile.OAS.filter.varlog.path: /var/log</tt> lines:
+<pre>grep 'nailsd.profile.OAS.filter.varlog.type: exclude-path' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>
+<pre>grep 'nailsd.profile.OAS.filter.varlog.path' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_heuristicAnalysis" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find unknown program viruses</title>
+        <description>Due to the ability of malware to mutate after infection, standard anti-virus signatures may not be able to catch new strains or variants of the malware. 
+Typically, these strains and variants will share unique characteristics with others in their virus family.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.heuristicAnalysis: true</tt>,
+unknown virus programs will be scanned.</description>
+        <rationale>By using a generic signature to detect the shared characteristics, using wildcards where differences lie, the generic signature can detect viruses 
+even if they are padded with extra, meaningless code. This method of detection is Heuristic detection.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-005"/>
+        <oval id="oas_heuristicAnalysis"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.heuristicAnalysis: true&lt;/pre&gt; line">To verify that unknown virus programs will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.heuristicAnalysis: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.heuristicAnalysis: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_macroAnalysis" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find unknown macro viruses</title>
+        <description>Interpreted viruses are executed by an application. Within this subcategory, macro viruses take advantage of the capabilities of 
+applications' macro programming language to infect application documents and document templates, while scripting viruses infect 
+scripts that are understood by scripting languages processed by services on the OS.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.macroAnalysis: true</tt>,
+unknown macro viruses will be scanned.</description>
+        <rationale>Many attackers use toolkits containing several different types of utilities and scripts that can be used to probe and attack hosts.
+Scanning for unknown macro viruses will mitigate zero-day attacks.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-006"/>
+        <oval id="oas_macroAnalysis"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.macroAnalysis: true&lt;/pre&gt; line">To verify that unknown macro viruses will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.macroAnalysis: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.macroAnalysis: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_program" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find potentially unwanted programs</title>
+        <description>Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.program: true</tt>,
+potentially unwanted programs will be scanned.</description>
+        <rationale>Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-007"/>
+        <oval id="oas_program"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.program: true&lt;/pre&gt; line">To verify that potentially unwanted programs will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.program: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.program: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_scanMaxTmo" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner maximum scan time must not be less than 45 seconds</title>
+        <description>When anti-virus software is not configured to limit the amount of time spent trying to scan a file, the total effectiveness of 
+the anti-virus software, and performance on the system being scanned, will be degraded. By limiting the amount of time the anti-virus 
+software uses when scanning a file, the scan will be able to complete in a timely manner.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.scanMaxTmo: 45</tt>,
+a scan will not timeout in less than 45 seconds of scanning a file.</description>
+        <rationale>Although the description of this requirement indicates a "maximum scan time", the intent of this requirement is to explicitly set a 
+maximum scan time without impacting the effectiveness of the scan. Left unconfigured, the scan could run indefinitely on one file. 
+If configured with a value of less than 45 seconds, the scanning of some files will be skipped. If configured with 45 or more seconds, 
+the success rate of files being completely scanned is higher.  </rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-010"/>
+        <oval id="oas_scanMaxTmo"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanMaxTmo: 45&lt;/pre&gt; line">To verify that a scan will not timeout in less than 45 seconds of scanning a file, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.scanMaxTmo: 45</pre> line:
+<pre>grep 'nailsd.profile.OAS.scanMaxTmo: 45' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_scanNWFiles" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be enabled to scan mounted volumes when mounted volumes point to a network server without an anti-virus solution installed</title>
+        <description>It is imperative to protect Linux systems from malware introduced from those other network systems by either ensuring the remote systems are protected or by scanning files from those systems when they are accessed.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.scanNWFiles: true</tt>,
+files on network mounts are scanned.</description>
+        <rationale>Mounting network volumes to other network systems introduces a path for malware to be introduced. </rationale>
+        <ref disa="CCI-001242" nist="SI-3" srg="SRG-APP-000278" stigid="DTAVSEL-019"/>
+        <oval id="oas_scanNWFiles"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanNWFiles: true&lt;/pre&gt; line">To verify that files on network mounts are scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.scanNWFiles: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.scanNWFiles: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_scanOnRead" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan files when being read from disk</title>
+        <description>Anti-virus software is the most commonly used technical control for malware threat mitigation. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.scanOnRead: true</tt>,
+files will be scanned when read from disk.</description>
+        <rationale>Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-009"/>
+        <oval id="oas_scanOnRead"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanOnRead: true&lt;/pre&gt; line">To verify that files will be scanned when read from disk, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.scanOnRead: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.scanOnRead: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="oas_scanOnWrite" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan files when being written to disk</title>
+        <description>Anti-virus software is the most commonly used technical control for malware threat mitigation. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.OAS.scanOnWrite: true</tt>,
+files will be scanned when written to disk.</description>
+        <rationale>Real-time scanning of files as they are written to disk is a crucial first line of defense from malware attacks.</rationale>
+        <ref disa="CCI-001243" nist="SI-3" srg="SRG-APP-000279" stigid="DTAVSEL-008"/>
+        <oval id="oas_scanOnWrite"/>
+        <ocil clause="the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanOnWrite: true&lt;/pre&gt; line">To verify that files will be scanned when written to disk, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.scanOnWrite: true</pre> line:
+<pre>grep 'nailsd.profile.OAS.scanOnWrite: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>.</ocil>
+      </Rule>
+    </Group>
+    <Group id="on_demand_settings">
+      <title>On Demand VSEL Settings</title>
+      <description>This section defines the settings required for on demand scans.</description>
+      <Rule id="ods_action_app_primary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Clean as first action when a virus or Trojan is detected</title>
+        <description>Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, deleting the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.action.App.primary: Clean</tt>,
+files will attempted to be cleaned first, preserving the file data.</description>
+        <rationale>Malware may have infected a file that is necessary to the user.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-106"/>
+        <oval id="ods_action_app_primary"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.App.primary: Clean&lt;/pre&gt; line">To verify that files will attempted to be cleaned first, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.action.App.primary: Clean</pre> line:
+<pre>grep 'nailsd.profile.ODS.action.App.primary: Clean' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_action_app_secondary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Quarantine if first action fails when a virus or Trojan is detected</title>
+        <description>Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.action.App.secondary: Quarantine</tt>,
+files that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <rationale>Malware may have infected a file that is necessary to the user.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-107"/>
+        <oval id="ods_action_app_secondary"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.App.secondary: Quarantine&lt;/pre&gt; line">To verify that files that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.action.App.secondary: Quarantine</pre> line:
+<pre>grep 'nailsd.profile.ODS.action.App.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_action_default_primary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Clean as first action when programs and jokes are found</title>
+        <description>Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.action.Default.primary: Clean</tt>,
+programs/jokes will attempted to be cleaned first, preserving the file data.</description>
+        <rationale>Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-110"/>
+        <oval id="ods_action_default_primary"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.Default.primary: Clean&lt;/pre&gt; line">To verify that programs/jokes will attempted to be cleaned first, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.action.Default.primary: Clean</pre> line:
+<pre>grep 'nailsd.profile.ODS.action.Default.primary: Clean' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_action_default_secondary" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Quarantine if first action fails when programs and jokes are found</title>
+        <description>Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.action.Default.secondary: Quarantine</tt>,
+programs/jokes that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <rationale>Malware may have infected a file that is necessary to the user.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-111"/>
+        <oval id="ods_action_default_secondary"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.Default.secondary: Quarantine&lt;/pre&gt; line">To verify that programs/jokes that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.action.Default.secondary: Quarantine</pre> line:
+<pre>grep 'nailsd.profile.ODS.action.Default.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_allFiles" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to scan all file types</title>
+        <description>When scanning for malware, excluding specific file types will increase the risk of a malware-infected file going undetected.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.allFiles: true</tt>,
+all file types will be scanned.</description>
+        <rationale>By configuring anti-virus software to scan all file types, the scanner has a higher success rate at detecting and eradicating malware.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-105"/>
+        <oval id="ods_allFiles"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.allFiles: true&lt;/pre&gt; line">To verify that all file types will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.allFiles: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.allFiles: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_decompArchive" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to decompress archives when scanning</title>
+        <description>Malware can be hidden within archived files and passed from system to system undetected unless the archive is decompressed and each file scanned. 
+By disabling the archive scanning capability, archives such as .tar and .tgz files will not be decompressed and any infected files in the archives would go undetected. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.decompArchive: true</tt>,
+compressed archives will be decompressed before being scanned.</description>
+        <rationale>Decompression can slow performance, however; any virus-infected file inside an archive cannot become active until it has been extracted.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-101"/>
+        <oval id="ods_decompArchive"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.decompArchive: true&lt;/pre&gt; line">To verify that compressed archives will be decompressed before being scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.decompArchive: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.decompArchive: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_enabled" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to run a scheduled On-Demand scan at least once a week</title>
+        <description>Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks but to ensure all files 
+are frequently scanned, a regularly scheduled full scan will ensure malware missed by the real-time scanning will be detected and mitigated.
+
+To check that VSEL settings are configured correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor (WEB interface) 
+of the Linux system being reviewed from a desktop browser window and logon with the nails user account.
+
+In the VSEL WEB Monitor, review tasks under <tt>View</tt>, <tt>Scheduled Tasks</tt>.
+With the System Administrator's assistance, determine which task is intended as the regularly scheduled scan task.
+
+Click on the task and review the details under <tt>Task Details for</tt>.
+
+If <tt>Next run</tt> does not specify <tt>every 1 week</tt>, or more frequently, this is a finding.
+
+To validate without the Web interface, access the Linux system being reviewed, either at the console or by a SSH connection.
+At the command line, navigate to <tt>/var/opt/NAI/LinuxShield/etc</tt>.
+Enter the command <tt>/opt/NAI/LinuxShield/bin/nails task --list</tt>.
+
+If the return does not show a task for the LinuxShield On-Demand Scan, this is a finding.</description>
+        <rationale>Anti-virus software is the most commonly used technical control for malware threat mitigation. </rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-100"/>
+        <oval id="ods_enabled"/>
+      </Rule>
+      <Rule id="ods_exclusions" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must only be configured with exclusions that are documented and approved by the ISSO/ISSM/AO</title>
+        <description>When scanning for malware, excluding specific files will increase the risk of a malware-infected file going undetected. 
+
+To check that VSEL settings are configured correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor (WEB interface) 
+of the Linux system being reviewed from a desktop browser window and logon with the nails user account.
+
+In the VSEL WEB Monitor, review tasks under <tt>View</tt>, <tt>Scheduled Tasks</tt>.
+With the System Administrator's assistance, determine which task is intended as the regularly scheduled scan task.
+Click on the task, and then click <tt>Modify</tt>.
+Under <tt>2. What to Scan</tt>, click <tt>Next</tt>.
+Under <tt>3. Choose Scan Settings</tt>, <tt>Paths Excluded From Scanning</tt>.
+
+If any paths other than the following paths are excluded, and the exclusions have not been documented and approved by the ISSO/ISSM/AO, this is a finding.
+
+<tt>/var/log</tt>
+<tt>/_admin/Manage_NSS</tt>
+<tt>/mnt/system/log</tt>
+<tt>/media/nss/.*/(\._NETWARE|\._ADMIN)</tt>
+<tt>/.*\.(vmdk|VMDK|dbl|DBL|ctl|CTL|log|LOG|jar|JAR|war|WAR|dtx|DTX|dbf|DBF|frm|FRM|myd|MYD|myi|MYI|rdo|RDO|arc|ARC)</tt>
+<tt>/cgroup</tt>
+<tt>/dev</tt>
+<tt>/proc</tt>
+<tt>/selinux</tt>
+<tt>/sys</tt></description>
+        <rationale>By configuring anti-virus software without any exclusions, the scanner has a higher success rate at detecting and eradicating malware. </rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-108"/>
+        <oval id="ods_exclusions"/>
+      </Rule>
+      <Rule id="ods_extensions" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to include all local drives and their sub-directories</title>
+        <description>When scanning for malware, excluding specific file types will increase the risk of a malware-infected file going undetected. By configuring anti-virus software to scan all file types, the scanner has a higher success rate at detecting and eradicating malware.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains a line with "extensions.mode" with values set to anything other than <tt>extensions.mode: all</tt>, 
+associated scans may ignore certain file extensions.</description>
+        <rationale>Excluding file types from scans introduces the possibility for infected files to go undetected by the scanner. </rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-113"/>
+        <oval id="ods_extensions"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; contains lines with extensions.mode occurences with settings other than &lt;pre&gt;extensions.mode: all&lt;/pre&gt; ">To verify that various extensions are not ignored by the scanner, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains lines with <pre>extensions.mode: all</pre>:
+<pre>grep 'extensions.mode: all' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre></ocil>
+      </Rule>
+      <Rule id="ods_heuristicAnalysis" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find unknown program viruses</title>
+        <description>Due to the ability of malware to mutate after infection, standard anti-virus signatures may not be able to catch new strains or variants of the malware. 
+Typically, these strains and variants will share unique characteristics with others in their virus family.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.heuristicAnalysis: true</tt>,
+unknown virus programs will be scanned.</description>
+        <rationale>By using a generic signature to detect the shared characteristics, using wildcards where differences lie, the generic signature can detect viruses 
+even if they are padded with extra, meaningless code. This method of detection is Heuristic detection.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-102"/>
+        <oval id="ods_heuristicAnalysis"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.heuristicAnalysis: true&lt;/pre&gt; line">To verify that unknown virus programs will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.heuristicAnalysis: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.heuristicAnalysis: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_macroAnalysis" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find unknown macro viruses</title>
+        <description>Interpreted viruses are executed by an application. Within this subcategory, macro viruses take advantage of the capabilities of 
+applications' macro programming language to infect application documents and document templates, while scripting viruses infect 
+scripts that are understood by scripting languages processed by services on the OS.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.macroAnalysis: true</tt>,
+unknown macro viruses will be scanned.</description>
+        <rationale>Many attackers use toolkits containing several different types of utilities and scripts that can be used to probe and attack hosts.
+Scanning for unknown macro viruses will mitigate zero-day attacks.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-103"/>
+        <oval id="ods_macroAnalysis"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.macroAnalysis: true&lt;/pre&gt; line">To verify that unknown macro viruses will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.macroAnalysis: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.macroAnalysis: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_mime" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to decode MIME encoded files.</title>
+        <description>Malware is often packaged within an archive. In addition, archives might have other archives within. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.mime: true</tt>,
+potentially unwanted programs will be scanned.</description>
+        <rationale>Not scanning archive files introduces the risk of infected files being introduced into the environment.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-112"/>
+        <oval id="ods_mime"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.mime: true&lt;/pre&gt; line">To verify that potentially unwanted programs will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.mime: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.mime: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_program" severity="medium">
+        <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find potentially unwanted programs</title>
+        <description>Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.program: true</tt>,
+potentially unwanted programs will be scanned.</description>
+        <rationale>Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <ref disa="CCI-001241" nist="SI-3" srg="SRG-APP-000277" stigid="DTAVSEL-104"/>
+        <oval id="ods_program"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.program: true&lt;/pre&gt; line">To verify that potentially unwanted programs will be scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.program: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.program: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+      <Rule id="ods_scanNWFiles_local" severity="medium">
+        <title> The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be enabled to scan mounted volumes when mounted volumes point to a network server without an anti-virus solution installed</title>
+        <description>It is imperative to protect Linux systems from malware introduced from those other network systems by either ensuring the remote systems are protected or by scanning files from those systems when they are accessed.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.
+If this config file contains the line <tt>nailsd.profile.ODS.scanNWFiles: true</tt>,
+files on network mounts are scanned.</description>
+        <rationale>Mounting network volumes to other network systems introduces a path for malware to be introduced. </rationale>
+        <ref disa="CCI-001242" nist="SI-3" srg="SRG-APP-000278" stigid="DTAVSEL-019"/>
+        <oval id="ods_scanNWFiles_local"/>
+        <ocil clause="the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.scanNWFiles: true&lt;/pre&gt; line">To verify that files on network mounts are scanned, 
+check the respective VSEL config file
+<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.scanNWFiles: true</pre> line:
+<pre>grep 'nailsd.profile.ODS.scanNWFiles: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>.</ocil>
+      </Rule>
+    </Group>
+  </Group>
+</Benchmark>

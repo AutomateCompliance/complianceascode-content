@@ -1,0 +1,74 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/auditd_configure_rules/audit_dac_actions/audit_rules_dac_modification_umount2/rule.yml
+description: 'At a minimum, the audit system should collect file system umount2
+
+  changes. If the <tt>auditd</tt> daemon is configured
+
+  to use the <tt>augenrules</tt> program to read audit rules during daemon
+
+  startup (the default), add the following line to a file with suffix
+
+  <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
+
+  <pre>-a always,exit -F arch=b32 -S umount2 -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
+
+  If the system is 64 bit then also add the following line:
+
+  <pre>-a always,exit -F arch=b64 -S umount2 -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
+
+  If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
+
+  utility to read audit rules during daemon startup, add the following line to
+
+  <tt>/etc/audit/audit.rules</tt> file:
+
+  <pre>-a always,exit -F arch=b32 -S umount2 -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
+
+  If the system is 64 bit then also add the following line:
+
+  <pre>-a always,exit -F arch=b64 -S umount2 -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>'
+identifiers: {}
+inherited_platforms:
+- audit
+ocil: 'To determine if the system is configured to audit calls to the
+
+  <code>umount2</code> system call, run the following command:
+
+  <pre space="preserve">$ sudo grep "umount2" /etc/audit/audit.*</pre>
+
+  If the system is configured to audit this activity, it will return a line.
+
+  '
+ocil_clause: no line is returned
+oval_external_content: null
+platform: null
+platforms: !!set
+  audit: null
+prodtype: all
+rationale: 'The changing of file permissions could indicate that a user is attempting
+  to
+
+  gain access to information that would otherwise be disallowed. Auditing DAC modifications
+
+  can facilitate the identification of patterns of abuse among both authorized and
+
+  unauthorized users.'
+references:
+  disa: CCI-000130,CCI-000169,CCI-000172,CCI-002884
+  srg: SRG-OS-000037-GPOS-00015,SRG-OS-000062-GPOS-00031,SRG-OS-000392-GPOS-00172,SRG-OS-000462-GPOS-00206,SRG-OS-000471-GPOS-00215
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: audit_rules_dac_modification
+  vars:
+    attr: umount2
+title: Record Events that Modify the System's Discretionary Access Controls - umount2
+warnings:
+- general: 'Note that these rules can be configured in a
+
+    number of ways while still achieving the desired effect. Here the system calls
+
+    have been placed independent of other system calls. Grouping these system
+
+    calls with others as identifying earlier in this guide is more efficient.'

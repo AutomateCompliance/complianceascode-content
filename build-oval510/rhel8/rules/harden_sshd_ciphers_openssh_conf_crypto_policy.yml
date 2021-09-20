@@ -1,0 +1,83 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/integrity/crypto/harden_sshd_ciphers_openssh_conf_crypto_policy/rule.yml
+description: 'Crypto Policies provide a centralized control over crypto algorithms
+  usage of many packages.
+
+  OpenSSH is supported by system crypto policy, but the OpenSSH configuration may
+  be
+
+  set up incorrectly.
+
+
+  To check that Crypto Policies settings for ciphers are configured correctly, ensure
+  that
+
+  <tt>/etc/crypto-policies/back-ends/openssh.config</tt> contains the following
+
+  line and is not commented out:
+
+  <pre>Ciphers <sub idref="sshd_approved_ciphers" /></pre>'
+identifiers:
+  cce: CCE-85902-5
+inherited_platforms: []
+ocil: 'To verify if the OpenSSH client uses defined Cipher suite in the Crypto Policy,
+  run:
+
+  <pre>$ grep -i ciphers /etc/crypto-policies/back-ends/openssh.config</pre>
+
+  and verify that the line matches:
+
+  <pre>Ciphers <sub idref="sshd_approved_ciphers" /></pre>'
+ocil_clause: Crypto Policy for OpenSSH client is not configured correctly
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,rhel8
+rationale: "Overriding the system crypto policy makes the behavior of the OpenSSH\
+  \ client\nviolate expectations, and makes system configuration more fragmented.\
+  \ By\nspecifying a cipher list with the order of ciphers being in a \u201Cstrongest\
+  \ to\nweakest\u201D orientation, the system will automatically attempt to use the\n\
+  strongest cipher for securing SSH connections."
+references:
+  disa: CCI-001453
+  nist: AC-17(2)
+  srg: SRG-OS-000250-GPOS-00093
+requires: []
+severity: medium
+template: null
+title: 'Configure SSH Client to Use FIPS 140-2 Validated Ciphers: openssh.config'
+warnings:
+- general: The system needs to be rebooted for these changes to take effect.
+- regulatory: 'System Crypto Modules must be provided by a vendor that undergoes
+
+    FIPS-140 certifications.
+
+    FIPS-140 is applicable to all Federal agencies that use
+
+    cryptographic-based security systems to protect sensitive information
+
+    in computer and telecommunication systems (including voice systems) as
+
+    defined in Section 5131 of the Information Technology Management Reform
+
+    Act of 1996, Public Law 104-106. This standard shall be used in
+
+    designing and implementing cryptographic modules that Federal
+
+    departments and agencies operate or are operated for them under
+
+    contract. See <b>
+
+    <a xmlns=''http://www.w3.org/1999/xhtml'' href=''https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.140-2.pdf''>https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.140-2.pdf</a></b>
+
+    To meet this, the system has to have cryptographic software provided by
+
+    a vendor that has undergone this certification. This means providing
+
+    documentation, test results, design information, and independent third
+
+    party review by an accredited lab. While open source software is
+
+    capable of meeting this, it does not meet FIPS-140 unless the vendor
+
+    submits to this process.'

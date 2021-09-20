@@ -1,0 +1,19 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_rhcos
+# reboot = true
+# strategy = restrict
+# complexity = low
+# disruption = low
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,-a%20always%2Cexit%20-F%20arch%3Db64%20-S%20settimeofday%20-k%20audit_time_rules%0A-a%20always%2Cexit%20-F%20arch%3Db32%20-S%20settimeofday%20-k%20audit_time_rules%0A
+        mode: 0600
+        path: /etc/audit/rules.d/75-syscall-settimeofday.rules
+        overwrite: true

@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/chromium/guide/chromium/chromium_disable_3d_graphics_api/rule.yml
+description: 'Chromium uses WebGL to render graphics using the GPU which allows website
+
+  access to the GPU. This should be disabled by setting <tt>Disable3DAPIs</tt>
+
+  to <tt>true</tt> in the Chromium policy file.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that 3D graphics are disabled, run the following command:
+
+  <pre>$ grep Disable3DAPIs /etc/chromium/policies/managed/*.json</pre>
+
+  The output should contain:
+
+  <pre>"Disable3DAPIs": true,</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'This setting prevents web pages from accessing the graphics processing
+  unit
+
+  (GPU). Specifically, web pages cannot access the WebGL API and plugins cannot
+
+  use the Pepper 3D API in order to reduce the attack surface.'
+references:
+  stigid: DTBC0019
+requires: []
+severity: unknown
+template: null
+title: Disable the 3D Graphics APIs
+warnings: []

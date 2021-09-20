@@ -1,0 +1,34 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000030
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_properties_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java deployment.properties File Exists
+  file:
+    path: /etc/.java/deployment/deployment.properties
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000030
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_properties_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

@@ -1,0 +1,19 @@
+# platform = Java Runtime Environment
+# reboot = true
+# strategy = patch
+# complexity = low
+# disruption = high
+- name: Security patches are up to date
+  package:
+    name: '*'
+    state: latest
+  tags:
+    - DISA-STIG-JRE8-UX-000180
+    - NIST-800-53-SI-2(c)
+    - high_disruption
+    - java_jre_updated
+    - low_complexity
+    - low_severity
+    - patch_strategy
+    - reboot_required
+    - skip_ansible_lint

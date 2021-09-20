@@ -1,0 +1,181 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/policy_rules/audit_create_failed/rule.yml
+description: 'Ensure that unsuccessful attempts to create a file are audited.
+
+
+  The following rules configure audit as described above:
+
+  <pre>## Unsuccessful file creation (open with O_CREAT)
+
+  -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  </pre>
+
+
+  The <tt>Audit</tt> package provides pre-configured  rules in <tt>/usr/share/audit/sample-rules</tt>.
+  The above content can be found in <tt>/usr/share/audit/sample-rules/30-ospp-v42-1-create-failed.rules</tt>.
+
+  To deploy this configuration, it is recommended to copy it over to the <tt>/etc/audit/rules.d/</tt>
+  directory:
+
+  <pre>
+
+  cp /usr/share/audit/sample-rules/30-ospp-v42-1-create-failed.rules /etc/audit/rules.d/
+
+  </pre>
+
+
+  Load new Audit rules into kernel by running:
+
+  <pre>augenrules --load</pre>
+
+
+  Note: This rule utilizes a file provided by <tt>Audit</tt> package to comply with
+  OSPP 4.2.1. You may reuse this rule in different profiles. If you decide to do so,
+  it is recommended that you inspect contents of the file closely and make sure that
+  they are alligned with your needs.'
+identifiers:
+  cce: CCE-83669-2
+inherited_platforms:
+- machine
+ocil: 'To verify that the <tt>Audit</tt> is correctly configured according to recommended
+  rules, check the content of the file with the following command:
+
+  <pre>cat /etc/audit/rules.d/30-ospp-v42-1-create-failed.rules</pre>
+
+  The output has to be exactly as follows:
+
+  <pre>## Unsuccessful file creation (open with O_CREAT)
+
+  -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM
+  -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-create
+
+  -a always,exit -F arch=b32 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  -a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset
+  -F key=unsuccessful-create
+
+  </pre>'
+ocil_clause: the file does not exist or the content differs
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhcos4,rhel8,rhel9
+rationale: Unsuccessful file creations might be a sign of a malicious action being
+  performed on the system. Keeping log of such events helps in monitoring and investigation
+  of such actions.
+references:
+  nist: AU-2(a)
+  ospp: FAU_GEN.1.1.c
+  srg: SRG-OS-000458-GPOS-00203,SRG-OS-000474-GPOS-00219,SRG-OS-000475-GPOS-00220,SRG-OS-000463-GPOS-00207,SRG-OS-000465-GPOS-00209,SRG-OS-000461-GPOS-00205
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: audit_file_contents
+  vars:
+    contents: '## Unsuccessful file creation (open with O_CREAT)
+
+      -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES
+      -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES
+      -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000
+      -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000
+      -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset
+      -F key=unsuccessful-create
+
+      -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset
+      -F key=unsuccessful-create
+
+      -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM
+      -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM
+      -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000
+      -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000
+      -F auid!=unset -F key=unsuccessful-create
+
+      -a always,exit -F arch=b32 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset
+      -F key=unsuccessful-create
+
+      -a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset
+      -F key=unsuccessful-create
+
+      '
+    filepath: /etc/audit/rules.d/30-ospp-v42-1-create-failed.rules
+title: Configure auditing of unsuccessful file creations
+warnings: []

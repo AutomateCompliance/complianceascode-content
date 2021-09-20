@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_domain_kernel_load_modules/rule.yml
+description: 'By default, the SELinux boolean <tt>domain_kernel_load_modules</tt>
+  is disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>domain_kernel_load_modules</code> SELinux boolean, run the
+  following command:
+
+  <pre>$ sudo setsebool -P domain_kernel_load_modules off</pre>'
+identifiers:
+  cce: CCE-82293-2
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>domain_kernel_load_modules</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool domain_kernel_load_modules</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>domain_kernel_load_modules --> off</code>'
+ocil_clause: domain_kernel_load_modules is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9,rhv4
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: domain_kernel_load_modules
+title: Disable the domain_kernel_load_modules SELinux Boolean
+warnings: []

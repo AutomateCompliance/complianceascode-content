@@ -1,0 +1,44 @@
+# platform = Red Hat Virtualization 4,multi_platform_fedora,multi_platform_ol,multi_platform_rhel
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-83690-8
+    - NIST-800-53-AU-5(1)
+    - NIST-800-53-AU-5(2)
+    - NIST-800-53-AU-5(4)
+    - NIST-800-53-AU-5(b)
+    - NIST-800-53-CM-6(a)
+    - auditd_data_disk_error_action
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+- (xccdf-var var_auditd_disk_error_action)
+
+- name: Configure auditd Disk Error Action on Disk Error
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    line: disk_error_action = {{ var_auditd_disk_error_action }}
+    regexp: ^\s*disk_error_action\s*=\s*.*$
+    state: present
+    create: true
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - CCE-83690-8
+    - NIST-800-53-AU-5(1)
+    - NIST-800-53-AU-5(2)
+    - NIST-800-53-AU-5(4)
+    - NIST-800-53-AU-5(b)
+    - NIST-800-53-CM-6(a)
+    - auditd_data_disk_error_action
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

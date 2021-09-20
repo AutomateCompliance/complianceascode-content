@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/chromium/guide/chromium/chromium_default_block_plugins/rule.yml
+description: 'By default, websites are allowed to automatically run plugins.
+
+  Users should be prompted to allow plugins to execute plugins by setting
+
+  <tt>DefaultPluginsSetting</tt> to <tt>3</tt> in the Chromium policy file.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that plugins cannot run automatically, run the following command:
+
+  <pre>$ grep DefaultPluginsSetting /etc/chromium/policies/managed/*.json</pre>
+
+  The output should contain:
+
+  <pre>"DefaultPluginsSetting": 3,</pre>'
+ocil_clause: it is not set correctly
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Websites should not be allowed to automatically run plugins as the plugins
+
+  may be outdated or compromised.'
+references:
+  stigid: DTBC0040
+requires: []
+severity: unknown
+template: null
+title: Block Plugins by Default
+warnings: []

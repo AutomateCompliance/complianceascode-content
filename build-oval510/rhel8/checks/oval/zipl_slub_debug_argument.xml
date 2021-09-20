@@ -1,0 +1,42 @@
+<def-group>
+  <definition class="compliance" id="zipl_slub_debug_argument" version="1">
+    <metadata>
+        <title>Enable SLUB/SLAB allocator poisoning in zIPL</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 8</platform>
+    </affected>
+        <description>Ensure slub_debug=P option is configured in the 'options' line in /boot/loader/entries/*.conf. Make sure that newly installed kernels will retain this option, it should be configured in /etc/kernel/cmdline as well.</description>
+    </metadata>
+    <criteria operator="AND"><criterion comment="Check if argument slub_debug=P for Linux kernel is present in /boot/loader/entries/.*.conf"
+  test_ref="test_zipl_slub_debug_argument_slub_debug_P_argument_in_boot_loader_entries_conf" /><criterion comment="Check if argument slub_debug=P for Linux kernel is present in /etc/kernel/cmdline"
+  test_ref="test_zipl_slub_debug_argument_slub_debug_P_argument_in_etc_kernel_cmdline" />
+    </criteria>
+  </definition><ind:textfilecontent54_test id="test_zipl_slub_debug_argument_slub_debug_P_argument_in_boot_loader_entries_conf"
+  comment="Check if argument slub_debug=P is present in the line starting with 'options ' in /boot/loader/entries/.*.conf"
+  check="all" check_existence="all_exist" version="1">
+    <ind:object object_ref="object_zipl_slub_debug_argument_slub_debug_P_argument_in_boot_loader_entries_conf" />
+    <ind:state state_ref="state_zipl_slub_debug_argument_slub_debug_P_argument_in_boot_loader_entries_conf" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="object_zipl_slub_debug_argument_slub_debug_P_argument_in_boot_loader_entries_conf" version="1">
+    <ind:filepath operation="pattern match">^/boot/loader/entries/.*.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^options (.*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="state_zipl_slub_debug_argument_slub_debug_P_argument_in_boot_loader_entries_conf" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^(?:.*\s)?slub_debug=P(?:\s.*)?$</ind:subexpression>
+  </ind:textfilecontent54_state><ind:textfilecontent54_test id="test_zipl_slub_debug_argument_slub_debug_P_argument_in_etc_kernel_cmdline"
+  comment="Check if argument slub_debug=P is present in /etc/kernel/cmdline"
+  check="all" check_existence="all_exist" version="1">
+    <ind:object object_ref="object_zipl_slub_debug_argument_slub_debug_P_argument_in_etc_kernel_cmdline" />
+    <ind:state state_ref="state_zipl_slub_debug_argument_slub_debug_P_argument_in_etc_kernel_cmdline" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="object_zipl_slub_debug_argument_slub_debug_P_argument_in_etc_kernel_cmdline" version="1">
+    <ind:filepath operation="pattern match">^/etc/kernel/cmdline</ind:filepath>
+    <ind:pattern operation="pattern match">^(.*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="state_zipl_slub_debug_argument_slub_debug_P_argument_in_etc_kernel_cmdline" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^(?:.*\s)?slub_debug=P(?:\s.*)?$</ind:subexpression>
+  </ind:textfilecontent54_state>
+</def-group>

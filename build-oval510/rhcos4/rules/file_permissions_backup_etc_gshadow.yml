@@ -1,0 +1,59 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_important_account_files/file_permissions_backup_etc_gshadow/rule.yml
+description: '
+
+  To properly set the permissions of <code>/etc/gshadow-</code>, run the command:
+
+  <pre>$ sudo chmod 0000 /etc/gshadow-</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/etc/gshadow-</code>,
+
+  you''ll need to log into a node in the cluster.
+
+  As a user with administrator privileges, log into a node in the relevant pool:
+
+  <pre>
+
+  $ oc debug node/$NODE_NAME
+
+  </pre>
+
+  At the <pre>sh-4.4#</pre> prompt, run:
+
+  <pre>
+
+  # chroot /host
+
+  </pre>
+
+
+  Then,run the command:
+
+  <pre>$ ls -l /etc/gshadow-</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>----------</code>'
+ocil_clause: /etc/gshadow- has unix mode ----------
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/etc/gshadow-</tt> file is a backup of <tt>/etc/gshadow</tt>,
+  and as such,
+
+  it contains group password hashes. Protection of this file is critical for system
+  security.'
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0000'
+    filepath: /etc/gshadow-
+    missing_file_pass: 'true'
+title: Verify Permissions on Backup gshadow File
+warnings: []

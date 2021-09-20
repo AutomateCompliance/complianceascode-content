@@ -1,0 +1,91 @@
+<oval-def:oval_definitions xmlns:ind="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <oval-def:generator>
+    <oval:product_name>combine_ovals.py from SCAP Security Guide</oval:product_name>
+    <oval:product_version>ssg: [0, 1, 58], python: 3.8.10</oval:product_version>
+    <oval:schema_version>5.10</oval:schema_version>
+    <oval:timestamp>2021-09-20T03:23:48</oval:timestamp>
+  </oval-def:generator>
+  <oval-def:definitions>
+    <oval-def:definition class="compliance" id="oval:ssg-audit_failure_halt:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Shutdown System When Auditing Failures Occur</oval-def:title>
+        <oval-def:affected family="macos">
+          <oval-def:platform>Apple macOS 10.15</oval-def:platform>
+        </oval-def:affected>
+        <oval-def:description>The system will shutdown when auditing fails.</oval-def:description>
+      <oval-def:reference ref_id="audit_failure_halt" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="audit configuration shutdown" test_ref="oval:ssg-test_audit_shutdown:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-sshd_includes_config_files:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>sshd_includes_config_files</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:platform>Apple macOS 10.15</oval-def:platform>
+        </oval-def:affected>
+        <oval-def:description>Check presence of Include /etc/ssh/sshd_config.d/*.conf in /etc/ssh/sshd_config</oval-def:description>
+      <oval-def:reference ref_id="sshd_includes_config_files" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria operator="AND" comment="Test conditions - presence of the file plus 0 extra definitions.">
+        <oval-def:criterion comment="Check that /etc/ssh/sshd_config contains a line with certain text" test_ref="oval:ssg-test_sshd_includes_config_files:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="inventory" id="oval:ssg-installed_OS_is_macos1015:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Apple macOS 10.15</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:platform>Apple macOS 10.15</oval-def:platform>
+        </oval-def:affected>
+        <oval-def:reference ref_id="cpe:/o:apple:macos:10.15" source="CPE" />
+        <oval-def:description>The operating system installed on the system is
+      Apple macOS 10.15</oval-def:description>
+      <oval-def:reference ref_id="installed_OS_is_macos1015" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Installed operating system is part of the unix family" test_ref="oval:ssg-test_macos1015_macos_family:tst:1" />
+        <oval-def:criterion comment="macOS 10.15 is installed" test_ref="oval:ssg-test_macos1015:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+  </oval-def:definitions>
+  <oval-def:tests>
+    <ind:textfilecontent54_test check="all" comment="audit configuration shutdown" id="oval:ssg-test_audit_shutdown:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_audit_shutdown:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="tests the presence of 'Include /etc/ssh/sshd_config.d/*.conf' setting in the /etc/ssh/sshd_config file" id="oval:ssg-test_sshd_includes_config_files:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-obj_sshd_includes_config_files:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:family_test check="all" check_existence="at_least_one_exists" comment="installed OS part of macos family" id="oval:ssg-test_macos1015_macos_family:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-obj_macos1015_macos_family:obj:1" />
+      <ind:state state_ref="oval:ssg-state_macos1015_macos_family:ste:1" />
+    </ind:family_test>
+    <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="redhat-release is version 8" id="oval:ssg-test_macos1015:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-obj_macos1015:obj:1" />
+      <ind:state state_ref="oval:ssg-state_macos1015:ste:1" />
+    </ind:textfilecontent54_test>
+  </oval-def:tests>
+  <oval-def:objects>
+    <ind:textfilecontent54_object id="oval:ssg-object_audit_shutdown:obj:1" version="1">
+      <ind:filepath>/etc/security/audit_control</ind:filepath>
+      <ind:pattern operation="pattern match">^policy:.*,ahlt.*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-obj_sshd_includes_config_files:obj:1" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*Include /etc/ssh/sshd_config\.d/\*\.conf[\s]*$</ind:pattern>
+      <ind:instance operation="greater than or equal" datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:family_object id="oval:ssg-obj_macos1015_macos_family:obj:1" version="1" />
+    <ind:textfilecontent54_object id="oval:ssg-obj_macos1015:obj:1" version="1">
+      <ind:filepath>/System/Library/CoreServices/SystemVersion.plist</ind:filepath>
+      <ind:pattern operation="pattern match">^.*&lt;string\&gt;(\d+\.\d+).*$</ind:pattern>
+      <ind:instance operation="equals" datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+  </oval-def:objects>
+  <oval-def:states>
+    <ind:family_state id="oval:ssg-state_macos1015_macos_family:ste:1" version="1">
+      <ind:family>macos</ind:family>
+    </ind:family_state>
+    <ind:textfilecontent54_state id="oval:ssg-state_macos1015:ste:1" version="1">
+      <ind:subexpression operation="pattern match">10.15</ind:subexpression>
+    </ind:textfilecontent54_state>
+  </oval-def:states>
+</oval-def:oval_definitions>

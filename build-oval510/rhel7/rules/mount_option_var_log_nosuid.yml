@@ -1,0 +1,52 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_var_log_nosuid/rule.yml
+description: 'The <tt>nosuid</tt> mount option can be used to prevent
+
+  execution of setuid programs in <tt>/var/log</tt>. The SUID and SGID permissions
+
+  should not be required in directories containing log files.
+
+  Add the <code>nosuid</code> option to the fourth column of
+
+  <tt>/etc/fstab</tt> for the line which controls mounting of
+
+  <code>/var/log</code>.'
+identifiers:
+  cce: CCE-82144-7
+inherited_platforms: []
+ocil: "To verify the <tt>nosuid</tt> option is configured for the <tt>/var/log</tt>\
+  \ mount point,\n    run the following command:\n    <pre>$ mount | grep '\\s/var/log\\\
+  s'</pre>\n    The output should show the corresponding mount point along with the\
+  \ <tt>nosuid</tt> setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9
+rationale: 'The presence of SUID and SGID executables should be tightly controlled.
+  Users
+
+  should not be able to execute SUID or SGID binaries from partitions
+
+  designated for log files.'
+references:
+  anssi: BP28(R12)
+  disa: CCI-001764
+  nerc-cip: CIP-003-3 R5.1.1,CIP-003-3 R5.3,CIP-004-3 R2.3,CIP-007-3 R2.1,CIP-007-3
+    R2.2,CIP-007-3 R2.3,CIP-007-3 R5.1,CIP-007-3 R5.1.1,CIP-007-3 R5.1.2
+  nist: CM-7(a),CM-7(b),CM-6(a),AC-6,AC-6(1),MP-7
+  nist-csf: PR.IP-1,PR.PT-2,PR.PT-3
+  srg: SRG-OS-000368-GPOS-00154
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: nosuid
+    mountpoint: /var/log
+title: Add nosuid Option to /var/log
+warnings: []

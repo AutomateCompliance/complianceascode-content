@@ -1,0 +1,79 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/gnome/gnome_system_settings/dconf_gnome_disable_user_admin/rule.yml
+description: 'By default, <tt>GNOME</tt> will allow all users to have some administratrion
+
+  capability. This should be disabled so that non-administrative users are not making
+
+  configuration changes. To configure the system to disable user administration
+
+  capability in the Graphical User Interface (GUI), add or set
+
+  <tt>user-administration-disabled</tt> to <tt>true</tt> in
+
+  <tt>/etc/dconf/db/local.d/00-security-settings</tt>. For example:
+
+  <pre>[org/gnome/desktop/lockdown]
+
+  user-administration-disabled=true
+
+  </pre>
+
+  Once the settings have been added, add a lock to
+
+  <tt>/etc/dconf/db/local.d/locks/00-security-settings-lock</tt> to prevent user modification.
+
+  For example:
+
+  <pre>/org/gnome/desktop/lockdown/user-administration-disabled</pre>
+
+  After the settings have been set, run <tt>dconf update</tt>.'
+identifiers:
+  cce: CCE-88185-4
+inherited_platforms:
+- gdm
+ocil: 'To ensure the GUI does not allow user administratrion capabilities to all users,
+
+  run the following command:
+
+  <pre>$ gsettings get org.gnome.desktop.lockdown user-administration-disabled</pre>
+
+  If properly configured, the output should be <tt>true</tt>.
+
+  To ensure that users cannot enable user administration, run the following:
+
+  <pre>$ grep user-administration /etc/dconf/db/local.d/locks/*</pre>
+
+  If properly configured, the output should be
+
+  <tt>/org/gnome/desktop/lockdown/user-administration-disabled</tt>'
+ocil_clause: user administration is not configured or disabled
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: 'Allowing all users to have some administratrive capabilities to the system
+  through
+
+  the Graphical User Interface (GUI) when they would not have them otherwise could
+  allow
+
+  unintended configuration changes as well as a nefarious user the capability to make
+  system
+
+  changes such as adding new accounts, etc.'
+references:
+  cui: 3.1.5
+  ospp: FMT_MOD_EXT.1
+requires: []
+severity: high
+template:
+  backends: {}
+  name: dconf_ini_file
+  vars:
+    parameter: user-administration-disabled
+    path: /etc/dconf/db/local.d/
+    section: org/gnome/desktop/lockdown
+    value: 'true'
+title: Disable User Administration in GNOME3
+warnings: []

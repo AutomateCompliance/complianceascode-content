@@ -1,0 +1,77 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-ipv6/disabling_ipv6/grub2_ipv6_disable_argument/rule.yml
+description: 'To disable IPv6 protocol support in the Linux kernel,
+
+  add the argument <tt>ipv6.disable=1</tt> to the default
+
+  GRUB2 command line for the Linux operating system in
+
+
+  <tt>/boot/grub2/grubenv</tt>, in the manner below:
+
+  <pre>sudo  grub2-editenv - set "$(grub2-editenv - list | grep kernelopts) ipv6.disable=1"</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: '
+
+  Inspect the form of default GRUB2 command line for the Linux operating system
+
+  in <tt>/boot/grub2/grubenv</tt>. Check if it includes <tt>ipv6.disable=1</tt>.
+
+  <pre>sudo grep ''kernelopts.*ipv6.disable=1.*'' /boot/grub2/grubenv</pre>
+
+  <br /><br />
+
+  To ensure <tt>ipv6.disable=1</tt> is configured on all installed kernels, the
+
+  following command may be used:
+
+  <br />
+
+  <pre>sudo grub2-editenv - set "$(grub2-editenv - list | grep kernelopts) ipv6.disable=1"</pre>
+
+  <br />'
+ocil_clause: IPv6 is not disabled
+oval_external_content: null
+platform: grub2
+platforms: !!set
+  grub2: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhv4,sle15
+rationale: 'Any unnecessary network stacks, including IPv6, should be disabled to
+  reduce
+
+  the vulnerability to exploitation.'
+references: {}
+requires: []
+severity: low
+template:
+  backends: {}
+  name: grub2_bootloader_argument
+  vars:
+    arg_name: ipv6.disable
+    arg_value: '1'
+title: Ensure IPv6 is disabled through kernel boot parameter
+warnings:
+- management: 'The GRUB 2 configuration file, <tt>grub.cfg</tt>,
+
+    is automatically updated each time a new kernel is installed. Note that any
+
+    changes to <tt>/etc/default/grub</tt> require rebuilding the <tt>grub.cfg</tt>
+
+    file. To update the GRUB 2 configuration file manually, use the
+
+    <pre>grub2-mkconfig -o</pre> command as follows:
+
+    <ul>
+
+    <li>On BIOS-based machines, issue the following command:
+
+    <pre>sudo grub2-mkconfig -o /boot/grub2/grub.cfg</pre></li>
+
+    <li>On UEFI-based machines, issue the following command:
+
+
+    <pre>sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg</pre></li>
+
+
+    </ul>'

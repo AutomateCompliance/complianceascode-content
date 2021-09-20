@@ -1,0 +1,21 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+
+- name: "Put contents into /etc/audit/rules.d/30-ospp-v42-3-access-failed.rules according to policy"
+  copy:
+    dest: "/etc/audit/rules.d/30-ospp-v42-3-access-failed.rules"
+    content: |+
+        ## Unsuccessful file access (any other opens) This has to go last.
+        -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EACCES -F auid>=1000 -F auid!=unset -F key=unsuccessful-access
+        -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EACCES -F auid>=1000 -F auid!=unset -F key=unsuccessful-access
+        -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EPERM -F auid>=1000 -F auid!=unset -F key=unsuccessful-access
+        -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EPERM -F auid>=1000 -F auid!=unset -F key=unsuccessful-access
+    force: yes
+
+- name: Remove any permissions from other group
+  file:
+    path: /etc/audit/rules.d/30-ospp-v42-3-access-failed.rules
+    mode: o-rwx

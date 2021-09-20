@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="mount_option_dev_shm_nodev" version="1">
+    <metadata>
+        <title>Add nodev Option to /dev/shm</title>
+        
+    <affected family="unix">
+    <platform>openSUSE</platform>
+    </affected>
+        <description>/dev/shm should be mounted with mount option nodev.</description>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="nodev on /dev/shm" test_ref="test_dev_shm_partition_nodev_optional_no" />
+
+      <criterion comment="/dev/shm does not exist" test_ref="test_dev_shm_no_partition_nodev_optional_no" negate="true" />
+
+    </criteria>
+  </definition>
+
+  <linux:partition_test check="all" check_existence="all_exist"
+  id="test_dev_shm_partition_nodev_optional_no" version="1" comment="nodev on /dev/shm optional no">
+    <linux:object object_ref="object_dev_shm_partition_nodev_optional_no" />
+    <linux:state state_ref="state_dev_shm_partition_nodev_optional_no" />
+  </linux:partition_test>
+
+  <linux:partition_test check="all" check_existence="all_exist"
+  id="test_dev_shm_no_partition_nodev_optional_no" version="1" comment="/dev/shm exists">
+    <linux:object object_ref="object_dev_shm_partition_nodev_optional_no" />
+  </linux:partition_test>
+
+  <linux:partition_object id="object_dev_shm_partition_nodev_optional_no" version="1">
+    <linux:mount_point>/dev/shm</linux:mount_point>
+  </linux:partition_object>
+  <linux:partition_state id="state_dev_shm_partition_nodev_optional_no" version="1">
+    <linux:mount_options datatype="string" entity_check="at least one" operation="equals">nodev</linux:mount_options>
+  </linux:partition_state>
+</def-group>

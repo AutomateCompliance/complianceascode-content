@@ -1,0 +1,66 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/fapolicyd/service_fapolicyd_enabled/rule.yml
+description: "The File Access Policy service should be enabled.\n\nThe <code>fapolicyd</code>\
+  \ service can be enabled with the following manifest:\n<pre>\n---\napiVersion: machineconfiguration.openshift.io/v1\n\
+  kind: MachineConfig\nmetadata:\n  labels:\n    machineconfiguration.openshift.io/role:\
+  \ master\n  name: 75-master-fapolicyd-enable\nspec:\n  config:\n    ignition:\n\
+  \      version: 3.1.0\n    systemd:\n      units:\n      - name: fapolicyd.service\n\
+  \        enabled: true\n</pre>\n<p>\nThis will enable the <tt>fapolicyd</tt> service\
+  \ in all the\nnodes labeled with the \"master\" role.\n</p>\n<p>\nNote that this\
+  \ needs to be done for each <tt>MachineConfigPool</tt>\n</p>\n<p>\nFor more information\
+  \ on how to configure nodes with the Machine Config\nOperator see\n<a xmlns='http://www.w3.org/1999/xhtml'\
+  \ href='https://docs.openshift.com/container-platform/4.6/post_installation_configuration/machine-configuration-tasks.html'>the\
+  \ relevant documentation</a>.\n</p>"
+identifiers:
+  cce: CCE-82534-9
+inherited_platforms:
+- machine
+ocil: '
+
+  As a user with administrator privileges, log into a node in the relevant pool:
+
+  <pre>
+
+  $ oc debug node/$NODE_NAME
+
+  </pre>
+
+  At the <pre>sh-4.4#</pre> prompt, run:
+
+  <pre>
+
+  # chroot /host
+
+  </pre>
+
+
+  Run the following command to determine the current status of the
+
+  <code>fapolicyd</code> service:
+
+  <pre>$ systemctl is-active fapolicyd</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>'
+ocil_clause: the service is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhcos4,rhel8,rhel9
+rationale: 'The <tt>fapolicyd</tt> service (File Access Policy Daemon)
+
+  implements application whitelisting to decide file access rights.'
+references:
+  disa: CCI-001764
+  nist: CM-6(a),SI-4(22)
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000370-GPOS-00155,SRG-OS-000368-GPOS-00154
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_enabled
+  vars:
+    servicename: fapolicyd
+title: Enable the File Access Policy Service
+warnings: []

@@ -1,0 +1,80 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/policy_rules/audit_access_failed/rule.yml
+description: "Ensure that unsuccessful attempts to access a file are audited.\n\n\
+  The following rules configure audit as described above:\n<pre>## Unsuccessful file\
+  \ access (any other opens) This has to go last.\n-a always,exit -F arch=b32 -S open,openat,open_by_handle_at\
+  \ -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-access\n-a\
+  \ always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EACCES -F auid&gt;=1000\
+  \ -F auid!=unset -F key=unsuccessful-access\n-a always,exit -F arch=b32 -S open,openat,open_by_handle_at\
+  \ -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-access\n-a\
+  \ always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EPERM -F auid&gt;=1000\
+  \ -F auid!=unset -F key=unsuccessful-access\n</pre>    \n\nLoad new Audit rules\
+  \ into kernel by running:\n<pre>augenrules --load</pre>\n\nNote: This rule utilizes\
+  \ a file provided by <tt>Audit</tt> package to comply with OSPP 4.2.1. You may reuse\
+  \ this rule in different profiles. If you decide to do so, it is recommended that\
+  \ you inspect contents of the file closely and make sure that they are alligned\
+  \ with your needs."
+identifiers:
+  cce: CCE-82833-5
+inherited_platforms:
+- machine
+ocil: 'To verify that the <tt>Audit</tt> is correctly configured according to recommended
+  rules, check the content of the file with the following command:
+
+  <pre>cat /etc/audit/rules.d/30-ospp-v42-3-access-failed.rules</pre>
+
+  The output has to be exactly as follows:
+
+  <pre>## Unsuccessful file access (any other opens) This has to go last.
+
+  -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EACCES -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-access
+
+  -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EACCES -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-access
+
+  -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EPERM -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-access
+
+  -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EPERM -F auid&gt;=1000
+  -F auid!=unset -F key=unsuccessful-access
+
+  </pre>'
+ocil_clause: the file does not exist or the content differs
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhcos4,rhel8,rhel9
+rationale: Unsuccessful attempts to access a file might be signs of malicious activity
+  happening within the system. Auditing of such activities helps in their monitoring
+  and investigation.
+references:
+  ism: 0582,0584,05885,0586,0846,0957
+  nist: AU-2(a)
+  ospp: FAU_GEN.1.1.c
+  srg: SRG-OS-000458-GPOS-00203,SRG-OS-000474-GPOS-00219,SRG-OS-000475-GPOS-00220,SRG-OS-000463-GPOS-00207,SRG-OS-000465-GPOS-00209,SRG-OS-000461-GPOS-00205
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: audit_file_contents
+  vars:
+    contents: '## Unsuccessful file access (any other opens) This has to go last.
+
+      -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EACCES
+      -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-access
+
+      -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EACCES
+      -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-access
+
+      -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EPERM -F
+      auid&gt;=1000 -F auid!=unset -F key=unsuccessful-access
+
+      -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EPERM -F
+      auid&gt;=1000 -F auid!=unset -F key=unsuccessful-access
+
+      '
+    filepath: /etc/audit/rules.d/30-ospp-v42-3-access-failed.rules
+title: Configure auditing of unsuccessful file accesses
+warnings: []

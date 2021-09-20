@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_rsh_disabled" version="2">
+    <metadata>
+        <title>Disable rsh Service</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The rsh service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package rsh removed or service and socket rsh are not configured to start" operator="OR">
+      <criterion comment="rsh removed" test_ref="test_service_rsh_package_rsh_removed" />
+      <criteria operator="AND" comment="service and socket rsh are disabled">
+        <criterion comment="rsh disabled in multi-user.target" test_ref="test_rsh_disabled_multi_user_target" />
+        <criterion comment="rsh socket disabled in sockets.target" test_ref="test_rsh_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for rsh.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_rsh_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_rsh_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for rsh.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_rsh_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/rsh.service</unix:filepath>
+    <filter action="include">unit_rsh_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for rsh.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_rsh_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_rsh_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for rsh.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_rsh_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/rsh.socket</unix:filepath>
+    <filter action="include">unit_rsh_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_rsh_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_rsh_package_rsh_removed" version="1"
+  comment="package rsh is removed">
+    <linux:object object_ref="obj_test_service_rsh_package_rsh_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_rsh_package_rsh_removed" version="1">
+    <linux:name>rsh</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

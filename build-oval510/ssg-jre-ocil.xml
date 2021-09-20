@@ -1,0 +1,639 @@
+<?xml version="1.0"?>
+<ocil:ocil xmlns:ocil="http://scap.nist.gov/schema/ocil/2.0">
+  <ocil:generator>
+    <ocil:product_name>xccdf-create-ocil.xslt from SCAP Security Guide</ocil:product_name>
+    <ocil:product_version>ssg: 0.1.58</ocil:product_version>
+    <ocil:schema_version>2.0</ocil:schema_version>
+    <ocil:timestamp>2021-09-19T22:23:47-05:00</ocil:timestamp>
+  </ocil:generator>
+  <ocil:questionnaires>
+    <ocil:questionnaire id="ocil:ssg-java_jre_blacklist_check_ocil:questionnaire:1">
+      <ocil:title>Prevent the Download of Prohibited Mobile Code</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_blacklist_check_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_blacklist_check_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Prohibited Mobile Code Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_blacklist_check_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_clean_previous_version_ocil:questionnaire:1">
+      <ocil:title>Ensure yum Removes Previous Package Versions</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_clean_previous_version_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_configure_crypto_policy_ocil:questionnaire:1">
+      <ocil:title>Configure Java Runtime to use System Crypto Policy</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_configure_crypto_policy_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_deployment_properties_exists_ocil:questionnaire:1">
+      <ocil:title>The Java deployment.properties File Exists</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_deployment_properties_exists_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_disable_untrusted_sources_ocil:questionnaire:1">
+      <ocil:title>Disable Execution of Signed Java Applets From Untrusted Sources Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_disable_untrusted_sources_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_disable_untrusted_sources_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Disabling Untrusted Sources Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_disable_untrusted_sources_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_enable_jws_ocil:questionnaire:1">
+      <ocil:title>Enable Java Web Start Applications to Run</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_enable_jws_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_enable_jws_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Java Web Start Application Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_enable_jws_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_insecure_prompt_ocil:questionnaire:1">
+      <ocil:title>Prompt User Prior to Executing Mobile Code</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_insecure_prompt_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_insecure_prompt_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Insecure Prompt of Mobile Code Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_insecure_prompt_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_lock_untrusted_sources_ocil:questionnaire:1">
+      <ocil:title>Lock Execution of Signed Java Applets From Untrusted Sources Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_lock_untrusted_sources_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_lock_untrusted_sources_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Locking Untrusted Sources Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_lock_untrusted_sources_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_security_revocation_check_ocil:questionnaire:1">
+      <ocil:title>Enable Revocation Checks for Publisher Certificates</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_security_revocation_check_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_security_revocation_check_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Revocation Check Settings</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_security_revocation_check_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_unsigned_applications_ocil:questionnaire:1">
+      <ocil:title>Disable Execution of Unsigned Applications</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_unsigned_applications_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_unsigned_applications_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Unsigned Applications Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_unsigned_applications_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_updated_ocil:questionnaire:1">
+      <ocil:title>Ensure Java Patches Installed</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_updated_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_validation_crl_ocil:questionnaire:1">
+      <ocil:title>Enable Use of Certificate Revocation Lists</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_validation_crl_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_validation_crl_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Certificate Revocation List Settings</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_validation_crl_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_validation_ocsp_ocil:questionnaire:1">
+      <ocil:title>Enable Online Certificate Validation</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_validation_ocsp_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_validation_ocsp_locked_ocil:questionnaire:1">
+      <ocil:title>Disable User Access to Online Certificate Validation Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_validation_ocsp_locked_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_accepted_sites_exists_ocil:questionnaire:1">
+      <ocil:title>The Java exception.sites File Exists</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_accepted_sites_exists_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_accepted_sites_properties_ocil:questionnaire:1">
+      <ocil:title>Configure the Path to the exception.sites File</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_accepted_sites_properties_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_deployment_config_exists_ocil:questionnaire:1">
+      <ocil:title>The Java deployment.config File Exists</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_deployment_config_exists_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_deployment_config_mandatory_ocil:questionnaire:1">
+      <ocil:title>Configure The Java Deployment Mandatory Setting</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_deployment_config_mandatory_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-java_jre_deployment_config_properties_ocil:questionnaire:1">
+      <ocil:title>Configure the Path to the deployment.properties File</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-java_jre_deployment_config_properties_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+  </ocil:questionnaires>
+  <ocil:test_actions>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_blacklist_check_action:testaction:1" question_ref="ocil:ssg-java_jre_blacklist_check_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_blacklist_check_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_blacklist_check_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_clean_previous_version_action:testaction:1" question_ref="ocil:ssg-java_jre_clean_previous_version_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_configure_crypto_policy_action:testaction:1" question_ref="ocil:ssg-java_jre_configure_crypto_policy_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_deployment_properties_exists_action:testaction:1" question_ref="ocil:ssg-java_jre_deployment_properties_exists_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_disable_untrusted_sources_action:testaction:1" question_ref="ocil:ssg-java_jre_disable_untrusted_sources_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_disable_untrusted_sources_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_disable_untrusted_sources_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_enable_jws_action:testaction:1" question_ref="ocil:ssg-java_jre_enable_jws_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_enable_jws_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_enable_jws_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_insecure_prompt_action:testaction:1" question_ref="ocil:ssg-java_jre_insecure_prompt_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_insecure_prompt_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_insecure_prompt_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_lock_untrusted_sources_action:testaction:1" question_ref="ocil:ssg-java_jre_lock_untrusted_sources_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_lock_untrusted_sources_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_lock_untrusted_sources_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_security_revocation_check_action:testaction:1" question_ref="ocil:ssg-java_jre_security_revocation_check_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_security_revocation_check_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_security_revocation_check_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_unsigned_applications_action:testaction:1" question_ref="ocil:ssg-java_jre_unsigned_applications_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_unsigned_applications_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_unsigned_applications_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_updated_action:testaction:1" question_ref="ocil:ssg-java_jre_updated_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_validation_crl_action:testaction:1" question_ref="ocil:ssg-java_jre_validation_crl_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_validation_crl_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_validation_crl_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_validation_ocsp_action:testaction:1" question_ref="ocil:ssg-java_jre_validation_ocsp_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_validation_ocsp_locked_action:testaction:1" question_ref="ocil:ssg-java_jre_validation_ocsp_locked_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_accepted_sites_exists_action:testaction:1" question_ref="ocil:ssg-java_jre_accepted_sites_exists_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_accepted_sites_properties_action:testaction:1" question_ref="ocil:ssg-java_jre_accepted_sites_properties_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_deployment_config_exists_action:testaction:1" question_ref="ocil:ssg-java_jre_deployment_config_exists_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_deployment_config_mandatory_action:testaction:1" question_ref="ocil:ssg-java_jre_deployment_config_mandatory_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-java_jre_deployment_config_properties_action:testaction:1" question_ref="ocil:ssg-java_jre_deployment_config_properties_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+  </ocil:test_actions>
+  <ocil:questions>
+    <ocil:boolean_question id="ocil:ssg-java_jre_blacklist_check_question:question:1">
+      <ocil:question_text>To verify that Java prevents prohibited mobile code from being downloaded,
+run the following command:
+$ grep 'deployment.security.blacklist.check=true' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.blacklist.check=true
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_blacklist_check_locked_question:question:1">
+      <ocil:question_text>To verify that a user cannot change the setting that controls the prevention of
+downloading prohibited mobile code, run the following command:
+$ grep 'deployment.security.blacklist.check.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.blacklist.check.locked
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_clean_previous_version_question:question:1">
+      <ocil:question_text>To verify that clean_requirements_on_remove is configured properly, run the
+following command:
+$ grep clean_requirements_on_remove /etc/yum.conf
+The output should return something similar to:
+clean_requirements_on_remove=1
+      Is it the case that clean_requirements_on_remove is not enabled or configured correctly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_configure_crypto_policy_question:question:1">
+      <ocil:question_text>To verify that Java uses the system crypto policy, check out that the respective JRE config file
+/usr/lib/jvm/jre/lib/security/java.security contains the security.useSystemPropertiesFile=true line:
+grep 'security.useSystemPropertiesFile=true' /usr/lib/jvm/jre/lib/security/java.security.
+      Is it the case that the &lt;pre&gt;java.security&lt;/pre&gt; doesn't contain the &lt;pre&gt;security.useSystemPropertiesFile=true&lt;/pre&gt; line?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_deployment_properties_exists_question:question:1">
+      <ocil:question_text>To verify that the deployment.properties file exists,
+run the following command:
+$ ls /etc/.java/deployment
+The output should contain:
+deployment.properties
+      Is it the case that it does not exist?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_disable_untrusted_sources_question:question:1">
+      <ocil:question_text>To verify that Java cannot execute from untrusted sources,
+run the following command:
+$ grep 'askgrantdialog.notinca=false' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.askgrantdialog.notinca=false
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_disable_untrusted_sources_locked_question:question:1">
+      <ocil:question_text>To verify that users cannot change the untrusted sources settings,
+run the following command:
+$ grep 'askgrantdialog.notinca.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.askgrantdialog.notinca.locked
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_enable_jws_question:question:1">
+      <ocil:question_text>To verify that Java allows applets or Java Web Start (JWS) applications to
+run, run the following command:
+$ grep 'deployment.webjava.enabled=true' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.webjava.enabled=true
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_enable_jws_locked_question:question:1">
+      <ocil:question_text>To verify that a user cannot change the Java Web Start (JWS) application
+setting, run the following command:
+$ grep 'deployment.webjava.enabled.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.webjava.enabled.locked
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_insecure_prompt_question:question:1">
+      <ocil:question_text>To verify that Java prevents mobile code from executing without prompting
+the user,run the following command:
+$ grep 'deployment.insecure.jres=PROMPT' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.insecure.jres=PROMPT
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_insecure_prompt_locked_question:question:1">
+      <ocil:question_text>To verify that a user cannot change the mobile code setting for insecure
+prompts, run the following command:
+$ grep 'deployment.insecure.jres.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.insecure.jres.locked
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_lock_untrusted_sources_question:question:1">
+      <ocil:question_text>To verify that Java cannot execute from untrusted sources,
+run the following command:
+$ grep 'askgrantdialog.show=false' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.askgrantdialog.show=false
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_lock_untrusted_sources_locked_question:question:1">
+      <ocil:question_text>To verify that users cannot change the untrusted sources settings,
+run the following command:
+$ grep 'askgrantdialog.show.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.askgrantdialog.show.locked
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_security_revocation_check_question:question:1">
+      <ocil:question_text>To verify that revocation checks are enabled, run the following command:
+$ grep 'deployment.security.revocation.check=' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.revocation.check=ALL_CERTIFICATES
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_security_revocation_check_locked_question:question:1">
+      <ocil:question_text>To verify that users cannot change revocation check settings,
+run the following command:
+$ grep 'revocation.check.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.revocation.check.locked
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_unsigned_applications_question:question:1">
+      <ocil:question_text>To verify that Java does not allow unsigned applications to run,
+run the following command:
+$ grep 'deployment.security.level=VERY_HIGH' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.level=VERY_HIGH
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_unsigned_applications_locked_question:question:1">
+      <ocil:question_text>To verify that a user cannot change the unsigned applications setting, run
+the following command:
+$ grep 'deployment.security.level.locked' /etc/.java/deployment/deployment.properties
+If properly configured,
+the output should return:
+deployment.security.level.locked
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_updated_question:question:1">
+      <ocil:question_text>If the system is joined to the Red Hat Network, a Red Hat Satellite Server, or
+a yum server which provides updates, invoking the following command will
+indicate if updates are available:
+$ sudo yum check-update
+If the system is not configured to update from one of these sources,
+run the following command to list when each package was last updated:
+$ rpm -qa -last
+Compare this to Red Hat Security Advisories (RHSA) listed at
+
+    https://access.redhat.com/security/updates/active/https://access.redhat.com/security/updates/active/
+to determine if the system is missing applicable updates.
+      Is it the case that it is not updated?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_validation_crl_question:question:1">
+      <ocil:question_text>To verify that the use of Certificate Revocation Lists are enabled, run the following command:
+$ grep 'validation.crl=true' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.validation.crl=true
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_validation_crl_locked_question:question:1">
+      <ocil:question_text>To verify that users cannot change the use of Certificate Revocation List settings,
+run the following command:
+$ grep 'validation.crl.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.validation.crl.locked
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_validation_ocsp_question:question:1">
+      <ocil:question_text>To verify that online certificate verification is enabled,
+run the following command:
+$ grep 'validation.ocsp=true' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.validation.ocsp=true
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_validation_ocsp_locked_question:question:1">
+      <ocil:question_text>To verify that users cannot change online certificate verification,
+run the following command:
+$ grep 'validation.ocsp.locked' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.security.validation.ocsp.locked
+      Is it the case that it does not exist or is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_accepted_sites_exists_question:question:1">
+      <ocil:question_text>To verify that the exception.sites file exists,
+run the following command:
+$ ls /etc/.java/deployment
+The output should contain:
+exception.sites
+      Is it the case that it does not exist?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_accepted_sites_properties_question:question:1">
+      <ocil:question_text>To verify that deployment.properties file is configured properly,
+run the following command:
+$ grep 'deployment.user.security.exception.sites=' /etc/.java/deployment/deployment.properties
+If properly configured, the output should return:
+deployment.user.security.exception.sites=/etc/.java/deployment/exception.sites
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_deployment_config_exists_question:question:1">
+      <ocil:question_text>To verify that the deployment.config file exists,
+run the following command:
+$ ls /etc/.java/deployment
+The output should contain:
+deployment.config
+      Is it the case that it does not exist?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_deployment_config_mandatory_question:question:1">
+      <ocil:question_text>To verify that deployment.config is configured properly,
+run the following command:
+$ grep 'deployment.system.config.mandatory' /etc/.java/deployment/deployment.config
+If properly configured, the output should return:
+deployment.system.config.mandatory=true
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-java_jre_deployment_config_properties_question:question:1">
+      <ocil:question_text>To verify that deployment.config is configured properly,
+run the following command:
+$ grep 'deployment.system.config=file' /etc/.java/deployment/deployment.config
+If properly configured, the output should return:
+deployment.system.config=file:///etc/.java/deployment/deployment.properties
+      Is it the case that it is not configured?
+      </ocil:question_text>
+    </ocil:boolean_question>
+  </ocil:questions>
+</ocil:ocil>

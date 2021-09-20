@@ -1,0 +1,36 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable User Access to Java Web Start Application Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.webjava.enabled.locked
+    line: deployment.webjava.enabled.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed

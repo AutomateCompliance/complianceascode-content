@@ -1,0 +1,157 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = unknown
+# complexity = low
+# disruption = medium
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Detect if removal-action can be found on /etc/dconf/db/local.d/
+  find:
+    path: /etc/dconf/db/local.d/
+    contains: ^\s*removal-action
+  register: dconf_gnome_lock_screen_on_smartcard_removal_config_files
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Configure removal-action - default file
+  ini_file:
+    dest: /etc/dconf/db/local.d//00-security-settings
+    section: org/gnome/settings-daemon/peripherals/smartcard
+    option: removal-action
+    value: '''lock-screen'''
+    create: true
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - dconf_gnome_lock_screen_on_smartcard_removal_config_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_config_files.matched
+      == 0
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Configure removal-action - existing files
+  ini_file:
+    dest: '{{ item.path }}'
+    section: org/gnome/settings-daemon/peripherals/smartcard
+    option: removal-action
+    value: '''lock-screen'''
+    create: true
+  with_items: '{{ dconf_gnome_lock_screen_on_smartcard_removal_config_files.files
+    }}'
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - dconf_gnome_lock_screen_on_smartcard_removal_config_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_config_files.matched
+      > 0
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Detect if lock for removal-action can be found on /etc/dconf/db/local.d/
+  find:
+    path: /etc/dconf/db/local.d/locks
+    contains: ^\s*removal-action
+  register: dconf_gnome_lock_screen_on_smartcard_removal_lock_files
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Prevent user modification removal-action - default file
+  lineinfile:
+    path: /etc/dconf/db/local.d/locks/00-security-settings-lock
+    regexp: ^/org/gnome/settings-daemon/peripherals/smartcard/removal-action$
+    line: /org/gnome/settings-daemon/peripherals/smartcard/removal-action
+    create: true
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - dconf_gnome_lock_screen_on_smartcard_removal_lock_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_lock_files.matched
+      == 0
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Prevent user modification removal-action - existing files
+  lineinfile:
+    path: '{{ item.path }}'
+    regexp: ^/org/gnome/settings-daemon/peripherals/smartcard/removal-action$
+    line: /org/gnome/settings-daemon/peripherals/smartcard/removal-action
+    create: true
+  with_items: '{{ dconf_gnome_lock_screen_on_smartcard_removal_lock_files.files }}'
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - dconf_gnome_lock_screen_on_smartcard_removal_lock_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_lock_files.matched
+      > 0
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Dconf Update - removal-action
+  command: dconf update
+  when:
+    - '"gdm" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83910-0
+    - DISA-STIG-RHEL-08-020050
+    - dconf_gnome_lock_screen_on_smartcard_removal
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy

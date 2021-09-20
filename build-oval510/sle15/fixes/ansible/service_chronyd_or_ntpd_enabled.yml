@@ -1,0 +1,83 @@
+# platform = Red Hat Enterprise Linux 7,Red Hat Enterprise Linux 8,Red Hat Virtualization 4,multi_platform_fedora,multi_platform_ol,multi_platform_sle
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-85835-7
+    - NIST-800-171-3.3.7
+    - NIST-800-53-AU-8(1)(a)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-10.4
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - service_chronyd_or_ntpd_enabled
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-85835-7
+    - NIST-800-171-3.3.7
+    - NIST-800-53-AU-8(1)(a)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-10.4
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - service_chronyd_or_ntpd_enabled
+
+- name: Start ntpd service if ntp installed
+  service:
+    name: ntpd
+    enabled: 'yes'
+    state: started
+    masked: 'no'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '''ntp'' in ansible_facts.packages'
+  ignore_errors: true
+  tags:
+    - CCE-85835-7
+    - NIST-800-171-3.3.7
+    - NIST-800-53-AU-8(1)(a)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-10.4
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - service_chronyd_or_ntpd_enabled
+
+- name: Start chronyd service if chrony or chronyd installed
+  service:
+    name: chronyd
+    enabled: 'yes'
+    state: started
+    masked: 'no'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - ('chrony' in ansible_facts.packages) or ('chronyd' in ansible_facts.packages)
+  ignore_errors: true
+  tags:
+    - CCE-85835-7
+    - NIST-800-171-3.3.7
+    - NIST-800-53-AU-8(1)(a)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-10.4
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - service_chronyd_or_ntpd_enabled

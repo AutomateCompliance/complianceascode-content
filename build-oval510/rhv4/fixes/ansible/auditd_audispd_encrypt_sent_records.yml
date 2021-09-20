@@ -1,0 +1,36 @@
+# platform = Oracle Linux 7,Red Hat Enterprise Linux 7,Red Hat Virtualization 4,multi_platform_sle
+# reboot = false
+# complexity = low
+# disruption = low
+# strategy = configure
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - NIST-800-53-AU-9(3)
+    - NIST-800-53-CM-6(a)
+    - auditd_audispd_encrypt_sent_records
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure Kerberos 5 Encryption in Audit Event Multiplexor (audispd)
+  lineinfile:
+    dest: /etc/audisp/audisp-remote.conf
+    line: enable_krb5 = yes
+    regexp: ^\s*enable_krb5\s*=\s*.*$
+    state: present
+    mode: 416
+    create: true
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - NIST-800-53-AU-9(3)
+    - NIST-800-53-CM-6(a)
+    - auditd_audispd_encrypt_sent_records
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

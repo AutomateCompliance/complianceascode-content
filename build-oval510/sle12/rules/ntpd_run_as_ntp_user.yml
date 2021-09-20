@@ -1,0 +1,49 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/ntpd_run_as_ntp_user/rule.yml
+description: "ntp is a daemon which implements the Network Time Protocol (NTP). It\
+  \ is designed to\nsynchronize system clocks across a variety of systems and use\
+  \ a source that is highly\naccurate. More information on NTP can be found at\n\n\
+  \    <a xmlns='http://www.w3.org/1999/xhtml' href='http://www.ntp.org'>http://www.ntp.org</a>.\n\
+  ntp can be configured to be a client and/or a server.\nTo ensure that ntpd is running\
+  \ as ntp user, Add or edit the\n<tt>OPTIONS</tt> variable in <tt>/etc/sysconfig/ntpd</tt>\
+  \ to include ' -u ntp:ntp ':\n<pre>OPTIONS=\"-u ntp:ntp\"</pre>\nThis recommendation\
+  \ only applies if ntp is in use on the system."
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To verify that <tt>ntpd</tt> is configured to correctly run under the <tt>ntp</tt>
+  user,
+
+  run the following commands:
+
+  <pre>$ sudo grep "^OPTIONS" /etc/sysconfig/ntpd</pre>
+
+  The output should contain
+
+  <pre>OPTIONS="-u ntp:ntp"</pre>
+
+  <pre>$ sudo grep "^ExecStart" /usr/lib/systemd/system/ntpd.service</pre>
+
+  The output should contain
+
+  <pre>ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS</pre>'
+ocil_clause: ntpd is not running under ntp user account
+oval_external_content: null
+platform: ntp
+platforms: !!set
+  ntp: null
+prodtype: fedora,rhel7,sle12
+rationale: 'If ntp is in use on the system proper configuration is vital to ensuring
+  time synchronization
+
+  is working properly. Running ntpd under dedicated user accounts limits the attack
+  surface for
+
+  potential attacker exploiting security flaws in the daemon or the protocol.'
+references:
+  cis: 2.2.1.4
+requires: []
+severity: medium
+template: null
+title: Configure ntpd To Run As ntp User
+warnings: []

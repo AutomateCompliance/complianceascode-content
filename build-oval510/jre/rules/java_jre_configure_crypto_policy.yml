@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/jre/guide/java/java_jre_configure_crypto_policy/rule.yml
+description: 'Crypto Policies provide a centralized control over crypto algorithms
+  usage of many packages.
+
+  Java is supported by crypto policy, but the Java configuration may be
+
+  set up to ignore it.
+
+
+  To check that Crypto Policies settings are configured correctly, you have to examine
+  the JRE config file
+
+  available under <tt>/usr/lib/jvm/jre/lib/security/java.security</tt>.
+
+  If this config file contains the line <tt>security.useSystemPropertiesFile=true</tt>,
+
+  settings that are part of the system-wide crypto policy take precedence.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that Java uses the system crypto policy, check out that the respective
+  JRE config file
+
+  <pre>/usr/lib/jvm/jre/lib/security/java.security</pre> contains the <pre>security.useSystemPropertiesFile=true</pre>
+  line:
+
+  <pre>grep ''security.useSystemPropertiesFile=true'' /usr/lib/jvm/jre/lib/security/java.security</pre>.'
+ocil_clause: the <pre>java.security</pre> doesn't contain the <pre>security.useSystemPropertiesFile=true</pre>
+  line
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Overriding the system crypto policy makes the behavior of the Java runtime
+  violates expectations,
+
+  and makes system configuration more fragmented.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Configure Java Runtime to use System Crypto Policy
+warnings: []

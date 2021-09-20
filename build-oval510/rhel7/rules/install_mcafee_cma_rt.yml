@@ -1,0 +1,29 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/integrity/endpoint_security_software/mcafee_security_software/install_mcafee_cma_rt/rule.yml
+description: Install the McAfee Runtime Libraries (MFErt) and Linux Agent (MFEcma).
+identifiers:
+  cce: CCE-80367-6
+inherited_platforms: []
+ocil: 'To verify that McAfee Runtime Libraries (MFErt) and Linux Agent (MFEcma)
+
+  are installed, run the following command(s):
+
+  <pre>$ rpm -q MFEcma</pre>
+
+  <pre>$ rpm -q MFErt</pre>'
+ocil_clause: the HBSS HIPS module is not installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8
+rationale: 'The McAfee Runtime Libraries (MFErt) and Linux Agent (MFEcma) are dependencies
+
+  for VirusScan Enterprise for Linux (VSEL) and Host-based Security System (HBSS)
+
+  to run.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Install the McAfee Runtime Libraries and Linux Agent
+warnings: []

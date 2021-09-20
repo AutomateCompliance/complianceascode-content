@@ -1,0 +1,42 @@
+# platform = Red Hat Enterprise Linux 8,multi_platform_fedora
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Rsyslog Encrypts Off-Loaded Audit Records
+  block:
+
+    - name: Check for duplicate values
+      lineinfile:
+        path: /etc/rsyslog.d/encrypt.conf
+        create: false
+        regexp: '^\s*$DefaultNetstreamDriver '
+        state: absent
+      check_mode: true
+      changed_when: false
+      register: dupes
+
+    - name: Deduplicate values from /etc/rsyslog.d/encrypt.conf
+      lineinfile:
+        path: /etc/rsyslog.d/encrypt.conf
+        create: false
+        regexp: '^\s*$DefaultNetstreamDriver '
+        state: absent
+      when: dupes.found is defined and dupes.found > 1
+
+    - name: Insert correct line to /etc/rsyslog.d/encrypt.conf
+      lineinfile:
+        path: /etc/rsyslog.d/encrypt.conf
+        create: true
+        regexp: '^\s*$DefaultNetstreamDriver '
+        line: $DefaultNetstreamDriver gtls
+        state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - NIST-800-53-AU-4(1)
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_encrypt_offload_defaultnetstreamdriver

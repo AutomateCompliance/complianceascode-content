@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/system-tools/package_krb5-workstation_removed/rule.yml
+description: 'The <code>krb5-workstation</code> package can be removed with the following
+  command:
+
+  <pre>
+
+  $ sudo yum erase krb5-workstation</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>krb5-workstation</code>
+  package is installed:
+
+  <pre>$ rpm -q krb5-workstation</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: 'Kerberos is a network authentication system. The <tt>krb5-workstation</tt>
+  package contains the basic
+
+  Kerberos programs (<tt>kinit</tt>, <tt>klist</tt>, <tt>kdestroy</tt>, <tt>kpasswd</tt>).
+
+
+  Currently, Kerberos does not utilize FIPS 140-2 cryptography and is not permitted
+  on Government networks,
+
+  nor is it permitted in many regulatory environments such as HIPAA.'
+references:
+  disa: CCI-000803
+  srg: SRG-OS-000095-GPOS-00049,SRG-OS-000120-GPOS-00061
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: krb5-workstation
+title: Uninstall krb5-workstation Package
+warnings: []

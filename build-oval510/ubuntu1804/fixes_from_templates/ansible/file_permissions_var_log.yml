@@ -1,0 +1,18 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+
+
+- name: Test for existence /var/log/
+  stat:
+    path: "/var/log/"
+  register: file_exists
+  
+- name: Ensure permission 0755 on /var/log/
+  file:
+    path: "/var/log/"
+    mode: "0755"
+  when: file_exists.stat is defined and file_exists.stat.exists
+

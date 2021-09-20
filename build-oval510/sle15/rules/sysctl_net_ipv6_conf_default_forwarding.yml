@@ -1,0 +1,51 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-ipv6/configuring_ipv6/sysctl_net_ipv6_conf_default_forwarding/rule.yml
+description: 'To set the runtime status of the <code>net.ipv6.conf.default.forwarding</code>
+  kernel parameter, run the following command: <pre>$ sudo sysctl -w net.ipv6.conf.default.forwarding=0</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>net.ipv6.conf.default.forwarding = 0</pre>'
+identifiers:
+  cce: CCE-85725-0
+inherited_platforms: []
+ocil: "The runtime status of the <code>net.ipv6.conf.default.forwarding</code> kernel\
+  \ parameter can be queried\nby running the following command:\n<pre>$ sysctl net.ipv6.conf.default.forwarding</pre>\n\
+  The output of the command should indicate a value of <code>0</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*net.ipv6.conf.default.forwarding\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>net.ipv6.conf.default.forwarding\
+  \ = 0</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>net.ipv6.conf.default.forwarding = 0</code>, and that one assignment\n\
+  is returned when \n<pre>$ grep -r net.ipv6.conf.default.forwarding /etc/sysctl.conf\
+  \ /etc/sysctl.d</pre>\nis executed.\nThe ability to forward packets is only appropriate\
+  \ for routers."
+ocil_clause: IPv6 Forwading is not disabled
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: sle12,sle15
+rationale: 'IP forwarding permits the kernel to forward packets from one network
+
+  interface to another. The ability to forward packets between two networks is
+
+  only appropriate for systems acting as routers.'
+references:
+  disa: CCI-000366
+  nist: CM-6(b),CM-6.1(iv)
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: SLES-15-040382
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlvar: net.ipv6.conf.default.forwarding
+title: Disable Kernel Parameter for IPv6 Forwarding by default
+warnings: []

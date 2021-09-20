@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-session/file_groupownership_home_directories/rule.yml
+description: 'Change the group owner of interactive users home directory to the
+
+  group found in <tt>/etc/passwd</tt>. To change the group owner of
+
+  interactive users home directory, use the following command:
+
+  <pre>$ sudo chgrp <i>USER_GROUP</i> /home/<i>USER</i></pre>'
+identifiers:
+  cce: CCE-80532-5
+inherited_platforms: []
+ocil: 'To verify the assigned home directory of all interactive users is group-
+
+  owned by that users primary GID, run the following command:
+
+  <pre># ls -ld $(awk -F: ''($3&gt;=1000)&amp;&amp;($7 !~ /nologin/){print $6}'' /etc/passwd)</pre>'
+ocil_clause: the group ownership is incorrect
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle12,sle15,wrlinux1019
+rationale: 'If the Group Identifier (GID) of a local interactive users home directory
+  is
+
+  not the same as the primary GID of the user, this would allow unauthorized
+
+  access to the users files, and users that share the same group may not be
+
+  able to access files that they legitimately should.'
+references:
+  disa: CCI-000366
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: RHEL-07-020650
+requires: []
+severity: medium
+template: null
+title: All Interactive User Home Directories Must Be Group-Owned By The Primary User
+warnings: []

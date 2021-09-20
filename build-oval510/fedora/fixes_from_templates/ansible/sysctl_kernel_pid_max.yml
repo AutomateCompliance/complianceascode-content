@@ -1,0 +1,11 @@
+# platform = multi_platform_all
+# reboot = true
+# strategy = disable
+# complexity = low
+# disruption = medium
+- name: Ensure sysctl kernel.pid_max is set to 65536
+  sysctl:
+    name: "kernel.pid_max"
+    value: "65536"
+    state: present
+    reload: yes

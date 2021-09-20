@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_cpupower_disabled" version="2">
+    <metadata>
+        <title>Disable CPU Speed (cpupower)</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The cpupower service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package kernel-tools removed or service and socket cpupower are not configured to start" operator="OR">
+      <criterion comment="kernel-tools removed" test_ref="test_service_cpupower_package_kernel-tools_removed" />
+      <criteria operator="AND" comment="service and socket cpupower are disabled">
+        <criterion comment="cpupower disabled in multi-user.target" test_ref="test_cpupower_disabled_multi_user_target" />
+        <criterion comment="cpupower socket disabled in sockets.target" test_ref="test_cpupower_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for cpupower.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_cpupower_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_cpupower_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for cpupower.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_cpupower_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/cpupower.service</unix:filepath>
+    <filter action="include">unit_cpupower_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for cpupower.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_cpupower_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_cpupower_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for cpupower.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_cpupower_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/cpupower.socket</unix:filepath>
+    <filter action="include">unit_cpupower_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_cpupower_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_cpupower_package_kernel-tools_removed" version="1"
+  comment="package kernel-tools is removed">
+    <linux:object object_ref="obj_test_service_cpupower_package_kernel-tools_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_cpupower_package_kernel-tools_removed" version="1">
+    <linux:name>kernel-tools</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

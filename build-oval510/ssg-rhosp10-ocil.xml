@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<ocil:ocil xmlns:ocil="http://scap.nist.gov/schema/ocil/2.0">
+  <ocil:generator>
+    <ocil:product_name>xccdf-create-ocil.xslt from SCAP Security Guide</ocil:product_name>
+    <ocil:product_version>ssg: 0.1.58</ocil:product_version>
+    <ocil:schema_version>2.0</ocil:schema_version>
+    <ocil:timestamp>2021-09-19T22:25:22-05:00</ocil:timestamp>
+  </ocil:generator>
+  <ocil:questionnaires>
+    <ocil:questionnaire id="ocil:ssg-cinder_conf_file_perms_ocil:questionnaire:1">
+      <ocil:title>Check-Block-02: Are strict permissions set for cinder config files?</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-cinder_conf_file_perms_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-horizon_csrf_cookie_secure_ocil:questionnaire:1">
+      <ocil:title>Cross-Site Request Forgery Prevention: Enable CSRF_COOKIE_SECURE (non-containerized deployments)</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-horizon_csrf_cookie_secure_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-keystone_disable_user_account_days_inactive_ocil:questionnaire:1">
+      <ocil:title>Set Maximum Inactivity Period</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-keystone_disable_user_account_days_inactive_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-keystone_lockout_duration_ocil:questionnaire:1">
+      <ocil:title>Set Account Lockout Duration</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-keystone_lockout_duration_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+    <ocil:questionnaire id="ocil:ssg-keystone_lockout_failure_attempts_ocil:questionnaire:1">
+      <ocil:title>Set Maximum Number of Failed Authentication Attempts</ocil:title>
+      <ocil:actions>
+        <ocil:test_action_ref>ocil:ssg-keystone_lockout_failure_attempts_action:testaction:1</ocil:test_action_ref>
+      </ocil:actions>
+    </ocil:questionnaire>
+  </ocil:questionnaires>
+  <ocil:test_actions>
+    <ocil:boolean_question_test_action id="ocil:ssg-cinder_conf_file_perms_action:testaction:1" question_ref="ocil:ssg-cinder_conf_file_perms_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-horizon_csrf_cookie_secure_action:testaction:1" question_ref="ocil:ssg-horizon_csrf_cookie_secure_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-keystone_disable_user_account_days_inactive_action:testaction:1" question_ref="ocil:ssg-keystone_disable_user_account_days_inactive_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-keystone_lockout_duration_action:testaction:1" question_ref="ocil:ssg-keystone_lockout_duration_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+    <ocil:boolean_question_test_action id="ocil:ssg-keystone_lockout_failure_attempts_action:testaction:1" question_ref="ocil:ssg-keystone_lockout_failure_attempts_question:question:1">
+      <ocil:when_true>
+        <ocil:result>PASS</ocil:result>
+      </ocil:when_true>
+      <ocil:when_false>
+        <ocil:result>FAIL</ocil:result>
+      </ocil:when_false>
+    </ocil:boolean_question_test_action>
+  </ocil:test_actions>
+  <ocil:questions>
+    <ocil:boolean_question id="ocil:ssg-cinder_conf_file_perms_question:question:1">
+      <ocil:question_text>To check the permissions of /etc/cinder/*.conf,
+run the command:
+$ ls -l /etc/cinder/*.conf
+If properly configured, the output should indicate the following permissions:
+-rw-r-----
+      Is it the case that /etc/cinder/*.conf has unix mode -rw-r-----?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-horizon_csrf_cookie_secure_question:question:1">
+      <ocil:question_text>Check the file /etc/openstack-dashboard/local_settings and ensure the
+following line appears:
+CSRF_COOKIE_SECURE True
+      Is it the case that CSRF_COOKIE_SECURE is set to False?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-keystone_disable_user_account_days_inactive_question:question:1">
+      <ocil:question_text>Run the following command to see what the maximum authentication
+attempts is:
+
+$ grep disable_user_account_days_inactive /etc/keystone/keystone.conf
+
+If properly configured, the output should be:
+disable_user_account_days_inactive = 
+      Is it the case that disable_user_account_days_inactive is commented out or not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-keystone_lockout_duration_question:question:1">
+      <ocil:question_text>Run the following command to see what the account lockout
+duration is:
+
+$ grep lockout_duration /etc/keystone/keystone.conf
+
+If properly configured, the output should be:
+lockout_duration=
+      Is it the case that lockout_duration is not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+    <ocil:boolean_question id="ocil:ssg-keystone_lockout_failure_attempts_question:question:1">
+      <ocil:question_text>Run the following command to see what the maximum authentication
+attempts is:
+
+$ grep lockout_failure_attempts /etc/keystone/keystone.conf
+
+If properly configured, the output should be:
+lockout_failure_attempts=
+      Is it the case that lockout_failure_attempts is commented out or not configured properly?
+      </ocil:question_text>
+    </ocil:boolean_question>
+  </ocil:questions>
+</ocil:ocil>

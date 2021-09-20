@@ -1,0 +1,24 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-ipv6/disabling_ipv6/network_ipv6_disable_interfaces/rule.yml
+description: 'To disable interface usage of IPv6, add or correct the following lines
+  in <tt>/etc/sysconfig/network</tt>:
+
+  <pre>NETWORKING_IPV6=no
+
+  IPV6INIT=no</pre>'
+identifiers:
+  cce: CCE-80176-1
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,rhel7,rhel8
+rationale: ''
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Disable Interface Usage of IPv6
+warnings: []

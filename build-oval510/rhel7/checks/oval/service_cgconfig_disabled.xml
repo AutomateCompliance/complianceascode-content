@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_cgconfig_disabled" version="2">
+    <metadata>
+        <title>Disable Control Group Config (cgconfig)</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The cgconfig service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package libcgroup removed or service and socket cgconfig are not configured to start" operator="OR">
+      <criterion comment="libcgroup removed" test_ref="test_service_cgconfig_package_libcgroup_removed" />
+      <criteria operator="AND" comment="service and socket cgconfig are disabled">
+        <criterion comment="cgconfig disabled in multi-user.target" test_ref="test_cgconfig_disabled_multi_user_target" />
+        <criterion comment="cgconfig socket disabled in sockets.target" test_ref="test_cgconfig_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for cgconfig.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_cgconfig_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_cgconfig_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for cgconfig.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_cgconfig_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/cgconfig.service</unix:filepath>
+    <filter action="include">unit_cgconfig_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for cgconfig.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_cgconfig_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_cgconfig_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for cgconfig.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_cgconfig_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/cgconfig.socket</unix:filepath>
+    <filter action="include">unit_cgconfig_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_cgconfig_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_cgconfig_package_libcgroup_removed" version="1"
+  comment="package libcgroup is removed">
+    <linux:object object_ref="obj_test_service_cgconfig_package_libcgroup_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_cgconfig_package_libcgroup_removed" version="1">
+    <linux:name>libcgroup</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

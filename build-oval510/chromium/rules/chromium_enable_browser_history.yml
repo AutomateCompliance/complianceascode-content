@@ -1,0 +1,30 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/chromium/guide/chromium/chromium_enable_browser_history/rule.yml
+description: 'Users can enable or disable the saving of browser history in Chromium.
+  Browser
+
+  history should be retained by setting <tt>SavingBrowserHistoryDisabled</tt> to
+
+  <tt>false</tt> in the Chromium policy file.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that saving the browser history is enabled, run the following command:
+
+  <pre>$ grep SavingBrowserHistoryDisabled /etc/chromium/policies/managed/*.json</pre>
+
+  The output should contain:
+
+  <pre>"SavingBrowserHistoryDisabled": false,</pre>'
+ocil_clause: it is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Best practice requires that browser history is retained.
+references:
+  stigid: DTBC0039
+requires: []
+severity: unknown
+template: null
+title: Enable Saving the Browser History
+warnings: []

@@ -1,0 +1,36 @@
+# platform = multi_platform_sle
+# reboot = false
+# complexity = low
+# strategy = configure
+# disruption = low
+- name: Configure permission for /var/log/messages
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/var\/log\/messages\s+root.*
+    line: /var/log/messages root:root 640
+    state: present
+  register: update_permissions_local_result
+  tags:
+    - CCE-83285-7
+    - DISA-STIG-SLES-15-010350
+    - configure_strategy
+    - file_permissions_local_var_log_messages
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Correct file permissions after update /etc/permissions.local
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result.changed
+  tags:
+    - CCE-83285-7
+    - DISA-STIG-SLES-15-010350
+    - configure_strategy
+    - file_permissions_local_var_log_messages
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

@@ -1,0 +1,35 @@
+# platform = Red Hat Enterprise Linux 8
+# reboot = true
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Ensure that the correct crypto policy configuration exists in /etc/crypto-policies/local.d/opensslcnf-ospp.config
+  lineinfile:
+    path: /etc/crypto-policies/local.d/opensslcnf-ospp.config
+    line: Ciphersuites = TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256
+    create: true
+    insertafter: EOF
+  tags:
+    - CCE-84286-4
+    - NIST-800-53-SC-13
+    - NIST-800-53-SC-8(1)
+    - harden_openssl_crypto_policy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - reboot_required
+    - restrict_strategy
+
+- name: Update system crypto policy for changes to take effect
+  command:
+    cmd: update-crypto-policies
+  tags:
+    - CCE-84286-4
+    - NIST-800-53-SC-13
+    - NIST-800-53-SC-8(1)
+    - harden_openssl_crypto_policy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - reboot_required
+    - restrict_strategy

@@ -1,0 +1,14 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = high
+- (xccdf-var var_removable_partition)
+
+
+- name: Ensure permission noexec are set on var_removable_partition
+  lineinfile:
+    path: /etc/fstab
+    regexp: '^\s*({{ var_removable_partition }})\s+([^\s]*)\s+([^\s]*)\s+([^\s]*)(.*)$'
+    backrefs: yes
+    line: '\1 \2 \3 \4,noexec \5'

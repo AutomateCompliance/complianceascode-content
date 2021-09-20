@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/obsolete/inetd_and_xinetd/file_permissions_etc_hosts_deny/rule.yml
+description: '
+
+  To properly set the permissions of <code>/etc/hosts.deny</code>, run the command:
+
+  <pre>$ sudo chmod 0644 /etc/hosts.deny</pre>'
+identifiers:
+  cce: CCE-84035-5
+inherited_platforms:
+- machine
+ocil: 'To check the permissions of <code>/etc/hosts.deny</code>,
+
+  run the command:
+
+  <pre>$ ls -l /etc/hosts.deny</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r--r--</code>'
+ocil_clause: /etc/hosts.deny has unix mode -rw-r--r--
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,rhel7
+rationale: 'The <tt>/etc/hosts.deny</tt> file is used to control access of clients
+  to daemons in the
+
+  server. Insecure groupownership of this file could allow users to grant clients
+  unrestricted
+
+  access or no access at all to services in the server.'
+references:
+  cis: 3.4.5
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0644'
+    filepath: /etc/hosts.deny
+    missing_file_pass: 'true'
+title: Verify Permissions on /etc/hosts.deny
+warnings: []

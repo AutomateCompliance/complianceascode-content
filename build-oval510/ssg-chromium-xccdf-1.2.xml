@@ -1,0 +1,1508 @@
+<?xml version="1.0"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.2" id="xccdf_org.ssgproject.content_benchmark_CHROMIUM" resolved="1" xml:lang="en-US" style="SCAP_1.2">
+  <status date="2021-09-19">draft</status>
+  <title xml:lang="en-US">Guide to the Secure Configuration of Chromium</title>
+  <description xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for Chromium. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <html:code xmlns:html="http://www.w3.org/1999/xhtml">scap-security-guide</html:code> package which is developed at
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/><html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <html:em xmlns:html="http://www.w3.org/1999/xhtml">catalog, not a
+checklist</html:em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <html:em xmlns:html="http://www.w3.org/1999/xhtml">Profiles</html:em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for Chromium,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</description>
+  <notice xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter xml:lang="en-US">The SCAP Security Guide Project<html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:google:chromium-browser"/>
+  <version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</version>
+  <metadata>
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:publisher>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:creator>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">François Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Peter 'Pessoft' Kolínek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Šimon Lukašík &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fredrik Lysén &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Renaud Métrich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Thomas Sjögren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matěj Týč &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Černý &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michal Šrubař &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </metadata>
+  <model system="urn:xccdf:scoring:default"/>
+  <Profile id="xccdf_org.ssgproject.content_profile_stig">
+    <title xml:lang="en-US" override="true">Upstream STIG for Google Chromium</title>
+    <description xml:lang="en-US" override="true">This profile is developed under the DoD consensus model and DISA FSO Vendor STIG process,
+serving as the upstream development environment for the Google Chromium STIG.
+
+As a result of the upstream/downstream relationship between the SCAP Security Guide project
+and the official DISA FSO STIG baseline, users should expect variance between SSG and DISA FSO content.
+For official DISA FSO STIG content, refer to https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance.
+
+While this profile is packaged by Red Hat as part of the SCAP Security Guide package, please note
+that commercial support of this SCAP content is NOT available. This profile is provided as example
+SCAP content with no endorsement for suitability or production readiness. Support for this
+profile is provided by the upstream SCAP Security Guide community on a best-effort basis. The
+upstream project homepage is https://www.open-scap.org/security-policies/scap-security-guide/.</description>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_blacklist_extension_installation" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_block_desktop_notifications" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_check_cert_revocation" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_default_block_plugins" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_default_search_provider" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_default_search_provider_name" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_3d_graphics_api" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_autocomplete" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_automatic_installation" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_background_processing" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_cleartext_passwords" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_cloud_print_sharing" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_firewall_traversal" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_google_sync" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_incognito_mode" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_metrics_reporting" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_network_prediction" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_outdated_plugins" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_password_manager" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_plugin_blacklist" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_popups" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_protocol_schemas" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_saved_passwords" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_search_suggestions" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_session_cookies" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disable_thirdparty_cookies" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_disallow_location_tracking" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_enable_approved_plugins" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_enable_browser_history" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_enable_encrypted_searching" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_enable_safe_browsing" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_extension_whitelist" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_http_authentication" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_plugins_require_authorization" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_policy_file" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_trusted_home_page" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_rule_chromium_whitelist_plugin_urls" selected="true"/>
+    <select idref="xccdf_org.ssgproject.content_group_remediation_functions" selected="false"/>
+    <refine-value idref="xccdf_org.ssgproject.content_value_var_default_search_provider_name" selector="google"/>
+    <refine-value idref="xccdf_org.ssgproject.content_value_var_url_blacklist" selector="javascript"/>
+    <refine-value idref="xccdf_org.ssgproject.content_value_var_enable_encrypted_searching" selector="google"/>
+    <refine-value idref="xccdf_org.ssgproject.content_value_var_extension_whitelist" selector="none"/>
+    <refine-value idref="xccdf_org.ssgproject.content_value_var_auth_schema" selector="negotiate"/>
+    <refine-value idref="xccdf_org.ssgproject.content_value_var_trusted_home_page" selector="blank"/>
+  </Profile>
+  <Group id="xccdf_org.ssgproject.content_group_remediation_functions">
+    <title xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</title>
+    <description xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="xccdf_org.ssgproject.content_group_chromium">
+    <title xml:lang="en-US">Chromium</title>
+    <description xml:lang="en-US">Chromium is an open-source web browser, powered by WebKit (Blink),
+and developed by Google. Web browsers such as Chromium are used for a number of
+reasons. This section provides settings for configuring Chromium policies to 
+meet compliance settings for Chromium running on Red Hat Enterprise Linux 
+systems.
+
+Refer to <html:ul xmlns:html="http://www.w3.org/1999/xhtml"><html:li>https://www.chromium.org/administrators/policy-list-3</html:li></html:ul> for
+a list of currently supported Chromium policies.
+Refer to <html:ul xmlns:html="http://www.w3.org/1999/xhtml"><html:li>https://www.chromium.org/administrators/policy_templates</html:li></html:ul> for 
+pre-created Chromium <html:code xmlns:html="http://www.w3.org/1999/xhtml">JSON</html:code> policy files.</description>
+    <Value id="xccdf_org.ssgproject.content_value_var_auth_schema" type="string">
+      <title xml:lang="en-US">Chromium HTTP Authentication Setting</title>
+      <description xml:lang="en-US">Chromium HTTP Authentication Types</description>
+      <value selector="all">basic,digest,ntlm,negotiate</value>
+      <value selector="basic">basic</value>
+      <value>negotiate</value>
+      <value selector="digest">digest</value>
+      <value selector="negotiate">negotiate</value>
+      <value selector="ntlm">ntlm</value>
+    </Value>
+    <Value id="xccdf_org.ssgproject.content_value_var_default_search_provider_name" type="string">
+      <title xml:lang="en-US">The Default Search provider in Chromium</title>
+      <description xml:lang="en-US">The URL for the Default Search provider in Chromium</description>
+      <value selector="bing">https://www.bing.com</value>
+      <value>https://www.google.com</value>
+      <value selector="google">https://www.google.com</value>
+      <value selector="yahoo">https://www.yahoo.com</value>
+    </Value>
+    <Value id="xccdf_org.ssgproject.content_value_var_enable_approved_plugins" type="string" interactive="true">
+      <title xml:lang="en-US">Chromium Enabled Plugins</title>
+      <description xml:lang="en-US">Chromium Enabled Plugins</description>
+      <value/>
+    </Value>
+    <Value id="xccdf_org.ssgproject.content_value_var_enable_encrypted_searching" type="string">
+      <title xml:lang="en-US">Encrypted Chromium Search URLs</title>
+      <description xml:lang="en-US">Encrypted search URL for the Default Search Provider</description>
+      <value selector="bing">https://www.bing.com/search?q={searchTerms}</value>
+      <value>https://www.google.com/#q={searchTerms}</value>
+      <value selector="google">https://www.google.com/#q={searchTerms}</value>
+      <value selector="yahoo">https://www.yahoo.com/search?q={searchTerms}</value>
+    </Value>
+    <Value id="xccdf_org.ssgproject.content_value_var_extension_whitelist" type="string">
+      <title xml:lang="en-US">Whitelisted Chromium Extenstions</title>
+      <description xml:lang="en-US">Chromium extensions approved for use</description>
+      <value>oiigbmnaadbkfbmpbfijlflahbdbdgdf</value>
+      <value selector="none">oiigbmnaadbkfbmpbfijlflahbdbdgdf</value>
+    </Value>
+    <Value id="xccdf_org.ssgproject.content_value_var_trusted_home_page" type="string">
+      <title xml:lang="en-US">Default Chromium Homepage</title>
+      <description xml:lang="en-US">Default homepage for Chromium users</description>
+      <value selector="blank">about:blank</value>
+      <value>about:blank</value>
+    </Value>
+    <Value id="xccdf_org.ssgproject.content_value_var_url_blacklist" type="string">
+      <title xml:lang="en-US">Blacklisted Chromium Protocols</title>
+      <description xml:lang="en-US">Blacklisted Protocol Schemas in Chromium</description>
+      <value>javascript://*</value>
+      <value selector="javascript">javascript://*</value>
+    </Value>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_blacklist_extension_installation" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable All Extensions by Default</title>
+      <description xml:lang="en-US">Extensions are developed by third party sources and are designed to extend 
+Google Chromium's functionality. As an extension can be made by anyone, all extensions
+should be blacklisted from installation by default. To blacklist all extensions, set the 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">ExtensionInstallBlacklist</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">*</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0006</reference>
+      <rationale xml:lang="en-US">Extensions can access almost anything on a system. This means they pose a high risk
+to any system that would allow all extensions to be installed by default.</rationale>
+      <fix id="chromium_blacklist_extension_installation" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="ExtensionInstallBlacklist"
+POL_SETTING_VAL="\[\"*\"\]"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_blacklist_extension_installation:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_blacklist_extension_installation_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_block_desktop_notifications" selected="false" severity="unknown">
+      <title xml:lang="en-US">Prevent Desktop Notifications</title>
+      <description xml:lang="en-US">Chromium by default allows websites to display notifications on the desktop.
+To disable this setting, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultNotificationsSetting</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">2</html:code>
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0003</reference>
+      <rationale xml:lang="en-US">Disabling Chromium's ability to display notifications on the desktop helps prevent 
+malicious websites from controlling desktop notifications or fooling users into
+clicking on a potentially compromised notification.</rationale>
+      <fix id="chromium_block_desktop_notifications" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultNotificationsSetting"
+POL_SETTING_VAL="2"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_block_desktop_notifications:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_block_desktop_notifications_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_check_cert_revocation" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable Online OCSP/CRL Certificate Checks</title>
+      <description xml:lang="en-US">Certificates can become compromised, and Chromium should check that the
+certificates in its store are valid by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">EnableOnlineRevocationChecks</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0037</reference>
+      <rationale xml:lang="en-US">Certificates are revoked when they have been compromised or are no longer valid,
+and this option protects users from submitting confidential data to a site that
+may be fraudulent or not secure.</rationale>
+      <fix id="chromium_check_cert_revocation" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="EnableOnlineRevocationChecks"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_check_cert_revocation:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_check_cert_revocation_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_default_block_plugins" selected="false" severity="unknown">
+      <title xml:lang="en-US">Block Plugins by Default</title>
+      <description xml:lang="en-US">By default, websites are allowed to automatically run plugins.
+Users should be prompted to allow plugins to execute plugins by setting
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultPluginsSetting</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">3</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0040</reference>
+      <rationale xml:lang="en-US">Websites should not be allowed to automatically run plugins as the plugins
+may be outdated or compromised.</rationale>
+      <fix id="chromium_default_block_plugins" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultPluginsSetting"
+POL_SETTING_VAL="3"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_default_block_plugins:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_default_block_plugins_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_default_search_provider" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable the Default Search Provider</title>
+      <description xml:lang="en-US">By default users, can change search provider settings. To disable this, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultSearchProviderEnabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0009</reference>
+      <rationale xml:lang="en-US">A default search is performed when the user types text in the omnibox that is not a URL.
+This should be organizationally defined and not allowed to be changed by a user.</rationale>
+      <fix id="chromium_default_search_provider" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultSearchProviderEnabled"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_default_search_provider:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_default_search_provider_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_default_search_provider_name" selected="false" severity="unknown">
+      <title xml:lang="en-US">Set the Default Search Provider's URL</title>
+      <description xml:lang="en-US">Specifies the URL of the default search provider that is to be used. To set the 
+URL of the default search provider, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultSearchProviderName</html:code> to 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="dangling reference to var_default_search_provider!" use="legacy"/></html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0007</reference>
+      <rationale xml:lang="en-US">When doing internet searches, it is important to set an organizationally approved search
+provider as well as use an encrypted connection via https.</rationale>
+      <fix id="chromium_default_search_provider_name" system="urn:xccdf:fix:script:sh">
+var_default_search_provider_name="<sub idref="xccdf_org.ssgproject.content_value_var_default_search_provider_name" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultSearchProviderName"
+POL_SETTING_VAL=$(echo ${var_default_search_provider_name} | sed 's/\//\\\/\\/')
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": "'${var_default_search_provider_name}'",' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'\".*/\"'${POL_SETTING}'\": \"'${POL_SETTING_VAL}'\",/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_default_search_provider_name:var:1" value-id="xccdf_org.ssgproject.content_value_var_default_search_provider_name"/>
+        <check-content-ref name="oval:ssg-chromium_default_search_provider_name:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_default_search_provider_name_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_3d_graphics_api" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable the 3D Graphics APIs</title>
+      <description xml:lang="en-US">Chromium uses WebGL to render graphics using the GPU which allows website
+access to the GPU. This should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">Disable3DAPIs</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0019</reference>
+      <rationale xml:lang="en-US">This setting prevents web pages from accessing the graphics processing unit
+(GPU). Specifically, web pages cannot access the WebGL API and plugins cannot
+use the Pepper 3D API in order to reduce the attack surface.</rationale>
+      <fix id="chromium_disable_3d_graphics_api" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="Disable3DAPIs"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_3d_graphics_api:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_3d_graphics_api_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_autocomplete" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable the AutoFill Feature</title>
+      <description xml:lang="en-US">The AutoFill feature suggests possible matches when users are filling in forms. To
+disable the AutoFill feature, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">AutoFillEnabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in
+the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0022</reference>
+      <rationale xml:lang="en-US">It is possible with the AutoFill feature that it will cache sensitive data and store
+it in the user's profile, where it might not be protected as rigorously as required by
+organizational policy.</rationale>
+      <fix id="chromium_disable_autocomplete" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="AutoFillEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_autocomplete:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_autocomplete_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_automatic_installation" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Automatic Search And Installation of Plugins</title>
+      <description xml:lang="en-US">Chromium will automatically detect, search, and install plugins as required. This
+should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">DisablePluginFinder</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the
+Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0036</reference>
+      <rationale xml:lang="en-US">The automatic search and installation of missing or not installed plugins should be
+disabled as this can cause significant risk if a unapproved or vulnerable plugin were
+to be installed without proper permissions or authorization.</rationale>
+      <fix id="chromium_disable_automatic_installation" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DisablePluginFinder"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_automatic_installation:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_automatic_installation_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_background_processing" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Background Processing</title>
+      <description xml:lang="en-US">Chromium can be set to run at all times and process in the background. This
+should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">BackgroundModeEnabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0017</reference>
+      <rationale xml:lang="en-US">There is two reasons that this is not wanted. First, it can tie up system
+resources that might otherwise be needed. Second, it does not make it
+obvious to the user that it is running and poorly written extensions could
+cause instability on the system.</rationale>
+      <fix id="chromium_disable_background_processing" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="BackgroundModeEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_background_processing:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_background_processing_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_cleartext_passwords" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Use of Cleartext Passwords</title>
+      <description xml:lang="en-US">Chromium allows users to import and store passwords in cleartext. This should be 
+disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">PasswordManagerAllowShowPasswords</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0010</reference>
+      <rationale xml:lang="en-US">Cleartext passwords would allow another individual to see password via shoulder surfing.</rationale>
+      <fix id="chromium_disable_cleartext_passwords" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="PasswordManagerAllowShowPasswords"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_cleartext_passwords:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_cleartext_passwords_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_cloud_print_sharing" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Cloud Print Sharing</title>
+      <description xml:lang="en-US">Chromium has cloud sharing capabilities including sharing printers connected to the
+system. This is done via a proxy. To disable printer sharing, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">CloudPrintProxyEnabled</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0023</reference>
+      <rationale xml:lang="en-US">Google Chromium has the capability to act as a proxy between Google Cloud Print
+and legacy printers connected to the machine. Users can then enable the cloud
+print proxy by authentication with their Google account.</rationale>
+      <fix id="chromium_disable_cloud_print_sharing" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="CloudPringProxyEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_cloud_print_sharing:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_cloud_print_sharing_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_firewall_traversal" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Chromium's Ability to Traverse Firewalls</title>
+      <description xml:lang="en-US">Chromium has the ability to bypass and ignore the system firewall. This
+ability should be disabled. To disable this setting, set 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">RemoteAccessHostFirewallTraversal</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the 
+Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0001</reference>
+      <rationale xml:lang="en-US">Remote connections should never be allowed to bypass the system firewall
+as there is no way to verify if they can be trusted.</rationale>
+      <fix id="chromium_disable_firewall_traversal" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="RemoteAccessHostFirewallTraversal"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_firewall_traversal:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_firewall_traversal_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_google_sync" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Data Synchronization to Google</title>
+      <description xml:lang="en-US"><html:code xmlns:html="http://www.w3.org/1999/xhtml">SyncDisabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0020</reference>
+      <rationale xml:lang="en-US">Google Sync is used to sync information between different user devices,
+this data is then stored on Google owned servers. The synced data may consist
+of information such as email, calendars, viewing history, etc. This feature must
+be disabled because the organization does not have control over the servers the
+data is stored on.</rationale>
+      <fix id="chromium_disable_google_sync" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="SyncDisabled"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_google_sync:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_google_sync_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_incognito_mode" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Incognito Mode</title>
+      <description xml:lang="en-US">Incognito Mode allows users to browse in private which prevents monitoring
+and validating user browsing habits. This capability should be disabled by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">IncognitoModeAvailability</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">1</html:code> in the Chromium
+policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0030</reference>
+      <rationale xml:lang="en-US">Incognito mode allows the user to browse the Internet without recording their
+browsing history/activity. From a forensics perspective, this is unacceptable.
+Best practice requires that browser history is retained.</rationale>
+      <fix id="chromium_disable_incognito_mode" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="IncognitoModeAvailability"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_incognito_mode:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_incognito_mode_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_metrics_reporting" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Metrics Reporting</title>
+      <description xml:lang="en-US">Whenever Chromium crashes, it sends its usage and crash-related data to Google.
+This should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">MetricsReportingEnabled</html:code> to 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0026</reference>
+      <rationale xml:lang="en-US">Anonymous reporting of usage and crash-related data is sent to Google.
+A crash report could contain sensitive information from the computer's memory.</rationale>
+      <fix id="chromium_disable_metrics_reporting" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="MetricsReportingEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_metrics_reporting:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_metrics_reporting_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_network_prediction" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Network Prediction</title>
+      <description xml:lang="en-US">To disable the network prediction feature, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">DnsPrefetchingEnabled</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0025</reference>
+      <rationale xml:lang="en-US">This controls not only DNS prefetching but also TCP and SSL preconnection
+and prerendering of web pages.</rationale>
+      <fix id="chromium_disable_network_prediction" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DnsPrefetchingEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_network_prediction:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_network_prediction_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_outdated_plugins" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Outdated Plugins</title>
+      <description xml:lang="en-US">Outdated plugins should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">AllowOutdatedPlugins</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0013</reference>
+      <rationale xml:lang="en-US">Running outdated plugins could lead to system compromise through the use
+of known exploits. Having plugins updated to the most current version
+ensures the smallest attack surfuce possible.</rationale>
+      <fix id="chromium_disable_outdated_plugins" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="AllowOutdatedPlugins"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_outdated_plugins:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_outdated_plugins_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_password_manager" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Chromium Password Manager</title>
+      <description xml:lang="en-US">Chromium Password Manager allows the saving and using of passwords in Chromium. This
+should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">PasswordManagerEnabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in 
+the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0011</reference>
+      <rationale xml:lang="en-US">Enables saving passwords and using saved passwords in Google Chromium. Malicious
+sites may take advantage of this feature by using hidden fields gain access
+to the stored information.</rationale>
+      <fix id="chromium_disable_password_manager" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="PasswordManagerEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_password_manager:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_password_manager_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_plugin_blacklist" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable All Plugins by Default</title>
+      <description xml:lang="en-US">Plugins are developed internally or by third party sources and are designed to extend
+Google Chromium's functionality. All plugins should be blacklisted from 
+installation by default. To blacklist all plugins set <html:code xmlns:html="http://www.w3.org/1999/xhtml">DisabledPlugins</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">*</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0034</reference>
+      <rationale xml:lang="en-US">Plugins can access almost anything on a system and users can enable or install them
+at will. This means they pose a high risk to any system that would allow all plugins
+to be installed by default.</rationale>
+      <fix id="chromium_disable_plugin_blacklist" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DisabledPlugins"
+POL_SETTING_VAL="\[\"*\"\]"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_plugin_blacklist:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_plugin_blacklist_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_popups" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Popups</title>
+      <description xml:lang="en-US">Chromium allows you to manage whether or not unwanted pop-up windows appear.
+To disable pop-ups, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultPopupsSetting</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">2</html:code> 
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0004</reference>
+      <rationale xml:lang="en-US">Pop-up windows should be disabled to prevent malicious websites from controlling
+pop-up windows or fooling users into clicking on the wrong window.</rationale>
+      <fix id="chromium_disable_popups" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultPopupsSetting"
+POL_SETTING_VAL="2"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_popups:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_popups_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_protocol_schemas" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Insecure And Obsolete Protocol Schemas</title>
+      <description xml:lang="en-US">Each access to a URL is handled by the browser according to the URL's "scheme".
+The "scheme" of a URL is the section before the ":". The term "protocol" is often
+mistakenly used for a "scheme". The difference is that the scheme is how the browser
+handles a URL and the protocol is how the browser communicates with a service. To
+disable insecure and obsolete protocol schema, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">URLBlacklist</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="xccdf_org.ssgproject.content_value_var_url_blacklist" use="legacy"/></html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0021</reference>
+      <rationale xml:lang="en-US">If a scheme or its associated protocol used by a browser is insecure or obsolete,
+vulnerabilities can be exploited resulting in exposed data or unrestricted access
+to the browser's system.</rationale>
+      <fix id="chromium_disable_protocol_schemas" system="urn:xccdf:fix:script:sh">
+var_url_blacklist="<sub idref="xccdf_org.ssgproject.content_value_var_url_blacklist" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="URLBlacklist"
+POL_SETTING_VAL=$(echo ${var_url_blacklist}| sed 's/\//\\\/\\/')
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": \["'${var_url_blacklist}'"\],' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": \[\"'${POL_SETTING_VAL}'\"\],/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_url_blacklist:var:1" value-id="xccdf_org.ssgproject.content_value_var_url_blacklist"/>
+        <check-content-ref name="oval:ssg-chromium_disable_protocol_schemas:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_protocol_schemas_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_saved_passwords" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Saved Passwords</title>
+      <description xml:lang="en-US">Disable by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">ImportSavedPasswords</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium
+policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0029</reference>
+      <rationale xml:lang="en-US">Importing of saved passwords should be disabled as it could lead to
+unencrypted account passwords stored on the system from another browser
+to be viewed.</rationale>
+      <fix id="chromium_disable_saved_passwords" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="ImportSavedPasswords"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_saved_passwords:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_saved_passwords_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_search_suggestions" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Search Suggestion</title>
+      <description xml:lang="en-US">Chromium tries to guess what users are searching for when users enter
+search data in the search Omnibox. This should be disabled by 
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">SearchSuggestEnabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium 
+policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0027</reference>
+      <rationale xml:lang="en-US">Search suggestion should be disabled as it could lead to searches being conducted
+that were never intended to be made.</rationale>
+      <fix id="chromium_disable_search_suggestions" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="SearchSuggestEnabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_search_suggestions:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_search_suggestions_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_session_cookies" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Session Cookies</title>
+      <description xml:lang="en-US">To disable session only cookies sites, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">CookiesSessionOnlyForUrls</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">none</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0045</reference>
+      <rationale xml:lang="en-US">Cookies should only be allowed per session and only for approved URLs as 
+permanently stored cookies can be used for malicious intent.</rationale>
+      <fix id="chromium_disable_session_cookies" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="CookiesSessionOnlyForUrls"
+POL_SETTING_VAL="none"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": \["'${POL_SETTING_VAL}'"\],' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": \[\"'${POL_SETTING_VAL}'\"\],/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_session_cookies:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_session_cookies_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disable_thirdparty_cookies" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable 3rd Party Cookies</title>
+      <description xml:lang="en-US">Third party cookies should be be enabled. To disable third party cookies,
+set <html:code xmlns:html="http://www.w3.org/1999/xhtml">BlockThirdPartyCookies</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the Chromium policy
+file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0015</reference>
+      <rationale xml:lang="en-US">Third party cookies are cookies which can be set by web page elements that
+are not from the domain that is in the browser's address bar. This prevents
+cookies from being set by web page elements that are not from the domain
+that is in the browser's address bar.</rationale>
+      <fix id="chromium_disable_thirdparty_cookies" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="BlockThirdPartyCookies"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disable_thirdparty_cookies:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disable_thirdparty_cookies_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_disallow_location_tracking" selected="false" severity="unknown">
+      <title xml:lang="en-US">Disable Location Tracking</title>
+      <description xml:lang="en-US">Location tracking is enabled by default and can track user's browsing habits.
+Location tracking should be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultGeolocationSetting</html:code> 
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">2</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0002</reference>
+      <rationale xml:lang="en-US">Website tracking is the practice of gathering information as to which websites
+were accesses by a browser. The common method of doing this is to have a website
+create a tracking cookie on the browser. If the information of what sites are
+being accessed is made available to unauthorized persons, this violates 
+confidentiality requirements, and over time poses a significant OPSEC issue.</rationale>
+      <fix id="chromium_disallow_location_tracking" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultGeolocationSetting"
+POL_SETTING_VAL="2"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_disallow_location_tracking:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_disallow_location_tracking_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_enable_approved_plugins" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable Only Approved Plugins</title>
+      <description xml:lang="en-US">An organization might need to use an internal or third party developed plugins. Any
+organizationally approved plugin should be enabled. To enable approved plugins,
+set <html:code xmlns:html="http://www.w3.org/1999/xhtml">EnabledPlugins</html:code> to the list of organizationally approved plugins
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0035</reference>
+      <rationale xml:lang="en-US">The whitelist should only contain organizationally approved plugins. This is to prevent
+a user from accidently whitelisitng a malicious plugin.</rationale>
+      <fix id="chromium_enable_approved_plugins" system="urn:xccdf:fix:script:sh">
+var_enable_approved_plugins="<sub idref="xccdf_org.ssgproject.content_value_var_enable_approved_plugins" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="EnabledPlugins"
+POL_SETTING_VAL=$(echo ${var_enable_approved_plugins} | sed 's/\//\\\/\\/')
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": \['${var_enable_approved_plugins}'\],' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'\".*/\"'${POL_SETTING}'\": \['${POL_SETTING_VAL}'\],/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_enable_approved_plugins:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_enable_approved_plugins_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_enable_browser_history" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable Saving the Browser History</title>
+      <description xml:lang="en-US">Users can enable or disable the saving of browser history in Chromium. Browser
+history should be retained by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">SavingBrowserHistoryDisabled</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0039</reference>
+      <rationale xml:lang="en-US">Best practice requires that browser history is retained.</rationale>
+      <fix id="chromium_enable_browser_history" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="SavingBrowserHistoryDisabled"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_enable_browser_history:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_enable_browser_history_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_enable_encrypted_searching" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable Encrypted Searching</title>
+      <description xml:lang="en-US">Specifies the URL of the search engine used when doing a default search.
+The URL should contain the string <html:code xmlns:html="http://www.w3.org/1999/xhtml">{searchTerms}</html:code>. To set the URL of the
+search engine, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">DefaultSearchProviderSearchURL</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="xccdf_org.ssgproject.content_value_var_enable_encrypted_searching" use="legacy"/></html:code> in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0008</reference>
+      <rationale xml:lang="en-US">When doing internet searches, it is important to use an encrypted connection via https.</rationale>
+      <fix id="chromium_enable_encrypted_searching" system="urn:xccdf:fix:script:sh">
+var_enable_encrypted_searching="<sub idref="xccdf_org.ssgproject.content_value_var_enable_encrypted_searching" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="DefaultSearchProviderSearchURL"
+POL_SETTING_VAL=$(echo ${var_enable_encrypted_searching} | sed 's/\//\\\/\\/')
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": "'${var_enable_encrypted_searching}'",' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's;\"'${POL_SETTING}'\".*;\"'${POL_SETTING}'\": \"'${POL_SETTING_VAL}'\",;g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_enable_encrypted_searching:var:1" value-id="xccdf_org.ssgproject.content_value_var_enable_encrypted_searching"/>
+        <check-content-ref name="oval:ssg-chromium_enable_encrypted_searching:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_enable_encrypted_searching_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_enable_safe_browsing" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable the Safe Browsing Feature</title>
+      <description xml:lang="en-US">Chromium has the capability to check URLs for known malware and phishing 
+associated with websites through the Safe Browsing Feature. This can be 
+enabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">SafeBrowsingEnabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in the Chromium
+policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0038</reference>
+      <rationale xml:lang="en-US">Safe browsing uses a signature database to test sites when they are be loaded
+to ensure that sites do not contain any known malware.</rationale>
+      <fix id="chromium_enable_safe_browsing" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="SafeBrowsingEnabled"
+POL_SETTING_VAL="true"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_enable_safe_browsing:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_enable_safe_browsing_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_extension_whitelist" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable Only Approved Extensions</title>
+      <description xml:lang="en-US">An organization might need to use an internal or third party developed extension. Any
+organizationally approved extenstion should be enabled. To enable approved extensions,
+set <html:code xmlns:html="http://www.w3.org/1999/xhtml">ExtensionInstallWhitelist</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="xccdf_org.ssgproject.content_value_var_extension_whitelist" use="legacy"/></html:code>
+in the Chromium policy file.
+If there are no approved extensions, <html:code xmlns:html="http://www.w3.org/1999/xhtml">ExtensionInstallWhitelist</html:code> should be set to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="xccdf_org.ssgproject.content_value_var_extension_whitelist" selector="default" use="legacy"/></html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0003</reference>
+      <rationale xml:lang="en-US">The whitelist should only contain organizationally approved extensions. This is to prevent
+a user from accidently whitelisitng a malicious extension.</rationale>
+      <fix id="chromium_extension_whitelist" system="urn:xccdf:fix:script:sh">
+var_extension_whitelist="<sub idref="xccdf_org.ssgproject.content_value_var_extension_whitelist" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="ExtensionInstallWhitelist"
+POL_SETTING_VAL=$(echo ${var_extension_whitelist} | sed 's/\//\\\/\\/')
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": "'${var_extension_whitelist}'",' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'\".*/\"'${POL_SETTING}'\": \"'${POL_SETTING_VAL}'\",/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_extension_whitelist:var:1" value-id="xccdf_org.ssgproject.content_value_var_extension_whitelist"/>
+        <check-content-ref name="oval:ssg-chromium_extension_whitelist:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_extension_whitelist_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_http_authentication" selected="false" severity="unknown">
+      <title xml:lang="en-US">Set Chromium's HTTP Authentication Scheme</title>
+      <description xml:lang="en-US">To set the default Chromium's HTTP Authentication Scheme, set 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">AuthSchemes</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="dangling reference to var_auth_schemes!" use="legacy"/></html:code> in the 
+Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0012</reference>
+      <rationale xml:lang="en-US">Specifies which HTTP Authentication schemes are supported by Google Chromium.</rationale>
+      <fix id="chromium_http_authentication" system="urn:xccdf:fix:script:sh">
+var_auth_schema="<sub idref="xccdf_org.ssgproject.content_value_var_auth_schema" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="AuthSchemes"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": "'${var_auth_schemes}'",' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": \"'${var_auth_schemes}'\",/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_auth_schema:var:1" value-id="xccdf_org.ssgproject.content_value_var_auth_schema"/>
+        <check-content-ref name="oval:ssg-chromium_http_authentication:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_http_authentication_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_plugins_require_authorization" selected="false" severity="unknown">
+      <title xml:lang="en-US">Require Outdated Plugins to be Authorized</title>
+      <description xml:lang="en-US">Chromium should prompt users for authorization to run outdated plugins. This
+can be enabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">AlwaysAuthorizePlugins</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0014</reference>
+      <rationale xml:lang="en-US">Outdated plugins can compromise security and should request authorization from
+the user before running.</rationale>
+      <fix id="chromium_plugins_require_authorization" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="AlwaysAuthorizePlugins"
+POL_SETTING_VAL="false"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": '${POL_SETTING_VAL}',' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'.*/\"'${POL_SETTING}'\": '${POL_SETTING_VAL}',/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_plugins_require_authorization:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_plugins_require_authorization_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_policy_file" selected="false" severity="unknown">
+      <title xml:lang="en-US">Ensure the Chromium Policy Configuration File Exists</title>
+      <description xml:lang="en-US">Chromium can be configured with numerous policies and settings. These
+settings can be set so that a user is unable to edit or change them.
+To prevent users from setting or changing Chromium settings, a 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">JavaScript Object Notation (JSON)</html:code> file (contains the <html:code xmlns:html="http://www.w3.org/1999/xhtml">.json</html:code>
+extension) must exist in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/chromium/policies/managed</html:code>.
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/><html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+<html:ul xmlns:html="http://www.w3.org/1999/xhtml"><html:li>Refer to https://www.chromium.org/administrators/policy-list-3 for
+a list of currently supported Chromium policies.</html:li></html:ul>
+<html:ul xmlns:html="http://www.w3.org/1999/xhtml"><html:li>Refer to https://www.chromium.org/administrators/policy_templates for
+pre-created Chromium <html:code>JSON</html:code> policy files.</html:li></html:ul>
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/></description>
+      <warning xml:lang="en-US" category="general">If the <html:code xmlns:html="http://www.w3.org/1999/xhtml">.json</html:code> file in
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/chromium/policies/managed</html:code> is not formatted correctly,
+no policies will be configured or set correctly.</warning>
+      <rationale xml:lang="en-US">The Chromium policy file must exist as this file contains configuration 
+settings set by the System's Administrator to meet organization and/or 
+security requirements.</rationale>
+      <fix id="chromium_policy_file" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+
+if [ ! -d ${CHROME_POL_DIR} ] ; then
+   mkdir -p -m 755 ${CHROME_POL_DIR}
+fi
+
+if [ ! -f ${CHROME_POL_DIR}/${CHROME_POL_FILE} ] ; then
+   touch ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+   chmod 644 ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+
+grep -q -E '^\{' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+if ! [ $? -eq 0 ] ; then
+   if [ -s ${CHROME_POL_DIR}/${CHROME_POL_FILE} ] ; then
+      sed -i '1s/^/\{\n/' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+   else
+      echo -e "{" &gt;&gt; ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+   fi
+fi
+
+tail -1 ${CHROME_POL_DIR}/${CHROME_POL_FILE} | grep -q -E '^\}'
+if ! [ $? -eq 0 ] ; then
+   echo -e "}" &gt;&gt; ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi 
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_policy_file:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_policy_file_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_trusted_home_page" selected="false" severity="unknown">
+      <title xml:lang="en-US">Set the Default Home Page</title>
+      <description xml:lang="en-US">When a browser is started the first web page displayed is the "home page".
+While the home page can be selected by the user, the default home page needs
+to be defined to display an approved page. To set the default home page,
+set <html:code xmlns:html="http://www.w3.org/1999/xhtml">HomepageLocation</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><sub idref="xccdf_org.ssgproject.content_value_var_trusted_home_page" use="legacy"/></html:code>
+in the Chromium policy file.</description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0048</reference>
+      <rationale xml:lang="en-US">If no home page is defined then there is a possibility that a URL to a malicious
+site may be used as a home page which could effectively cause a denial of service
+to the browser.</rationale>
+      <fix id="chromium_trusted_home_page" system="urn:xccdf:fix:script:sh">
+var_trusted_home_page="<sub idref="xccdf_org.ssgproject.content_value_var_trusted_home_page" use="legacy"/>"
+
+
+CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="HomepageLocation"
+POL_SETTING_VAL=$(echo ${var_trusted_home_page} | sed 's/\//\\\/\\/')
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": "'${var_trusted_home_page}'",' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'\".*/\"'${POL_SETTING}'\": \"'${POL_SETTING_VAL}'\",/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_trusted_home_page:var:1" value-id="xccdf_org.ssgproject.content_value_var_trusted_home_page"/>
+        <check-content-ref name="oval:ssg-chromium_trusted_home_page:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_trusted_home_page_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="xccdf_org.ssgproject.content_rule_chromium_whitelist_plugin_urls" selected="false" severity="unknown">
+      <title xml:lang="en-US">Enable Plugins for Only Approved URLs</title>
+      <description xml:lang="en-US">In some cases, plugins utilized by organizationally approved websites may be allowed
+to be used by those websites, configure the approved URLs allowed to run plugins by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">PluginsAllowedForUrls</html:code> to organizationally approved URLs
+in the Chromium policy file. If there are no approved URLs, this should be set
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">none</html:code></description>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBC0051</reference>
+      <rationale xml:lang="en-US">Only approved plugins for approved sites should be allowed to be utilized.</rationale>
+      <fix id="chromium_whitelist_plugin_urls" system="urn:xccdf:fix:script:sh">CHROME_POL_FILE="chrome_stig_policy.json"
+CHROME_POL_DIR="/etc/chromium/policies/managed/"
+POL_SETTING="PluginsAllowedForUrls"
+POL_SETTING_VAL="none"
+
+grep -q ${POL_SETTING} ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+
+if ! [ $? -eq 0 ] ; then
+   sed -i -e '/{/a \  "'${POL_SETTING}'": "'${POL_SETTING_VAL}'",' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+else
+   sed -i -e 's/\"'${POL_SETTING}'\".*/\"'${POL_SETTING}'\": \"'${POL_SETTING_VAL}'\",/g' ${CHROME_POL_DIR}/${CHROME_POL_FILE}
+fi
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-chromium_whitelist_plugin_urls:def:1" href="ssg-chromium-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-chromium_whitelist_plugin_urls_ocil:questionnaire:1" href="ssg-chromium-ocil.xml"/>
+      </check>
+    </Rule>
+  </Group>
+</Benchmark>

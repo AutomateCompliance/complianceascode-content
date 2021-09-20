@@ -1,0 +1,18 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure abrt-cli is removed
+  package:
+    name: abrt-cli
+    state: absent
+  tags:
+    - CCE-82907-7
+    - DISA-STIG-RHEL-08-040001
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - low_severity
+    - no_reboot_needed
+    - package_abrt-cli_removed

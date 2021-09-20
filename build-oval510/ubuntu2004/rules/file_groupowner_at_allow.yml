@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/cron_and_at/restrict_at_cron_users/file_groupowner_at_allow/rule.yml
+description: 'If <tt>/etc/at.allow</tt> exists, it must be group-owned by <tt>root</tt>.
+
+
+  To properly set the group owner of <code>/etc/at.allow</code>, run the command:
+
+  <pre>$ sudo chgrp root /etc/at.allow</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To check the group ownership of <code>/etc/at.allow</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /etc/at.allow</pre>
+
+  If properly configured, the output should indicate the following group-owner:
+
+  <code>root</code>'
+ocil_clause: /etc/at.allow has group owner root
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: sle12,sle15,ubuntu2004
+rationale: 'If the owner of the at.allow file is not set to root, the possibility
+  exists for an
+
+  unauthorized user to view or edit sensitive information.'
+references:
+  cis: 5.1.9
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_groupowner
+  vars:
+    filegid: '0'
+    filepath: /etc/at.allow
+    missing_file_pass: 'true'
+title: Verify Group Who Owns /etc/at.allow file
+warnings: []

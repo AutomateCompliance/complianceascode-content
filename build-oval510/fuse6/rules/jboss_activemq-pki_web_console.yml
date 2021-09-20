@@ -1,0 +1,24 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/amq/jboss_activemq-pki_web_console/rule.yml
+description: PKI should be enabled for the Web Console.
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: PKI is not enabled for the web console
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'All applications requiring user authentication to access sensitive
+
+  data must be PKI-enabled in compliance with DoDI 8520.2 PKI and PKI
+
+  Enabling and are required to credentials approved under the DoD PKI
+
+  program.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Ensure ActiveMQ Web Console is using PKI
+warnings: []

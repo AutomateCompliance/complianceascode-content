@@ -1,0 +1,50 @@
+<def-group>
+  <definition class="compliance" id="dconf_gnome_lock_screen_on_smartcard_removal" version="1">
+    <metadata>
+        <title>Enable the GNOME3 Screen Locking On Smartcard Removal</title>
+        
+    <affected family="unix">
+    <platform>Fedora</platform>
+    </affected>
+        <description>Ensure 'removal-action' is configured with value ''lock-screen' in section 'org/gnome/settings-daemon/peripherals/smartcard' in /etc/dconf/db/local.d/</description>
+    </metadata>
+    <criteria comment="dconf is configured correctly"
+    operator="AND"><criterion comment="Check the removal-action in /etc/dconf/db/local.d/"
+  test_ref="test_dconf_gnome_lock_screen_on_smartcard_removal" />
+      <criterion comment="Prevent user from modifying removal-action"
+      test_ref="test_prevent_user_removal-action" />
+    </criteria>
+  </definition>
+  
+<ind:textfilecontent54_test check="all" check_existence="all_exist"
+  comment="tests the value of removal-action setting in the /etc/dconf/db/local.d/ file"
+  id="test_dconf_gnome_lock_screen_on_smartcard_removal" version="1">
+  <ind:object object_ref="obj_dconf_gnome_lock_screen_on_smartcard_removal" />
+  <ind:state state_ref="state_dconf_gnome_lock_screen_on_smartcard_removal" />
+</ind:textfilecontent54_test>
+  
+<ind:textfilecontent54_object id="obj_dconf_gnome_lock_screen_on_smartcard_removal" version="1">
+  <ind:path>/etc/dconf/db/local.d/</ind:path>
+  <ind:filename operation="pattern match">^.*$</ind:filename>
+  <ind:pattern operation="pattern match">^\s*\[org/gnome/settings-daemon/peripherals/smartcard\].*(?:\n\s*[^[\s].*)*\n^\s*removal-action[ \t]*=[ \t]*(.+?)[ \t]*(?:$|#)</ind:pattern>
+  <ind:instance operation="greater than or equal" datatype="int">1</ind:instance>
+</ind:textfilecontent54_object>
+  
+<ind:textfilecontent54_state id="state_dconf_gnome_lock_screen_on_smartcard_removal" version="1">
+  <ind:subexpression datatype="string" operation="pattern match">^'lock-screen'$</ind:subexpression>
+</ind:textfilecontent54_state>
+
+  <ind:textfilecontent54_test check="all" check_existence="all_exist"
+  comment="Prevent user from modifying removal-action"
+  id="test_prevent_user_removal-action" version="1">
+    <ind:object object_ref="obj_prevent_user_removal-action" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="obj_prevent_user_removal-action"
+  version="1">
+    <ind:path>/etc/dconf/db/local.d/locks</ind:path>
+    <ind:filename operation="pattern match">^.*$</ind:filename>
+    <ind:pattern operation="pattern match">^/org/gnome/settings-daemon/peripherals/smartcard/removal-action$</ind:pattern>
+    <ind:instance datatype="int">1</ind:instance>
+  </ind:textfilecontent54_object>
+
+</def-group>

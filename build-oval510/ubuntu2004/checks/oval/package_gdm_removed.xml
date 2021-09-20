@@ -1,0 +1,26 @@
+<def-group>
+  <definition class="compliance" id="package_gdm_removed"
+  version="1">
+    <metadata>
+        <title>Remove the GDM Package Group</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The DPKG package gdm3 should be removed.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="package gdm3 is removed"
+      test_ref="test_package_gdm3_removed" />
+    </criteria>
+  </definition>
+
+  <linux:dpkginfo_test check="all" check_existence="none_exist"
+  id="test_package_gdm3_removed" version="1"
+  comment="package gdm3 is removed">
+    <linux:object object_ref="obj_test_package_gdm3_removed" />
+  </linux:dpkginfo_test>
+  <linux:dpkginfo_object id="obj_test_package_gdm3_removed" version="1">
+    <linux:name>gdm3</linux:name>
+  </linux:dpkginfo_object>
+
+</def-group>

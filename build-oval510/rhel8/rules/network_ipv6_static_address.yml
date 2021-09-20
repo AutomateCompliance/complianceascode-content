@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-ipv6/configuring_ipv6/network_ipv6_static_address/rule.yml
+description: 'To manually assign an IP address for an interface, edit the
+
+  file <tt>/etc/sysconfig/network-scripts/ifcfg-<i>interface</i></tt>. Add or correct
+  the
+
+  following line (substituting the correct IPv6 address):
+
+  <pre>IPV6ADDR=2001:0DB8::ABCD/64</pre>
+
+  Manually assigning an IP address is preferable to accepting one from routers or
+
+  from the network otherwise. The example address here is an IPv6 address
+
+  reserved for documentation purposes, as defined by RFC3849.'
+identifiers:
+  cce: CCE-84298-9
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8
+rationale: ''
+references:
+  disa: CCI-000366
+  ism: 1315,1319
+requires: []
+severity: unknown
+template: null
+title: Manually Assign Global IPv6 Address
+warnings: []

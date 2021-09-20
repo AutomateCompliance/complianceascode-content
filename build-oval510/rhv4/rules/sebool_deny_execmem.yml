@@ -1,0 +1,52 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_deny_execmem/rule.yml
+description: 'By default, the SELinux boolean <tt>deny_execmem</tt> is disabled.
+
+  If this setting is disabled, it should be enabled.
+
+
+  To disable the <code>deny_execmem</code> SELinux boolean, run the following command:
+
+  <pre>$ sudo setsebool -P deny_execmem off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>deny_execmem</code> SELinux
+  boolean is enabled:
+
+  <pre>$ getsebool deny_execmem</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>deny_execmem --> on</code>'
+ocil_clause: deny_execmem is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9,rhv4
+rationale: 'Allowing user domain applications to map a memory region as both writable
+  and
+
+  executable makes them more susceptible to data execution attacks.'
+references:
+  anssi: BP28(R67)
+requires: []
+severity: medium
+template:
+  backends:
+    ansible: 'off'
+    bash: 'off'
+  name: sebool
+  vars:
+    seboolid: deny_execmem
+title: Enable the deny_execmem SELinux Boolean
+warnings:
+- general: 'This rule doesn''t come with a remediation, as enabling this SELinux boolean
+    can cause
+
+    applications to malfunction, for example Graphical login managers and Firefox.'
+- functionality: Proper function and stability should be assessed before applying
+    enabling the SELinux boolean in production systems.

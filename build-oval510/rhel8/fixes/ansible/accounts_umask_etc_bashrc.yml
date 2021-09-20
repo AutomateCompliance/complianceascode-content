@@ -1,0 +1,23 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- (xccdf-var var_accounts_user_umask)
+
+- name: Set user umask in /etc/bashrc
+  replace:
+    path: /etc/bashrc
+    regexp: umask.*
+    replace: umask {{ var_accounts_user_umask }}
+  tags:
+    - CCE-81036-6
+    - DISA-STIG-RHEL-08-020353
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - accounts_umask_etc_bashrc
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

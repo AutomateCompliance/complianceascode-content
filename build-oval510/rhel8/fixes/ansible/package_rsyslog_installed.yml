@@ -1,0 +1,20 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure rsyslog is installed
+  package:
+    name: rsyslog
+    state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-80847-7
+    - DISA-STIG-RHEL-08-030670
+    - NIST-800-53-CM-6(a)
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - package_rsyslog_installed

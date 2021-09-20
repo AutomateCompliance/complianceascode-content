@@ -1,0 +1,41 @@
+
+    
+  <def-group>
+  <definition class="compliance" id="file_permissions_httpd_server_conf_files" version="1">
+    <metadata>
+        <title>Set Permissions on All Configuration Files Inside /etc/httpd/conf/</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 8</platform>
+    </affected>
+        <description>This test makes sure that /etc/httpd/conf/ has mode 0640.
+      If the target file or directory has an extended ACL, then it will fail the mode check.
+      </description>
+    </metadata>
+    <criteria>
+      <criterion comment="Check file mode of /etc/httpd/conf/" test_ref="test_file_permissions_httpd_server_conf_files" negate="true"/>
+    </criteria>
+  </definition>
+      <unix:file_test check="all" check_existence="at_least_one_exists" comment="Testing mode of /etc/httpd/conf/" id="test_file_permissions_httpd_server_conf_files" version="2">
+      <unix:object object_ref="object_file_permissions_httpd_server_conf_files" />
+      <unix:state state_ref="state_file_permissions_httpd_server_conf_files_mode_not_0640" />
+    </unix:file_test>
+    <unix:file_state id="state_file_permissions_httpd_server_conf_files_mode_not_0640" operator="OR" version="2">
+      <unix:suid datatype="boolean">true</unix:suid>
+      <unix:sgid datatype="boolean">true</unix:sgid>
+      <unix:sticky datatype="boolean">true</unix:sticky>
+      <unix:uexec datatype="boolean">true</unix:uexec>
+      <unix:gwrite datatype="boolean">true</unix:gwrite>
+      <unix:gexec datatype="boolean">true</unix:gexec>
+      <unix:oread datatype="boolean">true</unix:oread>
+      <unix:owrite datatype="boolean">true</unix:owrite>
+      <unix:oexec datatype="boolean">true</unix:oexec>
+    </unix:file_state>
+    <unix:file_object comment="/etc/httpd/conf/" id="object_file_permissions_httpd_server_conf_files" version="1">
+      <unix:path>/etc/httpd/conf/</unix:path>
+      <unix:filename operation="pattern match">^.*$</unix:filename>
+      
+      <filter action="include">state_file_permissions_httpd_server_conf_files_mode_not_0640</filter>
+
+    </unix:file_object>
+</def-group>

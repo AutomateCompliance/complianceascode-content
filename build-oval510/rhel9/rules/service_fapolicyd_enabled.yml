@@ -1,0 +1,45 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/fapolicyd/service_fapolicyd_enabled/rule.yml
+description: 'The File Access Policy service should be enabled.
+
+
+  The <code>fapolicyd</code> service can be enabled with the following command:
+
+  <pre>$ sudo systemctl enable fapolicyd.service</pre>'
+identifiers:
+  cce: CCE-84227-8
+inherited_platforms:
+- machine
+ocil: '
+
+
+  Run the following command to determine the current status of the
+
+  <code>fapolicyd</code> service:
+
+  <pre>$ systemctl is-active fapolicyd</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>'
+ocil_clause: the service is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhcos4,rhel8,rhel9
+rationale: 'The <tt>fapolicyd</tt> service (File Access Policy Daemon)
+
+  implements application whitelisting to decide file access rights.'
+references:
+  disa: CCI-001764
+  nist: CM-6(a),SI-4(22)
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000370-GPOS-00155,SRG-OS-000368-GPOS-00154
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_enabled
+  vars:
+    servicename: fapolicyd
+title: Enable the File Access Policy Service
+warnings: []

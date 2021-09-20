@@ -1,0 +1,27 @@
+# platform = multi_platform_all
+# reboot = true
+# strategy = disable
+# complexity = low
+# disruption = medium
+- (xccdf-var sysctl_net_ipv4_conf_all_rp_filter_value)
+
+- name: Ensure sysctl net.ipv4.conf.all.rp_filter is set
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: '{{ sysctl_net_ipv4_conf_all_rp_filter_value }}'
+    state: present
+    reload: true
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-84008-2
+    - NIST-800-171-3.1.20
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(a)
+    - NIST-800-53-CM-7(b)
+    - NIST-800-53-SC-7(a)
+    - disable_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - reboot_required
+    - sysctl_net_ipv4_conf_all_rp_filter

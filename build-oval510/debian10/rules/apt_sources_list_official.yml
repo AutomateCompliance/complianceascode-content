@@ -1,0 +1,23 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/apt/apt_sources_list_official/rule.yml
+description: Check that official Debian repositories, including security repository,
+  are configured in apt.
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: debian10,debian9
+rationale: "The Debian distribution deliver DSA (Debian Security Announce), through\
+  \ the official\n    Debian security repository, to correct various vulnerabilities\
+  \ impacting the Debian\n    packages. Using the official repositories is the best\
+  \ way to ensure that the Debian\n    updates are integrated soon enough."
+references:
+  anssi: BP28(R15)
+requires: []
+severity: unknown
+template: null
+title: Ensure that official distribution repositories are used
+warnings: []

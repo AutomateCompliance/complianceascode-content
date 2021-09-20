@@ -1,0 +1,33 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/bootloader-grub2/grub2_enable_iommu_force/rule.yml
+description: "On x86 architecture supporting VT-d, the IOMMU manages the access control\
+  \ policy between the hardware devices and some\n    of the system critical units\
+  \ such as the memory."
+identifiers:
+  cce: CCE-83844-1
+inherited_platforms:
+- grub2
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: "On x86 architectures, activating the I/OMMU prevents the system from arbritrary\
+  \ accesses potentially made by\n    hardware devices."
+references:
+  anssi: BP28(R11)
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: grub2_bootloader_argument
+  vars:
+    arg_name: iommu
+    arg_value: force
+title: IOMMU configuration directive
+warnings:
+- functionality: Depending on the hardware, devices and operating system used, enabling
+    IOMMU can cause hardware instabilities. Proper function and stability should be
+    assessed before applying remediation to production systems.

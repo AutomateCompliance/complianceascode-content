@@ -1,0 +1,52 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/integrity/crypto/configure_openssl_crypto_policy/rule.yml
+description: 'Crypto Policies provide a centralized control over crypto algorithms
+  usage of many packages.
+
+  OpenSSL is supported by crypto policy, but the OpenSSL configuration may be
+
+  set up to ignore it.
+
+  To check that Crypto Policies settings are configured correctly, you have to examine
+  the OpenSSL config file
+
+  available under <tt>/etc/pki/tls/openssl.cnf</tt>.
+
+  This file has the <tt>ini</tt> format, and it enables crypto policy support
+
+  if there is a <tt>[ crypto_policy ]</tt> section that contains the <tt>.include
+  /etc/crypto-policies/back-ends/opensslcnf.config</tt> directive.'
+identifiers:
+  cce: CCE-83452-3
+inherited_platforms: []
+ocil: 'To verify that OpenSSL uses the system crypto policy, check out that the OpenSSL
+  config file
+
+  <pre>/etc/pki/tls/openssl.cnf</pre> contains the <pre>[ crypto_policy ]</pre> section
+  with the
+
+  <pre>.include /etc/crypto-policies/back-ends/opensslcnf.config</pre> directive:
+
+  <pre>grep ''\.include\s* /etc/crypto-policies/back-ends/opensslcnf.config$'' /etc/pki/tls/openssl.cnf</pre>.'
+ocil_clause: 'the OpenSSL config file doesn''t contain the whole section,
+
+  or that the section doesn''t have the <pre>.include /etc/crypto-policies/back-ends/opensslcnf.config</pre>
+  directive'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9,rhv4,sle15
+rationale: 'Overriding the system crypto policy makes the behavior of the Java runtime
+  violates expectations,
+
+  and makes system configuration more fragmented.'
+references:
+  disa: CCI-001453
+  nerc-cip: CIP-003-3 R4.2,CIP-007-3 R5.1,CIP-007-3 R7.1
+  nist: AC-17(a),AC-17(2),CM-6(a),MA-4(6),SC-13,SC-12(2),SC-12(3)
+  srg: SRG-OS-000250-GPOS-00093
+requires: []
+severity: medium
+template: null
+title: Configure OpenSSL library to use System Crypto Policy
+warnings: []

@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_action_default_secondary/rule.yml
+description: "Malware may have infected a file that is necessary to the user. By configuring\
+  \ the anti-virus software to first attempt cleaning the infected file, availability\
+  \ to the file is not sacrificed. \nIf a cleaning attempt is not successful, however,\
+  \ quarantining the file is the only safe option to ensure the malware is not introduced\
+  \ onto the system or network.\n\nTo check that VSEL settings are configured correctly,\
+  \ you have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.profile.OAS.action.Default.secondary:\
+  \ Quarantine</tt>,\nprograms/jokes that cannot be cleaned will be quarantined, preserving\
+  \ the file data."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that programs/jokes that cannot be cleaned will be quarantined, \n\
+  check the respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\
+  \ contains the <pre>nailsd.profile.OAS.action.Default.secondary: Quarantine</pre>\
+  \ line:\n<pre>grep 'nailsd.profile.OAS.action.Default.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.profile.OAS.action.Default.secondary:
+  Quarantine</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Malware may have infected a file that is necessary to the user.
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-016
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  be configured to Quarantine if first action fails when programs and jokes are found
+warnings: []

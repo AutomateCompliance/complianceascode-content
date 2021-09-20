@@ -1,0 +1,44 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/sudo/sudo_add_ignore_dot/rule.yml
+description: 'The sudo <tt>ignore_dot</tt> tag, when specified, will ignore the current
+  directory
+
+  in the PATH environment variable.
+
+  On Red Hat Enterprise Linux 8, <tt>env_reset</tt> is enabled by default
+
+  This should be enabled by making sure that the <tt>ignore_dot</tt> tag exists in
+
+  <tt>/etc/sudoers</tt> configuration file or any sudo configuration snippets
+
+  in <tt>/etc/sudoers.d/</tt>.'
+identifiers:
+  cce: CCE-83810-2
+inherited_platforms: []
+ocil: 'To determine if <tt>ignore_dot</tt> has been configured for sudo, run the following
+  command:
+
+  <pre>$ sudo grep -ri "^[\s]*Defaults.*\bignore_dot\b.*" /etc/sudoers /etc/sudoers.d/</pre>
+
+  The command should return a matching output.'
+ocil_clause: ignore_dot is not enabled in sudo
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8
+rationale: 'Ignoring the commands in the user''s current directory prevents an attacker
+  from executing commands
+
+  downloaded locally.'
+references:
+  anssi: BP28(R58)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sudo_defaults_option
+  vars:
+    default_is_enabled: 'true'
+    option: ignore_dot
+title: Ensure sudo Ignores Commands In Current Dir - sudo ignore_dot
+warnings: []

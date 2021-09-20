@@ -1,0 +1,52 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/integrity/endpoint_security_software/mcafee_security_software/mcafee_endpoint_security_software/package_mcafeetp_installed/rule.yml
+description: 'Install McAfee Endpoint Security for Linux antivirus software
+
+  which is provided for DoD systems and uses signatures to search for the
+
+  presence of viruses on the filesystem.
+
+
+  The <code>mcafeetp</code> package can be installed with the following command:
+
+  <pre>
+
+  $ sudo yum install mcafeetp</pre>'
+identifiers:
+  cce: CCE-86260-7
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>mcafeetp</code> package
+  is installed: <pre>$ rpm -q mcafeetp</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhel7,rhel8
+rationale: 'Virus scanning software can be used to detect if a system has been compromised
+  by
+
+  computer viruses, as well as to limit their spread to other systems.'
+references:
+  disa: CCI-001233
+  nist: SI-2(2)
+  srg: SRG-OS-000191-GPOS-00080
+  stigid: RHEL-08-010001
+requires: []
+severity: high
+template:
+  backends:
+    anaconda: 'off'
+    ansible: 'off'
+    bash: 'off'
+    blueprint: 'off'
+    puppet: 'off'
+  name: package_installed
+  vars:
+    pkgname: mcafeetp
+title: Install McAfee Endpoint Security for Linux (ENSL)
+warnings:
+- general: 'Due to McAfee Endpoint Security for Linux (ENSL) being 3rd party software,
+
+    automated remediation is not available for this configuration check.'

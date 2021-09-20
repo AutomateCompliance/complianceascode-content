@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/chromium/guide/chromium/chromium_block_desktop_notifications/rule.yml
+description: 'Chromium by default allows websites to display notifications on the
+  desktop.
+
+  To disable this setting, set <tt>DefaultNotificationsSetting</tt> to <tt>2</tt>
+
+  in the Chromium policy file.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that desktop notification is
+
+  disabled, run the following command:
+
+  <pre>$ grep DefaultNotificationsSetting /etc/chromium/policies/managed/*.json</pre>
+
+  The output should contain:
+
+  <pre>"DefaultNotificationsSetting": 2,</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "Disabling Chromium's ability to display notifications on the desktop helps\
+  \ prevent \nmalicious websites from controlling desktop notifications or fooling\
+  \ users into\nclicking on a potentially compromised notification."
+references:
+  stigid: DTBC0003
+requires: []
+severity: unknown
+template: null
+title: Prevent Desktop Notifications
+warnings: []

@@ -1,0 +1,55 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/restrictions/sysctl_kernel_yama_ptrace_scope/rule.yml
+description: 'To set the runtime status of the <code>kernel.yama.ptrace_scope</code>
+  kernel parameter, run the following command: <pre>$ sudo sysctl -w kernel.yama.ptrace_scope=1</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>kernel.yama.ptrace_scope = 1</pre>'
+identifiers:
+  cce: CCE-82501-8
+inherited_platforms: []
+ocil: "The runtime status of the <code>kernel.yama.ptrace_scope</code> kernel parameter\
+  \ can be queried\nby running the following command:\n<pre>$ sysctl kernel.yama.ptrace_scope</pre>\n\
+  The output of the command should indicate a value of <code>1</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*kernel.yama.ptrace_scope\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>kernel.yama.ptrace_scope\
+  \ = 1</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>kernel.yama.ptrace_scope = 1</code>, and that one assignment\n\
+  is returned when \n<pre>$ grep -r kernel.yama.ptrace_scope /etc/sysctl.conf /etc/sysctl.d</pre>\n\
+  is executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9
+rationale: 'Unrestricted usage of ptrace allows compromised binaries to run ptrace
+
+  on another processes of the user. Like this, the attacker can steal
+
+  sensitive information from the target processes (e.g. SSH sessions, web browser,
+  ...)
+
+  without any additional assistance from the user (i.e. without resorting to phishing).
+
+  '
+references:
+  anssi: BP28(R25)
+  disa: CCI-000366
+  srg: SRG-OS-000132-GPOS-00067,SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlval: '1'
+    sysctlvar: kernel.yama.ptrace_scope
+title: Restrict usage of ptrace to descendant processes
+warnings: []

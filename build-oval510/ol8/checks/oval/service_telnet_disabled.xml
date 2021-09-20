@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_telnet_disabled" version="2">
+    <metadata>
+        <title>Disable telnet Service</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The telnet service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package telnet removed or service and socket telnet are not configured to start" operator="OR">
+      <criterion comment="telnet removed" test_ref="test_service_telnet_package_telnet_removed" />
+      <criteria operator="AND" comment="service and socket telnet are disabled">
+        <criterion comment="telnet disabled in multi-user.target" test_ref="test_telnet_disabled_multi_user_target" />
+        <criterion comment="telnet socket disabled in sockets.target" test_ref="test_telnet_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for telnet.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_telnet_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_telnet_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for telnet.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_telnet_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/telnet.service</unix:filepath>
+    <filter action="include">unit_telnet_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for telnet.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_telnet_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_telnet_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for telnet.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_telnet_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/telnet.socket</unix:filepath>
+    <filter action="include">unit_telnet_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_telnet_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_telnet_package_telnet_removed" version="1"
+  comment="package telnet is removed">
+    <linux:object object_ref="obj_test_service_telnet_package_telnet_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_telnet_package_telnet_removed" version="1">
+    <linux:name>telnet</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

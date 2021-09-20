@@ -1,0 +1,67 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/proxy/disabling_squid/service_squid_disabled/rule.yml
+description: '
+
+  The <code>squid</code> service can be disabled with the following command:
+
+  <pre>$ sudo systemctl mask --now squid.service</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: '
+
+  To check that the <code>squid</code> service is disabled in system boot configuration,
+
+  run the following command:
+
+  <pre>$ systemctl is-enabled <code>squid</code></pre>
+
+  Output should indicate the <code>squid</code> service has either not been installed,
+
+  or has been disabled at all runlevels, as shown in the example below:
+
+  <pre>$ systemctl is-enabled <code>squid</code><br/> disabled</pre>
+
+
+  Run the following command to verify <code>squid</code> is not active (i.e. not running)
+  through current runtime configuration:
+
+  <pre>$ systemctl is-active squid</pre>
+
+
+  If the service is not running the command will return the following output:
+
+  <pre>inactive</pre>
+
+
+  The service will also be masked, to check that the <code>squid</code> is masked,
+  run the following command:
+
+  <pre>$ systemctl show <code>squid</code> | grep "LoadState\|UnitFileState"</pre>
+
+
+  If the service is masked the command will return the following outputs:
+
+
+  <pre>LoadState=masked</pre>
+
+
+  <pre>UnitFileState=masked</pre>'
+ocil_clause: null
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,sle15
+rationale: 'Running proxy server software provides a network-based avenue
+
+  of attack, and should be removed if not needed.'
+references: {}
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: service_disabled
+  vars:
+    servicename: squid
+title: Disable Squid
+warnings: []

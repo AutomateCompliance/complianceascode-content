@@ -1,0 +1,61 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/gnome/gnome_login_screen/dconf_gnome_disable_user_list/rule.yml
+description: 'In the default graphical environment, users logging directly into the
+
+  system are greeted with a login screen that displays all known users.
+
+  This functionality should be disabled by setting <tt>disable-user-list</tt>
+
+  to <tt>true</tt>.
+
+  <br /><br />
+
+  To disable, add or edit <tt>disable-user-list</tt> to
+
+  <tt>/etc/dconf/db/distro.d/00-security-settings</tt>. For example:
+
+  <pre>[org/gnome/login-screen]
+
+  disable-user-list=true</pre>
+
+  Once the setting has been added, add a lock to
+
+  <tt>/etc/dconf/db/distro.d/locks/00-security-settings-lock</tt> to prevent
+
+  user modification. For example:
+
+  <pre>/org/gnome/login-screen/disable-user-list</pre>
+
+  After the settings have been set, run <tt>dconf update</tt>.'
+identifiers: {}
+inherited_platforms:
+- gdm
+ocil: 'To ensure the user list is disabled, run the following command:
+
+  <pre>$ grep disable-user-list /etc/dconf/db/distro.d/*</pre>
+
+  The output should be <tt>true</tt>.
+
+  To ensure that users cannot enable displaying the user list, run the following:
+
+  <pre>$ grep disable-user-list /etc/dconf/db/distro.d/locks/*</pre>
+
+  If properly configured, the output should be <tt>/org/gnome/login-screen/disable-user-list</tt>'
+ocil_clause: disable-user-list has not been configured or is not disabled
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,ubuntu2004
+rationale: 'Leaving the user list enabled is a security risk since it allows anyone
+
+  with physical access to the system to quickly enumerate known user accounts
+
+  without logging in.'
+references:
+  nist: CM-6(a),AC-23
+requires: []
+severity: medium
+template: null
+title: Disable the GNOME3 Login User List
+warnings: []

@@ -1,0 +1,51 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ssh/ssh_server/sshd_x11_use_localhost/rule.yml
+description: 'The SSH daemon should prevent remote hosts from connecting to the proxy
+
+  display. Make sure that the option <tt>X11UseLocalhost</tt> is set to
+
+  <tt>yes</tt> within the SSH server configuration file.'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To determine how the SSH daemon''s <tt>X11UseLocalhost</tt> option is set,
+  run the following command:
+
+  <pre>$ sudo grep -i X11UseLocalhost /etc/ssh/sshd_config</pre>
+
+  If no line, a commented line, or a line indicating the value <tt>yes</tt> is returned,
+  then the required value is set.'
+ocil_clause: the display proxy is listening on wildcard address
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,sle12,ubuntu2004
+rationale: 'When X11 forwarding is enabled, there may be additional exposure to the
+
+  server and client displays if the sshd proxy display is configured to listen
+
+  on the wildcard address. By default, sshd binds the forwarding server to the
+
+  loopback address and sets the hostname part of the <tt>DISPLAY</tt>
+
+  environment variable to localhost. This prevents remote hosts from
+
+  connecting to the proxy display.  '
+references:
+  disa: CCI-000366
+  nist: CM-6(b)
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: OL07-00-040711
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sshd_lineinfile
+  vars:
+    missing_parameter_pass: 'true'
+    parameter: X11UseLocalhost
+    rule_id: sshd_x11_use_localhost
+    value: 'yes'
+title: Prevent remote hosts from connecting to the proxy display
+warnings: []

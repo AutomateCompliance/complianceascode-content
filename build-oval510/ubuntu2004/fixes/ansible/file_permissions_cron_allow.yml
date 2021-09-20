@@ -1,0 +1,32 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Test for existence /etc/cron.allow
+  stat:
+    path: /etc/cron.allow
+  register: file_exists
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - configure_strategy
+    - file_permissions_cron_allow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure permission 0640 on /etc/cron.allow
+  file:
+    path: /etc/cron.allow
+    mode: '0640'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - configure_strategy
+    - file_permissions_cron_allow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

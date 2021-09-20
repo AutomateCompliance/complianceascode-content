@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_var_log_dir/file_permissions_var_log_messages/rule.yml
+description: '
+
+  To properly set the permissions of <code>/var/log/messages</code>, run the command:
+
+  <pre>$ sudo chmod 0640 /var/log/messages</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/var/log/messages</code>,
+
+  run the command:
+
+  <pre>$ ls -l /var/log/messages</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r-----</code>'
+ocil_clause: /var/log/messages has unix mode -rw-r-----
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/var/log/messages</tt> file contains logs of error messages in
+
+  the system and should only be accessed by authorized personnel.'
+references:
+  disa: CCI-001314
+  srg: SRG-OS-000206-GPOS-00084
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0640'
+    filepath: /var/log/messages
+title: Verify Permissions on /var/log/messages File
+warnings: []

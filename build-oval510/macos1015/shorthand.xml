@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<Benchmark xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="http://purl.org/dc/elements/1.1/" id="product-name" xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.1 xccdf-1.1.4.xsd" style="SCAP_1.1" resolved="false" xml:lang="en-US">
+  <status date="2021-09-19">draft</status>
+  <title>Guide to the Secure Configuration of Apple macOS 10.15</title>
+  <description>This guide presents a catalog of security-relevant
+configuration settings for Apple macOS 10.15. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.
+<br/><br/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <em>catalog, not a
+checklist</em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <em>Profiles</em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG, which provides required
+settings for US Department of Defense systems, is one example of a baseline
+created from this guidance.
+</description>
+  <notice id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter>The Compliance As Code Project<br/>
+
+    <html:a href="https://github.com/ComplianceAsCode/content">https://github.com/ComplianceAsCode/content</html:a>
+</front-matter>
+  <rear-matter>Apple, iPadOS, tvOS, watchOS, macOS and OS X are either registered
+trademarks or trademarks of Apple, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/o:apple:macos:10.15"/>
+  <version>0.9</version>
+  <metadata/>
+  <Profile id="moderate">
+    <title override="true">NIST 800-53 Moderate-Impact Baseline for Apple macOS 10.15 Catalina</title>
+    <description override="true">This compliance profile reflects the core set of Moderate-Impact Baseline
+configuration settings for deployment of Apple macOS 10.15 Catalina
+into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense, and the
+the National Security Agency.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- NIST 800-53 control selections for Moderate-Impact systems (NIST 800-53)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the ComplianceAsCode initiative, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors ComplianceAsCode
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.</description>
+    <select idref="audit_failure_halt" selected="true"/>
+    <select idref="service_com_apple_auditd_enabled" selected="true"/>
+  </Profile>
+  <Value id="conditional_clause" type="string">
+    <title>A conditional clause for check statements.</title>
+    <description>A conditional clause for check statements.</description>
+    <value selector="">This is a placeholder</value>
+  </Value>
+  <Group id="remediation_functions">
+    <title>Remediation functions used by the SCAP Security Guide Project</title>
+    <description>XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="services">
+    <title>Services</title>
+    <description>The best protection against vulnerable software is running less software. This section describes how to review
+the software which Apple macOS 10.15 installs on a system and disable software which is not needed. It
+then enumerates the software packages installed on a default Apple macOS 10.15 system and provides guidance about which
+ones can be safely disabled.
+<br/><br/>
+Apple macOS 10.15 provides a convenient minimal install option that essentially installs the bare necessities for a functional
+system. When building Apple macOS 10.15 systems, it is highly recommended to select the minimal packages and then build up
+the system from there.</description>
+  </Group>
+  <Group id="auditing">
+    <title>System Accounting with audit</title>
+    <description>The Basic Security Module (BSM) security audit API and file format is Apple's
+auditing system. The audit() function submits a record to the kernel for inclusion in the
+global audit trail. The record must already be in BSM format. To protect
+the integrity of the audit trail, this system call must be made with sufficient
+privileges. Libbsm can be used to create and manipulate BSM data. Length
+is the length in bytes of the BSM record and record points to the data.
+The audit service provides substantial capabilities for recording system
+activities. Secure networks often have substantial auditing
+requirements, and <tt>auditd</tt> can be configured to meet these
+requirements.</description>
+    <Rule id="service_com_apple_auditd_enabled" severity="high">
+      <title>Enable audit Service</title>
+      <description>The <tt>audit</tt> service is an essential userspace component of
+the auditing system, as it is responsible for writing audit records to
+disk.</description>
+      <rationale>Without establishing what type of events occurred, when they
+occurred, and by whom, it would be difficult to establish, correlate,
+and investigate the events leading up to an outage or attack.
+<br/><br/>
+Audit record content that may be necessary to satisfy this requirement
+includes, for example, time stamps, source and destination addresses,
+user/process identifiers, event descriptions, success/fail indications,
+filenames involved, and access control or flow control rules invoked.
+<br/><br/>
+Associating event types with detected events in the operating system
+audit logs provides a means of investigating an attack, recognizing
+resource utilization or capacity thresholds, or identifying an
+improperly configured operating system.  </rationale>
+      <ref disa="CCI-000130,CCI-000131,CCI-000132,CCI-000133,CCI-000134,CCI-000135,CCI-000159,CCI-001464,CCI-001487,CCI-001889,CCI-001890,CCI-001914,CCI-002130" nist="AU-3,AU-3(1),AU-8(a),AU-8(b),AU-12(3),AU-14(1)" srg="SRG-OS-000037-GPOS-00015,SRG-OS-000038-GPOS-00016,SRG-OS-000039-GPOS-00017,SRG-OS-000040-GPOS-00018,SRG-OS-000041-GPOS-00019,SRG-OS-000042-GPOS-00020,SRG-OS-000042-GPOS-00021,SRG-OS-000055-GPOS-00026,SRG-OS-000254-GPOS-00095,SRG-OS-000255-GPOS-00096,SRG-OS-000303-GPOS-00120,SRG-OS-000337-GPOS-00129,SRG-OS-000358-GPOS-00145,SRG-OS-000359-GPOS-00146" stigid="AOSX-14-001013"/>
+      <oval id="service_com_apple_auditd_enabled"/>
+      <ocil clause="auditing is not enabled or running">To verify that auditing is enabled and running, run the
+following command:
+<pre>$ sudo launchctl list com.apple.auditd</pre>
+The output should return process information for
+<tt>com.apple.auditd</tt></ocil>
+    </Rule>
+    <Group id="configure_auditing">
+      <title>Configure auditd</title>
+      <description>The <tt>auditd</tt> program can perform comprehensive
+monitoring of system activity. This section describes recommended
+configuration settings for comprehensive auditing, but a full
+description of the auditing system's capabilities is beyond the
+scope of this guide.</description>
+      <Rule id="audit_failure_halt" severity="medium">
+        <title>Shutdown System When Auditing Failures Occur</title>
+        <description>The macOS system must shut down by default upon audit
+failure unless availability is an overriding concern.</description>
+        <rationale>The audit service should shut down the computer if it 
+is unable to audit system events. Once audit failure
+occurs, user and system activity is no longer recorded
+and malicious activity could go undetected. Audit
+processing failures include software/hardware errors,
+failures in the audit capturing mechanisms, and audit
+storage capacity being reached or exceeded. Responses
+to audit failure depend on the nature of the failure
+mode.</rationale>
+        <ref disa="CCI-000140" nist="AU-5(b)" srg="SRG-OS-000047-GPOS-00023" stigid="AOSX-14-001010"/>
+        <oval id="audit_failure_halt"/>
+        <ocil clause="auditing is not configured to shut down on audit failure">To verify that auditing is enabled and running, run the
+following command:
+<pre>$ sudo grep -E "^policy.*ahlt" /etc/security/audit_control</pre>
+The output should contain <tt>ahlt</tt></ocil>
+      </Rule>
+    </Group>
+  </Group>
+  <Group id="intro">
+    <title>Introduction</title>
+    <description>The purpose of this guidance is to provide security configuration
+recommendations and baselines for the Apple macOS 10.15 operating
+system. Recommended settings for the basic operating system are provided,
+as well as for many network services that the system can provide to other systems.
+The guide is intended for system administrators. Readers are assumed to
+possess basic system administration skills for Unix-like systems, as well
+as some familiarity with the product's documentation and administration
+conventions. Some instructions within this guide are complex.
+All directions should be followed completely and with understanding of
+their effects in order to avoid serious adverse effects on the system
+and its security.</description>
+    <Group id="general-principles">
+      <title>General Principles</title>
+      <description>The following general principles motivate much of the advice in this
+guide and should also influence any configuration decisions that are
+not explicitly covered.</description>
+      <Group id="principle-encrypt-transmitted-data">
+        <title>Encrypt Transmitted Data Whenever Possible</title>
+        <description>Data transmitted over a network, whether wired or wireless, is susceptible
+to passive monitoring. Whenever practical solutions for encrypting
+such data exist, they should be applied. Even if data is expected to
+be transmitted only over a local network, it should still be encrypted.
+Encrypting authentication data, such as passwords, is particularly
+important. Networks of Apple macOS 10.15 machines can and should be configured
+so that no unencrypted authentication data is ever transmitted between
+machines.</description>
+      </Group>
+      <Group id="principle-least-privilege">
+        <title>Least Privilege</title>
+        <description>Grant the least privilege necessary for user accounts and software to perform tasks.
+For example, <tt>sudo</tt> can be implemented to limit authorization to super user
+accounts on the system only to designated personnel. Another example is to limit
+logins on server systems to only those administrators who need to log into them in
+order to perform administration tasks.</description>
+      </Group>
+      <Group id="principle-minimize-software">
+        <title>Minimize Software to Minimize Vulnerability</title>
+        <description>The simplest way to avoid vulnerabilities in software is to avoid
+installing that software. Apple macOS 10.15
+allows for careful management of
+the set of software packages installed on a system. Installed software
+contributes to system vulnerability in several ways. Packages that
+include setuid programs may provide local attackers a potential path to
+privilege escalation. Packages that include network services may give
+this opportunity to network-based attackers. Packages that include
+programs which are predictably executed by local users (e.g. after
+graphical login) may provide opportunities for trojan horses or other
+attack code to be run undetected. The number of software packages
+installed on a system can almost always be significantly pruned to include
+only the software for which there is an environmental or operational need.</description>
+      </Group>
+      <Group id="principle-separate-servers">
+        <title>Run Different Network Services on Separate Systems</title>
+        <description>Whenever possible, a server should be dedicated to serving exactly one
+network service. This limits the number of other services that can
+be compromised in the event that an attacker is able to successfully
+exploit a software flaw in one network service.</description>
+      </Group>
+      <Group id="principle-use-security-tools">
+        <title>Configure Security Tools to Improve System Robustness</title>
+        <description>Several tools exist which can be effectively used to improve a system's
+resistance to and detection of unknown attacks. These tools can improve
+robustness against attack at the cost of relatively little configuration
+effort. In particular, this guide recommends and discusses the use of
+host-based firewalling, a logging, and auditing infrastructure for
+detection of problems.</description>
+      </Group>
+    </Group>
+    <Group id="how-to-use">
+      <title>How to Use This Guide</title>
+      <description>Readers should heed the following points when using the guide.</description>
+      <Group id="intro-formatting-conventions">
+        <title>Formatting Conventions</title>
+        <description>Commands intended for shell execution, as well as configuration file text,
+are featured in a <tt>monospace font</tt>. <i>Italics</i> are used
+to indicate instances where the system administrator must substitute
+the appropriate information into a command or configuration file.</description>
+      </Group>
+      <Group id="intro-read-sections-completely">
+        <title>Read Sections Completely and in Order</title>
+        <description>Each section may build on information and recommendations discussed in
+prior sections. Each section should be read and understood completely;
+instructions should never be blindly applied. Relevant discussion may
+occur after instructions for an action.</description>
+      </Group>
+      <Group id="intro-reboot-required">
+        <title>Reboot Required</title>
+        <description>A system reboot is implicitly required after some actions in order to
+complete the reconfiguration of the system. In many cases, the changes
+will not take effect until a reboot is performed. In order to ensure
+that changes are applied properly and to test functionality, always
+reboot the system after applying a set of recommendations from this guide.</description>
+      </Group>
+      <Group id="intro-root-shell-assumed">
+        <title>Root Shell Environment Assumed</title>
+        <description>Most of the actions listed in this document are written with the
+assumption that they will be executed by the root user running the
+<tt>/bin/bash</tt> shell. Commands preceded with a hash mark (#)
+assume that the administrator will execute the commands as root, i.e.
+apply the command via <tt>sudo</tt> whenever possible, or use
+<tt>su</tt> to gain root privileges if <tt>sudo</tt> cannot be
+used. Commands which can be executed as a non-root user are are preceded
+by a dollar sign ($) prompt.</description>
+      </Group>
+      <Group id="intro-test-non-production">
+        <title>Test in Non-Production Environment</title>
+        <description>This guidance should always be tested in a non-production environment
+before deployment. This test environment should simulate the setup in
+which the system will be deployed as closely as possible.</description>
+      </Group>
+    </Group>
+  </Group>
+</Benchmark>

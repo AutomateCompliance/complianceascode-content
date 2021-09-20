@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-pam/package_pam_pwquality_installed/rule.yml
+description: 'The <code>libpam-pwquality</code> package can be installed with the
+  following command:
+
+  <pre>
+
+  $ apt-get install libpam-pwquality</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: ' Run the following command to determine if the <code>libpam-pwquality</code>
+  package is installed: <pre>$ dpkg -l  libpam-pwquality</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ubuntu2004
+rationale: 'Use of a complex password helps to increase the time and resources required
+
+  to compromise the password. Password complexity, or strength, is a measure
+
+  of the effectiveness of a password in resisting attempts at guessing and
+
+  brute-force attacks. "pwquality" enforces complex password construction
+
+  configuration and has the ability to limit brute-force attacks on the
+
+  system.'
+references:
+  disa: CCI-000366
+  srg: SRG-OS-000480-GPOS-00225
+  stigid: UBTU-20-010057
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: libpam-pwquality
+title: Install pam_pwquality Package
+warnings: []

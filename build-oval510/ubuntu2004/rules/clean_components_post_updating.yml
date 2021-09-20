@@ -1,0 +1,58 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/updating/clean_components_post_updating/rule.yml
+description: '<tt>apt_get</tt> should be configured to remove previous software components
+  after
+
+  new versions have been installed. To configure <tt>apt_get</tt> to remove the
+
+
+  previous software components after updating, set the <tt>::Remove-Unused-Dependencies</tt>
+  and
+
+  <tt>::Remove-Unused-Kernel-Packages</tt>
+
+
+
+  to <tt>true</tt> in <tt></tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: '
+
+  <pre>$ grep -i remove-unused </pre>
+
+  The output should return something similar to:
+
+  <pre>Unattended-Upgrade::Remove-Unused-Dependencies "true";
+
+  Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";</pre>'
+ocil_clause: '
+
+  ''::Remove-Unused-Dependencies and ::Remove-Unused-Kernel-Packages is not
+
+  enabled or configured correctly'''
+oval_external_content: null
+platform: yum
+platforms: !!set
+  yum: null
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle12,sle15,ubuntu2004
+rationale: 'Previous versions of software components that are not removed from the
+  information
+
+  system after updates have been installed may be exploited by some adversaries.'
+references:
+  cis-csc: 18,20,4
+  cobit5: APO12.01,APO12.02,APO12.03,APO12.04,BAI03.10,DSS05.01,DSS05.02
+  cui: 3.4.8
+  disa: CCI-002617
+  isa-62443-2009: 4.2.3,4.2.3.12,4.2.3.7,4.2.3.9
+  iso27001-2013: A.12.6.1,A.14.2.3,A.16.1.3,A.18.2.2,A.18.2.3
+  nist: SI-2(6),CM-11(a),CM-11(b),CM-6(a)
+  nist-csf: ID.RA-1,PR.IP-12
+  srg: SRG-OS-000437-GPOS-00194
+  stigid: UBTU-20-010449
+  vmmsrg: SRG-OS-000437-VMM-001760
+requires: []
+severity: low
+template: null
+title: Ensure apt_get Removes Previous Package Versions
+warnings: []

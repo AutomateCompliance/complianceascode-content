@@ -1,0 +1,16 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure ypbind is removed
+  package:
+    name: ypbind
+    state: absent
+  tags:
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - package_ypbind_removed
+    - unknown_severity

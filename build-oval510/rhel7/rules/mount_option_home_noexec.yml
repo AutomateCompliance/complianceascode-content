@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_home_noexec/rule.yml
+description: "The <tt>noexec</tt> mount option can be used to prevent binaries from\
+  \ being\nexecuted out of <tt>/home</tt>. \nAdd the <code>noexec</code> option to\
+  \ the fourth column of\n<tt>/etc/fstab</tt> for the line which controls mounting\
+  \ of\n<code>/home</code>."
+identifiers:
+  cce: CCE-83327-7
+inherited_platforms: []
+ocil: "To verify the <tt>noexec</tt> option is configured for the <tt>/home</tt> mount\
+  \ point,\n    run the following command:\n    <pre>$ mount | grep '\\s/home\\s'</pre>\n\
+  \    The output should show the corresponding mount point along with the <tt>noexec</tt>\
+  \ setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,wrlinux1019
+rationale: 'The <tt>/home</tt> directory contains data of individual users. Binaries
+  in
+
+  this directory should not be considered as trusted and users should not be
+
+  able to execute them.'
+references:
+  anssi: BP28(R12)
+  disa: CCI-000366
+  nist: CM-6(b)
+  srg: SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: noexec
+    mountpoint: /home
+title: Add noexec Option to /home
+warnings: []

@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_portreserve_disabled" version="2">
+    <metadata>
+        <title>Disable Portreserve (portreserve)</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The portreserve service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package portreserve removed or service and socket portreserve are not configured to start" operator="OR">
+      <criterion comment="portreserve removed" test_ref="test_service_portreserve_package_portreserve_removed" />
+      <criteria operator="AND" comment="service and socket portreserve are disabled">
+        <criterion comment="portreserve disabled in multi-user.target" test_ref="test_portreserve_disabled_multi_user_target" />
+        <criterion comment="portreserve socket disabled in sockets.target" test_ref="test_portreserve_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for portreserve.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_portreserve_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_portreserve_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for portreserve.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_portreserve_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/portreserve.service</unix:filepath>
+    <filter action="include">unit_portreserve_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for portreserve.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_portreserve_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_portreserve_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for portreserve.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_portreserve_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/portreserve.socket</unix:filepath>
+    <filter action="include">unit_portreserve_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_portreserve_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_portreserve_package_portreserve_removed" version="1"
+  comment="package portreserve is removed">
+    <linux:object object_ref="obj_test_service_portreserve_package_portreserve_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_portreserve_package_portreserve_removed" version="1">
+    <linux:name>portreserve</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

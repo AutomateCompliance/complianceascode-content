@@ -1,0 +1,40 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/logging/rsyslog_sending_messages/rsyslog_remote_tls/rule.yml
+description: "Configure <tt>rsyslog</tt> to use Transport Layer\nSecurity (TLS) support\
+  \ for logging to remote server\nfor the Forwarding Output Module in <tt>/etc/rsyslog.conf</tt>\n\
+  using action. You can use the following command:\n<pre>echo 'action(type=\"omfwd\"\
+  \ protocol=\"tcp\" Target=\"&lt;remote system>\" port=\"6514\"\n    StreamDriver=\"\
+  gtls\" StreamDriverMode=\"1\" StreamDriverAuthMode=\"x509/name\" streamdriver.CheckExtendedKeyPurpose=\"\
+  on\")' >> /etc/rsyslog.conf\n</pre>\nReplace the <tt>&lt;remote system></tt> in\
+  \ the above command with an IP address or a host name of the remote logging server."
+identifiers:
+  cce: CCE-82457-3
+inherited_platforms:
+- machine
+ocil: "To verify that rsyslog's Forwarding Output Module is configured\nto use TLS\
+  \ for logging to remote server, run the following command:\n<pre>$ grep omfwd /etc/rsyslog.conf\
+  \ /etc/rsyslog.d/*.conf</pre>\nThe output should include record similar to\n<pre>action(type=\"\
+  omfwd\" protocol=\"tcp\" Target=\"&lt;remote system>\" port=\"6514\"\n    StreamDriver=\"\
+  gtls\" StreamDriverMode=\"1\" StreamDriverAuthMode=\"x509/name\" streamdriver.CheckExtendedKeyPurpose=\"\
+  on\")\n</pre>\nwhere the <tt>&lt;remote system></tt> present in the configuration\
+  \ line above must be a valid IP address or a host name of the remote logging server."
+ocil_clause: omfwd is not configured with gtls and AuthMode
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol8,rhel8,rhel9
+rationale: 'For protection of data being logged, the connection to the
+
+  remote logging server needs to be authenticated and encrypted.'
+references:
+  anssi: BP28(R43)
+  ism: 0988,1405
+  nist: AU-9(3),CM-6(a)
+  ospp: FCS_TLSC_EXT.1,FTP_ITC_EXT.1.1
+  srg: SRG-OS-000480-GPOS-00227,SRG-OS-000120-GPOS-00061
+requires: []
+severity: medium
+template: null
+title: Configure TLS for rsyslog remote logging
+warnings: []

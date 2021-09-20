@@ -1,0 +1,46 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- (xccdf-var var_system_crypto_policy)
+
+- name: Configure System Cryptography Policy
+  lineinfile:
+    path: /etc/crypto-policies/config
+    regexp: ^(?!#)(\S+)$
+    line: '{{ var_system_crypto_policy }}'
+    create: true
+  tags:
+    - CCE-83450-7
+    - NIST-800-53-AC-17(2)
+    - NIST-800-53-AC-17(a)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-MA-4(6)
+    - NIST-800-53-SC-12(2)
+    - NIST-800-53-SC-12(3)
+    - NIST-800-53-SC-13
+    - configure_crypto_policy
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Verify that Crypto Policy is Set (runtime)
+  command: /usr/bin/update-crypto-policies --set {{ var_system_crypto_policy }}
+  tags:
+    - CCE-83450-7
+    - NIST-800-53-AC-17(2)
+    - NIST-800-53-AC-17(a)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-MA-4(6)
+    - NIST-800-53-SC-12(2)
+    - NIST-800-53-SC-12(3)
+    - NIST-800-53-SC-13
+    - configure_crypto_policy
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - restrict_strategy

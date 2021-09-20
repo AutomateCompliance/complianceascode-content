@@ -1,0 +1,228 @@
+# platform = multi_platform_sle
+# reboot = false
+# complexity = low
+# strategy = configure
+# disruption = low
+- name: Configure permission for /usr/sbin/audispd
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/audispd\s+root.*
+    line: /usr/sbin/audispd root:root 0750
+    state: present
+  register: update_permissions_local_result_audispd
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/audispd
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_audispd.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Configure permission for /usr/sbin/auditctl
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/auditctl\s+root.*
+    line: /usr/sbin/auditctl root:root 0750
+    state: present
+  register: update_permissions_local_result_auditctl
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/auditctl
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_auditctl.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Configure permission for /usr/sbin/auditd
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/auditd\s+root.*
+    line: /usr/sbin/auditd root:root 0750
+    state: present
+  register: update_permissions_local_result_auditd
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/auditd
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_auditd.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Configure permission for /usr/sbin/ausearch
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/ausearch\s+root.*
+    line: /usr/sbin/ausearch root:root 0755
+    state: present
+  register: update_permissions_local_result_ausearch
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/ausearch
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_ausearch.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Configure permission for /usr/sbin/aureport
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/aureport\s+root.*
+    line: /usr/sbin/aureport root:root 0755
+    state: present
+  register: update_permissions_local_result_aureport
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/aureport
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_aureport.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Configure permission for /usr/sbin/autrace
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/autrace\s+root.*
+    line: /usr/sbin/autrace root:root 0750
+    state: present
+  register: update_permissions_local_result_autrace
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/autrace
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_autrace.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Configure permission for /usr/sbin/augenrules
+  lineinfile:
+    path: /etc/permissions.local
+    create: true
+    regexp: ^\/usr\/sbin\/augenrules\s+root.*
+    line: /usr/sbin/augenrules root:root 0750
+    state: present
+  register: update_permissions_local_result_augenrules
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries
+
+- name: Correct file permissions after update /usr/sbin/augenrules
+  shell: |
+    set -o pipefail chkstat --set --system
+  when: update_permissions_local_result_augenrules.changed
+  tags:
+    - CCE-85609-6
+    - DISA-STIG-SLES-15-030620
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - permissions_local_audit_binaries

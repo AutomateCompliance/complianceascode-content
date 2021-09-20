@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_cgred_disabled" version="2">
+    <metadata>
+        <title>Disable Control Group Rules Engine (cgred)</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The cgred service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package libcgroup-tools removed or service and socket cgred are not configured to start" operator="OR">
+      <criterion comment="libcgroup-tools removed" test_ref="test_service_cgred_package_libcgroup-tools_removed" />
+      <criteria operator="AND" comment="service and socket cgred are disabled">
+        <criterion comment="cgred disabled in multi-user.target" test_ref="test_cgred_disabled_multi_user_target" />
+        <criterion comment="cgred socket disabled in sockets.target" test_ref="test_cgred_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for cgred.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_cgred_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_cgred_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for cgred.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_cgred_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/cgred.service</unix:filepath>
+    <filter action="include">unit_cgred_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for cgred.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_cgred_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_cgred_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for cgred.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_cgred_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/cgred.socket</unix:filepath>
+    <filter action="include">unit_cgred_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_cgred_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_cgred_package_libcgroup-tools_removed" version="1"
+  comment="package libcgroup-tools is removed">
+    <linux:object object_ref="obj_test_service_cgred_package_libcgroup-tools_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_cgred_package_libcgroup-tools_removed" version="1">
+    <linux:name>libcgroup-tools</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

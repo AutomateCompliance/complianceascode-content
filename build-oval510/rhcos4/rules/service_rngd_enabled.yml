@@ -1,0 +1,66 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/rng/service_rngd_enabled/rule.yml
+description: "The Hardware RNG Entropy Gatherer service should be enabled.\n\nThe\
+  \ <code>rngd</code> service can be enabled with the following manifest:\n<pre>\n\
+  ---\napiVersion: machineconfiguration.openshift.io/v1\nkind: MachineConfig\nmetadata:\n\
+  \  labels:\n    machineconfiguration.openshift.io/role: master\n  name: 75-master-rngd-enable\n\
+  spec:\n  config:\n    ignition:\n      version: 3.1.0\n    systemd:\n      units:\n\
+  \      - name: rngd.service\n        enabled: true\n</pre>\n<p>\nThis will enable\
+  \ the <tt>rngd</tt> service in all the\nnodes labeled with the \"master\" role.\n\
+  </p>\n<p>\nNote that this needs to be done for each <tt>MachineConfigPool</tt>\n\
+  </p>\n<p>\nFor more information on how to configure nodes with the Machine Config\n\
+  Operator see\n<a xmlns='http://www.w3.org/1999/xhtml' href='https://docs.openshift.com/container-platform/4.6/post_installation_configuration/machine-configuration-tasks.html'>the\
+  \ relevant documentation</a>.\n</p>"
+identifiers:
+  cce: CCE-82535-6
+inherited_platforms:
+- machine
+ocil: '
+
+  As a user with administrator privileges, log into a node in the relevant pool:
+
+  <pre>
+
+  $ oc debug node/$NODE_NAME
+
+  </pre>
+
+  At the <pre>sh-4.4#</pre> prompt, run:
+
+  <pre>
+
+  # chroot /host
+
+  </pre>
+
+
+  Run the following command to determine the current status of the
+
+  <code>rngd</code> service:
+
+  <pre>$ systemctl is-active rngd</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>'
+ocil_clause: the service is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+rationale: 'The <tt>rngd</tt> service
+
+  feeds random data from hardware device to kernel random device.'
+references:
+  disa: CCI-000366
+  ospp: FCS_RBG_EXT.1
+  srg: SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_enabled
+  vars:
+    packagename: rng-tools
+    servicename: rngd
+title: Enable the Hardware RNG Entropy Gatherer Service
+warnings: []

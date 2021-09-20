@@ -1,0 +1,838 @@
+<?xml version="1.0"?>
+<ns0:oval_definitions xmlns:ns0="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ns2="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:ns3="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:ns4="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <ns0:generator>
+    <ns2:product_name>combine_ovals.py from SCAP Security Guide</ns2:product_name>
+    <ns2:product_version>ssg: [0, 1, 58], python: 3.8.10</ns2:product_version>
+    <ns2:schema_version>5.10</ns2:schema_version>
+    <ns2:timestamp>2021-09-20T03:23:22</ns2:timestamp>
+  </ns0:generator>
+  <ns0:definitions>
+    <ns0:definition class="compliance" id="chromium_blacklist_extension_installation" version="1">
+      <ns0:metadata>
+        <ns0:title>Blacklist Extension Installation</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Extensions installation must be blacklisted by default.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium blacklist extension installation" test_ref="test_chromium_extension_installation"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_block_desktop_notifications" version="1">
+      <ns0:metadata>
+        <ns0:title>Block Desktop Notifications</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Sites ability for showing desktop notifications must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium block desktop notifications" test_ref="test_chromium_block_notifications"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_check_cert_revocation" version="1">
+      <ns0:metadata>
+        <ns0:title>Check Certificate Revocation</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Online revocation checks must be done.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium check certificate revocation" test_ref="test_chromium_check_cert_revocation"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_default_block_plugins" version="1">
+      <ns0:metadata>
+        <ns0:title>Block Plugin Execution By Default</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Default behavior must block webpages from automatically running plugins.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium block plugin execution" test_ref="test_chromium_default_block_plugins"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_default_search_provider" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Default Search Provider</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Default search provider must be enabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium enable default search provider" test_ref="test_chromium_default_search_provider"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_default_search_provider_name" version="1">
+      <ns0:metadata>
+        <ns0:title>Set Default Search Provider Name</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The default search providers name must be set.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium set default search provider" test_ref="test_chromium_search_provider_name"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_3d_graphics_api" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable 3D Graphics APIs</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>3D Graphics APIs must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable 3D graphics apis" test_ref="test_chromium_disable_3d_graphics_api"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_autocomplete" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Autocomplete For Forms</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>AutoFill must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable autocomplete for forms" test_ref="test_chromium_disable_autocomplete"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_automatic_installation" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Automatic Plugin Search And Installation</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Automated installation of missing plugins must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable automatic plugin search and installation" test_ref="test_chromium_disable_automatic_installation"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_background_processing" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Background Processing</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Background processing must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable background processing" test_ref="test_chromium_disable_background_processing"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_cleartext_passwords" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Cleartext Passwords</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Cleartext passwords in the Password Manager must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable cleartext passwords" test_ref="test_chromium_disable_cleartext_passwords"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_cloud_print_sharing" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Cloud Print Sharing</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Cloud print sharing must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable cloud pring sharing" test_ref="test_chromium_disable_cloud_print_sharing"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_firewall_traversal" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Firewall Traversal</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Firewall traversal from remote host must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Test Chromium firewall traversal policy" test_ref="test_chromium_firewall_traversal"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_google_sync" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Google Data Synchronization</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Google Data Synchronization must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable Google data sync" test_ref="test_chromium_disable_google_sync"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_incognito_mode" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Incognito Mode</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Incognito mode must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable incognito mode" test_ref="test_chromium_disable_incognito_mode"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_metrics_reporting" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Metrics Reporting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Metrics reporting to Google must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable metrics reporting" test_ref="test_chromium_disable_metrics_reporting"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_network_prediction" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Network Prediction</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Network prediction must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable network prediction" test_ref="test_chromium_disable_network_prediction"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_outdated_plugins" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Outdated Plugins</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The running of outdated plugins must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable outdated plugins" test_ref="test_chromium_disable_outdated_plugins"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_password_manager" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Password Manager</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The Password Manager must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable password manager" test_ref="test_chromium_disable_password_manager"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_plugin_blacklist" version="1">
+      <ns0:metadata>
+        <ns0:title>Blacklist Plugins</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Plugins must be disabled by default.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable plugins by default" test_ref="test_chromium_plugin_blacklist"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_popups" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Pop-ups</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Sites ability to show pop-ups must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable pop-ups" test_ref="test_chromium_disable_popups"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_protocol_schemas" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Javascript URL Protocol Schemas</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The URL protocol schema javascript must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable URL protocol schemas" test_ref="test_chromium_disable_protocol_schemas"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_saved_passwords" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Importing Saved Passwords</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Importing of saved passwords must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable importing saved passwords" test_ref="test_chromium_disable_saved_passwords"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_search_suggestions" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Search Suggestopms</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Search suggestions must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable search suggestions" test_ref="test_chromium_disable_search_suggestions"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_session_cookies" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Per Session Cookies</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Session only based cookies must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disable per session cookies" test_ref="test_chromium_disable_session_cookies"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disable_thirdparty_cookies" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Third Party Cookies</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Third party cookies must be blocked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium block third party cookies" test_ref="test_chromium_disable_thirdparty_cookies"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_disallow_location_tracking" version="1">
+      <ns0:metadata>
+        <ns0:title>Disallow Location Tracking</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Site tracking users location must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium disallow location tracking" test_ref="test_chromium_location_tracking"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_enable_approved_plugins" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Approved Plugins</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Plugins approved for use must be enabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium enable approved plugins" test_ref="test_chromium_enable_approved_plugins"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_enable_browser_history" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Browser History</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Browser history must be saved.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium enable browser history" test_ref="test_chromium_enable_browser_history"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_enable_encrypted_searching" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Encrypted Searching</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The default search provider URL must be set to perform encrypted searches.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium enable encrypted searching" test_ref="test_chromium_encrypted_search"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_enable_safe_browsing" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Safe Browsing</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Safe Browsing must be enabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromiumi enable safe browsing" test_ref="test_chromium_enable_safe_browsing"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_extension_whitelist" version="1">
+      <ns0:metadata>
+        <ns0:title>Extension Whitelist</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Extensions that are approved for use must be whitelisted.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium whitelist extension" test_ref="test_chromium_extension_whitelist"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_http_authentication" version="1">
+      <ns0:metadata>
+        <ns0:title>HTTP Authentication</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The HTTP Authentication must be set to negotiate.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium check HTTP authentication" test_ref="test_chromium_http_authentication"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_plugins_require_authorization" version="1">
+      <ns0:metadata>
+        <ns0:title>Plugins Require Authentication</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>Plugins requiring authorization must ask for user permission.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium require plugin authorization" test_ref="test_chromium_plugins_require_authorization"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_policy_file" version="1">
+      <ns0:metadata>
+        <ns0:title>Chromium Policy File Exists</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The Chromium policy file must exist and be configured correctly.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium policy file" test_ref="test_chromium_policy_file"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_trusted_home_page" version="1">
+      <ns0:metadata>
+        <ns0:title>Set Trusted Homepage URL</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The homepage must be set to a trusted site.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium set trusted homepage URL" test_ref="test_chromium_trusted_home_page"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="chromium_whitelist_plugin_urls" version="1">
+      <ns0:metadata>
+        <ns0:title>Configure Whitelisted Plugins For Use</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>URLs must be whitelisted for plugin use.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Chromium whitelist plugin urls" test_ref="test_chromium_whitelist_plugin_urls"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="inventory" id="installed_app_is_chromium" version="2">
+      <ns0:metadata>
+        <ns0:title>Google Chromium Browser</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:reference ref_id="cpe:/a:google:chromium-browser" source="CPE"/>
+        <ns0:description>The application installed on the system is the Google Chromium Browser</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria operator="AND">
+        <ns0:extend_definition comment="Installed OS is part of the Unix family" definition_ref="installed_OS_is_part_of_Unix_family"/>
+        <ns0:criteria operator="OR">
+          <ns0:criterion comment="Chromium is installed" test_ref="test_chromium-browser_installed"/>
+          <ns0:criterion comment="Chromium is installed" test_ref="test_chromium_installed"/>
+        </ns0:criteria>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="inventory" id="installed_OS_is_part_of_Unix_family" version="1">
+      <ns0:metadata>
+        <ns0:title>Installed operating system is part of the Unix family</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Chromium</ns0:product>
+        </ns0:affected>
+        <ns0:description>The operating system installed on the system is part of the Unix OS family</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Installed operating system is part of the unix family" test_ref="test_unix_family"/>
+      </ns0:criteria>
+    </ns0:definition>
+  </ns0:definitions>
+  <ns0:tests>
+    <ns3:textfilecontent54_test check="all" comment="Chromium blacklist extension installation" id="test_chromium_extension_installation" version="1">
+      <ns3:object object_ref="object_chromium_extension_installation"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium block desktop notifications" id="test_chromium_block_notifications" version="1">
+      <ns3:object object_ref="object_chromium_block_notifications"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium check certificate revocation" id="test_chromium_check_cert_revocation" version="1">
+      <ns3:object object_ref="object_chromium_check_cert_revocation"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium block plugin execution" id="test_chromium_default_block_plugins" version="1">
+      <ns3:object object_ref="object_chromium_default_block_plugins"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium enable default search provider" id="test_chromium_default_search_provider" version="1">
+      <ns3:object object_ref="object_chromium_default_search_provider"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium set default search provider" id="test_chromium_search_provider_name" version="1">
+      <ns3:object object_ref="object_chromium_search_provider_name"/>
+      <ns3:state state_ref="state_chromium_search_provider_name"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable 3D graphics apis" id="test_chromium_disable_3d_graphics_api" version="1">
+      <ns3:object object_ref="object_chromium_disable_3d_graphics_api"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable autocomplete for forms" id="test_chromium_disable_autocomplete" version="1">
+      <ns3:object object_ref="object_chromium_disable_autocomplete"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable automatic plugin search and installation" id="test_chromium_disable_automatic_installation" version="1">
+      <ns3:object object_ref="object_chromium_disable_automatic_installation"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable background processing" id="test_chromium_disable_background_processing" version="1">
+      <ns3:object object_ref="object_chromium_disable_background_processing"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable cleartext passwords" id="test_chromium_disable_cleartext_passwords" version="1">
+      <ns3:object object_ref="object_chromium_disable_cleartext_passwords"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable cloud pring sharing" id="test_chromium_disable_cloud_print_sharing" version="1">
+      <ns3:object object_ref="object_chromium_disable_cloud_print_sharing"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Test Chromium firewall traversal policy" id="test_chromium_firewall_traversal" version="1">
+      <ns3:object object_ref="object_chromium_firewall_traversal"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable Google data sync" id="test_chromium_disable_google_sync" version="1">
+      <ns3:object object_ref="object_chromium_disable_google_sync"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable incognito mode" id="test_chromium_disable_incognito_mode" version="1">
+      <ns3:object object_ref="object_chromium_disable_incognito_mode"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable metrics reporting" id="test_chromium_disable_metrics_reporting" version="1">
+      <ns3:object object_ref="object_chromium_disable_metrics_reporting"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable network prediction" id="test_chromium_disable_network_prediction" version="1">
+      <ns3:object object_ref="object_chromium_disable_network_prediction"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable outdated plugins" id="test_chromium_disable_outdated_plugins" version="1">
+      <ns3:object object_ref="object_chromium_disable_outdated_plugins"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable password manager" id="test_chromium_disable_password_manager" version="1">
+      <ns3:object object_ref="object_chromium_disable_password_manager"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable plugins by default" id="test_chromium_plugin_blacklist" version="1">
+      <ns3:object object_ref="object_chromium_plugin_blacklist"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable pop-ups" id="test_chromium_disable_popups" version="1">
+      <ns3:object object_ref="object_chromium_disable_popups"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable URL protocol schemas" id="test_chromium_disable_protocol_schemas" version="1">
+      <ns3:object object_ref="object_chromium_disable_protocol_schemas"/>
+      <ns3:state state_ref="state_chromium_disable_protocol_schemas"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable importing saved passwords" id="test_chromium_disable_saved_passwords" version="1">
+      <ns3:object object_ref="object_chromium_disable_saved_passwords"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable search suggestions" id="test_chromium_disable_search_suggestions" version="1">
+      <ns3:object object_ref="object_chromium_disable_search_suggestions"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disable per session cookies" id="test_chromium_disable_session_cookies" version="1">
+      <ns3:object object_ref="object_chromium_disable_session_cookies"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium block third party cookies" id="test_chromium_disable_thirdparty_cookies" version="1">
+      <ns3:object object_ref="object_chromium_disable_thirdparty_cookies"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium disallow location tracking" id="test_chromium_location_tracking" version="1">
+      <ns3:object object_ref="object_chromium_location_tracking"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium enable approved plugins" id="test_chromium_enable_approved_plugins" version="1">
+      <ns3:object object_ref="object_chromium_enable_approved_plugins"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium enable browser history" id="test_chromium_enable_browser_history" version="1">
+      <ns3:object object_ref="object_chromium_enable_browser_history"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium enable encrypted searching" id="test_chromium_encrypted_search" version="1">
+      <ns3:object object_ref="object_chromium_encrypted_search"/>
+      <ns3:state state_ref="state_chromium_encrypted_search"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromiumi enable safe browsing" id="test_chromium_enable_safe_browsing" version="1">
+      <ns3:object object_ref="object_chromium_enable_safe_browsing"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium whitelist extension" id="test_chromium_extension_whitelist" version="1">
+      <ns3:object object_ref="object_chromium_extension_whitelist"/>
+      <ns3:state state_ref="state_chromium_extension_whitelist"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium check HTTP authentication" id="test_chromium_http_authentication" version="1">
+      <ns3:object object_ref="object_chromium_http_authentication"/>
+      <ns3:state state_ref="state_chromium_http_authentication"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium require plugin authorization" id="test_chromium_plugins_require_authorization" version="1">
+      <ns3:object object_ref="object_chromium_plugins_require_authorization"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium policy file" id="test_chromium_policy_file" version="1">
+      <ns3:object object_ref="object_chromium_policy_file"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium set trusted homepage URL" id="test_chromium_trusted_home_page" version="1">
+      <ns3:object object_ref="object_chromium_trusted_home_page"/>
+      <ns3:state state_ref="state_chromium_trusted_home_page"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Chromium whitelist plugin urls" id="test_chromium_whitelist_plugin_urls" version="1">
+      <ns3:object object_ref="object_chromium_whitelist_plugin_urls"/>
+    </ns3:textfilecontent54_test>
+    <ns4:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Chromium is installed" id="test_chromium-browser_installed" version="1">
+      <ns4:object object_ref="obj_chromium-browser_installed"/>
+    </ns4:rpminfo_test>
+    <ns4:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Chromium is installed" id="test_chromium_installed" version="1">
+      <ns4:object object_ref="obj_chromium_installed"/>
+    </ns4:rpminfo_test>
+    <ns3:family_test id="test_unix_family" check="all" check_existence="at_least_one_exists" comment="Test installed OS is part of the unix family" version="1">
+      <ns3:object object_ref="object_unix_family"/>
+      <ns3:state state_ref="state_unix_family"/>
+    </ns3:family_test>
+  </ns0:tests>
+  <ns0:objects>
+    <ns3:textfilecontent54_object id="object_chromium_extension_installation" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"ExtensionInstallBlacklist\"\:[\s]+\[\"\*\"\],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_block_notifications" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DefaultNotificationsSetting\"\:[\s]+2,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_check_cert_revocation" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"EnableOnlineRevocationChecks\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_default_block_plugins" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DefaultPluginsSetting\"\:[\s]+3,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_default_search_provider" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DefaultSearchProviderEnabled\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_search_provider_name" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+"DefaultSearchProviderName"\:[\s]+"(\S+)",$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_3d_graphics_api" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"Disable3DAPIs\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_autocomplete" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"AutoFillEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_automatic_installation" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DisablePluginFinder\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_background_processing" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"BackgroundModeEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_cleartext_passwords" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"PasswordManagerAllowShowPasswords\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_cloud_print_sharing" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"CloudPrintProxyEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_firewall_traversal" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"RemoteAccessHostFirewallTraversal\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_google_sync" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"SyncDisabled\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_incognito_mode" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"IncognitoModeAvailability\"\:[\s]+1,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_metrics_reporting" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"MetricsReportingEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_network_prediction" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DnsPrefetchingEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_outdated_plugins" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"AllowOutdatedPlugins\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_password_manager" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"PasswordManagerEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_plugin_blacklist" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DisabledPlugins\"\:[\s]+\[\"\*\"\],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_popups" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DefaultPopupsSetting\"\:[\s]+2,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_protocol_schemas" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"URLBlacklist\"\:[\s]+\[\"(\S+)"\],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_saved_passwords" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"ImportSavedPasswords\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_search_suggestions" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"SearchSuggestEnabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_session_cookies" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"CookiesSessionOnlyForUrls\"\:[\s]+\[\"(none|)"\],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_disable_thirdparty_cookies" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"BlockThirdPartyCookies\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_location_tracking" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"DefaultGeolocationSetting\"\:[\s]+2,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_enable_approved_plugins" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"EnabledPlugins\"\:[\s]+\[\"((none|[a-zA-Z]*)|!*)\"\],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_enable_browser_history" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"SavingBrowserHistoryDisabled\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_encrypted_search" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"DefaultSearchProviderSearchURL\"\:[\s]+\"(\S+)",</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_enable_safe_browsing" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"SafeBrowsingEnabled\"\:[\s]+true,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_extension_whitelist" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"ExtensionInstallWhitelist\"\:[\s]+\[\"(\S+)\"],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_http_authentication" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"AuthSchemes\"\:[\s]+\"(\S+)\",</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_plugins_require_authorization" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\"AlwaysAuthorizePlugins\"\:[\s]+false,</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_policy_file" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^\{([^\n]*\n+)+[\s]+\".*\"\:[\s]+.*,([^\n]*\n+)+\}</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_trusted_home_page" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"HomepageLocation\"\:[\s]+\"(\S+)\",</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_chromium_whitelist_plugin_urls" version="1">
+      <ns3:filepath operation="pattern match">^/etc/chromium/policies/managed/.*\.json$</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]+\"PluginsAllowedForUrls\"\:[\s]+\[\"(none|!*)\"\],</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns4:rpminfo_object id="obj_chromium-browser_installed" version="1">
+      <ns4:name>chromium-browser</ns4:name>
+    </ns4:rpminfo_object>
+    <ns4:rpminfo_object id="obj_chromium_installed" version="1">
+      <ns4:name>chromium</ns4:name>
+    </ns4:rpminfo_object>
+    <ns3:family_object id="object_unix_family" version="1"/>
+  </ns0:objects>
+  <ns0:states>
+    <ns3:textfilecontent54_state id="state_chromium_search_provider_name" version="1">
+      <ns3:subexpression operation="equals" var_check="all" var_ref="var_default_search_provider_name"/>
+    </ns3:textfilecontent54_state>
+    <ns3:textfilecontent54_state id="state_chromium_disable_protocol_schemas" version="1">
+      <ns3:subexpression operation="equals" var_check="all" var_ref="var_url_blacklist"/>
+    </ns3:textfilecontent54_state>
+    <ns3:textfilecontent54_state id="state_chromium_encrypted_search" version="1">
+      <ns3:subexpression operation="equals" var_check="all" var_ref="var_enable_encrypted_searching"/>
+    </ns3:textfilecontent54_state>
+    <ns3:textfilecontent54_state id="state_chromium_extension_whitelist" version="1">
+      <ns3:subexpression operation="equals" var_check="all" var_ref="var_extension_whitelist"/>
+    </ns3:textfilecontent54_state>
+    <ns3:textfilecontent54_state id="state_chromium_http_authentication" version="1">
+      <ns3:subexpression operation="equals" var_check="all" var_ref="var_auth_schema"/>
+    </ns3:textfilecontent54_state>
+    <ns3:textfilecontent54_state id="state_chromium_trusted_home_page" version="1">
+      <ns3:subexpression operation="equals" var_check="all" var_ref="var_trusted_home_page"/>
+    </ns3:textfilecontent54_state>
+    <ns3:family_state id="state_unix_family" version="1">
+      <ns3:family>unix</ns3:family>
+    </ns3:family_state>
+  </ns0:states>
+  <ns0:variables>
+    <ns0:external_variable id="var_default_search_provider_name" datatype="string" version="1" comment="Expected search provider name"/>
+    <ns0:external_variable id="var_url_blacklist" datatype="string" version="1" comment="Expected URL protocol schema"/>
+    <ns0:external_variable id="var_enable_encrypted_searching" datatype="string" version="1" comment="Expected search provider name"/>
+    <ns0:external_variable id="var_extension_whitelist" datatype="string" version="1" comment="Expected approved extensions"/>
+    <ns0:external_variable id="var_auth_schema" datatype="string" version="1" comment="Expected HTTP authentication type"/>
+    <ns0:external_variable id="var_trusted_home_page" datatype="string" version="1" comment="Expected home page"/>
+  </ns0:variables>
+</ns0:oval_definitions>

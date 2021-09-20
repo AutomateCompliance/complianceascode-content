@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/apple_os/auditing/configure_auditing/audit_failure_halt/rule.yml
+description: 'The macOS system must shut down by default upon audit
+
+  failure unless availability is an overriding concern.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that auditing is enabled and running, run the
+
+  following command:
+
+  <pre>$ sudo grep -E "^policy.*ahlt" /etc/security/audit_control</pre>
+
+  The output should contain <tt>ahlt</tt>'
+ocil_clause: auditing is not configured to shut down on audit failure
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "The audit service should shut down the computer if it \nis unable to audit\
+  \ system events. Once audit failure\noccurs, user and system activity is no longer\
+  \ recorded\nand malicious activity could go undetected. Audit\nprocessing failures\
+  \ include software/hardware errors,\nfailures in the audit capturing mechanisms,\
+  \ and audit\nstorage capacity being reached or exceeded. Responses\nto audit failure\
+  \ depend on the nature of the failure\nmode."
+references:
+  disa: CCI-000140
+  nist: AU-5(b)
+  srg: SRG-OS-000047-GPOS-00023
+  stigid: AOSX-14-001010
+requires: []
+severity: medium
+template: null
+title: Shutdown System When Auditing Failures Occur
+warnings: []

@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="sebool_logwatch_can_network_connect_mail" version="1">
+    <metadata>
+        <title>Disable the logwatch_can_network_connect_mail SELinux Boolean</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 8</platform>
+    </affected>
+        <description>The SELinux 'logwatch_can_network_connect_mail' boolean should be set in the system configuration.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="logwatch_can_network_connect_mail is configured correctly" test_ref="test_sebool_logwatch_can_network_connect_mail" />
+    </criteria>
+  </definition>
+
+  <linux:selinuxboolean_test check="all" check_existence="all_exist" comment="logwatch_can_network_connect_mail is configured correctly" id="test_sebool_logwatch_can_network_connect_mail" version="1">
+    <linux:object object_ref="object_sebool_logwatch_can_network_connect_mail" />
+    <linux:state state_ref="state_sebool_logwatch_can_network_connect_mail" />
+  </linux:selinuxboolean_test>
+
+  <linux:selinuxboolean_object id="object_sebool_logwatch_can_network_connect_mail" version="1">
+    <linux:name>logwatch_can_network_connect_mail</linux:name>
+  </linux:selinuxboolean_object>
+
+  <linux:selinuxboolean_state id="state_sebool_logwatch_can_network_connect_mail" version="1">
+    <linux:name>logwatch_can_network_connect_mail</linux:name>
+    
+      <linux:current_status datatype="boolean" var_ref="var_logwatch_can_network_connect_mail"/>
+      <linux:pending_status datatype="boolean" var_ref="var_logwatch_can_network_connect_mail"/>
+    
+  </linux:selinuxboolean_state>
+
+  
+    <external_variable comment="external variable for logwatch_can_network_connect_mail" datatype="boolean" id="var_logwatch_can_network_connect_mail" version="1" />
+  
+</def-group>

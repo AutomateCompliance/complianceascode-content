@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-secure_java_security_manager/rule.yml
+description: 'The Java Security Manager is a crucial piece of the Java
+
+  security infrastructure. JBoss Fuse should be configured to load a Java
+
+  security policy that has been vetted for use in the environment.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: no policy file exists or has been configured
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'A weak, default, or incomplete Java Security Manager policy file can
+
+  completely compromise the security of a Java installation by granting
+
+  excessive permissions to applications running within the sandbox. These
+
+  permissions can be leveraged (maliciously or not) to run code against the
+
+  operating system.'
+references:
+  nist: SA-13
+requires: []
+severity: medium
+template: null
+title: Configure Java Security Manager To Use An Environment Policy
+warnings: []

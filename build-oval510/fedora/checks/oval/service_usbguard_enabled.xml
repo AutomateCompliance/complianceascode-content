@@ -1,0 +1,114 @@
+<def-group>
+
+  <definition class="compliance" id="service_usbguard_enabled"
+  version="1">
+    <metadata>
+        <title>Enable the USBGuard Service</title>
+        
+    <affected family="unix">
+    <platform>Fedora</platform>
+    </affected>
+        <description>The usbguard service should be enabled if possible.</description>
+    </metadata>
+    <criteria comment="package usbguard installed and service usbguard is configured to start" operator="AND">
+    <criterion comment="usbguard installed" test_ref="test_service_usbguard_package_usbguard_installed" />
+    <criteria operator="OR" comment="service usbguard is configured to start">
+      <criterion comment="usbguard runlevel 0" test_ref="test_runlevel0_usbguard_on" />
+      <criterion comment="usbguard runlevel 1" test_ref="test_runlevel1_usbguard_on" />
+      <criterion comment="usbguard runlevel 2" test_ref="test_runlevel2_usbguard_on" />
+      <criterion comment="usbguard runlevel 3" test_ref="test_runlevel3_usbguard_on" />
+      <criterion comment="usbguard runlevel 4" test_ref="test_runlevel4_usbguard_on" />
+      <criterion comment="usbguard runlevel 5" test_ref="test_runlevel5_usbguard_on" />
+      <criterion comment="usbguard runlevel 6" test_ref="test_runlevel6_usbguard_on" />
+    </criteria>
+    </criteria>
+  </definition>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel0_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel0_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel1_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel1_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel2_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel2_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel3_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel3_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel4_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel4_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel5_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel5_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel6_usbguard_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel6_usbguard_on" />
+    <unix:state state_ref="state_service_usbguard_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_object id="obj_runlevel0_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">0</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel1_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">1</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel2_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">2</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel3_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">3</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel4_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">4</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel5_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">5</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel6_usbguard_on" version="1">
+    <unix:service_name>usbguard</unix:service_name>
+    <unix:runlevel operation="equals">6</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_state comment="configured to start" id="state_service_usbguard_on" version="1">
+    <unix:start datatype="boolean">true</unix:start>
+    <unix:kill datatype="boolean">false</unix:kill>
+  </unix:runlevel_state>
+
+
+
+  <linux:rpminfo_test check="all" check_existence="all_exist"
+  id="test_service_usbguard_package_usbguard_installed" version="1"
+  comment="package usbguard is installed">
+    <linux:object object_ref="obj_test_service_usbguard_package_usbguard_installed" />
+    
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_usbguard_package_usbguard_installed" version="1">
+    <linux:name>usbguard</linux:name>
+  </linux:rpminfo_object>
+  
+
+</def-group>

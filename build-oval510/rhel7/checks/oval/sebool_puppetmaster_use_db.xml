@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="sebool_puppetmaster_use_db" version="1">
+    <metadata>
+        <title>Disable the puppetmaster_use_db SELinux Boolean</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 7</platform>
+    </affected>
+        <description>The SELinux 'puppetmaster_use_db' boolean should be set in the system configuration.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="puppetmaster_use_db is configured correctly" test_ref="test_sebool_puppetmaster_use_db" />
+    </criteria>
+  </definition>
+
+  <linux:selinuxboolean_test check="all" check_existence="all_exist" comment="puppetmaster_use_db is configured correctly" id="test_sebool_puppetmaster_use_db" version="1">
+    <linux:object object_ref="object_sebool_puppetmaster_use_db" />
+    <linux:state state_ref="state_sebool_puppetmaster_use_db" />
+  </linux:selinuxboolean_test>
+
+  <linux:selinuxboolean_object id="object_sebool_puppetmaster_use_db" version="1">
+    <linux:name>puppetmaster_use_db</linux:name>
+  </linux:selinuxboolean_object>
+
+  <linux:selinuxboolean_state id="state_sebool_puppetmaster_use_db" version="1">
+    <linux:name>puppetmaster_use_db</linux:name>
+    
+      <linux:current_status datatype="boolean" var_ref="var_puppetmaster_use_db"/>
+      <linux:pending_status datatype="boolean" var_ref="var_puppetmaster_use_db"/>
+    
+  </linux:selinuxboolean_state>
+
+  
+    <external_variable comment="external variable for puppetmaster_use_db" datatype="boolean" id="var_puppetmaster_use_db" version="1" />
+  
+</def-group>

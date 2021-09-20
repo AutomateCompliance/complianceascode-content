@@ -1,0 +1,30 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_minimize_loadable_modules/httpd_core_modules/httpd_ldap_support/rule.yml
+description: 'The <tt>ldap</tt> module provides HTTP authentication via an LDAP directory.
+
+  If its functionality is unnecessary, comment out the related modules:
+
+  <pre>#LoadModule ldap_module modules/mod_ldap.so
+
+  #LoadModule authnz_ldap_module modules/mod_authnz_ldap.so</pre>
+
+  If LDAP is to be used, SSL encryption should be used as well.'
+identifiers:
+  cce: CCE-80306-4
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: 'Minimizing the number of loadable modules available to the web server
+  reduces risk
+
+  by limiting the capabilities allowed by the web server.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Disable LDAP Support
+warnings: []

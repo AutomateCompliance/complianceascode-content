@@ -1,0 +1,40 @@
+
+    
+  <def-group>
+  <definition class="compliance" id="file_permissions_sshd_pub_key" version="1">
+    <metadata>
+        <title>Verify Permissions on SSH Server Public *.pub Key Files</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 9</platform>
+    </affected>
+        <description>This test makes sure that /etc/ssh/ has mode 0644.
+      If the target file or directory has an extended ACL, then it will fail the mode check.
+      </description>
+    </metadata>
+    <criteria>
+      <criterion comment="Check file mode of /etc/ssh/" test_ref="test_file_permissions_sshd_pub_key" negate="true"/>
+    </criteria>
+  </definition>
+      <unix:file_test check="all" check_existence="at_least_one_exists" comment="Testing mode of /etc/ssh/" id="test_file_permissions_sshd_pub_key" version="2">
+      <unix:object object_ref="object_file_permissions_sshd_pub_key" />
+      <unix:state state_ref="state_file_permissions_sshd_pub_key_mode_not_0644" />
+    </unix:file_test>
+    <unix:file_state id="state_file_permissions_sshd_pub_key_mode_not_0644" operator="OR" version="2">
+      <unix:suid datatype="boolean">true</unix:suid>
+      <unix:sgid datatype="boolean">true</unix:sgid>
+      <unix:sticky datatype="boolean">true</unix:sticky>
+      <unix:uexec datatype="boolean">true</unix:uexec>
+      <unix:gwrite datatype="boolean">true</unix:gwrite>
+      <unix:gexec datatype="boolean">true</unix:gexec>
+      <unix:owrite datatype="boolean">true</unix:owrite>
+      <unix:oexec datatype="boolean">true</unix:oexec>
+    </unix:file_state>
+    <unix:file_object comment="/etc/ssh/" id="object_file_permissions_sshd_pub_key" version="1">
+      <unix:path>/etc/ssh/</unix:path>
+      <unix:filename operation="pattern match">^.*.pub$</unix:filename>
+      
+      <filter action="include">state_file_permissions_sshd_pub_key_mode_not_0644</filter>
+
+    </unix:file_object>
+</def-group>

@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_decompArchive/rule.yml
+description: "Malware can be hidden within archived files and passed from system to\
+  \ system undetected unless the archive is decompressed and each file scanned. \n\
+  By disabling the archive scanning capability, archives such as .tar and .tgz files\
+  \ will not be decompressed and any infected files in the archives would go undetected.\
+  \ \n\nTo check that VSEL settings are configured correctly, you have to examine\
+  \ the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.profile.OAS.decompArchive: true</tt>,\n\
+  compressed archives will be decompressed before being scanned."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that compressed archives will be decompressed before being scanned,\
+  \ \ncheck the respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\
+  \ contains the <pre>nailsd.profile.OAS.decompArchive: true</pre> line:\n<pre>grep\
+  \ 'nailsd.profile.OAS.decompArchive: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.profile.OAS.decompArchive:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Decompression can slow performance, however; any virus-infected file inside
+  an archive cannot become active until it has been extracted.
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-004
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  be configured to decompress archives when scanning
+warnings: []

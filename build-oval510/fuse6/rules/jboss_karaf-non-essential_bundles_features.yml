@@ -1,0 +1,30 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-non-essential_bundles_features/rule.yml
+description: 'All non-essential bundles and features should be
+
+  removed from production servers.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: non-essential bundles and features have not been removed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The server provide a myriad of differing processes, features and
+
+  functionalities. Some of these processes may be deemed to be
+
+  unnecessary or too insecure to run on a production DoD system.
+
+  Servers must provide the capability to disable or deactivate
+
+  functionality and services that are deemed to be non-essential
+
+  to the server mission or can adversely impact server performance.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Remove All Non-Essential Bundles And Features
+warnings: []

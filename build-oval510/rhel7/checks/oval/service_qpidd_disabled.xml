@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_qpidd_disabled" version="2">
+    <metadata>
+        <title>Disable Apache Qpid (qpidd)</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The qpidd service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package qpid-cpp-server removed or service and socket qpidd are not configured to start" operator="OR">
+      <criterion comment="qpid-cpp-server removed" test_ref="test_service_qpidd_package_qpid-cpp-server_removed" />
+      <criteria operator="AND" comment="service and socket qpidd are disabled">
+        <criterion comment="qpidd disabled in multi-user.target" test_ref="test_qpidd_disabled_multi_user_target" />
+        <criterion comment="qpidd socket disabled in sockets.target" test_ref="test_qpidd_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for qpidd.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_qpidd_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_qpidd_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for qpidd.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_qpidd_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/qpidd.service</unix:filepath>
+    <filter action="include">unit_qpidd_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for qpidd.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_qpidd_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_qpidd_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for qpidd.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_qpidd_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/qpidd.socket</unix:filepath>
+    <filter action="include">unit_qpidd_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_qpidd_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_qpidd_package_qpid-cpp-server_removed" version="1"
+  comment="package qpid-cpp-server is removed">
+    <linux:object object_ref="obj_test_service_qpidd_package_qpid-cpp-server_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_qpidd_package_qpid-cpp-server_removed" version="1">
+    <linux:name>qpid-cpp-server</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

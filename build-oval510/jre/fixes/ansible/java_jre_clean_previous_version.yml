@@ -1,0 +1,21 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Ensure YUM Removes Previous Package Versions
+  lineinfile:
+    dest: /etc/yum.conf
+    regexp: ^#?clean_requirements_on_remove
+    line: clean_requirements_on_remove=1
+    insertafter: \[main\]
+    create: true
+  tags:
+    - DISA-STIG-JRE8-UX-000190
+    - NIST-800-53-SI-2(6)
+    - java_jre_clean_previous_version
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

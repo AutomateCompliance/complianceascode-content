@@ -1,0 +1,9 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure openssl-pkcs11 is installed
+  package:
+    name: "openssl-pkcs11"
+    state: present

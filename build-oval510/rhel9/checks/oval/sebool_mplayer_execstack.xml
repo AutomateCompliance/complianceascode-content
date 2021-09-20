@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="sebool_mplayer_execstack" version="1">
+    <metadata>
+        <title>Disable the mplayer_execstack SELinux Boolean</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 9</platform>
+    </affected>
+        <description>The SELinux 'mplayer_execstack' boolean should be set in the system configuration.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="mplayer_execstack is configured correctly" test_ref="test_sebool_mplayer_execstack" />
+    </criteria>
+  </definition>
+
+  <linux:selinuxboolean_test check="all" check_existence="all_exist" comment="mplayer_execstack is configured correctly" id="test_sebool_mplayer_execstack" version="1">
+    <linux:object object_ref="object_sebool_mplayer_execstack" />
+    <linux:state state_ref="state_sebool_mplayer_execstack" />
+  </linux:selinuxboolean_test>
+
+  <linux:selinuxboolean_object id="object_sebool_mplayer_execstack" version="1">
+    <linux:name>mplayer_execstack</linux:name>
+  </linux:selinuxboolean_object>
+
+  <linux:selinuxboolean_state id="state_sebool_mplayer_execstack" version="1">
+    <linux:name>mplayer_execstack</linux:name>
+    
+      <linux:current_status datatype="boolean" var_ref="var_mplayer_execstack"/>
+      <linux:pending_status datatype="boolean" var_ref="var_mplayer_execstack"/>
+    
+  </linux:selinuxboolean_state>
+
+  
+    <external_variable comment="external variable for mplayer_execstack" datatype="boolean" id="var_mplayer_execstack" version="1" />
+  
+</def-group>

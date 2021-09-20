@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/configure_auditd_data_retention/auditd_overflow_action/rule.yml
+description: 'The audit system should have an action setup in the event the internal
+  event queue becomes full.
+
+  To setup an overflow action edit <tt>/etc/audit/auditd.conf</tt>. Set <tt>overflow_action</tt>
+
+  to one of the following values: <tt>syslog</tt>, <tt>single</tt>, <tt>halt</tt>.'
+identifiers: {}
+inherited_platforms:
+- audit
+ocil: "Verify the audit system is configured to take an appropriate action when the\
+  \ internal event queue is full:\n<pre>$ sudo grep -i overflow_action /etc/audit/auditd.conf</pre>\n\
+  \nThe output should contain be like <tt>overflow_action = syslog</tt>\n\nIf the\
+  \ value of the \"overflow_action\" option is not set to <tt>syslog</tt>, \n<tt>single</tt>,\
+  \ <tt>halt</tt> or the line is commented out, ask the System Administrator\nto indicate\
+  \ how the audit logs are off-loaded to a different system or media. "
+ocil_clause: auditd overflow action is not setup correctly
+oval_external_content: null
+platform: null
+platforms: !!set
+  audit: null
+prodtype: all
+rationale: 'The audit system should have an action setup in the event the internal
+  event queue becomes full
+
+  so that no data is lost.'
+references:
+  disa: CCI-001851
+  nist: AU-4(1)
+  srg: SRG-OS-000342-GPOS-00133,SRG-OS-000479-GPOS-00224
+  stigid: OL07-00-030210
+requires: []
+severity: medium
+template: null
+title: Appropriate Action Must be Setup When the Internal Audit Event Queue is Full
+warnings: []

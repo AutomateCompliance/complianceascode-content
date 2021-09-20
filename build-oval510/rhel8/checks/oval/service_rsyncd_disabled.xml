@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_rsyncd_disabled" version="2">
+    <metadata>
+        <title>Ensure rsyncd service is diabled</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The rsyncd service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package rsync-daemon removed or service and socket rsyncd are not configured to start" operator="OR">
+      <criterion comment="rsync-daemon removed" test_ref="test_service_rsyncd_package_rsync-daemon_removed" />
+      <criteria operator="AND" comment="service and socket rsyncd are disabled">
+        <criterion comment="rsyncd disabled in multi-user.target" test_ref="test_rsyncd_disabled_multi_user_target" />
+        <criterion comment="rsyncd socket disabled in sockets.target" test_ref="test_rsyncd_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for rsyncd.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_rsyncd_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_rsyncd_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for rsyncd.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_rsyncd_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/rsyncd.service</unix:filepath>
+    <filter action="include">unit_rsyncd_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for rsyncd.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_rsyncd_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_rsyncd_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for rsyncd.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_rsyncd_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/rsyncd.socket</unix:filepath>
+    <filter action="include">unit_rsyncd_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_rsyncd_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_rsyncd_package_rsync-daemon_removed" version="1"
+  comment="package rsync-daemon is removed">
+    <linux:object object_ref="obj_test_service_rsyncd_package_rsync-daemon_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_rsyncd_package_rsync-daemon_removed" version="1">
+    <linux:name>rsync-daemon</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

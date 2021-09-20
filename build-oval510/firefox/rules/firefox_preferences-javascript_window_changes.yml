@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-javascript_window_changes/rule.yml
+description: 'JavaScript can configure and make changes to the web browser''s appearance
+  by
+
+  specifically raising and lowering windows. This can be disabled by
+
+  setting <tt>dom.disable_window_flip</tt> to <tt>true</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that JavaScript cannot change windows sizing,
+
+  run the following command:
+
+  <pre>$ grep ''dom.disable_window_flip'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("dom.disable_window_flip", "true");</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "JavaScript can make changes to the browser\u2019s appearance. Allowing\
+  \ a website\nto use JavaScript to raise and lower browser windows may disguise an\
+  \ attack."
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF182
+requires: []
+severity: medium
+template: null
+title: Disable JavaScript's Raise Or Lower Windows Capability
+warnings: []

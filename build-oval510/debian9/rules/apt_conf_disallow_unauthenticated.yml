@@ -1,0 +1,21 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/apt/apt_conf_disallow_unauthenticated/rule.yml
+description: Unauthenticated repositories should not be used for updates.
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: debian10,debian9,ubuntu1604,ubuntu1804,ubuntu2004
+rationale: "Repositories hosts all packages that will be intsalled on the system during\
+  \ update.\n    If a repository is not authenticated, the associated packages can't\
+  \ be trusted,\n    and then should not be installed localy."
+references:
+  anssi: BP28(R15)
+requires: []
+severity: unknown
+template: null
+title: Disable unauthenticated repositories in APT configuration
+warnings: []

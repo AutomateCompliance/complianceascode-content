@@ -1,0 +1,28 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-pki_assocation_permission/rule.yml
+description: 'Throughout the course of normal usage, authorized users of
+
+  application servers will have the need to associate security attributes
+
+  in the form of PKI credentials with information. The server utilizes a
+
+  role based authentication model when managing server resources and limits
+
+  access according to user role.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: unauthorized users can associate PKI information with security attributes
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The server must ensure that only the users who are authorized to associate
+
+  security attributes with information are allowed to do so.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Ensure Only Authorized Users Can Associate PKI Information
+warnings: []

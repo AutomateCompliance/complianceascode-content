@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-restrictions/root_logins/use_pam_wheel_for_su/rule.yml
+description: 'To ensure that only users who are members of the <tt>wheel</tt> group
+  can
+
+  run commands with altered privileges through the <tt>su</tt> command, make
+
+  sure that the following line exists in the file <tt>/etc/pam.d/su</tt>:
+
+  <pre>auth             required        pam_wheel.so use_uid</pre>'
+identifiers:
+  cce: CCE-90085-2
+inherited_platforms: []
+ocil: 'Run the following command to check if the line is present:
+
+  <pre>grep pam_wheel /etc/pam.d/su</pre>
+
+  The output should contain the following line:
+
+  <pre>auth             required        pam_wheel.so use_uid</pre>'
+ocil_clause: the line is not in the file or it is commented
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle12,sle15,ubuntu2004
+rationale: 'The <tt>su</tt> program allows to run commands with a substitute user
+  and
+
+  group ID. It is commonly used to run commands as the root user. Limiting
+
+  access to such command is considered a good security practice.'
+references:
+  ospp: FMT_SMF_EXT.1.1
+  srg: SRG-OS-000373-GPOS-00156,SRG-OS-000312-GPOS-00123
+requires: []
+severity: medium
+template: null
+title: Enforce usage of pam_wheel for su authentication
+warnings: []

@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-background_data/rule.yml
+description: 'Firefox submits usage data in the background to Mozilla and posts portions
+  of the data publicly.
+
+  This can be disabled by setting <tt>datareporting.policy.dataSubmissionEnabled</tt>
+  to
+
+  <tt>false</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that data submission is disabled,
+
+  run the following command:
+
+  <pre>$ grep ''datareporting.policy.dataSubmissionEnabled'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("datareporting.policy.dataSubmissionEnabled", false);</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "In order to protect privacy and sensitive data, Mozilla provides\nthe\
+  \ ability to configure Firefox so that no data is submited to Mozilla. \nThis mitigates\
+  \ the risk of potentially compromizing information becoming publicly available."
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF190
+requires: []
+severity: medium
+template: null
+title: Disable Background Information Submission
+warnings: []

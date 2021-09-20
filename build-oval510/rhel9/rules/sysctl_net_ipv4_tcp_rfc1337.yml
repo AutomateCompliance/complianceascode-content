@@ -1,0 +1,49 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-kernel/network_host_and_router_parameters/sysctl_net_ipv4_tcp_rfc1337/rule.yml
+description: 'To set the runtime status of the <code>net.ipv4.tcp_rfc1337</code> kernel
+  parameter, run the following command: <pre>$ sudo sysctl -w net.ipv4.tcp_rfc1337=1</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>net.ipv4.tcp_rfc1337 = 1</pre>'
+identifiers:
+  cce: CCE-84012-4
+inherited_platforms:
+- machine
+ocil: "The runtime status of the <code>net.ipv4.tcp_rfc1337</code> kernel parameter\
+  \ can be queried\nby running the following command:\n<pre>$ sysctl net.ipv4.tcp_rfc1337</pre>\n\
+  The output of the command should indicate a value of <code>1</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*net.ipv4.tcp_rfc1337\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>net.ipv4.tcp_rfc1337\
+  \ = 1</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>net.ipv4.tcp_rfc1337 = 1</code>, and that one assignment\nis returned\
+  \ when \n<pre>$ grep -r net.ipv4.tcp_rfc1337 /etc/sysctl.conf /etc/sysctl.d</pre>\n\
+  is executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhel7,rhel8,rhel9
+rationale: 'Enable TCP behavior conformant with RFC 1337. When disabled, if a RST
+  is
+
+  received in TIME_WAIT state, we close the socket immediately without waiting
+
+  for the end of the TIME_WAIT period.'
+references:
+  anssi: BP28(R22)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlvar: net.ipv4.tcp_rfc1337
+title: Enable Kernel Parameter to Use TCP RFC 1337 on IPv4 Interfaces
+warnings: []

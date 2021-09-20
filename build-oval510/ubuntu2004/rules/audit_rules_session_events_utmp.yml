@@ -1,0 +1,56 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/auditd_configure_rules/audit_rules_session_events_utmp/rule.yml
+description: 'The audit system already collects process information for all
+
+  users and root. If the <tt>auditd</tt> daemon is configured to use the
+
+  <tt>augenrules</tt> program to read audit rules during daemon startup (the
+
+  default), add the following lines to a file with suffix <tt>.rules</tt> in the
+
+  directory <tt>/etc/audit/rules.d</tt> in order to watch for attempted manual
+
+  edits of files involved in storing such process information:
+
+  <pre>-w /run/utmp -p wa -k session</pre>
+
+  If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
+
+  utility to read audit rules during daemon startup, add the following lines to
+
+  <tt>/etc/audit/audit.rules</tt> file in order to watch for attempted manual
+
+  edits of files involved in storing such process information:
+
+  <pre>-w /run/utmp -p wa -k session</pre>'
+identifiers: {}
+inherited_platforms:
+- audit
+ocil: 'To Check the file is being audited by performing the following command
+
+  <pre> sudo auditctl -l | grep -w ''/run/utmp''</pre>'
+ocil_clause: Audit rule is not present
+oval_external_content: null
+platform: null
+platforms: !!set
+  audit: null
+prodtype: sle15,ubuntu2004
+rationale: 'Manual editing of these files may indicate nefarious activity, such
+
+  as an attacker attempting to remove evidence of an intrusion.'
+references:
+  disa: CCI-000172
+  nist: AU-12(c),AU-12.1(iv)
+  srg: SRG-OS-000472-GPOS-00217
+  stigid: UBTU-20-010278
+requires: []
+severity: medium
+template:
+  backends:
+    ansible: 'off'
+    bash: 'off'
+  name: audit_rules_login_events
+  vars:
+    path: /run/utmp
+title: Record Attempts to Alter Process and Session Initiation Information utmp
+warnings: []

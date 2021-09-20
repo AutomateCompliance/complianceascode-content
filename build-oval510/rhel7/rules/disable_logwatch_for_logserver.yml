@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/logging/disable_logwatch_for_logserver/rule.yml
+description: 'Does your site have a central logserver which has been configured to
+  report
+
+  on logs received from all systems? If so:
+
+  <pre>$ sudo rm /etc/cron.daily/0logwatch</pre>
+
+  If no logserver exists, it will be necessary for each system to run
+
+  Logwatch individually. Using a central logserver provides the security and
+
+  reliability benefits discussed earlier, and also makes monitoring logs
+
+  easier and less time-intensive for administrators.'
+identifiers:
+  cce: CCE-80198-5
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,rhel7,rhel8
+rationale: ''
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Disable Logwatch on Clients if a Logserver Exists
+warnings: []

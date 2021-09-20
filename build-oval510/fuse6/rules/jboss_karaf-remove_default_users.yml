@@ -1,0 +1,27 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-remove_default_users/rule.yml
+description: 'Remove, rename, or comment out the default user
+
+  accounts defined in .properties files.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: the default user accounts still exist
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Default configurations are commonly leveraged by attackers to
+
+  gain entry into closed systems. Removing, renaming, or commenting
+
+  out default user accounts makes malicious exploitation more
+
+  complex.'
+references:
+  nist: IA-5
+requires: []
+severity: medium
+template: null
+title: Ensure Default User Accounts Have Benn Removed
+warnings: []

@@ -1,0 +1,1027 @@
+<fix-content system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix-group id="bash" system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix rule="oas_action_app_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.App.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.App.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.App.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_action_app_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.App.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.App.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.App.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_action_default_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.Default.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.Default.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.Default.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_action_default_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.Default.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.Default.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.Default.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_action_error">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.error")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Block"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.error\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.error\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_action_timeout">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.timeout")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Pass"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.timeout\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.timeout\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_allFiles">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.allFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.allFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.allFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_decompArchive">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.decompArchive")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.decompArchive\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.decompArchive\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_enabled">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.oasEnabled")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.oasEnabled\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.oasEnabled\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_heuristicAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.heuristicAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.heuristicAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.heuristicAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_macroAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.macroAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.macroAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.macroAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_program">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.program")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.program\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.program\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_scanMaxTmo">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanMaxTmo")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "45"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanMaxTmo\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanMaxTmo\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_scanNWFiles">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanNWFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanNWFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanNWFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_scanOnRead">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanOnRead")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanOnRead\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanOnRead\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="oas_scanOnWrite">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanOnWrite")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanOnWrite\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanOnWrite\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_action_app_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.App.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.App.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.App.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_action_app_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.App.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.App.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.App.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_action_default_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.Default.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.Default.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.Default.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_action_default_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.Default.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.Default.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.Default.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_allFiles">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.allFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.allFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.allFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_decompArchive">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.decompArchive")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.decompArchive\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.decompArchive\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_extensions">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+
+if  ! grep -q extensions.mode "$NAILS_CONFIG_FILE"; then
+	sed -i '$a nailsd.profile.ODS_default.filter.extensions.mode: all' "$NAILS_CONFIG_FILE"
+
+else
+	# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "extensions.mode")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "all"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "extensions.mode\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/extensions.mode\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+fi
+</fix><fix rule="ods_heuristicAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.heuristicAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.heuristicAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.heuristicAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_macroAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.macroAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.macroAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.macroAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_mime">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.mime")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.mime\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.mime\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_program">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.program")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.program\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.program\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="ods_scanNWFiles_local">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.scanNWFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.scanNWFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.scanNWFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="virus_notification">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^notifications.virusDetected.active")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^notifications.virusDetected.active\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^notifications.virusDetected.active\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix><fix rule="web_client_disabled">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "@CCENUM@" ]; then
+    cce="CCE"
+else
+    cce="@CCENUM@"
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.disableCltWebUI")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.disableCltWebUI\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.disableCltWebUI\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix></fix-group></fix-content>

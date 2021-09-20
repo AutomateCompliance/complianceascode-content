@@ -1,0 +1,40 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_important_account_files/file_groupowner_backup_etc_shadow/rule.yml
+description: ' To properly set the group owner of <code>/etc/shadow-</code>, run the
+  command: <pre>$ sudo chgrp root /etc/shadow-</pre>'
+identifiers:
+  cce: CCE-83415-0
+inherited_platforms: []
+ocil: 'To check the group ownership of <code>/etc/shadow-</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /etc/shadow-</pre>
+
+  If properly configured, the output should indicate the following group-owner:
+
+  <code>root</code>'
+ocil_clause: /etc/shadow- has group owner root
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/etc/shadow-</tt> file is a backup file of <tt>/etc/shadow</tt>,
+  and as such,
+
+  it contains the list of local system accounts and password hashes.
+
+  Protection of this file is critical for system security.'
+references:
+  cis: 6.1.5
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_groupowner
+  vars:
+    filegid: '0'
+    filepath: /etc/shadow-
+    missing_file_pass: 'true'
+title: Verify User Who Owns Backup shadow File
+warnings: []

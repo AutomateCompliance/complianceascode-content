@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_postgresql_selinux_transmit_client_label/rule.yml
+description: 'By default, the SELinux boolean <tt>postgresql_selinux_transmit_client_label</tt>
+  is disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>postgresql_selinux_transmit_client_label</code> SELinux boolean,
+  run the following command:
+
+  <pre>$ sudo setsebool -P postgresql_selinux_transmit_client_label off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>postgresql_selinux_transmit_client_label</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool postgresql_selinux_transmit_client_label</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>postgresql_selinux_transmit_client_label --> off</code>'
+ocil_clause: postgresql_selinux_transmit_client_label is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: postgresql_selinux_transmit_client_label
+title: Disable the postgresql_selinux_transmit_client_label SELinux Boolean
+warnings: []

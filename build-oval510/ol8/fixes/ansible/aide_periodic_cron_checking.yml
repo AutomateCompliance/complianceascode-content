@@ -1,0 +1,102 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Ensure AIDE is installed
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - aide
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CJIS-5.10.1.3
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-SI-7
+    - NIST-800-53-SI-7(1)
+    - PCI-DSS-Req-11.5
+    - aide_periodic_cron_checking
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Set cron package name - RedHat
+  set_fact:
+    cron_pkg_name: cronie
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - ansible_os_family == "RedHat" or ansible_os_family == "Suse"
+  tags:
+    - CJIS-5.10.1.3
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-SI-7
+    - NIST-800-53-SI-7(1)
+    - PCI-DSS-Req-11.5
+    - aide_periodic_cron_checking
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Set cron package name - Debian
+  set_fact:
+    cron_pkg_name: cron
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - ansible_os_family == "Debian"
+  tags:
+    - CJIS-5.10.1.3
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-SI-7
+    - NIST-800-53-SI-7(1)
+    - PCI-DSS-Req-11.5
+    - aide_periodic_cron_checking
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Install cron
+  package:
+    name: '{{ cron_pkg_name }}'
+    state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CJIS-5.10.1.3
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-SI-7
+    - NIST-800-53-SI-7(1)
+    - PCI-DSS-Req-11.5
+    - aide_periodic_cron_checking
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Configure Periodic Execution of AIDE
+  cron:
+    name: run AIDE check
+    minute: 5
+    hour: 4
+    weekday: 0
+    user: root
+    job: /usr/sbin/aide --check
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CJIS-5.10.1.3
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-SI-7
+    - NIST-800-53-SI-7(1)
+    - PCI-DSS-Req-11.5
+    - aide_periodic_cron_checking
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

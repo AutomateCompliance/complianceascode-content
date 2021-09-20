@@ -1,0 +1,28 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/apparmor/package_apparmor_installed/rule.yml
+description: AppArmor provide Mandatory Access Controls.
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ubuntu2004
+rationale: 'Without a Mandatory Access Control system installed only the default
+
+  Discretionary Access Control system will be available.'
+references:
+  cis: 1.7.1.1
+  disa: CCI-001764,CCI-001774,CCI-002165,CCI-002235
+  srg: SRG-OS-000368-GPOS-00154,SRG-OS-000312-GPOS-00122,SRG-OS-000312-GPOS-00123,SRG-OS-000312-GPOS-00124,SRG-OS-000324-GPOS-00125,SRG-OS-000370-GPOS-00155
+  stigid: UBTU-20-010439
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: apparmor
+title: Ensure AppArmor is installed
+warnings: []

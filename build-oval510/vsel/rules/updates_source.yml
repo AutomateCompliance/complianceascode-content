@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/updates_source/rule.yml
+description: "Anti-virus signature files are updated almost daily by anti-virus software\
+  \ vendors. \nThese files are made available to anti-virus clients as they are published.\
+  \ \nKeeping virus signature files as current as possible is vital to the security\
+  \ of any system. \nThe anti-virus software product must be configured to receive\
+  \ those updates automatically in order to afford the expected protection.\n\nTo\
+  \ check that VSEL settings are configured correctly, connect to the McAfee VirusScan\
+  \ Enterprise for Linux (VSEL) Monitor (WEB interface) \nof the Linux system being\
+  \ reviewed from a desktop browser window and logon with the nails user account.\n\
+  \nIn the VSEL WEB Monitor, under <tt>Configure</tt>, select <tt>Repositories</tt>.\n\
+  Under <tt>Repository List</tt>, verify all repositories listed point to a local\
+  \ or DoD-managed repository.\n\nIf all repositories listed do not point to local\
+  \ or DoD-managed repository, this is a finding."
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "While obtaining updates, patches, service packs and updates from the vendor\
+  \ are timelier, \nthe possibility of corruption or malware being introduced to the\
+  \ system is higher. \nBy obtaining these from an official DoD source and/or downloading\
+  \ them to a separate system \nfirst and validating them before making them available\
+  \ to systems, the possibility of \nmalware being introduced is mitigated."
+references:
+  disa: CCI-001749
+  nist: CM-5
+  srg: SRG-APP-000131
+  stigid: DTAVSEL-201
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise must be configured to receive all patches,
+  service packs and updates from a DoD-managed source
+warnings: []

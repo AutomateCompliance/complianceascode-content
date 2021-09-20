@@ -1,0 +1,47 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/bootloader-grub2/coreos_vsyscall_kernel_argument/rule.yml
+description: 'To disable use of virtual syscalls, add the argument <tt>vsyscall=none</tt>
+  to all
+
+  BLS (Boot Loader Specification) entries (''options'' line) for the Linux
+
+  operating system in <tt>/boot/loader/entries/*.conf</tt>.'
+identifiers:
+  cce: CCE-82674-3
+inherited_platforms:
+- grub2
+ocil: 'Inspect the form of all the BLS (Boot Loader Specification) entries
+
+  (''options'' line) in <tt>/boot/loader/entries/*.conf</tt>. If they include
+
+  <tt>vsyscall=none</tt>, then virtual syscalls are not enabled at boot time.
+
+  <br /><br />
+
+  To ensure <tt>vsyscall=none</tt> is configured on the installed kernel, add
+
+  the kernel argument via a <pre>MachineConfig</pre> object to the appropriate
+
+  pools.'
+ocil_clause: vsyscalls are enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  grub2: null
+prodtype: rhcos4
+rationale: 'Virtual Syscalls provide an opportunity of attack for a user who has control
+
+  of the return instruction pointer.'
+references:
+  nist: CM-7(a)
+  srg: SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: coreos_kernel_option
+  vars:
+    arg_name: vsyscall
+    arg_value: none
+title: Disable vsyscalls
+warnings: []

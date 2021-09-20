@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<ns0:oval_definitions xmlns:ns0="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ns2="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:ns3="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <ns0:generator>
+    <ns2:product_name>combine_ovals.py from SCAP Security Guide</ns2:product_name>
+    <ns2:product_version>ssg: [0, 1, 58], python: 3.8.10</ns2:product_version>
+    <ns2:schema_version>5.10</ns2:schema_version>
+    <ns2:timestamp>2021-09-20T03:23:48</ns2:timestamp>
+  </ns0:generator>
+  <ns0:definitions>
+    <ns0:definition class="compliance" id="audit_failure_halt" version="1">
+      <ns0:metadata>
+        <ns0:title>Shutdown System When Auditing Failures Occur</ns0:title>
+        <ns0:affected family="macos">
+          <ns0:platform>Apple macOS 10.15</ns0:platform>
+        </ns0:affected>
+        <ns0:description>The system will shutdown when auditing fails.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="audit configuration shutdown" test_ref="test_audit_shutdown"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="sshd_includes_config_files" version="1">
+      <ns0:metadata>
+        <ns0:title>sshd_includes_config_files</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:platform>Apple macOS 10.15</ns0:platform>
+        </ns0:affected>
+        <ns0:description>Check presence of Include /etc/ssh/sshd_config.d/*.conf in /etc/ssh/sshd_config</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria operator="AND" comment="Test conditions - presence of the file plus 0 extra definitions.">
+        <ns0:criterion comment="Check that /etc/ssh/sshd_config contains a line with certain text" test_ref="test_sshd_includes_config_files"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="inventory" id="installed_OS_is_macos1015" version="1">
+      <ns0:metadata>
+        <ns0:title>Apple macOS 10.15</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:platform>Apple macOS 10.15</ns0:platform>
+        </ns0:affected>
+        <ns0:reference ref_id="cpe:/o:apple:macos:10.15" source="CPE"/>
+        <ns0:description>The operating system installed on the system is
+      Apple macOS 10.15</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Installed operating system is part of the unix family" test_ref="test_macos1015_macos_family"/>
+        <ns0:criterion comment="macOS 10.15 is installed" test_ref="test_macos1015"/>
+      </ns0:criteria>
+    </ns0:definition>
+  </ns0:definitions>
+  <ns0:tests>
+    <ns3:textfilecontent54_test check="all" comment="audit configuration shutdown" id="test_audit_shutdown" version="1">
+      <ns3:object object_ref="object_audit_shutdown"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="tests the presence of 'Include /etc/ssh/sshd_config.d/*.conf' setting in the /etc/ssh/sshd_config file" id="test_sshd_includes_config_files" version="1">
+      <ns3:object object_ref="obj_sshd_includes_config_files"/>
+    </ns3:textfilecontent54_test>
+    <ns3:family_test check="all" check_existence="at_least_one_exists" comment="installed OS part of macos family" id="test_macos1015_macos_family" version="1">
+      <ns3:object object_ref="obj_macos1015_macos_family"/>
+      <ns3:state state_ref="state_macos1015_macos_family"/>
+    </ns3:family_test>
+    <ns3:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="redhat-release is version 8" id="test_macos1015" version="1">
+      <ns3:object object_ref="obj_macos1015"/>
+      <ns3:state state_ref="state_macos1015"/>
+    </ns3:textfilecontent54_test>
+  </ns0:tests>
+  <ns0:objects>
+    <ns3:textfilecontent54_object id="object_audit_shutdown" version="1">
+      <ns3:filepath>/etc/security/audit_control</ns3:filepath>
+      <ns3:pattern operation="pattern match">^policy:.*,ahlt.*$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="obj_sshd_includes_config_files" version="1">
+      <ns3:filepath>/etc/ssh/sshd_config</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]*Include /etc/ssh/sshd_config\.d/\*\.conf[\s]*$</ns3:pattern>
+      <ns3:instance operation="greater than or equal" datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:family_object id="obj_macos1015_macos_family" version="1"/>
+    <ns3:textfilecontent54_object id="obj_macos1015" version="1">
+      <ns3:filepath>/System/Library/CoreServices/SystemVersion.plist</ns3:filepath>
+      <ns3:pattern operation="pattern match">^.*&lt;string\&gt;(\d+\.\d+).*$</ns3:pattern>
+      <ns3:instance operation="equals" datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+  </ns0:objects>
+  <ns0:states>
+    <ns3:family_state id="state_macos1015_macos_family" version="1">
+      <ns3:family>macos</ns3:family>
+    </ns3:family_state>
+    <ns3:textfilecontent54_state id="state_macos1015" version="1">
+      <ns3:subexpression operation="pattern match">10.15</ns3:subexpression>
+    </ns3:textfilecontent54_state>
+  </ns0:states>
+</ns0:oval_definitions>

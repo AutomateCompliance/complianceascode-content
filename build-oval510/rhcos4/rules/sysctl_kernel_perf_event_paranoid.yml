@@ -1,0 +1,47 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/restrictions/sysctl_kernel_perf_event_paranoid/rule.yml
+description: 'To set the runtime status of the <code>kernel.perf_event_paranoid</code>
+  kernel parameter, run the following command: <pre>$ sudo sysctl -w kernel.perf_event_paranoid=2</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>kernel.perf_event_paranoid = 2</pre>'
+identifiers:
+  cce: CCE-82502-6
+inherited_platforms: []
+ocil: "The runtime status of the <code>kernel.perf_event_paranoid</code> kernel parameter\
+  \ can be queried\nby running the following command:\n<pre>$ sysctl kernel.perf_event_paranoid</pre>\n\
+  The output of the command should indicate a value of <code>2</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*kernel.perf_event_paranoid\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>kernel.perf_event_paranoid\
+  \ = 2</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>kernel.perf_event_paranoid = 2</code>, and that one assignment\n\
+  is returned when \n<pre>$ grep -r kernel.perf_event_paranoid /etc/sysctl.conf /etc/sysctl.d</pre>\n\
+  is executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9
+rationale: Kernel profiling can reveal sensitive information about kernel behaviour.
+references:
+  anssi: BP28(R23)
+  disa: CCI-001090
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000132-GPOS-00067,SRG-OS-000138-GPOS-00069
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlval: '2'
+    sysctlvar: kernel.perf_event_paranoid
+title: Disallow kernel profiling by unprivileged users
+warnings: []

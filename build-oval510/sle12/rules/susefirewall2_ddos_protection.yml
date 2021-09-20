@@ -1,0 +1,78 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-susefirewall2/susefirewall2_ddos_protection/rule.yml
+description: "The <code>SuSEfirewall2</code> package can be installed with the following\
+  \ command:\n<pre>\n$ sudo zypper install SuSEfirewall2</pre>\n\nThe <code>SuSEfirewall2</code>\
+  \ service can be enabled with the following command:\n<pre>$ sudo systemctl enable\
+  \ SuSEfirewall2.service</pre>\n\nVerify \"SuSEfirewall2\" is configured to protect\
+  \ the SUSE operating system\nagainst or limit the effects of DoS attacks. \n\nRun\
+  \ the following command:\n\n<pre># grep -i fw_services_accept_ext /etc/sysconfig/SuSEfirewall2\n\
+  FW_SERVICES_ACCEPT_EXT=\"0/0,tcp,22,,hitcount=3,blockseconds=60,recentname=ssh\"\
+  </pre>\n\nIf the \"FW_SERVICES_ACCEPT_EXT\" rule does not contain both the\n<tt>hitcount</tt>\
+  \ and <tt>blockseconds</tt> parameters, this is a finding."
+identifiers:
+  cce: CCE-83156-0
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>SuSEfirewall2</code> package
+  is installed:
+
+  <pre>$ rpm -q SuSEfirewall2</pre>
+
+
+
+  Run the following command to determine the current status of the
+
+  <code>SuSEfirewall2</code> service:
+
+  <pre>$ systemctl is-active SuSEfirewall2</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>
+
+
+  Run the following command:
+
+
+  <pre># grep -i fw_services_accept_ext /etc/sysconfig/SuSEfirewall2
+
+  FW_SERVICES_ACCEPT_EXT="0/0,tcp,22,,hitcount=3,blockseconds=60,recentname=ssh"</pre>
+
+
+  If the "FW_SERVICES_ACCEPT_EXT" rule does not contain both the
+
+  <tt>hitcount</tt> and <tt>blockseconds</tt> parameters, this is a finding.'
+ocil_clause: the DoS protection is not active
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: sle12
+rationale: 'DoS is a condition when a resource is not available for legitimate users.
+
+  When this occurs, the organization either cannot accomplish its mission or
+
+  must operate at degraded capacity.
+
+
+  This requirement addresses the configuration of the SUSE operating system to
+
+  mitigate the impact on system availability of DoS attacks that have occurred
+
+  or are ongoing. For each system, known and potential DoS attacks must be
+
+  identified and solutions for each type implemented. A variety of
+
+  technologies exist to limit or, in some cases, eliminate the effects of
+
+  DoS attacks (e.g., limiting processes or establishing memory partitions).
+
+  Employing increased capacity and bandwidth, combined with service
+
+  redundancy, may reduce the susceptibility to some DoS attacks.'
+references:
+  disa: CCI-002385
+  nist: SC-5
+  srg: SRG-OS-000420-GPOS-00186
+  stigid: SLES-12-030040
+requires: []
+severity: medium
+template: null
+title: Enable DoS Protections in SuSEfirewall2
+warnings: []

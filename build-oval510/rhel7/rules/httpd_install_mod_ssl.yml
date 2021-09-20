@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_modules_improve_security/httpd_deploy_mod_ssl/httpd_install_mod_ssl/rule.yml
+description: 'Install the <tt>mod_ssl</tt> module:
+
+  The <code>mod_ssl</code> package can be installed with the following command:
+
+  <pre>
+
+  $ sudo yum install mod_ssl</pre>'
+identifiers:
+  cce: CCE-80320-5
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: '<tt>mod_ssl</tt> provides encryption capabilities for the <tt>httpd</tt>
+  Web server. Unencrypted
+
+  content is transmitted in plain text which could be passively monitored and accessed
+  by
+
+  unauthorized parties.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Install mod_ssl
+warnings: []

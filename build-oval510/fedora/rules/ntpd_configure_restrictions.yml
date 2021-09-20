@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/ntpd_configure_restrictions/rule.yml
+description: "ntpd is a daemon which implements the Network Time Protocol (NTP). It\
+  \ is designed to\nsynchronize system clocks across a variety of systems and use\
+  \ a source that is highly\naccurate. More information on NTP can be found at\n\n\
+  \    <a xmlns='http://www.w3.org/1999/xhtml' href='http://www.ntp.org'>http://www.ntp.org</a>.\n\
+  ntp can be configured to be a client and/or a server.\nTo ensure that ntpd implements\
+  \ correct server restrictions, make sure that the following lines exist in the file\
+  \ <tt>/etc/ntpd.conf</tt>:\n<pre>restrict -4 default kod nomodify notrap nopeer\
+  \ noquery</pre>\n<pre>restrict -6 default kod nomodify notrap nopeer noquery</pre>\n\
+  This recommendation only applies if ntp is in use on the system."
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'Run the following command and verify output matches:
+
+  <tt># grep "^restrict" /etc/ntp.conf</tt>
+
+  <pre>
+
+  restrict -4 default kod nomodify notrap nopeer noquery
+
+  restrict -6 default kod nomodify notrap nopeer noquery
+
+  </pre>
+
+  The <tt>-4</tt> in the first line is optional and options after <tt>default</tt>
+  can appear in any order.
+
+  Additional restriction lines may exist.'
+ocil_clause: restrictions are not configured for ntpd
+oval_external_content: null
+platform: ntp
+platforms: !!set
+  ntp: null
+prodtype: fedora,rhel7,sle12
+rationale: 'If ntp is in use on the system proper configuration is vital to ensuring
+  time synchronization
+
+  is working properly.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Configure server restrictions for ntpd
+warnings: []

@@ -1,0 +1,41 @@
+# platform = multi_platform_sle,Red Hat Enterprise Linux 7
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: get all /etc/passwd file entries
+  getent:
+    database: passwd
+    split: ':'
+  tags:
+    - CCE-85664-1
+    - DISA-STIG-SLES-15-020100
+    - NIST-800-171-3.1.1
+    - NIST-800-171-3.1.5
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - accounts_no_uid_except_zero
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: lock the password of the user accounts other than root with uid 0
+  command: passwd -l {{ item.key }}
+  loop: '{{ getent_passwd | dict2items | rejectattr(''key'', ''search'', ''root'')
+    | list }}'
+  when: item.value.1  == '0'
+  tags:
+    - CCE-85664-1
+    - DISA-STIG-SLES-15-020100
+    - NIST-800-171-3.1.1
+    - NIST-800-171-3.1.5
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - accounts_no_uid_except_zero
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - restrict_strategy

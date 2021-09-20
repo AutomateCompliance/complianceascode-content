@@ -1,0 +1,57 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = unknown
+# complexity = low
+# disruption = medium
+
+
+- name: "Detect if removal-action can be found on /etc/dconf/db/local.d/"
+  find:
+    path: /etc/dconf/db/local.d/
+    contains: '^\s*removal-action'
+  register: dconf_gnome_lock_screen_on_smartcard_removal_config_files
+
+- name: "Configure removal-action - default file"
+  ini_file:
+    dest: /etc/dconf/db/local.d//00-security-settings
+    section: org/gnome/settings-daemon/peripherals/smartcard
+    option: removal-action
+    value: "'lock-screen'"
+    create: yes
+  when: dconf_gnome_lock_screen_on_smartcard_removal_config_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_config_files.matched == 0
+
+- name: "Configure removal-action - existing files"
+  ini_file:
+    dest: "{{ item.path }}"
+    section: org/gnome/settings-daemon/peripherals/smartcard
+    option: removal-action
+    value: "'lock-screen'"
+    create: yes
+  with_items: "{{ dconf_gnome_lock_screen_on_smartcard_removal_config_files.files }}"
+  when: dconf_gnome_lock_screen_on_smartcard_removal_config_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_config_files.matched > 0
+
+- name: "Detect if lock for removal-action can be found on /etc/dconf/db/local.d/"
+  find:
+    path: /etc/dconf/db/local.d/locks
+    contains: '^\s*removal-action'
+  register: dconf_gnome_lock_screen_on_smartcard_removal_lock_files
+
+- name: "Prevent user modification removal-action - default file"
+  lineinfile:
+    path: /etc/dconf/db/local.d/locks/00-security-settings-lock
+    regexp: '^/org/gnome/settings-daemon/peripherals/smartcard/removal-action$'
+    line: '/org/gnome/settings-daemon/peripherals/smartcard/removal-action'
+    create: yes
+  when: dconf_gnome_lock_screen_on_smartcard_removal_lock_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_lock_files.matched == 0
+
+- name: "Prevent user modification removal-action - existing files"
+  lineinfile:
+    path: "{{ item.path }}"
+    regexp: '^/org/gnome/settings-daemon/peripherals/smartcard/removal-action$'
+    line: '/org/gnome/settings-daemon/peripherals/smartcard/removal-action'
+    create: yes
+  with_items: "{{ dconf_gnome_lock_screen_on_smartcard_removal_lock_files.files }}"
+  when: dconf_gnome_lock_screen_on_smartcard_removal_lock_files is defined and dconf_gnome_lock_screen_on_smartcard_removal_lock_files.matched > 0
+
+- name: "Dconf Update - removal-action"
+  command: dconf update

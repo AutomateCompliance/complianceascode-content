@@ -1,0 +1,54 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-kernel/network_host_and_router_parameters/sysctl_net_ipv4_ip_local_port_range/rule.yml
+description: 'To set the runtime status of the <code>net.ipv4.ip_local_port_range</code>
+  kernel parameter, run the following command: <pre>$ sudo sysctl -w net.ipv4.ip_local_port_range=32768
+  65535</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>net.ipv4.ip_local_port_range = 32768
+  65535</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: "The runtime status of the <code>net.ipv4.ip_local_port_range</code> kernel\
+  \ parameter can be queried\nby running the following command:\n<pre>$ sysctl net.ipv4.ip_local_port_range</pre>\n\
+  The output of the command should indicate a value of <code>32768 65535</code>.\n\
+  The preferable way how to assure the runtime compliance is to have\ncorrect persistent\
+  \ configuration, and rebooting the system.\n\nThe persistent kernel parameter configuration\
+  \ is performed by specifying the appropriate\nassignment in any file located in\
+  \ the <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing\
+  \ incorrect configuration by executing the following command:\n<pre>$ grep -r '^\\\
+  s*net.ipv4.ip_local_port_range\\s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any\
+  \ assignments other than\n<pre>net.ipv4.ip_local_port_range = 32768 65535</pre>\n\
+  are found, or the correct assignment is duplicated, remove those offending lines\
+  \ from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>net.ipv4.ip_local_port_range = 32768 65535</code>, and that one\
+  \ assignment\nis returned when \n<pre>$ grep -r net.ipv4.ip_local_port_range /etc/sysctl.conf\
+  \ /etc/sysctl.d</pre>\nis executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: 'This setting defines the local port range that is used by TCP and UDP
+  to
+
+  choose the local port. The first number is the first, the second the last
+
+  local port number.'
+references:
+  anssi: BP28(R22)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: string
+    operation: pattern match
+    sysctlval: 32768 65535
+    sysctlval_regex: 32768\s*65535
+    sysctlvar: net.ipv4.ip_local_port_range
+title: Set Kernel Parameter to Increase Local Port Range
+warnings: []

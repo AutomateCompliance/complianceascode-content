@@ -1,0 +1,25 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure vsftpd is removed
+  package:
+    name: vsftpd
+    state: absent
+  tags:
+    - CCE-85700-3
+    - DISA-STIG-SLES-15-010030
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7
+    - NIST-800-53-CM-7(a)
+    - NIST-800-53-CM-7(b)
+    - NIST-800-53-CM-7.1(ii)
+    - NIST-800-53-IA-5(1)(c)
+    - NIST-800-53-IA-5(1).1(v)
+    - disable_strategy
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - package_vsftpd_removed

@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_httpd_enable_cgi/rule.yml
+description: 'By default, the SELinux boolean <tt>httpd_enable_cgi</tt> is enabled.
+
+  This setting should be disabled unless <tt>httpd</tt> is used with <tt>CGI</tt>
+
+  scripting.
+
+
+  To disable the <code>httpd_enable_cgi</code> SELinux boolean, run the following
+  command:
+
+  <pre>$ sudo setsebool -P httpd_enable_cgi off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>httpd_enable_cgi</code> SELinux
+  boolean is disabled:
+
+  <pre>$ getsebool httpd_enable_cgi</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>httpd_enable_cgi --> off</code>'
+ocil_clause: httpd_enable_cgi is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: httpd_enable_cgi
+title: Configure the httpd_enable_cgi SELinux Boolean
+warnings: []

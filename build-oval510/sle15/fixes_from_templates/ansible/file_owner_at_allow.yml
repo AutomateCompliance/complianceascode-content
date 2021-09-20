@@ -1,0 +1,19 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+
+
+
+- name: Test for existence /etc/at.allow
+  stat:
+    path: "/etc/at.allow"
+  register: file_exists
+
+- name: Ensure owner 0 on /etc/at.allow
+  file:
+    path: "/etc/at.allow"
+    owner: "0"
+  when: file_exists.stat is defined and file_exists.stat.exists
+

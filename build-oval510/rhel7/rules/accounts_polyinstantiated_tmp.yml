@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-session/accounts_polyinstantiated_tmp/rule.yml
+description: 'To configure polyinstantiated /tmp directories, first create the parent
+  directories
+
+  which will hold the polyinstantiation child directories. Use the following command:
+
+  <pre>$ sudo mkdir --mode 000 /tmp/tmp-inst</pre>
+
+  Then, add the following entry to <tt>/etc/security/namespace.conf</tt>:
+
+  <pre>/tmp     /tmp/tmp-inst/            level      root,adm</pre>'
+identifiers:
+  cce: CCE-83731-0
+inherited_platforms: []
+ocil: 'Run the following command to ensure that <tt>/tmp</tt> is configured as a
+
+  polyinstantiated directory:
+
+  <pre>$ sudo grep /tmp /etc/security/namespace.conf</pre>
+
+  The output should return the following:
+
+  <pre>/tmp     /tmp/tmp-inst/            level      root,adm</pre>'
+ocil_clause: is not configured
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Polyinstantiation of temporary directories is a proactive security measure
+
+  which reduces chances of attacks that are made possible by /tmp
+
+  directories being world-writable.'
+references:
+  anssi: BP28(R39)
+requires: []
+severity: low
+template: null
+title: Configure Polyinstantiation of /tmp Directories
+warnings: []

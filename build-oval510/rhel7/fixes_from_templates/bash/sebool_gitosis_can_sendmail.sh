@@ -1,0 +1,11 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+
+
+var_gitosis_can_sendmail="(bash-populate var_gitosis_can_sendmail)"
+
+
+setsebool -P gitosis_can_sendmail $var_gitosis_can_sendmail

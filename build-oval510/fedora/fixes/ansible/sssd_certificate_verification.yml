@@ -1,0 +1,65 @@
+# platform = multi_platform_fedora,multi_platform_rhel
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = medium
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - NIST-800-53-IA-2(11)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - sssd_certificate_verification
+
+- name: Ensure that "certificate_verification" is not set in /etc/sssd/sssd.conf
+  ini_file:
+    path: /etc/sssd/sssd.conf
+    section: sssd
+    option: certificate_verification
+    state: absent
+  when: '"sssd-common" in ansible_facts.packages'
+  tags:
+    - NIST-800-53-IA-2(11)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - sssd_certificate_verification
+
+- name: Ensure that "certificate_verification" is not set in  /etc/sssd/conf.d/*.conf
+  ini_file:
+    path: /etc/sssd/conf.d/*.conf
+    section: sssd
+    option: certificate_verification
+    state: absent
+  when: '"sssd-common" in ansible_facts.packages'
+  tags:
+    - NIST-800-53-IA-2(11)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - sssd_certificate_verification
+
+- name: Ensure that "certificate_verification" is set
+  ini_file:
+    path: /etc/sssd/conf.d/certificate_verification.conf
+    section: sssd
+    option: certificate_verification
+    value: ocsp_dgst = sha1
+    state: present
+  when: '"sssd-common" in ansible_facts.packages'
+  tags:
+    - NIST-800-53-IA-2(11)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - sssd_certificate_verification

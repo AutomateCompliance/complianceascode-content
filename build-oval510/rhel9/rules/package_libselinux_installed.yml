@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/package_libselinux_installed/rule.yml
+description: 'The <code>libselinux</code> package can be installed with the following
+  command:
+
+  <pre>
+
+  $ sudo dnf install libselinux</pre>'
+identifiers:
+  cce: CCE-84069-4
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>libselinux</code> package
+  is installed: <pre>$ rpm -q libselinux</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9,rhv4,sle15
+rationale: 'Security-enhanced Linux is a feature of the Linux kernel and a number
+  of utilities
+
+  with enhanced security functionality designed to add mandatory access controls to
+  Linux.
+
+
+  The <tt>libselinux</tt> package contains the core library of the Security-enhanced
+  Linux system.'
+references: {}
+requires: []
+severity: high
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: libselinux
+title: Install libselinux Package
+warnings: []

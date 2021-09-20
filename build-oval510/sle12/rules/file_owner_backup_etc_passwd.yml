@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_important_account_files/file_owner_backup_etc_passwd/rule.yml
+description: ' To properly set the owner of <code>/etc/passwd-</code>, run the command:
+  <pre>$ sudo chown root /etc/passwd- </pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the ownership of <code>/etc/passwd-</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /etc/passwd-</pre>
+
+  If properly configured, the output should indicate the following owner:
+
+  <code>root</code>'
+ocil_clause: /etc/passwd- has owner root
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/etc/passwd-</tt> file is a backup file of <tt>/etc/passwd</tt>,
+  and as such,
+
+  it contains information about the users that are configured on the system.
+
+  Protection of this file is critical for system security.'
+references:
+  cis: 6.1.5
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_owner
+  vars:
+    filepath: /etc/passwd-
+    fileuid: '0'
+    missing_file_pass: 'true'
+title: Verify User Who Owns Backup passwd File
+warnings: []

@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/cron_and_at/restrict_at_cron_users/file_permissions_cron_allow/rule.yml
+description: 'If <tt>/etc/cron.allow</tt> exists, it must have permissions <tt>0640</tt>
+
+  or more restrictive.
+
+
+
+  To properly set the permissions of <code>/etc/cron.allow</code>, run the command:
+
+  <pre>$ sudo chmod 0640 /etc/cron.allow</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To check the permissions of <code>/etc/cron.allow</code>,
+
+  run the command:
+
+  <pre>$ ls -l /etc/cron.allow</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r-----</code>'
+ocil_clause: /etc/cron.allow has unix mode -rw-r-----
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ubuntu2004
+rationale: 'If the permissions of the cron.allow file are not set to 0640 or more
+  restrictive,
+
+  the possibility exists for an unauthorized user to view or edit sensitive information.'
+references:
+  cis: 5.1.8
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0640'
+    filepath: /etc/cron.allow
+    missing_file_pass: 'true'
+title: Verify Permissions on /etc/cron.allow file
+warnings: []

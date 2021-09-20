@@ -1,0 +1,36 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Certificate Revocation List Settings
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.crl.locked
+    line: deployment.security.validation.crl.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

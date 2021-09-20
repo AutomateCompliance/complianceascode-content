@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/chronyd_specify_remote_server/rule.yml
+description: "<tt>Chrony</tt> is a daemon which implements the Network Time Protocol\
+  \ (NTP). It is designed to\nsynchronize system clocks across a variety of systems\
+  \ and use a source that is highly\naccurate. More information on <tt>chrony</tt>\
+  \ can be found at\n\n    <a xmlns='http://www.w3.org/1999/xhtml' href='http://chrony.tuxfamily.org/'>http://chrony.tuxfamily.org/</a>.\n\
+  <tt>Chrony</tt> can be configured to be a client and/or a server.\nAdd or edit server\
+  \ or pool lines to <tt>/etc/chrony.conf</tt> as appropriate:\n<pre>server &lt;remote-server&gt;</pre>\n\
+  Multiple servers may be configured."
+identifiers:
+  cce: CCE-82873-1
+inherited_platforms:
+- machine
+ocil: 'Run the following command and verify remote server is configured properly:
+
+  <pre># grep -E "^(server|pool)" /etc/chrony.conf</pre>'
+ocil_clause: a remote time server is not configured
+oval_external_content: null
+platform: chrony
+platforms: !!set
+  chrony: null
+prodtype: all
+rationale: 'If <tt>chrony</tt> is in use on the system proper configuration is vital
+  to ensuring time
+
+  synchronization is working properly.'
+references:
+  anssi: BP28(R43)
+  cis: 2.2.1.2
+  disa: CCI-000160,CCI-001891
+  ism: 0988,1405
+  nist: CM-6(a),AU-8(1)(a)
+  pcidss: Req-10.4.3
+requires: []
+severity: medium
+template: null
+title: A remote time server for Chrony is configured
+warnings: []

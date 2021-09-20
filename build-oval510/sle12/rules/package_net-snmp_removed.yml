@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/snmp/disabling_snmp_service/package_net-snmp_removed/rule.yml
+description: '
+
+  The <tt>net-snmp</tt> package provides the snmpd service.
+
+  The <code>net-snmp</code> package can be removed with the following command:
+
+  <pre>
+
+  $ sudo zypper remove net-snmp</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>net-snmp</code> package
+  is installed:
+
+  <pre>$ rpm -q net-snmp</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: debian10,debian9,fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9,rhv4,sle12,sle15,ubuntu2004,wrlinux1019
+rationale: 'If there is no need to run SNMP server software,
+
+  removing the package provides a safeguard against its
+
+  activation.'
+references:
+  cis: 2.2.13
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: net-snmp
+title: Uninstall net-snmp Package
+warnings: []

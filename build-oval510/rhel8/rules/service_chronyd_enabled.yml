@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/service_chronyd_enabled/rule.yml
+description: "chrony is a daemon which implements the Network Time Protocol (NTP)\
+  \ is designed to\nsynchronize system clocks across a variety of systems and use\
+  \ a source that is highly\naccurate. More information on chrony can be found at\n\
+  \n    <a xmlns='http://www.w3.org/1999/xhtml' href='http://chrony.tuxfamily.org/'>http://chrony.tuxfamily.org/</a>.\n\
+  Chrony can be configured to be a client and/or a server.\nTo enable Chronyd service,\
+  \ you can run:\n<tt># systemctl enable chronyd.service</tt>\nThis recommendation\
+  \ only applies if chrony is in use on the system."
+identifiers:
+  cce: CCE-82875-6
+inherited_platforms:
+- machine
+ocil: '
+
+
+  Run the following command to determine the current status of the
+
+  <code>chronyd</code> service:
+
+  <pre>$ systemctl is-active chronyd</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>'
+ocil_clause: the chronyd process is not running
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: 'If chrony is in use on the system proper configuration is vital to ensuring
+  time
+
+  synchronization is working properly.'
+references:
+  cis: 2.2.1.2
+  ism: 0988,1405
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_enabled
+  vars:
+    packagename: chrony
+    servicename: chronyd
+title: The Chronyd service is enabled
+warnings: []

@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_boot_noexec/rule.yml
+description: "The <tt>noexec</tt> mount option can be used to prevent binaries from\
+  \ being\nexecuted out of <tt>/boot</tt>. \nAdd the <code>noexec</code> option to\
+  \ the fourth column of\n<tt>/etc/fstab</tt> for the line which controls mounting\
+  \ of\n<code>/boot</code>."
+identifiers:
+  cce: CCE-83892-0
+inherited_platforms: []
+ocil: "To verify the <tt>noexec</tt> option is configured for the <tt>/boot</tt> mount\
+  \ point,\n    run the following command:\n    <pre>$ mount | grep '\\s/boot\\s'</pre>\n\
+  \    The output should show the corresponding mount point along with the <tt>noexec</tt>\
+  \ setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,wrlinux1019
+rationale: 'The <tt>/boot</tt> partition contains the kernel and the bootloader. No
+
+  binaries should be executed from this partition after the booting process
+
+  finishes.'
+references:
+  anssi: BP28(R12)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: noexec
+    mountpoint: /boot
+title: Add noexec Option to /boot
+warnings: []

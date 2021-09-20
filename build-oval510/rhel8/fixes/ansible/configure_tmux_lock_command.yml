@@ -1,0 +1,46 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Configure the tmux Lock Command
+  block:
+
+    - name: Check for duplicate values
+      lineinfile:
+        path: /etc/tmux.conf
+        create: false
+        regexp: ^\s*set -g lock-command\s+
+        state: absent
+      check_mode: true
+      changed_when: false
+      register: dupes
+
+    - name: Deduplicate values from /etc/tmux.conf
+      lineinfile:
+        path: /etc/tmux.conf
+        create: false
+        regexp: ^\s*set -g lock-command\s+
+        state: absent
+      when: dupes.found is defined and dupes.found > 1
+
+    - name: Insert correct line to /etc/tmux.conf
+      lineinfile:
+        path: /etc/tmux.conf
+        create: true
+        regexp: ^\s*set -g lock-command\s+
+        line: set -g lock-command vlock
+        state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-80940-0
+    - DISA-STIG-RHEL-08-020040
+    - NIST-800-53-AC-11(a)
+    - NIST-800-53-AC-11(b)
+    - NIST-800-53-CM-6(a)
+    - configure_tmux_lock_command
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

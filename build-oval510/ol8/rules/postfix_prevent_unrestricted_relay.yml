@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/mail/postfix_harden_os/postfix_server_cfg/postfix_server_relay/postfix_prevent_unrestricted_relay/rule.yml
+description: 'Modify the <pre>/etc/postfix/main.cf</pre> file to restrict client connections
+
+  to the local network with the following command:
+
+  <pre>$ sudo postconf -e ''smtpd_client_restrictions = permit_mynetworks,reject''</pre>'
+identifiers: {}
+inherited_platforms:
+- postfix
+ocil: 'To verify the system is configured to prevent unrestricted mail relaying,
+
+  run the following command:
+
+  <pre>$ sudo postconf -n smtpd_client_restrictions</pre>
+
+  The output should return:
+
+  <pre>smtpd_client_restrictions = permit_mynetworks,reject</pre>'
+ocil_clause: it is not
+oval_external_content: null
+platform: null
+platforms: !!set
+  postfix: null
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,wrlinux1019
+rationale: 'If unrestricted mail relaying is permitted, unauthorized senders could
+  use this
+
+  host as a mail relay for the purpose of sending spam or other unauthorized
+
+  activity.'
+references:
+  disa: CCI-000366
+  srg: SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template: null
+title: Prevent Unrestricted Mail Relaying
+warnings: []

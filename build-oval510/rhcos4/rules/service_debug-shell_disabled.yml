@@ -1,0 +1,109 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-physical/service_debug-shell_disabled/rule.yml
+description: "SystemD's <tt>debug-shell</tt> service is intended to\ndiagnose SystemD\
+  \ related boot issues with various <tt>systemctl</tt>\ncommands. Once enabled and\
+  \ following a system reboot, the root shell\nwill be available on <tt>tty9</tt>\
+  \ which is access by pressing\n<tt>CTRL-ALT-F9</tt>. The <tt>debug-shell</tt> service\
+  \ should only be used\nfor SystemD related issues and should otherwise be disabled.\n\
+  <br /><br />\nBy default, the <tt>debug-shell</tt> SystemD service is already disabled.\n\
+  \nThe <code>debug-shell</code> service can be disabled with the following manifest:\n\
+  <pre>\n---\napiVersion: machineconfiguration.openshift.io/v1\nkind: MachineConfig\n\
+  metadata:\n  labels:\n    machineconfiguration.openshift.io/role: master\n  name:\
+  \ 75-master-debug-shell-disable\nspec:\n  config:\n    ignition:\n      version:\
+  \ 3.1.0\n    systemd:\n      units:\n      - enabled: false\n        name: debug-shell.service\n\
+  </pre>\n<p>\nThis will disable the <tt>debug-shell</tt> service in all the\nnodes\
+  \ labeled with the \"master\" role.\n</p>\n<p>\nNote that this needs to be done\
+  \ for each <tt>MachineConfigPool</tt>\n</p>\n<p>\nFor more information on how to\
+  \ configure nodes with the Machine Config\nOperator see\n<a xmlns='http://www.w3.org/1999/xhtml'\
+  \ href='https://docs.openshift.com/container-platform/4.6/post_installation_configuration/machine-configuration-tasks.html'>the\
+  \ relevant documentation</a>.\n</p>"
+identifiers:
+  cce: CCE-82496-1
+inherited_platforms: []
+ocil: '
+
+  To check that the <code>debug-shell</code> service is disabled in system boot configuration,
+
+  You''ll need to log into a node in the cluster.
+
+  As a user with administrator privileges, log into a node in the relevant pool:
+
+  <pre>
+
+  $ oc debug node/$NODE_NAME
+
+  </pre>
+
+  At the <pre>sh-4.4#</pre> prompt, run:
+
+  <pre>
+
+  # chroot /host
+
+  </pre>
+
+
+  Subsequently,run the following command:
+
+  <pre>$ systemctl is-enabled <code>debug-shell</code></pre>
+
+  Output should indicate the <code>debug-shell</code> service has either not been
+  installed,
+
+  or has been disabled at all runlevels, as shown in the example below:
+
+  <pre>$ systemctl is-enabled <code>debug-shell</code><br/> disabled</pre>
+
+
+  Run the following command to verify <code>debug-shell</code> is not active (i.e.
+  not running) through current runtime configuration:
+
+  <pre>$ systemctl is-active debug-shell</pre>
+
+
+  If the service is not running the command will return the following output:
+
+  <pre>inactive</pre>
+
+
+  The service will also be masked, to check that the <code>debug-shell</code> is masked,
+  run the following command:
+
+  <pre>$ systemctl show <code>debug-shell</code> | grep "LoadState\|UnitFileState"</pre>
+
+
+  If the service is masked the command will return the following outputs:
+
+
+  <pre>LoadState=masked</pre>
+
+
+  <pre>UnitFileState=masked</pre>'
+ocil_clause: null
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9,rhv4
+rationale: 'This prevents attackers with physical access from trivially bypassing
+  security
+
+  on the machine through valid troubleshooting configurations and gaining root
+
+  access when the system is rebooted.'
+references:
+  cui: 3.4.5
+  disa: CCI-000366
+  hipaa: 164.308(a)(1)(ii)(B),164.308(a)(7)(i),164.308(a)(7)(ii)(A),164.310(a)(1),164.310(a)(2)(i),164.310(a)(2)(ii),164.310(a)(2)(iii),164.310(b),164.310(c),164.310(d)(1),164.310(d)(2)(iii)
+  ospp: FIA_UAU.1
+  srg: SRG-OS-000324-GPOS-00125,SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_disabled
+  vars:
+    packagename: systemd
+    servicename: debug-shell
+title: Disable debug-shell SystemD Service
+warnings: []

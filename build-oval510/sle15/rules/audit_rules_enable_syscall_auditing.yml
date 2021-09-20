@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/auditd_configure_rules/audit_rules_enable_syscall_auditing/rule.yml
+description: 'By default, SUSE Linux Enterprise 15 ships an audit rule to disable
+  syscall
+
+  auditing for performance reasons.
+
+
+  To make sure that syscall auditing works, this line must be removed from
+
+  <tt>/etc/audit/rules.d/audit.rules</tt> and <tt>/etc/audit/audit.rules</tt>:
+
+
+  <pre>-a task,never</pre>'
+identifiers:
+  cce: CCE-85706-0
+inherited_platforms:
+- audit
+ocil: 'To check for the offending line, run the following command:
+
+  <pre>$ grep task,never /etc/audit/{rules.d,.}/audit.rules</pre>
+
+  There must not be any output, or else these lines must be removed from
+
+  the matching files.'
+ocil_clause: syscall auditing is still disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  audit: null
+prodtype: sle12,sle15
+rationale: Audit rules for syscalls do not take effect unless this line is removed.
+references:
+  disa: CCI-000366
+  nist: CM-6(b),CM-6.1(iv)
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: SLES-15-030820
+requires: []
+severity: medium
+template: null
+title: Remove Default Configuration to Disable Syscall Auditing
+warnings: []

@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_kdump_disabled" version="2">
+    <metadata>
+        <title>Disable KDump Kernel Crash Analyzer (kdump)</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The kdump service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package kexec-tools removed or service and socket kdump are not configured to start" operator="OR">
+      <criterion comment="kexec-tools removed" test_ref="test_service_kdump_package_kexec-tools_removed" />
+      <criteria operator="AND" comment="service and socket kdump are disabled">
+        <criterion comment="kdump disabled in multi-user.target" test_ref="test_kdump_disabled_multi_user_target" />
+        <criterion comment="kdump socket disabled in sockets.target" test_ref="test_kdump_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for kdump.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_kdump_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_kdump_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for kdump.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_kdump_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/kdump.service</unix:filepath>
+    <filter action="include">unit_kdump_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for kdump.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_kdump_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_kdump_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for kdump.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_kdump_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/kdump.socket</unix:filepath>
+    <filter action="include">unit_kdump_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_kdump_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:dpkginfo_test check="all" check_existence="none_exist"
+  id="test_service_kdump_package_kexec-tools_removed" version="1"
+  comment="package kexec-tools is removed">
+    <linux:object object_ref="obj_test_service_kdump_package_kexec-tools_removed" />
+  </linux:dpkginfo_test>
+  <linux:dpkginfo_object id="obj_test_service_kdump_package_kexec-tools_removed" version="1">
+    <linux:name>kexec-tools</linux:name>
+  </linux:dpkginfo_object>
+
+
+</def-group>

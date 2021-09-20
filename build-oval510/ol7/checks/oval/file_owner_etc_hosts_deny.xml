@@ -1,0 +1,23 @@
+<def-group>
+  <definition class="compliance" id="file_owner_etc_hosts_deny" version="1">
+    <metadata>
+        <title>Verify Ownership of /etc/hosts.deny</title>
+        
+    <affected family="unix">
+    <platform>Oracle Linux 7</platform>
+    </affected>
+        <description>This test makes sure that /etc/hosts.deny is owned by 0.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="Check file ownership of /etc/hosts.deny" test_ref="test_file_owner_etc_hosts_deny" />
+    </criteria>
+  </definition>
+    <unix:file_test check="all" check_existence="any_exist" comment="Testing user ownership of /etc/hosts.deny" id="test_file_owner_etc_hosts_deny" version="1">
+    <unix:object object_ref="object_file_owner_etc_hosts_deny" />
+    <unix:state state_ref="state_file_owner_etc_hosts_deny_uid_0" />
+  </unix:file_test>
+  <unix:file_state id="state_file_owner_etc_hosts_deny_uid_0" version="1">
+    <unix:user_id datatype="int">0</unix:user_id>
+  </unix:file_state>
+  <unix:file_object comment="/etc/hosts.deny" id="object_file_owner_etc_hosts_deny" version="1"><unix:filepath>/etc/hosts.deny</unix:filepath></unix:file_object>
+</def-group>

@@ -1,0 +1,45 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_boot_noauto/rule.yml
+description: "The <tt>noauto</tt> mount option is used to prevent automatic mounting\
+  \ of th\n<tt>/boot</tt> partition. \nAdd the <code>noauto</code> option to the fourth\
+  \ column of\n<tt>/etc/fstab</tt> for the line which controls mounting of\n<code>/boot</code>."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify the <tt>noauto</tt> option is configured for the <tt>/boot</tt> mount\
+  \ point,\n    run the following command:\n    <pre>$ mount | grep '\\s/boot\\s'</pre>\n\
+  \    The output should show the corresponding mount point along with the <tt>noauto</tt>\
+  \ setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,wrlinux1019
+rationale: 'The <tt>/boot</tt> partition contains the kernel and the bootloader. Access
+
+  to the partition after the boot process finishes should not be needed. Files
+
+  contained within this partition can be analysed and gained information can
+
+  be used for exploit creation.'
+references:
+  anssi: BP28(R12)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: noauto
+    mountpoint: /boot
+title: Add noauto Option to /boot
+warnings:
+- general: 'Although contents of the <tt>/boot</tt> partition should not be needed
+
+    during normal system operation, they might need to be accessible during
+
+    system maintenance and upgrades. Make sure that applying this rule will
+
+    not break upgrade or maintenance processes affecting the system.'

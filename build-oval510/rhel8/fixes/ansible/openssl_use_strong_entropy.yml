@@ -1,0 +1,45 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Put a file with shell wrapper to configure OpenSSL to always use strong entropy
+  copy:
+    dest: /etc/profile.d/openssl-rand.sh
+    content: |
+      # provide a default -rand /dev/random option to openssl commands that
+      # support it
+
+      # written inefficiently for maximum shell compatibility
+      openssl()
+      (
+        openssl_bin=/usr/bin/openssl
+
+        case "$*" in
+          # if user specified -rand, honor it
+          *\ -rand\ *|*\ -help*) exec $openssl_bin "$@" ;;
+        esac
+
+        cmds=`$openssl_bin list -digest-commands -cipher-commands | tr '\n' ' '`
+        for i in `$openssl_bin list -commands`; do
+          if $openssl_bin list -options "$i" | grep -q '^rand '; then
+            cmds=" $i $cmds"
+          fi
+        done
+
+        case "$cmds" in
+          *\ "$1"\ *)
+            cmd="$1"; shift
+            exec $openssl_bin "$cmd" -rand /dev/random "$@" ;;
+        esac
+
+        exec $openssl_bin "$@"
+      )
+  tags:
+    - CCE-82721-2
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - openssl_use_strong_entropy
+    - restrict_strategy

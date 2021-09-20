@@ -1,0 +1,51 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_var_tmp_nodev/rule.yml
+description: 'The <tt>nodev</tt> mount option can be used to prevent device files
+  from
+
+  being created in <tt>/var/tmp</tt>. Legitimate character and block devices
+
+  should not exist within temporary directories like <tt>/var/tmp</tt>.
+
+  Add the <code>nodev</code> option to the list of
+
+  <code>Options</code> in the <code>systemd.mount</code> unit that
+
+  controls mounting of
+
+  <code>/var/tmp</code>.'
+identifiers:
+  cce: CCE-82735-2
+inherited_platforms: []
+ocil: "To verify the <tt>nodev</tt> option is configured for the <tt>/var/tmp</tt>\
+  \ mount point,\n    You'll need to log into a node in the cluster.\n    As a user\
+  \ with administrator privileges, log into a node in the relevant pool:\n    <pre>\n\
+  \    $ oc debug node/$NODE_NAME\n    </pre>\n    At the <pre>sh-4.4#</pre> prompt,\
+  \ run:\n    <pre>\n    # chroot /host\n    </pre>\n\n    Subsequently,run the following\
+  \ command:\n    <pre>$ mount | grep '\\s/var/tmp\\s'</pre>\n    The output should\
+  \ show the corresponding mount point along with the <tt>nodev</tt> setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhcos4,rhel7,rhel8,rhel9,sle12,sle15,ubuntu1804
+rationale: 'The only legitimate location for device files is the <tt>/dev</tt> directory
+
+  located on the root partition. The only exception to this is chroot jails.'
+references:
+  anssi: BP28(R12)
+  disa: CCI-001764
+  srg: SRG-OS-000368-GPOS-00154
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: nodev
+    mountpoint: /var/tmp
+title: Add nodev Option to /var/tmp
+warnings: []

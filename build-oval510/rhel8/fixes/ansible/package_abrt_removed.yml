@@ -1,0 +1,18 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure abrt is removed
+  package:
+    name: abrt
+    state: absent
+  tags:
+    - CCE-80948-3
+    - DISA-STIG-RHEL-08-040001
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - package_abrt_removed

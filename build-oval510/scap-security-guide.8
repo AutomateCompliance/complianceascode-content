@@ -1,0 +1,2669 @@
+.TH scap-security-guide 8 "26 Jan 2013" "version 1"
+
+.SH NAME
+SCAP Security Guide - Delivers security guidance, baselines, and
+associated validation mechanisms utilizing the Security Content
+Automation Protocol (SCAP).
+
+
+.SH DESCRIPTION
+The project provides practical security hardening advice
+and also links it to compliance requirements in order to ease deployment
+activities, such as certification and accreditation. These include requirements
+in the U.S. government (Federal, Defense, and Intelligence Community) as well
+as of the financial services and health care industries. For example,
+high-level and widely-accepted policies such as NIST 800-53 provides prose
+stating that System Administrators must audit "privileged user actions," but do
+not define what "privileged actions" are. The SSG bridges the gap between
+generalized policy requirements and specific implementation guidance, in SCAP
+formats to support automation whenever possible.
+
+The projects homepage is located at:
+https://www.open-scap.org/security-policies/scap-security-guide
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux 7
+
+Source Datastream: \fI ssg-centos7-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux 7 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B Standard System Security Profile for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Red Hat Enterprise Linux 7 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux 8
+
+Source Datastream: \fI ssg-centos8-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux 8 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Red Hat Enterprise Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B Standard System Security Profile for Red Hat Enterprise Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Red Hat Enterprise Linux 8 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Chromium
+
+Source Datastream: \fI ssg-chromium-ds.xml \fR
+
+The Guide to the Secure Configuration of Chromium is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Upstream STIG for Google Chromium
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile is developed under the DoD consensus model and DISA FSO Vendor STIG process,
+serving as the upstream development environment for the Google Chromium STIG.
+
+As a result of the upstream/downstream relationship between the SCAP Security Guide project
+and the official DISA FSO STIG baseline, users should expect variance between SSG and DISA FSO content.
+For official DISA FSO STIG content, refer to https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance.
+
+While this profile is packaged by Red Hat as part of the SCAP Security Guide package, please note
+that commercial support of this SCAP content is NOT available. This profile is provided as example
+SCAP content with no endorsement for suitability or production readiness. Support for this
+profile is provided by the upstream SCAP Security Guide community on a best-effort basis. The
+upstream project homepage is https://www.open-scap.org/security-policies/scap-security-guide/.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Debian 10
+
+Source Datastream: \fI ssg-debian10-ds.xml \fR
+
+The Guide to the Secure Configuration of Debian 10 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Profile for ANSSI DAT-NT28 Average (Intermediate) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_average \fR
+
+This profile contains items for GNU/Linux installations already protected by multiple higher level security stacks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 High (Enforced) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_high \fR
+
+This profile contains items for GNU/Linux installations storing sensitive informations that can be accessible from unauthenticated or uncontroled networks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Minimal Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_minimal \fR
+
+This profile contains items to be applied systematically.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Restrictive Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_restrictive \fR
+
+This profile contains items for GNU/Linux installations exposed to unauthenticated flows or multiple sources.
+.RE
+
+
+.B Standard System Security Profile for Debian 10
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Debian 10 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Debian 9
+
+Source Datastream: \fI ssg-debian9-ds.xml \fR
+
+The Guide to the Secure Configuration of Debian 9 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Profile for ANSSI DAT-NT28 Average (Intermediate) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_average \fR
+
+This profile contains items for GNU/Linux installations already protected by multiple higher level security stacks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 High (Enforced) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_high \fR
+
+This profile contains items for GNU/Linux installations storing sensitive informations that can be accessible from unauthenticated or uncontroled networks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Minimal Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_minimal \fR
+
+This profile contains items to be applied systematically.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Restrictive Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_restrictive \fR
+
+This profile contains items for GNU/Linux installations exposed to unauthenticated flows or multiple sources.
+.RE
+
+
+.B Standard System Security Profile for Debian 9
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Debian 9 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Fedora
+
+Source Datastream: \fI ssg-fedora-ds.xml \fR
+
+The Guide to the Secure Configuration of Fedora is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B OSPP - Protection Profile for General Purpose Operating Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2).
+
+As Fedora OS is moving target, this profile does not guarantee to provide
+security levels required from US National Security Systems. Main goal of
+the profile is to provide Fedora developers with hardened environment
+similar to the one mandated by US National Security Systems.
+.RE
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Fedora
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 related security configuration settings are applied.
+.RE
+
+
+.B Standard System Security Profile for Fedora
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline of a Fedora system.
+Regardless of your system's workload all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Firefox
+
+Source Datastream: \fI ssg-firefox-ds.xml \fR
+
+The Guide to the Secure Configuration of Firefox is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Upstream Firefox STIG
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile is developed under the DoD consensus model and DISA FSO Vendor STIG process,
+serving as the upstream development environment for the Firefox STIG.
+
+As a result of the upstream/downstream relationship between the SCAP Security Guide project
+and the official DISA FSO STIG baseline, users should expect variance between SSG and DISA FSO content.
+For official DISA FSO STIG content, refer to https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance.
+
+While this profile is packaged by Red Hat as part of the SCAP Security Guide package, please note
+that commercial support of this SCAP content is NOT available. This profile is provided as example
+SCAP content with no endorsement for suitability or production readiness. Support for this
+profile is provided by the upstream SCAP Security Guide community on a best-effort basis. The
+upstream project homepage is https://www.open-scap.org/security-policies/scap-security-guide/.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of JBoss Fuse 6
+
+Source Datastream: \fI ssg-fuse6-ds.xml \fR
+
+The Guide to the Secure Configuration of JBoss Fuse 6 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B STIG for Apache ActiveMQ
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_amq-stig \fR
+
+This is a *draft* profile for STIG. This profile is being developed under the DoD consensus model to become a STIG in coordination with DISA FSO.
+.RE
+
+
+.B Standard System Security Profile for JBoss
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of JBoss Fuse. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+.B STIG for JBoss Fuse 6
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This is a *draft* profile for STIG. This profile is being developed under the DoD consensus model to become a STIG in coordination with DISA FSO.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Java Runtime Environment
+
+Source Datastream: \fI ssg-jre-ds.xml \fR
+
+The Guide to the Secure Configuration of Java Runtime Environment is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Java Runtime Environment (JRE) STIG
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+The Java Runtime Environment (JRE) is a bundle developed
+and offered by Oracle Corporation which includes the Java Virtual Machine
+(JVM), class libraries, and other components necessary to run Java
+applications and applets. Certain default settings within the JRE pose
+a security risk so it is necessary to deploy system wide properties to
+ensure a higher degree of security when utilizing the JRE.
+
+The IBM Corporation also develops and bundles the Java Runtime Environment
+(JRE) as well as Red Hat with OpenJDK.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Apple macOS 10.15
+
+Source Datastream: \fI ssg-macos1015-ds.xml \fR
+
+The Guide to the Secure Configuration of Apple macOS 10.15 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B NIST 800-53 Moderate-Impact Baseline for Apple macOS 10.15 Catalina
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_moderate \fR
+
+This compliance profile reflects the core set of Moderate-Impact Baseline
+configuration settings for deployment of Apple macOS 10.15 Catalina
+into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense, and the
+the National Security Agency.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- NIST 800-53 control selections for Moderate-Impact systems (NIST 800-53)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the ComplianceAsCode initiative, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors ComplianceAsCode
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Oracle Linux 7
+
+Source Datastream: \fI ssg-ol7-ds.xml \fR
+
+The Guide to the Secure Configuration of Oracle Linux 7 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B ANSSI-BP-028 (enhanced)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_enhanced \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the enhanced hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B DRAFT - ANSSI-BP-028 (high)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_high \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the high hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (intermediary)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_intermediary \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the intermediary hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (minimal)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_minimal \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the minimal hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B Criminal Justice Information Services (CJIS) Security Policy
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cjis \fR
+
+This profile is derived from FBI's CJIS v5.4
+Security Policy. A copy of this policy can be found at the CJIS Security
+Policy Resource Center:
+
+https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+.RE
+
+
+.B Unclassified Information in Non-federal Information Systems and Organizations (NIST 800-171)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cui \fR
+
+From NIST 800-171, Section 2.2:
+Security requirements for protecting the confidentiality of CUI in non-federal
+information systems and organizations have a well-defined structure that
+consists of:
+
+(i) a basic security requirements section;
+(ii) a derived security requirements section.
+
+The basic security requirements are obtained from FIPS Publication 200, which
+provides the high-level and fundamental security requirements for federal
+information and information systems. The derived security requirements, which
+supplement the basic security requirements, are taken from the security controls
+in NIST Special Publication 800-53.
+
+This profile configures Oracle Linux 7 to the NIST Special
+Publication 800-53 controls identified for securing Controlled Unclassified
+Information (CUI).
+.RE
+
+
+.B [DRAFT] Australian Cyber Security Centre (ACSC) Essential Eight
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_e8 \fR
+
+This profile contains configuration checks for Oracle Linux 7
+that align to the Australian Cyber Security Centre (ACSC) Essential Eight.
+
+A copy of the Essential Eight in Linux Environments guide can be found at the
+ACSC website:
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-linux-workstations-and-servers
+.RE
+
+
+.B Health Insurance Portability and Accountability Act (HIPAA)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_hipaa \fR
+
+The HIPAA Security Rule establishes U.S. national standards to protect individuals’
+electronic personal health information that is created, received, used, or
+maintained by a covered entity. The Security Rule requires appropriate
+administrative, physical and technical safeguards to ensure the
+confidentiality, integrity, and security of electronic protected health
+information.
+
+This profile configures Oracle Linux 7 to the HIPAA Security
+Rule identified for securing of electronic protected health information.
+Use of this profile in no way guarantees or makes claims against legal compliance against the HIPAA Security Rule(s).
+.RE
+
+
+.B [DRAFT] Protection Profile for General Purpose Operating Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2.1).
+
+This configuration profile is consistent with CNSSI-1253, which requires
+U.S. National Security Systems to adhere to certain configuration
+parameters. Accordingly, this configuration profile is suitable for
+use in U.S. National Security Systems.
+.RE
+
+
+.B PCI-DSS v3.2.1 Control Baseline Draft for Oracle Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 related security configuration settings are applied.
+.RE
+
+
+.B Security Profile of Oracle Linux 7 for SAP
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_sap \fR
+
+This profile contains rules for Oracle Linux 7 Operating System in compliance with SAP note 2069760 and SAP Security Baseline Template version 1.9 Item I-8 and section 4.1.2.2.
+Regardless of your system's workload all of these checks should pass.
+.RE
+
+
+.B Standard System Security Profile for Oracle Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of Oracle Linux 7 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+.B DISA STIG for Oracle Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that align to the
+DISA STIG for Oracle Linux V2R4.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Oracle Linux 8
+
+Source Datastream: \fI ssg-ol8-ds.xml \fR
+
+The Guide to the Secure Configuration of Oracle Linux 8 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B ANSSI-BP-028 (enhanced)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the enhanced hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B DRAFT - ANSSI-BP-028 (high)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_high \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the high hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (intermediary)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_intermediary \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the intermediary hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (minimal)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_minimal \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the minimal hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B Criminal Justice Information Services (CJIS) Security Policy
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cjis \fR
+
+This profile is derived from FBI's CJIS v5.4
+Security Policy. A copy of this policy can be found at the CJIS Security
+Policy Resource Center:
+
+https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+.RE
+
+
+.B Unclassified Information in Non-federal Information Systems and Organizations (NIST 800-171)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cui \fR
+
+From NIST 800-171, Section 2.2:
+Security requirements for protecting the confidentiality of CUI in non-federal
+information systems and organizations have a well-defined structure that
+consists of:
+
+(i) a basic security requirements section;
+(ii) a derived security requirements section.
+
+The basic security requirements are obtained from FIPS Publication 200, which
+provides the high-level and fundamental security requirements for federal
+information and information systems. The derived security requirements, which
+supplement the basic security requirements, are taken from the security controls
+in NIST Special Publication 800-53.
+
+This profile configures Oracle Linux 8 to the NIST Special
+Publication 800-53 controls identified for securing Controlled Unclassified
+Information (CUI).
+.RE
+
+
+.B [DRAFT] Australian Cyber Security Centre (ACSC) Essential Eight
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_e8 \fR
+
+This profile contains configuration checks for Oracle Linux 8
+that align to the Australian Cyber Security Centre (ACSC) Essential Eight.
+
+A copy of the Essential Eight in Linux Environments guide can be found at the
+ACSC website:
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-linux-workstations-and-servers
+.RE
+
+
+.B Health Insurance Portability and Accountability Act (HIPAA)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_hipaa \fR
+
+The HIPAA Security Rule establishes U.S. national standards to protect individuals’
+electronic personal health information that is created, received, used, or
+maintained by a covered entity. The Security Rule requires appropriate
+administrative, physical and technical safeguards to ensure the
+confidentiality, integrity, and security of electronic protected health
+information.
+
+This profile configures Oracle Linux 8 to the HIPAA Security
+Rule identified for securing of electronic protected health information.
+Use of this profile in no way guarantees or makes claims against legal compliance against the HIPAA Security Rule(s).
+.RE
+
+
+.B [DRAFT] Protection Profile for General Purpose Operating Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2.1).
+
+This configuration profile is consistent with CNSSI-1253, which requires
+U.S. National Security Systems to adhere to certain configuration
+parameters. Accordingly, this configuration profile is suitable for
+use in U.S. National Security Systems.
+.RE
+
+
+.B PCI-DSS v3.2.1 Control Baseline Draft for Oracle Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 related security configuration settings are applied.
+.RE
+
+
+.B Standard System Security Profile for Oracle Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of Oracle Linux 8 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of openSUSE
+
+Source Datastream: \fI ssg-opensuse-ds.xml \fR
+
+The Guide to the Secure Configuration of openSUSE is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Standard System Security Profile for openSUSE
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of an openSUSE system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux CoreOS 4
+
+Source Datastream: \fI ssg-rhcos4-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux CoreOS 4 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B DRAFT - ANSSI-BP-028 (enhanced)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the enhanced hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B DRAFT - ANSSI-BP-028 (high)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_high \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the high hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B DRAFT - ANSSI-BP-028 (intermediary)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_intermediary \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the intermediary hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B DRAFT - ANSSI-BP-028 (minimal)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_minimal \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the minimal hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B Australian Cyber Security Centre (ACSC) Essential Eight
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_e8 \fR
+
+This profile contains configuration checks for Red Hat Enterprise Linux CoreOS
+that align to the Australian Cyber Security Centre (ACSC) Essential Eight.
+
+A copy of the Essential Eight in Linux Environments guide can be found at the
+ACSC website:
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-linux-workstations-and-servers
+.RE
+
+
+.B NIST 800-53 Moderate-Impact Baseline for Red Hat Enterprise Linux CoreOS
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_moderate \fR
+
+This compliance profile reflects the core set of Moderate-Impact Baseline
+configuration settings for deployment of Red Hat Enterprise
+Linux CoreOS into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense,
+the National Security Agency, and Red Hat.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- NIST 800-53 control selections for Moderate-Impact systems (NIST 800-53)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the ComplianceAsCode initiative, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors ComplianceAsCode
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.
+.RE
+
+
+.B NIST National Checklist for Red Hat Enterprise Linux CoreOS
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ncp \fR
+
+This compliance profile reflects the core set of security
+related configuration settings for deployment of Red Hat Enterprise
+Linux CoreOS into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense,
+the National Security Agency, and Red Hat.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- Committee on National Security Systems Instruction No. 1253 (CNSSI 1253)
+- NIST Controlled Unclassified Information (NIST 800-171)
+- NIST 800-53 control selections for Moderate-Impact systems (NIST 800-53)
+- U.S. Government Configuration Baseline (USGCB)
+- NIAP Protection Profile for General Purpose Operating Systems v4.2.1 (OSPP v4.2.1)
+- DISA Operating System Security Requirements Guide (OS SRG)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the ComplianceAsCode initiative, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors ComplianceAsCode
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.
+.RE
+
+
+.B Protection Profile for General Purpose Operating Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2.1).
+
+This configuration profile is consistent with CNSSI-1253, which requires
+U.S. National Security Systems to adhere to certain configuration
+parameters. Accordingly, this configuration profile is suitable for
+use in U.S. National Security Systems.
+.RE
+
+
+.B [DRAFT] DISA STIG for Red Hat Enterprise Linux CoreOS
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that align to the
+[DRAFT] DISA STIG for Red Hat Enterprise Linux CoreOS which
+is the operating system layer of Red Hat OpenShift Container
+Platform.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux 7
+
+Source Datastream: \fI ssg-rhel7-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux 7 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B C2S for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_C2S \fR
+
+This profile demonstrates compliance against the
+U.S. Government Commercial Cloud Services (C2S) baseline.
+
+This baseline was inspired by the Center for Internet Security
+(CIS) Red Hat Enterprise Linux 7 Benchmark, v2.1.1 - 01-31-2017.
+
+For the SCAP Security Guide project to remain in compliance with
+CIS' terms and conditions, specifically Restrictions(8), note
+there is no representation or claim that the C2S profile will
+ensure a system is in compliance or consistency with the CIS
+baseline.
+.RE
+
+
+.B ANSSI-BP-028 (enhanced)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_enhanced \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the enhanced hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (high)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_high \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the high hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (intermediary)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_intermediary \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the intermediary hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (minimal)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_nt28_minimal \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the minimal hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 7 Benchmark for Level 2 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis \fR
+
+This profile defines a baseline that aligns to the "Level 2 - Server"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 7 Benchmark™, v3.1.1, released 05-21-2021.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 7 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 7 Benchmark for Level 1 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_server_l1 \fR
+
+This profile defines a baseline that aligns to the "Level 1 - Server"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 7 Benchmark™, v3.1.1, released 05-21-2021.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 7 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 7 Benchmark for Level 1 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l1 \fR
+
+This profile defines a baseline that aligns to the "Level 1 - Workstation"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 7 Benchmark™, v3.1.1, released 05-21-2021.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 7 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 7 Benchmark for Level 2 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l2 \fR
+
+This profile defines a baseline that aligns to the "Level 2 - Workstation"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 7 Benchmark™, v3.1.1, released 05-21-2021.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 7 CIS Benchmarks™ content.
+.RE
+
+
+.B Criminal Justice Information Services (CJIS) Security Policy
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cjis \fR
+
+This profile is derived from FBI's CJIS v5.4
+Security Policy. A copy of this policy can be found at the CJIS Security
+Policy Resource Center:
+
+https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+.RE
+
+
+.B Unclassified Information in Non-federal Information Systems and Organizations (NIST 800-171)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cui \fR
+
+From NIST 800-171, Section 2.2:
+Security requirements for protecting the confidentiality of CUI in non-federal
+information systems and organizations have a well-defined structure that
+consists of:
+
+(i) a basic security requirements section;
+(ii) a derived security requirements section.
+
+The basic security requirements are obtained from FIPS Publication 200, which
+provides the high-level and fundamental security requirements for federal
+information and information systems. The derived security requirements, which
+supplement the basic security requirements, are taken from the security controls
+in NIST Special Publication 800-53.
+
+This profile configures Red Hat Enterprise Linux 7 to the NIST Special
+Publication 800-53 controls identified for securing Controlled Unclassified
+Information (CUI).
+.RE
+
+
+.B Australian Cyber Security Centre (ACSC) Essential Eight
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_e8 \fR
+
+This profile contains configuration checks for Red Hat Enterprise Linux 7
+that align to the Australian Cyber Security Centre (ACSC) Essential Eight.
+
+A copy of the Essential Eight in Linux Environments guide can be found at the
+ACSC website:
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-linux-workstations-and-servers
+.RE
+
+
+.B Health Insurance Portability and Accountability Act (HIPAA)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_hipaa \fR
+
+The HIPAA Security Rule establishes U.S. national standards to protect individuals’
+electronic personal health information that is created, received, used, or
+maintained by a covered entity. The Security Rule requires appropriate
+administrative, physical and technical safeguards to ensure the
+confidentiality, integrity, and security of electronic protected health
+information.
+
+This profile configures Red Hat Enterprise Linux 7 to the HIPAA Security
+Rule identified for securing of electronic protected health information.
+Use of this profile in no way guarantees or makes claims against legal compliance against the HIPAA Security Rule(s).
+.RE
+
+
+.B NIST National Checklist Program Security Guide
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ncp \fR
+
+This compliance profile reflects the core set of security
+related configuration settings for deployment of Red Hat Enterprise
+Linux 7.x into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense,
+the National Security Agency, and Red Hat.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- Committee on National Security Systems Instruction No. 1253 (CNSSI 1253)
+- NIST Controlled Unclassified Information (NIST 800-171)
+- NIST 800-53 control selections for MODERATE impact systems (NIST 800-53)
+- U.S. Government Configuration Baseline (USGCB)
+- NIAP Protection Profile for General Purpose Operating Systems v4.2.1 (OSPP v4.2.1)
+- DISA Operating System Security Requirements Guide (OS SRG)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the OpenSCAP/SCAP Security Guide initiative, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors OpenSCAP/SCAP Security Guide
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.
+.RE
+
+
+.B OSPP - Protection Profile for General Purpose Operating Systems v4.2.1
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2.1).
+
+This configuration profile is consistent with CNSSI-1253, which requires
+U.S. National Security Systems to adhere to certain configuration
+parameters. Accordingly, this configuration profile is suitable for
+use in U.S. National Security Systems.
+.RE
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B RHV hardening based on STIG for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rhelh-stig \fR
+
+This profile contains configuration checks for
+Red Hat Virtualization based on the
+the DISA STIG for Red Hat Enterprise Linux 7.
+.RE
+
+
+.B VPP - Protection Profile for Virtualization v. 1.0 for Red Hat Virtualization
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rhelh-vpp \fR
+
+This compliance profile reflects the core set of security
+related configuration settings for deployment of Red Hat Enterprise
+Linux Hypervisor (RHELH) 7.x into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense,
+the National Security Agency, and Red Hat.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- Committee on National Security Systems Instruction No. 1253 (CNSSI 1253)
+- NIST 800-53 control selections for MODERATE impact systems (NIST 800-53)
+- U.S. Government Configuration Baseline (USGCB)
+- NIAP Protection Profile for Virtualization v1.0 (VPP v1.0)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the ComplianceAsCode project, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors ComplianceAsCode
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.
+.RE
+
+
+.B Red Hat Corporate Profile for Certified Cloud Providers (RH CCP)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rht-ccp \fR
+
+This profile contains the minimum security relevant
+configuration settings recommended by Red Hat, Inc for
+Red Hat Enterprise Linux 7 instances deployed by Red Hat Certified
+Cloud Providers.
+.RE
+
+
+.B Standard System Security Profile for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Red Hat Enterprise Linux 7 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+.B DISA STIG for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that align to the
+DISA STIG for Red Hat Enterprise Linux V3R4.
+
+In addition to being applicable to Red Hat Enterprise Linux 7, DISA recognizes this
+configuration baseline as applicable to the operating system tier of
+Red Hat technologies that are based on Red Hat Enterprise Linux 7, such as:
+
+- Red Hat Enterprise Linux Server
+- Red Hat Enterprise Linux Workstation and Desktop
+- Red Hat Enterprise Linux for HPC
+- Red Hat Storage
+- Red Hat Containers with a Red Hat Enterprise Linux 7 image
+.RE
+
+
+.B DISA STIG with GUI for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig_gui \fR
+
+This profile contains configuration checks that align to the
+DISA STIG with GUI for Red Hat Enterprise Linux V3R4.
+
+In addition to being applicable to Red Hat Enterprise Linux 7, DISA recognizes this
+configuration baseline as applicable to the operating system tier of
+Red Hat technologies that are based on Red Hat Enterprise Linux 7, such as:
+
+- Red Hat Enterprise Linux Server
+- Red Hat Enterprise Linux Workstation and Desktop
+- Red Hat Enterprise Linux for HPC
+- Red Hat Storage
+- Red Hat Containers with a Red Hat Enterprise Linux 7 image
+
+Warning: The installation and use of a Graphical User Interface (GUI)
+increases your attack vector and decreases your overall security posture. If
+your Information Systems Security Officer (ISSO) lacks a documented operational
+requirement for a graphical user interface, please consider using the
+standard DISA STIG for Red Hat Enterprise Linux 7 profile.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux 8
+
+Source Datastream: \fI ssg-rhel8-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux 8 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B ANSSI-BP-028 (enhanced)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the enhanced hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (high)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_high \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the high hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (intermediary)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_intermediary \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the intermediary hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (minimal)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_minimal \fR
+
+This profile contains configurations that align to ANSSI-BP-028 v1.2 at the minimal hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 8 Benchmark for Level 2 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis \fR
+
+This profile defines a baseline that aligns to the "Level 2 - Server"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 8 Benchmark™, v1.0.1, released 2021-05-19.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 8 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 8 Benchmark for Level 1 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_server_l1 \fR
+
+This profile defines a baseline that aligns to the "Level 1 - Server"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 8 Benchmark™, v1.0.1, released 2021-05-19.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 8 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 8 Benchmark for Level 1 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l1 \fR
+
+This profile defines a baseline that aligns to the "Level 1 - Workstation"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 8 Benchmark™, v1.0.1, released 2021-05-19.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 8 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS Red Hat Enterprise Linux 8 Benchmark for Level 2 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l2 \fR
+
+This profile defines a baseline that aligns to the "Level 2 - Workstation"
+configuration from the Center for Internet Security® Red Hat Enterprise
+Linux 8 Benchmark™, v1.0.1, released 2021-05-19.
+
+This profile includes Center for Internet Security®
+Red Hat Enterprise Linux 8 CIS Benchmarks™ content.
+.RE
+
+
+.B Criminal Justice Information Services (CJIS) Security Policy
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cjis \fR
+
+This profile is derived from FBI's CJIS v5.4
+Security Policy. A copy of this policy can be found at the CJIS Security
+Policy Resource Center:
+
+https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+.RE
+
+
+.B Unclassified Information in Non-federal Information Systems and Organizations (NIST 800-171)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cui \fR
+
+From NIST 800-171, Section 2.2:
+Security requirements for protecting the confidentiality of CUI in nonfederal
+information systems and organizations have a well-defined structure that
+consists of:
+
+(i) a basic security requirements section;
+(ii) a derived security requirements section.
+
+The basic security requirements are obtained from FIPS Publication 200, which
+provides the high-level and fundamental security requirements for federal
+information and information systems. The derived security requirements, which
+supplement the basic security requirements, are taken from the security controls
+in NIST Special Publication 800-53.
+
+This profile configures Red Hat Enterprise Linux 8 to the NIST Special
+Publication 800-53 controls identified for securing Controlled Unclassified
+Information (CUI)."
+.RE
+
+
+.B Australian Cyber Security Centre (ACSC) Essential Eight
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_e8 \fR
+
+This profile contains configuration checks for Red Hat Enterprise Linux 8
+that align to the Australian Cyber Security Centre (ACSC) Essential Eight.
+
+A copy of the Essential Eight in Linux Environments guide can be found at the
+ACSC website:
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-linux-workstations-and-servers
+.RE
+
+
+.B Health Insurance Portability and Accountability Act (HIPAA)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_hipaa \fR
+
+The HIPAA Security Rule establishes U.S. national standards to protect individuals’
+electronic personal health information that is created, received, used, or
+maintained by a covered entity. The Security Rule requires appropriate
+administrative, physical and technical safeguards to ensure the
+confidentiality, integrity, and security of electronic protected health
+information.
+
+This profile configures Red Hat Enterprise Linux 8 to the HIPAA Security
+Rule identified for securing of electronic protected health information.
+Use of this profile in no way guarantees or makes claims against legal compliance against the HIPAA Security Rule(s).   
+.RE
+
+
+.B Australian Cyber Security Centre (ACSC) ISM Official
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ism_o \fR
+
+This profile contains configuration checks for Red Hat Enterprise Linux 8
+that align to the Australian Cyber Security Centre (ACSC) Information Security Manual (ISM)
+with the applicability marking of OFFICIAL.
+
+The ISM uses a risk-based approach to cyber security. This profile provides a guide to aligning 
+Red Hat Enterprise Linux security controls with the ISM, which can be used to select controls 
+specific to an organisation's security posture and risk profile.
+
+A copy of the ISM can be found at the ACSC website:
+
+https://www.cyber.gov.au/ism
+.RE
+
+
+.B Protection Profile for General Purpose Operating Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2.1).
+
+This configuration profile is consistent with CNSSI-1253, which requires
+U.S. National Security Systems to adhere to certain configuration
+parameters. Accordingly, this configuration profile is suitable for
+use in U.S. National Security Systems.
+.RE
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Red Hat Enterprise Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B Red Hat Corporate Profile for Certified Cloud Providers (RH CCP)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rht-ccp \fR
+
+This profile contains the minimum security relevant
+configuration settings recommended by Red Hat, Inc for
+Red Hat Enterprise Linux 8 instances deployed by Red Hat Certified
+Cloud Providers.
+.RE
+
+
+.B Standard System Security Profile for Red Hat Enterprise Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Red Hat Enterprise Linux 8 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+.B DISA STIG for Red Hat Enterprise Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that align to the
+DISA STIG for Red Hat Enterprise Linux 8 V1R3.
+
+In addition to being applicable to Red Hat Enterprise Linux 8, DISA recognizes this
+configuration baseline as applicable to the operating system tier of
+Red Hat technologies that are based on Red Hat Enterprise Linux 8, such as:
+
+- Red Hat Enterprise Linux Server
+- Red Hat Enterprise Linux Workstation and Desktop
+- Red Hat Enterprise Linux for HPC
+- Red Hat Storage
+- Red Hat Containers with a Red Hat Enterprise Linux 8 image
+.RE
+
+
+.B DISA STIG with GUI for Red Hat Enterprise Linux 8
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig_gui \fR
+
+This profile contains configuration checks that align to the
+DISA STIG with GUI for Red Hat Enterprise Linux 8 V1R3.
+
+In addition to being applicable to Red Hat Enterprise Linux 8, DISA recognizes this
+configuration baseline as applicable to the operating system tier of
+Red Hat technologies that are based on Red Hat Enterprise Linux 8, such as:
+
+- Red Hat Enterprise Linux Server
+- Red Hat Enterprise Linux Workstation and Desktop
+- Red Hat Enterprise Linux for HPC
+- Red Hat Storage
+- Red Hat Containers with a Red Hat Enterprise Linux 8 image
+
+Warning: The installation and use of a Graphical User Interface (GUI)
+increases your attack vector and decreases your overall security posture. If
+your Information Systems Security Officer (ISSO) lacks a documented operational
+requirement for a graphical user interface, please consider using the
+standard DISA STIG for Red Hat Enterprise Linux 8 profile.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux 9
+
+Source Datastream: \fI ssg-rhel9-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux 9 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B ANSSI-BP-028 (enhanced)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the enhanced hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (high)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_high \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the high hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (intermediary)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_intermediary \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the intermediary hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B ANSSI-BP-028 (minimal)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_bp28_minimal \fR
+
+This profile contains configurations that align to ANSSI-BP-028 at the minimal hardening level.
+
+ANSSI is the French National Information Security Agency, and stands for Agence nationale de la sécurité des systèmes d'information.
+ANSSI-BP-028 is a configuration recommendation for GNU/Linux systems.
+
+A copy of the ANSSI-BP-028 can be found at the ANSSI website:
+https://www.ssi.gouv.fr/administration/guide/recommandations-de-securite-relatives-a-un-systeme-gnulinux/
+.RE
+
+
+.B [DRAFT] CIS Red Hat Enterprise Linux 9 Benchmark for Level 2 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis \fR
+
+This is a draft profile based on its RHEL8 version for experimental purposes.
+It is not based on the CIS benchmark for RHEL9, because this one was not available at time of
+the release.
+.RE
+
+
+.B [DRAFT] CIS Red Hat Enterprise Linux 9 Benchmark for Level 1 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_server_l1 \fR
+
+This is a draft profile based on its RHEL8 version for experimental purposes.
+It is not based on the CIS benchmark for RHEL9, because this one was not available at time of
+the release.
+.RE
+
+
+.B [DRAFT] CIS Red Hat Enterprise Linux 9 Benchmark for Level 1 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l1 \fR
+
+This is a draft profile based on its RHEL8 version for experimental purposes.
+It is not based on the CIS benchmark for RHEL9, because this one was not available at time of
+the release.
+.RE
+
+
+.B [DRAFT] CIS Red Hat Enterprise Linux 9 Benchmark for Level 2 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l2 \fR
+
+This is a draft profile based on its RHEL8 version for experimental purposes.
+It is not based on the CIS benchmark for RHEL9, because this one was not available at time of
+the release.
+.RE
+
+
+.B [RHEL9 DRAFT] Criminal Justice Information Services (CJIS) Security Policy
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cjis \fR
+
+This profile is derived from FBI's CJIS v5.4
+Security Policy. A copy of this policy can be found at the CJIS Security
+Policy Resource Center:
+
+https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+.RE
+
+
+.B Unclassified Information in Non-federal Information Systems and Organizations (NIST 800-171)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cui \fR
+
+From NIST 800-171, Section 2.2:
+Security requirements for protecting the confidentiality of CUI in nonfederal
+information systems and organizations have a well-defined structure that
+consists of:
+
+(i) a basic security requirements section;
+(ii) a derived security requirements section.
+
+The basic security requirements are obtained from FIPS Publication 200, which
+provides the high-level and fundamental security requirements for federal
+information and information systems. The derived security requirements, which
+supplement the basic security requirements, are taken from the security controls
+in NIST Special Publication 800-53.
+
+This profile configures Red Hat Enterprise Linux 8 to the NIST Special
+Publication 800-53 controls identified for securing Controlled Unclassified
+Information (CUI)."
+.RE
+
+
+.B [DRAFT] Australian Cyber Security Centre (ACSC) Essential Eight
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_e8 \fR
+
+This profile contains configuration checks for Red Hat Enterprise Linux 9
+that align to the Australian Cyber Security Centre (ACSC) Essential Eight.
+
+A copy of the Essential Eight in Linux Environments guide can be found at the
+ACSC website:
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-linux-workstations-and-servers
+.RE
+
+
+.B [RHEL9 DRAFT] Health Insurance Portability and Accountability Act (HIPAA)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_hipaa \fR
+
+The HIPAA Security Rule establishes U.S. national standards to protect individuals’
+electronic personal health information that is created, received, used, or
+maintained by a covered entity. The Security Rule requires appropriate
+administrative, physical and technical safeguards to ensure the
+confidentiality, integrity, and security of electronic protected health
+information.
+
+This profile configures Red Hat Enterprise Linux 9 to the HIPAA Security
+Rule identified for securing of electronic protected health information.
+Use of this profile in no way guarantees or makes claims against legal compliance against the HIPAA Security Rule(s).   
+.RE
+
+
+.B [RHEL9 DRAFT] Australian Cyber Security Centre (ACSC) ISM Official
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ism_o \fR
+
+This profile contains configuration checks for Red Hat Enterprise Linux 9
+that align to the Australian Cyber Security Centre (ACSC) Information Security Manual (ISM)
+with the applicability marking of OFFICIAL.
+
+The ISM uses a risk-based approach to cyber security. This profile provides a guide to aligning 
+Red Hat Enterprise Linux security controls with the ISM, which can be used to select controls 
+specific to an organisation's security posture and risk profile.
+
+A copy of the ISM can be found at the ACSC website:
+
+https://www.cyber.gov.au/ism
+.RE
+
+
+.B [RHEL9 DRAFT] Protection Profile for General Purpose Operating Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_ospp \fR
+
+This profile reflects mandatory configuration controls identified in the
+NIAP Configuration Annex to the Protection Profile for General Purpose
+Operating Systems (Protection Profile Version 4.2.1).
+
+This configuration profile is consistent with CNSSI-1253, which requires
+U.S. National Security Systems to adhere to certain configuration
+parameters. Accordingly, this configuration profile is suitable for
+use in U.S. National Security Systems.
+.RE
+
+
+.B [RHEL9 DRAFT] PCI-DSS v3.2.1 Control Baseline for Red Hat Enterprise Linux 9
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B [RHEL9 DRAFT] Red Hat Corporate Profile for Certified Cloud Providers (RH CCP)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rht-ccp \fR
+
+This profile contains the minimum security relevant
+configuration settings recommended by Red Hat, Inc for
+Red Hat Enterprise Linux 9 instances deployed by Red Hat Certified
+Cloud Providers.
+.RE
+
+
+.B Standard System Security Profile for Red Hat Enterprise Linux 9
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Red Hat Enterprise Linux 8 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+.B [DRAFT] DISA STIG for Red Hat Enterprise Linux 9
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that are based on the RHEL8 STIG
+
+In addition to being applicable to Red Hat Enterprise Linux 8, DISA recognizes this
+configuration baseline as applicable to the operating system tier of
+Red Hat technologies that are based on Red Hat Enterprise Linux 8, such as:
+
+- Red Hat Enterprise Linux Server
+- Red Hat Enterprise Linux Workstation and Desktop
+- Red Hat Enterprise Linux for HPC
+- Red Hat Storage
+- Red Hat Containers with a Red Hat Enterprise Linux 8 image
+.RE
+
+
+.B [DRAFT] DISA STIG with GUI for Red Hat Enterprise Linux 9
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig_gui \fR
+
+This profile contains configuration checks that are based on the RHEL8 STIG
+
+In addition to being applicable to Red Hat Enterprise Linux 9, DISA recognizes this
+configuration baseline as applicable to the operating system tier of
+Red Hat technologies that are based on Red Hat Enterprise Linux 8, such as:
+
+- Red Hat Enterprise Linux Server
+- Red Hat Enterprise Linux Workstation and Desktop
+- Red Hat Enterprise Linux for HPC
+- Red Hat Storage
+- Red Hat Containers with a Red Hat Enterprise Linux 9 image
+
+Warning: The installation and use of a Graphical User Interface (GUI)
+increases your attack vector and decreases your overall security posture. If
+your Information Systems Security Officer (ISSO) lacks a documented operational
+requirement for a graphical user interface, please consider using the
+standard DISA STIG for Red Hat Enterprise Linux 9 profile.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat OpenStack Platform 10
+
+Source Datastream: \fI ssg-rhosp10-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat OpenStack Platform 10 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B [DRAFT] Controlled Unclassified Infomration (CUI) Profile for Red Hat OpenStack Plaform 10
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cui \fR
+
+These are the controls for scanning against CUI for rhosp10
+.RE
+
+
+.B [DRAFT] STIG for Red Hat OpenStack Plaform 10
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+Controls for scanning against classified STIG for rhosp10
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat OpenStack Platform 13
+
+Source Datastream: \fI ssg-rhosp13-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat OpenStack Platform 13 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B RHOSP STIG
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+Sample profile description.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Virtualization 4
+
+Source Datastream: \fI ssg-rhv4-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Virtualization 4 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Red Hat Virtualization Host (RHVH)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B [DRAFT] DISA STIG for Red Hat Virtualization Host (RHVH)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rhvh-stig \fR
+
+This *draft* profile contains configuration checks that align to the
+DISA STIG for Red Hat Virtualization Host (RHVH).
+.RE
+
+
+.B VPP - Protection Profile for Virtualization v. 1.0 for Red Hat Virtualization Host (RHVH)
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_rhvh-vpp \fR
+
+This compliance profile reflects the core set of security
+related configuration settings for deployment of Red Hat Virtualization
+Host (RHVH) 4.x into U.S. Defense, Intelligence, and Civilian agencies.
+Development partners and sponsors include the U.S. National Institute
+of Standards and Technology (NIST), U.S. Department of Defense,
+the National Security Agency, and Red Hat.
+
+This baseline implements configuration requirements from the following
+sources:
+
+- Committee on National Security Systems Instruction No. 1253 (CNSSI 1253)
+- NIST 800-53 control selections for MODERATE impact systems (NIST 800-53)
+- U.S. Government Configuration Baseline (USGCB)
+- NIAP Protection Profile for Virtualization v1.0 (VPP v1.0)
+
+For any differing configuration requirements, e.g. password lengths, the stricter
+security setting was chosen. Security Requirement Traceability Guides (RTMs) and
+sample System Security Configuration Guides are provided via the
+scap-security-guide-docs package.
+
+This profile reflects U.S. Government consensus content and is developed through
+the ComplianceAsCode project, championed by the National
+Security Agency. Except for differences in formatting to accommodate
+publishing processes, this profile mirrors ComplianceAsCode
+content as minor divergences, such as bugfixes, work through the
+consensus and release processes.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Red Hat Enterprise Linux 7
+
+Source Datastream: \fI ssg-sl7-ds.xml \fR
+
+The Guide to the Secure Configuration of Red Hat Enterprise Linux 7 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B PCI-DSS v3.2.1 Control Baseline for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B Standard System Security Profile for Red Hat Enterprise Linux 7
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a Red Hat Enterprise Linux 7 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of SUSE Linux Enterprise 12
+
+Source Datastream: \fI ssg-sle12-ds.xml \fR
+
+The Guide to the Secure Configuration of SUSE Linux Enterprise 12 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B CIS SUSE Linux Enterprise 12 Benchmark for Level 2 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis \fR
+
+This profile defines a baseline that aligns to the "Level 2 - Server"
+configuration from the Center for Internet Security®
+SUSE Linux Enterprise 12 Benchmark™, v3.0.0, released 04-27-2021.
+
+This profile includes Center for Internet Security®
+SUSE Linux Enterprise 12 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS SUSE Linux Enterprise 12 Benchmark for Level 1 - Server
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_server_l1 \fR
+
+This profile defines a baseline that aligns to the "Level 1 - Server"
+configuration from the Center for Internet Security®
+SUSE Linux Enterprise 12 Benchmark™, v3.0.0, released 04-27-2021.
+
+This profile includes Center for Internet Security®
+SUSE Linux Enterprise 12 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS SUSE Linux Enterprise 12 Benchmark for Level 1 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l1 \fR
+
+This profile defines a baseline that aligns to the "Level 1 - Workstation"
+configuration from the Center for Internet Security®
+SUSE Linux Enterprise 12 Benchmark™, v3.0.0, released 04-27-2021.
+
+This profile includes Center for Internet Security®
+SUSE Linux Enterprise 12 CIS Benchmarks™ content.
+.RE
+
+
+.B CIS SUSE Linux Enterprise 12 Benchmark Level 2 - Workstation
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_workstation_l2 \fR
+
+This profile defines a baseline that aligns to the "Level 2 - Workstation"
+configuration from the Center for Internet Security®
+SUSE Linux Enterprise 12 Benchmark™, v3.0.0, released 04-27-2021.
+
+This profile includes Center for Internet Security®
+SUSE Linux Enterprise 12 CIS Benchmarks™ content.
+.RE
+
+
+.B Standard System Security Profile for SUSE Linux Enterprise 12
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a SUSE Linux Enterprise 12 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+.B DISA STIG for SUSE Linux Enterprise 12
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that align to the
+DISA STIG for SUSE Linux Enterprise 12 V2R3.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of SUSE Linux Enterprise 15
+
+Source Datastream: \fI ssg-sle15-ds.xml \fR
+
+The Guide to the Secure Configuration of SUSE Linux Enterprise 15 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B CIS SUSE Linux Enterprise 15 Benchmark
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis \fR
+
+This profile defines a baseline that aligns to the Center for Internet Security®
+SUSE Linux Enterprise 15 Benchmark™, v1.0.0, released 06-30-2020.
+
+This profile includes Center for Internet Security®
+SUSE Linux Enterprise 15 CIS Benchmarks™ content.
+.RE
+
+
+.B PCI-DSS v3.2.1 Control Baseline for SUSE Linux enterprise 15
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_pci-dss \fR
+
+Ensures PCI-DSS v3.2.1 security configuration settings are applied.
+.RE
+
+
+.B Standard System Security Profile for SUSE Linux Enterprise 15
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of a SUSE Linux Enterprise 15 system based off of the SUSE
+Hardening Guide. Regardless of your system's workload all of
+these checks should pass.
+.RE
+
+
+.B DISA STIG for SUSE Linux Enterprise 15
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This profile contains configuration checks that align to the
+DISA STIG for SUSE Linux Enterprise 15 V1R2.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Ubuntu 16.04
+
+Source Datastream: \fI ssg-ubuntu1604-ds.xml \fR
+
+The Guide to the Secure Configuration of Ubuntu 16.04 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Profile for ANSSI DAT-NT28 Average (Intermediate) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_average \fR
+
+This profile contains items for GNU/Linux installations already protected by multiple higher level security stacks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 High (Enforced) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_high \fR
+
+This profile contains items for GNU/Linux installations storing sensitive informations that can be accessible from unauthenticated or uncontroled networks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Minimal Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_minimal \fR
+
+This profile contains items to be applied systematically.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Restrictive Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_restrictive \fR
+
+This profile contains items for GNU/Linux installations exposed to unauthenticated flows or multiple sources.
+.RE
+
+
+.B Standard System Security Profile for Ubuntu 16.04
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline
+of an Ubuntu 16.04 system. Regardless of your system's workload
+all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Ubuntu 18.04
+
+Source Datastream: \fI ssg-ubuntu1804-ds.xml \fR
+
+The Guide to the Secure Configuration of Ubuntu 18.04 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Profile for ANSSI DAT-NT28 Average (Intermediate) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_average \fR
+
+This profile contains items for GNU/Linux installations already protected by multiple higher level security stacks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 High (Enforced) Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_high \fR
+
+This profile contains items for GNU/Linux installations storing sensitive informations that can be accessible from unauthenticated or uncontroled networks.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Minimal Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_minimal \fR
+
+This profile contains items to be applied systematically.
+.RE
+
+
+.B Profile for ANSSI DAT-NT28 Restrictive Level
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_anssi_np_nt28_restrictive \fR
+
+This profile contains items for GNU/Linux installations exposed to unauthenticated flows or multiple sources.
+.RE
+
+
+.B CIS Ubuntu 18.04 LTS Benchmark
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis \fR
+
+This baseline aligns to the Center for Internet Security
+Ubuntu 18.04 LTS Benchmark, v1.0.0, released
+08-13-2018.
+.RE
+
+
+.B Standard System Security Profile for Ubuntu 18.04
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline of an Ubuntu 18.04 system. Regardless of your system's workload all of these checks should pass.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of Ubuntu 20.04
+
+Source Datastream: \fI ssg-ubuntu2004-ds.xml \fR
+
+The Guide to the Secure Configuration of Ubuntu 20.04 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B CIS Ubuntu 20.04 Level 1 Server Benchmark
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_level1_server \fR
+
+This baseline aligns to the Center for Internet Security
+Ubuntu 20.04 LTS Benchmark, v1.0.0, released 07-21-2020.
+.RE
+
+
+.B CIS Ubuntu 20.04 Level 1 Workstation Benchmark
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_level1_workstation \fR
+
+This baseline aligns to the Center for Internet Security
+Ubuntu 20.04 LTS Benchmark, v1.0.0, released 07-21-2020.
+.RE
+
+
+.B CIS Ubuntu 20.04 Level 2 Server Benchmark
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_level2_server \fR
+
+This baseline aligns to the Center for Internet Security
+Ubuntu 20.04 LTS Benchmark, v1.0.0, released 07-21-2020.
+.RE
+
+
+.B CIS Ubuntu 20.04 Level 2 Workstation Benchmark
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_cis_level2_workstation \fR
+
+This baseline aligns to the Center for Internet Security
+Ubuntu 20.04 LTS Benchmark, v1.0.0, released 07-21-2020.
+.RE
+
+
+.B Standard System Security Profile for Ubuntu 20.04
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_standard \fR
+
+This profile contains rules to ensure standard security baseline of an Ubuntu 20.04 system. Regardless of your system's workload all of these checks should pass.
+.RE
+
+
+.B Canonical Ubuntu 20.04 LTS Security Technical Implementation Guide (STIG) V1R1
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+This Security Technical Implementation Guide is published as a tool to
+improve the security of Department of Defense (DoD) information systems.
+The requirements are derived from the National Institute of Standards and
+Technology (NIST) 800-53 and related documents.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of McAfee VirusScan Enterprise for Linux
+
+Source Datastream: \fI ssg-vsel-ds.xml \fR
+
+The Guide to the Secure Configuration of McAfee VirusScan Enterprise for Linux is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B McAfee VirusScan Enterprise for Linux (VSEL) STIG
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_stig \fR
+
+The McAfee VirusScan Enterprise for Linux software provides a realtime virus scanner for Linux systems.
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of WRLinux 1019
+
+Source Datastream: \fI ssg-wrlinux1019-ds.xml \fR
+
+The Guide to the Secure Configuration of WRLinux 1019 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Basic Profile for Embedded Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_basic-embedded \fR
+
+This profile contains items common to many embedded Linux installations.
+Regardless of your system's deployment objective, all of these checks should pass.
+.RE
+
+
+.B DRAFT DISA STIG for Wind River Linux
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_draft_stig_wrlinux_disa \fR
+
+This profile contains configuration checks that align to the
+DISA STIG for Wind River Linux.
+This profile is being developed under the DoD consensus model to
+become a STIG in coordination with DISA FSO.
+What is the status of the Wind River Linux STIG?
+The Wind River Linux STIG is in development under the DoD consensus model
+and Wind River has started the process to get approval from DISA. However, in
+the absence of an approved SRG or STIG, vendor recommendations may be used
+instead. The current contents constitute the vendor recommendations at the
+time of the product release containing these contents.
+Note that changes are expected before approval is granted, and those changes
+will be made available in future Wind River Linux Security Profile 1019 RCPL releases.
+More information, including the following, is available from the DISA FAQs
+at https://public.cyber.mil/stigs/faqs/
+.RE
+
+
+
+
+.SH Profiles in Guide to the Secure Configuration of WRLinux 8
+
+Source Datastream: \fI ssg-wrlinux8-ds.xml \fR
+
+The Guide to the Secure Configuration of WRLinux 8 is broken into 'profiles', groupings of security settings
+that correlate to a known policy. Available profiles are:
+
+
+
+.B Basic Profile for Embedded Systems
+
+.RS
+Profile ID: \fI xccdf_org.ssgproject.content_profile_basic-embedded \fR
+
+This profile contains items common to many embedded Linux installations.
+Regardless of your system's deployment objective, all of these checks should pass.
+.RE
+
+
+
+
+
+.SH EXAMPLES
+To scan your system utilizing the OpenSCAP utility against the
+ospp profile:
+
+oscap xccdf eval --profile ospp \
+--results /tmp/`hostname`-ssg-results.xml \
+--report /tmp/`hostname`-ssg-results.html \
+--oval-results \
+/usr/share/xml/scap/ssg/content/ssg-{product}-xccdf.xml
+.PP
+Additional details can be found on the projects wiki page:
+https://www.github.com/ComplianceAsCode/content/wiki
+
+
+.SH FILES
+.I /usr/share/xml/scap/ssg/content
+.RS
+Houses SCAP content utilizing the following naming conventions:
+
+.I SCAP Source Datastreams:
+ssg-{product}-ds.xml
+
+.I CPE Dictionaries:
+ssg-{product}-cpe-dictionary.xml
+
+.I CPE OVAL Content:
+ssg-{product}-cpe-oval.xml
+
+.I OVAL Content:
+ssg-{product}-oval.xml
+
+.I XCCDF Content:
+ssg-{product}-xccdf.xml
+.RE
+
+.I /usr/share/doc/scap-security-guide/guides/
+.RS
+HTML versions of SSG profiles.
+.RE
+
+.I /usr/share/scap-security-guide/ansible/
+.RS
+Contains Ansible Playbooks for SSG profiles.
+.RE
+
+.I /usr/share/scap-security-guide/bash/
+.RS
+Contains Bash remediation scripts for SSG profiles.
+.RE
+
+
+.SH DEPLOYMENT TO U.S. CIVILIAN GOVERNMENT SYSTEMS
+SCAP Security Guide content is considered vendor (Red Hat) provided content.
+Per guidance from the U.S. National Institute of Standards and Technology (NIST),
+U.S. Government programs are allowed to use Vendor produced SCAP content in absence
+of "Governmental Authority" checklists. The specific NIST verbage:
+http://web.nvd.nist.gov/view/ncp/repository/glossary?cid=1#Authority
+
+
+.SH DEPLOYMENT TO U.S. MILITARY SYSTEMS
+DoD Directive (DoDD) 8500.1 requires that "all IA and IA-enabled IT products
+incorporated into DoD information systems shall be configured in accordance
+with DoD-approved security configuration guidelines" and tasks Defense
+Information Systems Agency (DISA) to "develop and provide security configuration
+guidance for IA and IA-enabled IT products in coordination with Director, NSA."
+The output of this authority is the DISA Security Technical Implementation Guides,
+or STIGs. DISA FSO is in the process of moving the STIGs towards the use
+of the NIST Security Content Automation Protocol (SCAP) in order to "automate"
+compliance reporting of the STIGs.
+
+Through a common, shared vision, the SCAP Security Guide community enjoys
+close collaboration directly with NSA, NIST, and DISA FSO. As stated in Section 1.1 of
+the Red Hat Enterprise Linux 6 STIG Overview, Version 1, Release 2, issued on 03-JUNE-2013:
+
+"The consensus content was developed using an open-source project called SCAP
+Security Guide. The project's website is https://www.open-scap.org/security-policies/scap-security-guide.
+Except for differences in formatting to accomodate the DISA STIG publishing
+process, the content of the Red Hat Enterprise Linux 6 STIG should mirror the SCAP Security Guide
+content with only minor divergence as updates from multiple sources work through
+the consensus process."
+
+The DoD STIG for Red Hat Enterprise Linux 7, revision V2R4, was released in July 2019
+Currently, the DoD Red Hat Enterprise Linux 7 STIG contains only XCCDF content and is
+available online:
+https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=operating-systems%2Cunix-linux
+
+Content published against the public.cyber.mil website is authoritative
+STIG content. The SCAP Security Guide project, as noted in the STIG overview,
+is considered upstream content. Unlike DISA FSO, the SCAP Security Guide project
+does publish OVAL automation content. Individual programs and C&A evaluators
+make program-level determinations on the direct usage of the SCAP Security Guide.
+Currently there is no blanket approval.
+
+
+.SH SEE ALSO
+.B oscap(8)
+
+
+.SH AUTHOR
+Please direct all questions to the SSG mailing list:
+https://lists.fedorahosted.org/mailman/listinfo/scap-security-guide

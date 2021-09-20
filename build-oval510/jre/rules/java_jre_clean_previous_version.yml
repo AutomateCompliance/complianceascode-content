@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/jre/guide/java/java_jre_clean_previous_version/rule.yml
+description: '<tt>yum</tt> should be configured to remove previous versions of Java
+  after
+
+  new versions have been installed. To configure <tt>yum</tt> to remove the
+
+  previous versions of Java after updating, set the <tt>clean_requirements_on_remove</tt>
+
+  to <tt>1</tt> in <tt>/etc/yum.conf</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that <tt>clean_requirements_on_remove</tt> is configured properly,
+  run the
+
+  following command:
+
+  <pre>$ grep clean_requirements_on_remove /etc/yum.conf</pre>
+
+  The output should return something similar to:
+
+  <pre>clean_requirements_on_remove=1</pre>'
+ocil_clause: clean_requirements_on_remove is not enabled or configured correctly
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Previous versions of software components that are not removed from the
+  information
+
+  system after updates have been installed may be exploited by some adversaries.'
+references:
+  disa: CCI-002617
+  nist: SI-2(6)
+  srg: SRG-APP-000454
+  stigid: JRE8-UX-000190
+requires: []
+severity: medium
+template: null
+title: Ensure yum Removes Previous Package Versions
+warnings: []

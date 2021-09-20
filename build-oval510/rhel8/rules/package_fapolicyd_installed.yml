@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/fapolicyd/package_fapolicyd_installed/rule.yml
+description: 'The <code>fapolicyd</code> package can be installed with the following
+  command:
+
+  <pre>
+
+  $ sudo yum install fapolicyd</pre>'
+identifiers:
+  cce: CCE-82191-8
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>fapolicyd</code> package
+  is installed: <pre>$ rpm -q fapolicyd</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+rationale: '<tt>fapolicyd</tt> (File Access Policy Daemon)
+
+  implements application whitelisting to decide file access rights.'
+references:
+  disa: CCI-001764
+  nist: CM-6(a),SI-4(22)
+  srg: SRG-OS-000370-GPOS-00155,SRG-OS-000368-GPOS-00154
+  stigid: RHEL-08-040135
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: fapolicyd
+title: Install fapolicyd Package
+warnings: []

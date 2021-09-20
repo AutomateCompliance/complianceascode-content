@@ -1,0 +1,109 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/policy_rules/audit_perm_change_failed/rule.yml
+description: 'Ensure that unsuccessful attempts to change file or directory permissions
+  are audited.
+
+
+  The following rules configure audit as described above:
+
+  <pre>## Unsuccessful permission change
+
+  -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  </pre>
+
+
+  The <tt>Audit</tt> package provides pre-configured  rules in <tt>/usr/share/audit/sample-rules</tt>.
+  The above content can be found in <tt>/usr/share/audit/sample-rules/30-ospp-v42-5-perm-change-failed.rules</tt>.
+
+  To deploy this configuration, it is recommended to copy it over to the <tt>/etc/audit/rules.d/</tt>
+  directory:
+
+  <pre>
+
+  cp /usr/share/audit/sample-rules/30-ospp-v42-5-perm-change-failed.rules /etc/audit/rules.d/
+
+  </pre>
+
+
+  Load new Audit rules into kernel by running:
+
+  <pre>augenrules --load</pre>
+
+
+  Note: This rule utilizes a file provided by <tt>Audit</tt> package to comply with
+  OSPP 4.2.1. You may reuse this rule in different profiles. If you decide to do so,
+  it is recommended that you inspect contents of the file closely and make sure that
+  they are alligned with your needs.'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To verify that the <tt>Audit</tt> is correctly configured according to recommended
+  rules, check the content of the file with the following command:
+
+  <pre>cat /etc/audit/rules.d/30-ospp-v42-5-perm-change-failed.rules</pre>
+
+  The output has to be exactly as follows:
+
+  <pre>## Unsuccessful permission change
+
+  -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+  -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+  </pre>'
+ocil_clause: the file does not exist or the content differs
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhcos4,rhel8,rhel9
+rationale: 'Unsuccessful attempts to change permissions of files or directories might
+  be signs of malicious activity. Having such events audited helps in monitoring and
+  investigation of such activities. '
+references:
+  nist: AU-2(a)
+  ospp: FAU_GEN.1.1.c
+  srg: SRG-OS-000462-GPOS-00206,SRG-OS-000463-GPOS-00207,SRG-OS-000465-GPOS-00209,SRG-OS-000474-GPOS-00219,SRG-OS-000475-GPOS-00220,SRG-OS-000466-GPOS-00210,SRG-OS-000064-GPOS-00033
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: audit_file_contents
+  vars:
+    contents: '## Unsuccessful permission change
+
+      -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+      -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+      -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+      -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+      -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+      -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+      -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr
+      -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-perm-change
+
+      '
+    filepath: /etc/audit/rules.d/30-ospp-v42-5-perm-change-failed.rules
+title: Configure auditing of unsuccessful permission changes
+warnings: []

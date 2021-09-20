@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_samba_domain_controller/rule.yml
+description: 'By default, the SELinux boolean <tt>samba_domain_controller</tt> is
+  disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>samba_domain_controller</code> SELinux boolean, run the following
+  command:
+
+  <pre>$ sudo setsebool -P samba_domain_controller off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>samba_domain_controller</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool samba_domain_controller</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>samba_domain_controller --> off</code>'
+ocil_clause: samba_domain_controller is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: samba_domain_controller
+title: Disable the samba_domain_controller SELinux Boolean
+warnings: []

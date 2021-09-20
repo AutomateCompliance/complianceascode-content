@@ -1,0 +1,9 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure libselinux1 is installed
+  package:
+    name: "libselinux1"
+    state: present

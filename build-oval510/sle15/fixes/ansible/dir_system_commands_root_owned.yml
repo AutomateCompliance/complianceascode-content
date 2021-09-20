@@ -1,0 +1,30 @@
+# platform = multi_platform_sle
+# reboot = false
+# strategy = restrict
+# complexity = medium
+# disruption = medium
+- name: Set ownership of directories that contain system commands to root
+  file:
+    path: '{{ item }}'
+    owner: root
+    recurse: 'yes'
+    state: directory
+    follow: 'no'
+  with_items:
+    - /bin
+    - /sbin
+    - /usr/bin
+    - usr/sbin
+    - usr/local/bin
+    - /usr/local/sbin
+  tags:
+    - CCE-85741-7
+    - DISA-STIG-SLES-15-010360
+    - NIST-800-53-CM-5(6)
+    - NIST-800-53-CM-5(6).1
+    - dir_system_commands_root_owned
+    - medium_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

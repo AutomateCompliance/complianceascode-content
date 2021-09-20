@@ -1,0 +1,23 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+
+- name: "Put contents into /etc/audit/rules.d/30-ospp-v42-2-modify-success.rules according to policy"
+  copy:
+    dest: "/etc/audit/rules.d/30-ospp-v42-2-modify-success.rules"
+    content: |+
+        ## Successful file modifications (open for write or truncate)
+        -a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&01003 -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-modification
+        -a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&01003 -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-modification
+        -a always,exit -F arch=b32 -S open -F a1&01003 -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-modification
+        -a always,exit -F arch=b64 -S open -F a1&01003 -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-modification
+        -a always,exit -F arch=b32 -S truncate,ftruncate -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-modification
+        -a always,exit -F arch=b64 -S truncate,ftruncate -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-modification
+    force: yes
+
+- name: Remove any permissions from other group
+  file:
+    path: /etc/audit/rules.d/30-ospp-v42-2-modify-success.rules
+    mode: o-rwx

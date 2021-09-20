@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/sssd/sssd-ldap/sssd_ldap_configure_tls_reqcert/rule.yml
+description: 'Configure SSSD to demand a valid certificate from the server to
+
+  protect the integrity of LDAP remote access sessions by setting
+
+  the <pre>ldap_tls_reqcert</pre> option in <pre>/etc/sssd/sssd.conf</pre>
+
+  to <tt>demand</tt>.'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To verify the LDAP client backend demands a valid certificate from the server
+  in
+
+  remote LDAP access sessions, run the following command:
+
+  <pre>$ sudo grep ldap_tls_reqcert /etc/sssd/sssd.conf</pre>
+
+  The output should return the following:
+
+  <pre>ldap_tls_reqcert = demand</pre>'
+ocil_clause: the TLS reqcert is not set to demand
+oval_external_content: null
+platform: sssd-ldap
+platforms: !!set
+  sssd-ldap: null
+prodtype: ol7,ol8,rhel7,rhel8,wrlinux1019
+rationale: 'Without a valid certificate presented to the LDAP client backend, the
+  identity of a
+
+  server can be forged compromising LDAP remote access sessions.'
+references:
+  disa: CCI-001453
+  nist: SC-12(3),CM-6(a)
+  srg: SRG-OS-000250-GPOS-00093
+requires: []
+severity: medium
+template: null
+title: Configure SSSD LDAP Backend Client to Demand a Valid Certificate from the Server
+warnings: []

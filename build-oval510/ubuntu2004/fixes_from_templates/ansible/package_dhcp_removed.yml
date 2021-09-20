@@ -1,0 +1,9 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure isc-dhcp-server is removed
+  package:
+    name: "isc-dhcp-server"
+    state: absent

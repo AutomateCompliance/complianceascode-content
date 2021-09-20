@@ -1,0 +1,34 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(a)
+    - NIST-800-53-CM-7(b)
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - package_gdm_removed
+
+- name: Ensure gdm3 is removed
+  package:
+    name: gdm3
+    state: absent
+  when: '"gdm3" in ansible_facts.packages'
+  tags:
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(a)
+    - NIST-800-53-CM-7(b)
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - package_gdm_removed

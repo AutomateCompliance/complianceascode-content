@@ -1,0 +1,42 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Test for existence /boot/efi/EFI/fedora/grub.cfg
+  stat:
+    path: /boot/efi/EFI/fedora/grub.cfg
+  register: file_exists
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CJIS-5.5.2.2
+    - NIST-800-171-3.4.5
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-7.1
+    - configure_strategy
+    - file_owner_efi_grub2_cfg
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure owner 0 on /boot/efi/EFI/fedora/grub.cfg
+  file:
+    path: /boot/efi/EFI/fedora/grub.cfg
+    owner: '0'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - CJIS-5.5.2.2
+    - NIST-800-171-3.4.5
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-7.1
+    - configure_strategy
+    - file_owner_efi_grub2_cfg
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

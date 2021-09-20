@@ -1,0 +1,70 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/obsolete/service_rsyncd_disabled/rule.yml
+description: '
+
+  The <code>rsyncd</code> service can be disabled with the following command:
+
+  <pre>$ sudo systemctl mask --now rsyncd.service</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: '
+
+  To check that the <code>rsyncd</code> service is disabled in system boot configuration,
+
+  run the following command:
+
+  <pre>$ systemctl is-enabled <code>rsyncd</code></pre>
+
+  Output should indicate the <code>rsyncd</code> service has either not been installed,
+
+  or has been disabled at all runlevels, as shown in the example below:
+
+  <pre>$ systemctl is-enabled <code>rsyncd</code><br/> disabled</pre>
+
+
+  Run the following command to verify <code>rsyncd</code> is not active (i.e. not
+  running) through current runtime configuration:
+
+  <pre>$ systemctl is-active rsyncd</pre>
+
+
+  If the service is not running the command will return the following output:
+
+  <pre>inactive</pre>
+
+
+  The service will also be masked, to check that the <code>rsyncd</code> is masked,
+  run the following command:
+
+  <pre>$ systemctl show <code>rsyncd</code> | grep "LoadState\|UnitFileState"</pre>
+
+
+  If the service is masked the command will return the following outputs:
+
+
+  <pre>LoadState=masked</pre>
+
+
+  <pre>UnitFileState=masked</pre>'
+ocil_clause: the service is not disabled
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle12,sle15
+rationale: 'The rsyncd service presents a security risk as it uses unencrypted protocols
+  for
+
+  communication.'
+references:
+  cis: 2.2.17
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_disabled
+  vars:
+    packagename: rsync
+    servicename: rsyncd
+title: Ensure rsyncd service is diabled
+warnings: []

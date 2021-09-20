@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_action_default_primary/rule.yml
+description: "Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote\
+  \ Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. \nWhile\
+  \ PUPs do not typically have any infection capability on their own, they rely on\
+  \ malware or other attach mechanisms to be installed onto target hosts, \nafter\
+  \ which they will collect and transfer data from the host to an external host and/or\
+  \ will be used as attach mechanisms.\n\nTo check that VSEL settings are configured\
+  \ correctly, you have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.profile.OAS.action.Default.primary:\
+  \ Clean</tt>,\nprograms/jokes will attempted to be cleaned first, preserving the\
+  \ file data."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that programs/jokes will attempted to be cleaned first, \ncheck the\
+  \ respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\
+  \ contains the <pre>nailsd.profile.OAS.action.Default.primary: Clean</pre> line:\n\
+  <pre>grep 'nailsd.profile.OAS.action.Default.primary: Clean' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.profile.OAS.action.Default.primary:
+  Clean</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "Configuring the anti-virus software to attempt to clean the file first\
+  \ will allow for the possibility of a false positive. \nIn most cases, however,\
+  \ the secondary action of delete will be used, mitigating the risk of the PUPs being\
+  \ installed and used maliciously."
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-015
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  be configured to Clean as first action when programs and jokes are found
+warnings: []

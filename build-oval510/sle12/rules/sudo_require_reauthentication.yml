@@ -1,0 +1,51 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/sudo/sudo_require_reauthentication/rule.yml
+description: "The sudo <tt>timestamp_timeout</tt> tag sets the amount of time sudo\
+  \ password prompt waits.\nThe default <tt>timestamp_timeout</tt> value is 5 minutes.\n\
+  The timestamp_timeout should be configured by making sure that the\n<tt>timestamp_timeout</tt>\
+  \ tag exists in\n<tt>/etc/sudoers</tt> configuration file or any sudo configuration\
+  \ snippets\nin <tt>/etc/sudoers.d/</tt>.\nIf the value is set to an integer less\
+  \ than 0, the user's time stamp will not expire \nand the user will not have to\
+  \ re-authenticate for privileged actions until the user's session is terminated."
+identifiers:
+  cce: CCE-83231-1
+inherited_platforms: []
+ocil: "Verify the operating system requires re-authentication \nwhen using the \"\
+  sudo\" command to elevate privileges, run the following command:\n<pre>sudo grep\
+  \ -ri '^Defaults.*timestamp_timeout' /etc/sudoers /etc/sudoers.d</pre>\nThe output\
+  \ should be:\n<pre>/etc/sudoers:Defaults timestamp_timeout=0</pre> or \"timestamp_timeout\"\
+  \ is set to a positive number."
+ocil_clause: timestamp_timeout is not set with the appropriate value for sudo
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8,sle12,sle15
+rationale: 'Without re-authentication, users may access resources or perform tasks
+  for which they
+
+  do not have authorization.
+
+  <br /><br />
+
+  When operating systems provide the capability to escalate a functional capability,
+  it
+
+  is critical that the user re-authenticate.'
+references:
+  disa: CCI-002038
+  nist: IA-11
+  srg: SRG-OS-000373-GPOS-00156
+  stigid: SLES-12-010113
+requires: []
+severity: medium
+template:
+  backends:
+    oval: 'off'
+  name: sudo_defaults_option
+  vars:
+    option: timestamp_timeout
+    option_regex_suffix: =[-]?\w+\b
+    variable_name: var_sudo_timestamp_timeout
+title: The operating system must require Re-Authentication when using the sudo command.
+  Ensure sudo timestamp_timeout is appropriate - sudo timestamp_timeout
+warnings: []

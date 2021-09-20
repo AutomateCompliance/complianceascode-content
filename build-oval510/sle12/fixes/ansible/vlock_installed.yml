@@ -1,0 +1,21 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure kbd is installed
+  package:
+    name: kbd
+    state: present
+  tags:
+    - CCE-83009-1
+    - DISA-STIG-SLES-12-010070
+    - NIST-800-53-AC-11(1)
+    - NIST-800-53-AC-11(a)
+    - NIST-800-53-AC-11(b)
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - vlock_installed

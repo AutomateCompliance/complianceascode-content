@@ -1,0 +1,64 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/gnome/gnome_screen_locking/dconf_gnome_screensaver_lock_enabled/rule.yml
+description: '
+
+  To activate locking of the screensaver in the GNOME3 desktop when it is activated,
+
+  run the following command to configure the SUSE operating system to allow the user
+  to lock the GUI:
+
+  <pre>gsettings set org.gnome.desktop.lockdown disable-lock-screen false</pre>
+
+  Validate that <tt>disable-lock-screen</tt> has been set to <tt>false</tt> with the
+  command:
+
+  <pre>gsettings get org.gnome.desktop.lockdown disable-lock-screen</pre>'
+identifiers:
+  cce: CCE-85766-4
+inherited_platforms:
+- gdm
+ocil: 'To check the status of the idle screen lock activation, run the following command:
+
+
+  <pre>gsettings get org.gnome.desktop.lockdown disable-lock-screen</pre>
+
+  If the result is "true", this is a finding.
+
+  Configure the SUSE operating system to allow the user to lock the GUI.
+
+  Run the following command to configure the SUSE operating system to allow the user
+  to lock the GUI:
+
+  <pre>gsettings set org.gnome.desktop.lockdown disable-lock-screen false</pre>'
+ocil_clause: screensaver locking is not enabled and/or has not been set or configured
+  correctly
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,sle12,sle15,ubuntu2004
+rationale: 'A session lock is a temporary action taken when a user stops work and
+  moves away from the immediate physical vicinity
+
+  of the information system but does not want to logout because of the temporary nature
+  of the absense.'
+references:
+  cis-csc: 1,12,15,16
+  cjis: 5.5.5
+  cobit5: DSS05.04,DSS05.10,DSS06.10
+  cui: 3.1.10
+  disa: CCI-000056,CCI-000058,CCI-000060
+  isa-62443-2009: 4.3.3.6.1,4.3.3.6.2,4.3.3.6.3,4.3.3.6.4,4.3.3.6.5,4.3.3.6.6,4.3.3.6.7,4.3.3.6.8,4.3.3.6.9
+  isa-62443-2013: SR 1.1,SR 1.10,SR 1.2,SR 1.5,SR 1.7,SR 1.8,SR 1.9
+  iso27001-2013: A.18.1.4,A.9.2.1,A.9.2.4,A.9.3.1,A.9.4.2,A.9.4.3
+  nist: CM-6(a)
+  nist-csf: PR.AC-7
+  ospp: FMT_MOF_EXT.1
+  pcidss: Req-8.1.8
+  srg: SRG-OS-000028-GPOS-00009,SRG-OS-000030-GPOS-00011
+  stigid: SLES-15-010100
+requires: []
+severity: medium
+template: null
+title: Enable GNOME3 Screensaver Lock After Idle Period
+warnings: []

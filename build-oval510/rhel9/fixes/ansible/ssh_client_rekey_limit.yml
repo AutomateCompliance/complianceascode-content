@@ -1,0 +1,75 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- (xccdf-var var_ssh_client_rekey_limit_size)
+- (xccdf-var var_ssh_client_rekey_limit_time)
+
+- name: Ensure RekeyLimit is not configured in /etc/ssh/ssh_config
+  lineinfile:
+    path: /etc/ssh/ssh_config
+    create: false
+    regexp: ^\s*RekeyLimit.*$
+    state: absent
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-87522-9
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - ssh_client_rekey_limit
+
+- name: Collect all include config files for ssh client which configure RekeyLimit
+  find:
+    paths: /etc/ssh/ssh_config.d/
+    contains: ^[\s]*RekeyLimit.*$
+    patterns: '*.config'
+  register: ssh_config_include_files
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-87522-9
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - ssh_client_rekey_limit
+
+- name: Remove all occurences of RekeyLimit configuration from include config files
+    of ssh client
+  lineinfile:
+    path: '{{ item }}'
+    regexp: ^[\s]*RekeyLimit.*$
+    state: absent
+  loop: '{{ ssh_config_include_files.files }}'
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-87522-9
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - ssh_client_rekey_limit
+
+- name: Ensure that rekey limit is set to {{ var_ssh_client_rekey_limit_size }} {{
+    var_ssh_client_rekey_limit_time }} in /etc/ssh/ssh_config.d/02-rekey-limit.conf
+  lineinfile:
+    path: /etc/ssh/ssh_config.d/02-rekey-limit.conf
+    create: true
+    regexp: ^\s*RekeyLimit.*$
+    line: RekeyLimit {{ var_ssh_client_rekey_limit_size }} {{ var_ssh_client_rekey_limit_time
+      }}
+    state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-87522-9
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - ssh_client_rekey_limit

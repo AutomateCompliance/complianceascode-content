@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-autofill_forms/rule.yml
+description: 'Firefox provides tools to auto-fill forms from prefilled information.
+
+  This can be disabled by setting <tt>browser.formfill.enable</tt> to
+
+  <tt>false</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that Autofill Form Assistance is disabled,
+
+  run the following command:
+
+  <pre>$ grep ''browser.formfill.enable'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("browser.formfill.enable", false);</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'In order to protect privacy and sensitive data, Firefox provides
+
+  the ability to configure Firefox such that data entered into forms
+
+  is not saved. This mitigates the risk of a website gleaning private
+
+  information from prefilled information.'
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF140
+requires: []
+severity: medium
+template: null
+title: Disable Autofill Form Assistance
+warnings: []

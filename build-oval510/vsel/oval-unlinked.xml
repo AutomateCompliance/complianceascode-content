@@ -1,0 +1,679 @@
+<?xml version="1.0"?>
+<ns0:oval_definitions xmlns:ns0="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ns2="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:ns3="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:ns4="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <ns0:generator>
+    <ns2:product_name>combine_ovals.py from SCAP Security Guide</ns2:product_name>
+    <ns2:product_version>ssg: [0, 1, 58], python: 3.8.10</ns2:product_version>
+    <ns2:schema_version>5.10</ns2:schema_version>
+    <ns2:timestamp>2021-09-20T03:26:21</ns2:timestamp>
+  </ns0:generator>
+  <ns0:definitions>
+    <ns0:definition class="compliance" id="virus_notification" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check notifications.virusDetected.active" test_ref="test_virus_notification"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="web_client_disabled" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.disableCltWebUI" test_ref="test_web_client_disabled"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_action_app_primary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.action.App.primary" test_ref="test_oas_action_app_primary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_action_app_secondary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.action.App.secondary" test_ref="test_oas_action_app_secondary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_action_default_primary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.action.Default.primary" test_ref="test_oas_action_default_primary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_action_default_secondary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.action.Default.secondary" test_ref="test_oas_action_default_secondary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_action_error" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.action.error" test_ref="test_oas_action_error"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_action_timeout" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.action.timeout" test_ref="test_oas_action_timeout"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_allFiles" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.allFiles" test_ref="test_oas_allFiles"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_decompArchive" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.decompArchive" test_ref="test_oas_decompArchive"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_enabled" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.oasEnabled" test_ref="test_oas_enabled"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_heuristicAnalysis" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.heuristicAnalysis" test_ref="test_oas_heuristicAnalysis"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_macroAnalysis" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.macroAnalysis" test_ref="test_oas_macroAnalysis"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_program" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.program" test_ref="test_oas_program"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_scanMaxTmo" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.scanMaxTmo" test_ref="test_oas_scanMaxTmo"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_scanNWFiles" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.scanNWFiles" test_ref="test_oas_scanNWFiles"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_scanOnRead" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.scanOnRead" test_ref="test_oas_scanOnRead"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="oas_scanOnWrite" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.OAS.scanOnWrite" test_ref="test_oas_scanOnWrite"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_action_app_primary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.action.App.primary" test_ref="test_ods_action_app_primary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_action_app_secondary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.action.App.secondary" test_ref="test_ods_action_app_secondary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_action_default_primary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check ODS.action.Default.primary" test_ref="test_ods_action_default_primary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_action_default_secondary" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check ODS.action.Default.secondary" test_ref="test_ods_action_default_secondary"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_allFiles" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.allFiles" test_ref="test_ods_allFiles"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_decompArchive" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.decompArchive" test_ref="test_ods_decompArchive"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_extensions" version="1">
+      <ns0:metadata>
+        <ns0:title>VSEL ODS configured to include all local drives and their sub-directories.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.filter.extensions.mode" test_ref="test_ods_filter_extensions"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_heuristicAnalysis" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.heuristicAnalysis" test_ref="test_ods_heuristicAnalysis"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_macroAnalysis" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.macroAnalysis" test_ref="test_ods_macroAnalysis"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_mime" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.mime" test_ref="test_ods_mime"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_program" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.program" test_ref="test_ods_program"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="ods_scanNWFiles_local" version="1">
+      <ns0:metadata>
+        <ns0:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description/>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check nailsd.profile.ODS.scanNWFiles" test_ref="test_ods_scanNWFiles_local"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="inventory" id="installed_app_is_vsel" version="1">
+      <ns0:metadata>
+        <ns0:title>McAfee VirusScan Enterprise for Linux</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:reference ref_id="installed_app_is_vsel" source="CPE"/>
+        <ns0:description>The application installed on the system is McAfee VSEL 1.9 or 2.0.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria operator="OR">
+        <ns0:criterion comment="McAfee's VSEL 1.9.x is installed" test_ref="test_vsel_19"/>
+        <ns0:criterion comment="McAfee's VSEL 2.0.x is installed" test_ref="test_vsel_20"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="sshd_includes_config_files" version="1">
+      <ns0:metadata>
+        <ns0:title>sshd_includes_config_files</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>McAfee VirusScan Enterprise for Linux</ns0:product>
+        </ns0:affected>
+        <ns0:description>Check presence of Include /etc/ssh/sshd_config.d/*.conf in /etc/ssh/sshd_config</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria operator="AND" comment="Test conditions - presence of the file plus 0 extra definitions.">
+        <ns0:criterion comment="Check that /etc/ssh/sshd_config contains a line with certain text" test_ref="test_sshd_includes_config_files"/>
+      </ns0:criteria>
+    </ns0:definition>
+  </ns0:definitions>
+  <ns0:tests>
+    <ns3:textfilecontent54_test check="all" comment="Check notifications.virusDetected.active" id="test_virus_notification" version="1">
+      <ns3:object object_ref="object_virus_notification"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.disableCltWebUI" id="test_web_client_disabled" version="1">
+      <ns3:object object_ref="object_web_client_disabled"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.App.primary" id="test_oas_action_app_primary" version="1">
+      <ns3:object object_ref="object_oas_action_app_primary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.App.secondary" id="test_oas_action_app_secondary" version="1">
+      <ns3:object object_ref="object_oas_action_app_secondary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.Default.primary" id="test_oas_action_default_primary" version="1">
+      <ns3:object object_ref="object_oas_action_default_primary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.Default.secondary" id="test_oas_action_default_secondary" version="1">
+      <ns3:object object_ref="object_oas_action_default_secondary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.error" id="test_oas_action_error" version="1">
+      <ns3:object object_ref="object_oas_action_error"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.timeout" id="test_oas_action_timeout" version="1">
+      <ns3:object object_ref="object_oas_action_timeout"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.allFiles" id="test_oas_allFiles" version="1">
+      <ns3:object object_ref="object_oas_allFiles"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.decompArchive" id="test_oas_decompArchive" version="1">
+      <ns3:object object_ref="object_oas_decompArchive"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.oasEnabled" id="test_oas_enabled" version="1">
+      <ns3:object object_ref="object_oas_enabled"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.heuristicAnalysis" id="test_oas_heuristicAnalysis" version="1">
+      <ns3:object object_ref="object_oas_heuristicAnalysis"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.macroAnalysis" id="test_oas_macroAnalysis" version="1">
+      <ns3:object object_ref="object_oas_macroAnalysis"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.program" id="test_oas_program" version="1">
+      <ns3:object object_ref="object_oas_program"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanMaxTmo" id="test_oas_scanMaxTmo" version="1">
+      <ns3:object object_ref="object_oas_scanMaxTmo"/>
+      <ns3:state state_ref="state_oas_scanMaxTmo"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanNWFiles" id="test_oas_scanNWFiles" version="1">
+      <ns3:object object_ref="object_oas_scanNWFiles"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanOnRead" id="test_oas_scanOnRead" version="1">
+      <ns3:object object_ref="object_oas_scanOnRead"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanOnWrite" id="test_oas_scanOnWrite" version="1">
+      <ns3:object object_ref="object_oas_scanOnWrite"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.action.App.primary" id="test_ods_action_app_primary" version="1">
+      <ns3:object object_ref="object_ods_action_app_primary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.action.App.secondary" id="test_ods_action_app_secondary" version="1">
+      <ns3:object object_ref="object_ods_action_app_secondary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check ODS.action.Default.primary" id="test_ods_action_default_primary" version="1">
+      <ns3:object object_ref="object_ods_action_default_primary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check ODS.action.Default.secondary" id="test_ods_action_default_secondary" version="1">
+      <ns3:object object_ref="object_ods_action_default_secondary"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.allFiles" id="test_ods_allFiles" version="1">
+      <ns3:object object_ref="object_ods_allFiles"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.decompArchive" id="test_ods_decompArchive" version="1">
+      <ns3:object object_ref="object_ods_decompArchive"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="Check nailsd.profile.ODS.filter.extensions.mode" id="test_ods_filter_extensions" version="1">
+      <ns3:object object_ref="object_ods_filter_extensions"/>
+      <ns3:state state_ref="state_ods_filter_extensions"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.heuristicAnalysis" id="test_ods_heuristicAnalysis" version="1">
+      <ns3:object object_ref="object_ods_heuristicAnalysis"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.macroAnalysis" id="test_ods_macroAnalysis" version="1">
+      <ns3:object object_ref="object_ods_macroAnalysis"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.mime" id="test_ods_mime" version="1">
+      <ns3:object object_ref="object_ods_mime"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.program" id="test_ods_program" version="1">
+      <ns3:object object_ref="object_ods_program"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.scanNWFiles" id="test_ods_scanNWFiles_local" version="1">
+      <ns3:object object_ref="object_ods_scanNWFiles_local"/>
+    </ns3:textfilecontent54_test>
+    <ns4:rpminfo_test check="all" check_existence="at_least_one_exists" comment="McAfee's VSEL 1.9.x is installed" id="test_vsel_19" version="1">
+      <ns4:object object_ref="obj_vsel_19"/>
+      <ns4:state state_ref="state_vsel_19"/>
+    </ns4:rpminfo_test>
+    <ns4:rpminfo_test check="all" check_existence="at_least_one_exists" comment="McAfee's VSEL 2.0.x is installed" id="test_vsel_20" version="1">
+      <ns4:object object_ref="obj_vsel_20"/>
+      <ns4:state state_ref="state_vsel_20"/>
+    </ns4:rpminfo_test>
+    <ns3:textfilecontent54_test check="all" comment="tests the presence of 'Include /etc/ssh/sshd_config.d/*.conf' setting in the /etc/ssh/sshd_config file" id="test_sshd_includes_config_files" version="1">
+      <ns3:object object_ref="obj_sshd_includes_config_files"/>
+    </ns3:textfilecontent54_test>
+  </ns0:tests>
+  <ns0:objects>
+    <ns3:textfilecontent54_object id="object_virus_notification" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^notifications.virusDetected.active: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_web_client_disabled" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.disableCltWebUI: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_action_app_primary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.action.App.primary: Clean$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_action_app_secondary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.action.App.secondary: Quarantine$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_action_default_primary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.action.Default.primary: Clean$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_action_default_secondary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.action.Default.secondary: Quarantine$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_action_error" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.action.error: Block$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_action_timeout" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.action.timeout: Pass$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_allFiles" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.allFiles: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_decompArchive" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.decompArchive: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_enabled" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.oasEnabled: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_heuristicAnalysis" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.heuristicAnalysis: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_macroAnalysis" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.macroAnalysis: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_program" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.program: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_scanMaxTmo" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.scanMaxTmo:[\s]+(\d+)\s*$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_scanNWFiles" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.scanNWFiles: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_scanOnRead" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.scanOnRead: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_oas_scanOnWrite" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.OAS.scanOnWrite: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_action_app_primary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.action.App.primary: Clean$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_action_app_secondary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.action.App.secondary: Quarantine$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_action_default_primary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.action.Default.primary: Clean$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_action_default_secondary" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.action.Default.secondary: Quarantine$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_allFiles" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.allFiles: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_decompArchive" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.decompArchive: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_filter_extensions" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^.*.extensions.mode: (.*)$</ns3:pattern>
+      <ns3:instance datatype="int" operation="greater than or equal">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_heuristicAnalysis" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.heuristicAnalysis: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_macroAnalysis" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.macroAnalysis: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_mime" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.mime: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_program" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.program: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_ods_scanNWFiles_local" version="1">
+      <ns3:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ns3:filepath>
+      <ns3:pattern operation="pattern match">^nailsd.profile.ODS.scanNWFiles: true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns4:rpminfo_object id="obj_vsel_19" version="1">
+      <ns4:name operation="pattern match">^McAfeeVSEForLinux$</ns4:name>
+    </ns4:rpminfo_object>
+    <ns4:rpminfo_object id="obj_vsel_20" version="1">
+      <ns4:name operation="pattern match">^McAfeeVSEForLinux$</ns4:name>
+    </ns4:rpminfo_object>
+    <ns3:textfilecontent54_object id="obj_sshd_includes_config_files" version="1">
+      <ns3:filepath>/etc/ssh/sshd_config</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]*Include /etc/ssh/sshd_config\.d/\*\.conf[\s]*$</ns3:pattern>
+      <ns3:instance operation="greater than or equal" datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+  </ns0:objects>
+  <ns0:states>
+    <ns3:textfilecontent54_state id="state_oas_scanMaxTmo" version="1">
+      <ns3:subexpression operation="greater than or equal" datatype="int">45</ns3:subexpression>
+    </ns3:textfilecontent54_state>
+    <ns3:textfilecontent54_state id="state_ods_filter_extensions" version="1">
+      <ns3:subexpression datatype="string" operation="pattern match">all</ns3:subexpression>
+    </ns3:textfilecontent54_state>
+    <ns4:rpminfo_state id="state_vsel_19" version="1">
+      <ns4:version operation="pattern match">^1.9.*$</ns4:version>
+    </ns4:rpminfo_state>
+    <ns4:rpminfo_state id="state_vsel_20" version="1">
+      <ns4:version operation="pattern match">^2.0.*$</ns4:version>
+    </ns4:rpminfo_state>
+  </ns0:states>
+</ns0:oval_definitions>

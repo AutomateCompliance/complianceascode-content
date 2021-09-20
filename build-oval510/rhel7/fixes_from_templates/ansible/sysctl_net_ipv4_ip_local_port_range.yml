@@ -1,0 +1,11 @@
+# platform = multi_platform_all
+# reboot = true
+# strategy = disable
+# complexity = low
+# disruption = medium
+- name: Ensure sysctl net.ipv4.ip_local_port_range is set to 32768 65535
+  sysctl:
+    name: "net.ipv4.ip_local_port_range"
+    value: "32768 65535"
+    state: present
+    reload: yes

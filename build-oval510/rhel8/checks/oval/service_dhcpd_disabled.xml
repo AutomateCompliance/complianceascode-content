@@ -1,0 +1,67 @@
+<def-group>
+
+  
+
+  
+
+  <definition class="compliance" id="service_dhcpd_disabled" version="2">
+    <metadata>
+        <title>Disable DHCP Service</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The dhcpd service should be disabled if possible.</description>
+    </metadata>
+    <criteria comment="package dhcp-server removed or service and socket dhcpd are not configured to start" operator="OR">
+      <criterion comment="dhcp-server removed" test_ref="test_service_dhcpd_package_dhcp-server_removed" />
+      <criteria operator="AND" comment="service and socket dhcpd are disabled">
+        <criterion comment="dhcpd disabled in multi-user.target" test_ref="test_dhcpd_disabled_multi_user_target" />
+        <criterion comment="dhcpd socket disabled in sockets.target" test_ref="test_dhcpd_socket_disabled_sockets_target" />
+      </criteria>
+    </criteria>
+  </definition>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for dhcpd.service in /etc/systemd/system/multi-user.target.wants"
+   id="test_dhcpd_disabled_multi_user_target" version="1">
+    <unix:object object_ref="object_dhcpd_disabled_multi_user_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for dhcpd.service in /etc/systemd/system/multi-user.target.wants"
+   id="object_dhcpd_disabled_multi_user_target" version="1">
+    <unix:filepath>/etc/systemd/system/multi-user.target.wants/dhcpd.service</unix:filepath>
+    <filter action="include">unit_dhcpd_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_test check="all" check_existence="none_exist"
+   comment="look for dhcpd.socket in /etc/systemd/system/sockets.target.wants"
+   id="test_dhcpd_socket_disabled_sockets_target" version="1">
+    <unix:object object_ref="object_dhcpd_socket_disabled_sockets_target" />
+  </unix:file_test>
+
+  <unix:file_object comment="look for dhcpd.socket in /etc/systemd/system/sockets.target.wants"
+   id="object_dhcpd_socket_disabled_sockets_target" version="1">
+    <unix:filepath>/etc/systemd/system/sockets.target.wants/dhcpd.socket</unix:filepath>
+    <filter action="include">unit_dhcpd_state_symlink</filter>
+  </unix:file_object>
+
+  <unix:file_state id="unit_dhcpd_state_symlink" version="1">
+    <unix:type operation="equals">symbolic link</unix:type>
+  </unix:file_state>
+
+  
+
+
+
+
+  <linux:rpminfo_test check="all" check_existence="none_exist"
+  id="test_service_dhcpd_package_dhcp-server_removed" version="1"
+  comment="package dhcp-server is removed">
+    <linux:object object_ref="obj_test_service_dhcpd_package_dhcp-server_removed" />
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_dhcpd_package_dhcp-server_removed" version="1">
+    <linux:name>dhcp-server</linux:name>
+  </linux:rpminfo_object>
+
+
+</def-group>

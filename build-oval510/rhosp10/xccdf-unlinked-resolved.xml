@@ -1,0 +1,1333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="RHEL-10-OSP" resolved="1" xml:lang="en-US" style="SCAP_1.1">
+  <status date="2021-09-19">draft</status>
+  <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Guide to the Secure Configuration of Red Hat OpenStack Platform 10</title>
+  <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for Red Hat OpenStack Platform 10. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <xhtml:code>scap-security-guide</xhtml:code> package which is developed at
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<br xmlns="http://www.w3.org/1999/xhtml"/><br xmlns="http://www.w3.org/1999/xhtml"/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <em xmlns="http://www.w3.org/1999/xhtml">catalog, not a
+checklist</em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <em xmlns="http://www.w3.org/1999/xhtml">Profiles</em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The NIST National Checklist Program (NCP),
+which provides required settings for the United States Government, is one example
+of a baseline created from this guidance.
+</description>
+  <notice xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The ComplianceAsCode Project<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:redhat:openstack:10"/>
+  <version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</version>
+  <metadata xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:publisher>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:creator>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">François Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Peter 'Pessoft' Kolínek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Šimon Lukašík &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fredrik Lysén &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Renaud Métrich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Thomas Sjögren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matěj Týč &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Černý &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michal Šrubař &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </metadata>
+  <model system="urn:xccdf:scoring:default"/>
+  <Profile id="cui">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">[DRAFT] Controlled Unclassified Infomration (CUI) Profile for Red Hat OpenStack Plaform 10</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">These are the controls for scanning against CUI for rhosp10</description>
+    <select idref="cinder_conf_file_perms" selected="true"/>
+    <select idref="cinder_file_ownership" selected="true"/>
+    <select idref="cinder_file_perms" selected="true"/>
+    <select idref="cinder_glance_tls" selected="true"/>
+    <select idref="cinder_nas_secure_file_permissions" selected="true"/>
+    <select idref="cinder_nova_tls" selected="true"/>
+    <select idref="cinder_osapi_max_request_body" selected="true"/>
+    <select idref="cinder_tls_enabled" selected="true"/>
+    <select idref="cinder_using_keystone" selected="true"/>
+    <select idref="horizon_csrf_cookie_secure" selected="true"/>
+    <select idref="horizon_disable_password_reveal" selected="true"/>
+    <select idref="horizon_file_ownership" selected="true"/>
+    <select idref="horizon_file_perms" selected="true"/>
+    <select idref="horizon_password_autocomplete" selected="true"/>
+    <select idref="horizon_session_cookie_httponly" selected="true"/>
+    <select idref="horizon_session_cookie_secure" selected="true"/>
+    <select idref="horizon_use_ssl" selected="true"/>
+    <select idref="keystone_algorithm_hashing" selected="true"/>
+    <select idref="keystone_disable_admin_token" selected="true"/>
+    <select idref="keystone_disable_user_account_days_inactive" selected="true"/>
+    <select idref="keystone_file_ownership" selected="true"/>
+    <select idref="keystone_file_perms" selected="true"/>
+    <select idref="keystone_lockout_duration" selected="true"/>
+    <select idref="keystone_lockout_failure_attempts" selected="true"/>
+    <select idref="keystone_max_request_body_size" selected="true"/>
+    <select idref="keystone_use_ssl" selected="true"/>
+    <select idref="neutron_api_use_ssl" selected="true"/>
+    <select idref="neutron_file_ownership" selected="true"/>
+    <select idref="neutron_file_perms" selected="true"/>
+    <select idref="neutron_use_https" selected="true"/>
+    <select idref="neutron_use_keystone" selected="true"/>
+    <select idref="nova_file_ownership" selected="true"/>
+    <select idref="nova_file_perms" selected="true"/>
+    <select idref="nova_secure_authentication" selected="true"/>
+    <select idref="nova_secure_glance" selected="true"/>
+    <select idref="nova_use_keystone" selected="true"/>
+    <refine-value idref="var_keystone_lockout_failure_attempts" selector="3"/>
+    <refine-value idref="var_keystone_lockout_duration" selector="15_minutes"/>
+    <refine-value idref="var_keystone_disable_user_account_days_inactive" selector="90"/>
+  </Profile>
+  <Profile id="stig">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">[DRAFT] STIG for Red Hat OpenStack Plaform 10</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">Controls for scanning against classified STIG for rhosp10</description>
+    <select idref="cinder_conf_file_perms" selected="true"/>
+    <select idref="cinder_file_ownership" selected="true"/>
+    <select idref="cinder_file_perms" selected="true"/>
+    <select idref="cinder_glance_tls" selected="true"/>
+    <select idref="cinder_nas_secure_file_permissions" selected="true"/>
+    <select idref="cinder_nova_tls" selected="true"/>
+    <select idref="cinder_osapi_max_request_body" selected="true"/>
+    <select idref="cinder_tls_enabled" selected="true"/>
+    <select idref="cinder_using_keystone" selected="true"/>
+    <select idref="horizon_csrf_cookie_secure" selected="true"/>
+    <select idref="horizon_disable_password_reveal" selected="true"/>
+    <select idref="horizon_file_ownership" selected="true"/>
+    <select idref="horizon_file_perms" selected="true"/>
+    <select idref="horizon_password_autocomplete" selected="true"/>
+    <select idref="horizon_session_cookie_httponly" selected="true"/>
+    <select idref="horizon_session_cookie_secure" selected="true"/>
+    <select idref="horizon_use_ssl" selected="true"/>
+    <select idref="keystone_algorithm_hashing" selected="true"/>
+    <select idref="keystone_disable_admin_token" selected="true"/>
+    <select idref="keystone_disable_user_account_days_inactive" selected="true"/>
+    <select idref="keystone_file_ownership" selected="true"/>
+    <select idref="keystone_file_perms" selected="true"/>
+    <select idref="keystone_lockout_duration" selected="true"/>
+    <select idref="keystone_lockout_failure_attempts" selected="true"/>
+    <select idref="keystone_max_request_body_size" selected="true"/>
+    <select idref="keystone_use_ssl" selected="true"/>
+    <select idref="neutron_api_use_ssl" selected="true"/>
+    <select idref="neutron_file_ownership" selected="true"/>
+    <select idref="neutron_file_perms" selected="true"/>
+    <select idref="neutron_use_https" selected="true"/>
+    <select idref="neutron_use_keystone" selected="true"/>
+    <select idref="nova_file_ownership" selected="true"/>
+    <select idref="nova_file_perms" selected="true"/>
+    <select idref="nova_secure_authentication" selected="true"/>
+    <select idref="nova_secure_glance" selected="true"/>
+    <select idref="nova_use_keystone" selected="true"/>
+    <refine-value idref="var_keystone_lockout_failure_attempts" selector="3"/>
+    <refine-value idref="var_keystone_lockout_duration" selector="15_minutes"/>
+    <refine-value idref="var_keystone_disable_user_account_days_inactive" selector="90"/>
+  </Profile>
+  <Value id="conditional_clause" type="string">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A conditional clause for check statements.</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A conditional clause for check statements.</description>
+    <value>This is a placeholder</value>
+  </Value>
+  <Group id="remediation_functions">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="intro">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Introduction</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The purpose of this guidance is to provide security configuration
+recommendations and baselines for Red Hat OpenStack Platform 10.
+The guide is intended for system and/or application administrators. Readers are assumed to
+possess basic system administration skills for the application's operating systems, as well
+as some familiarity with the product's documentation and administration
+conventions. Some instructions within this guide are complex.
+All directions should be followed completely and with understanding of
+their effects in order to avoid serious adverse effects on the system
+and its security.</description>
+    <Group id="general-principles">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">General Principles</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The following general principles motivate much of the advice in this
+guide and should also influence any configuration decisions that are
+not explicitly covered.</description>
+      <Group id="principle-encrypt-transmitted-data">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Encrypt Transmitted Data Whenever Possible</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Data transmitted over a network, whether wired or wireless, is susceptible
+to passive monitoring. Whenever practical solutions for encrypting
+such data exist, they should be applied. Even if data is expected to
+be transmitted only over a local network, it should still be encrypted.
+Encrypting authentication data, such as passwords, is particularly
+important. Networks of Red Hat OpenStack Platform 10 machines can and should be configured
+so that no unencrypted authentication data is ever transmitted between
+machines.</description>
+      </Group>
+      <Group id="principle-least-privilege">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Least Privilege</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Grant the least privilege necessary for user accounts and software to perform tasks.
+For example, <xhtml:code>sudo</xhtml:code> can be implemented to limit authorization to super user
+accounts on the system only to designated personnel. Another example is to limit
+logins on server systems to only those administrators who need to log into them in
+order to perform administration tasks.</description>
+      </Group>
+      <Group id="principle-separate-servers">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Run Different Network Services on Separate Systems</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Whenever possible, a server should be dedicated to serving exactly one
+network service. This limits the number of other services that can
+be compromised in the event that an attacker is able to successfully
+exploit a software flaw in one network service.</description>
+      </Group>
+      <Group id="principle-use-security-tools">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure Security Tools to Improve System Robustness</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Several tools exist which can be effectively used to improve a system's
+resistance to and detection of unknown attacks. These tools can improve
+robustness against attack at the cost of relatively little configuration
+effort.</description>
+      </Group>
+    </Group>
+    <Group id="how-to-use">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">How to Use This Guide</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Readers should heed the following points when using the guide.</description>
+      <Group id="intro-formatting-conventions">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Formatting Conventions</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Commands intended for shell execution, as well as configuration file text,
+are featured in a <xhtml:code>monospace font</xhtml:code>. <i xmlns="http://www.w3.org/1999/xhtml">Italics</i> are used
+to indicate instances where the system administrator must substitute
+the appropriate information into a command or configuration file.</description>
+      </Group>
+      <Group id="intro-read-sections-completely">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Read Sections Completely and in Order</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Each section may build on information and recommendations discussed in
+prior sections. Each section should be read and understood completely;
+instructions should never be blindly applied. Relevant discussion may
+occur after instructions for an action.</description>
+      </Group>
+      <Group id="intro-reboot-required">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Reboot Required</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A system or service reboot is implicitly required after some actions in order to
+complete the reconfiguration of the system. In many cases, the changes
+will not take effect until a reboot is performed. In order to ensure
+that changes are applied properly and to test functionality, always
+reboot the system after applying a set of recommendations from this guide.</description>
+      </Group>
+      <Group id="intro-root-shell-assumed">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Root Shell Environment Assumed</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Most of the actions listed in this document are written with the
+assumption that they will be executed by the root user running the
+<xhtml:code>/bin/bash</xhtml:code> shell. Commands preceded with a hash mark (#)
+assume that the administrator will execute the commands as root, i.e.
+apply the command via <xhtml:code>sudo</xhtml:code> whenever possible, or use
+<xhtml:code>su</xhtml:code> to gain root privileges if <xhtml:code>sudo</xhtml:code> cannot be
+used. Commands which can be executed as a non-root user are are preceded
+by a dollar sign ($) prompt.</description>
+      </Group>
+      <Group id="intro-test-non-production">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Test in Non-Production Environment</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guidance should always be tested in a non-production environment
+before deployment. This test environment should simulate the setup in
+which the system will be deployed as closely as possible.</description>
+      </Group>
+    </Group>
+  </Group>
+  <Group id="openstack">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">TODO TODO TODO</description>
+    <Group id="cinder">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Cinder STIG Checklist</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">High level overview of Cinder STIG settings to go here!</description>
+      <Rule id="cinder_conf_file_perms" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-02: Are strict permissions set for cinder config files?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"> To properly set the permissions of <code xmlns="http://www.w3.org/1999/xhtml">/etc/cinder/*.conf</code>, run the command: <pre xmlns="http://www.w3.org/1999/xhtml">$ sudo chmod 0640 /etc/cinder/*.conf</pre></description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Due to the nature of the cinder config files, normal users should not be
+able to view contents</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_conf_file_perms" href="oval-unlinked.xml"/>
+        </check>
+        <check system="ocil-transitional">
+          <check-export export-name="/etc/cinder/*.conf has unix mode -rw-r-----" value-id="conditional_clause"/>
+          <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">To check the permissions of <code xmlns="http://www.w3.org/1999/xhtml">/etc/cinder/*.conf</code>,
+run the command:
+<pre xmlns="http://www.w3.org/1999/xhtml">$ ls -l /etc/cinder/*.conf</pre>
+If properly configured, the output should indicate the following permissions:
+<code xmlns="http://www.w3.org/1999/xhtml">-rw-r-----</code></check-content>
+        </check>
+      </Rule>
+      <Rule id="cinder_file_ownership" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-01: Is user/group ownership of config files set to root/cinder?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuration files contain critical parameters and information required for smooth functioning of the component. If an unprivileged user, either intentionally or accidentally, modifies or deletes any of the parameters or the file itself then it would cause severe availability issues resulting in a denial of service to the other end users. Thus user ownership of such critical configuration files must be set to root and group ownership must be set to cinder.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%U %G" /etc/cinder/cinder.conf | egrep "root cinder"
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/cinder/api-paste.ini | egrep "root cinder"
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/cinder/policy.json | egrep "root cinder"
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/cinder/rootwrap.conf | egrep "root cinder"
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If user and group ownership of all these config files is set to root and cinder respectively. The above commands show output of root cinder.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If the above commands does not return any output as the user and group ownership might have set to any user other than root or any group other than cinder.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_file_ownership" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_file_perms" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-02: Are strict permissions set for cinder config files?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended to set strict access permissions for such configuration files.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%a" /etc/cinder/cinder.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/cinder/api-paste.ini
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/cinder/policy.json
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/cinder/rootwrap.conf
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If permissions are set to 640 or stricter. The permissions of 640 translates into owner r/w, group r, and no rights to others i.e. “u=rw,g=r,o=”. Note that with Check-Block-01: Is user/group ownership of config files set to root/cinder? and permissions set to 640, root has read/write access and cinder has read access to these configuration files. The access rights can also be validated using the following command. This command will only be available on your system if it supports ACLs.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ getfacl --tabular -a /etc/cinder/cinder.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+getfacl: Removing leading '/' from absolute path names
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+# file: etc/cinder/cinder.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+USER   root  rw-
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+GROUP  cinder  r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+mask         r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+other        ---
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If permissions are not set to at least 640.</description>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_file_perms" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_glance_tls" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-06: Does cinder communicates with glance over TLS?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to previous check (Check-Block-05: Does cinder communicates with nova over TLS?), it is recommended all the components must communicate with each other using a secured communication protocol.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter glance_api_insecure under [DEFAULT] section in /etc/cinder/cinder.conf is set to False.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter glance_api_insecure under [DEFAULT] section in /etc/cinder/cinder.conf is set to True.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_glance_tls" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_nas_secure_file_permissions" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-07: Is NAS operating in secure enviornment?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Cinder supports an NFS driver which works differently than a traditional block storage driver. The NFS driver does not actually allow an instance to access a storage device at the block level. Instead, files are created on an NFS share and mapped to instances, which emulates a block device. Cinder supports secure configuration for such files by controlling the file permissions when cinder volumes are created. Cinder configuration can also control whether file operations are run as the root user or the current OpenStack process user.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter nas_secure_file_permissions under [DEFAULT] section in /etc/cinder/cinder.conf is set to auto. When set to auto, a check is done during cinder startup to determine if there are existing cinder volumes, no volumes will set the option to True, and use secure file permissions. The detection of existing volumes will set the option to False, and use the current insecure method of handling file permissions. If value of parameter nas_secure_file_operations under [DEFAULT] section in /etc/cinder/cinder.conf is set to auto. When set to “auto”, a check is done during cinder startup to determine if there are existing cinder volumes, no volumes will set the option to True, be secure and do NOT run as the root user. The detection of existing volumes will set the option to False, and use the current method of running operations as the root user. For new installations, a “marker file” is written so that subsequent restarts of cinder will know what the original determination had been.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter nas_secure_file_permissions under [DEFAULT] section in /etc/cinder/cinder.conf is set to False and if value of parameter nas_secure_file_operations under [DEFAULT] section in /etc/cinder/cinder.conf is set to False.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_nas_secure_file_permissions" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_nova_tls" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-05: Does cinder communicates with nova over TLS?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack components communicate with each other using various protocols and the communication might involve sensitive / confidential data. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the components must communicate with each other using a secured communication protocol.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter nova_api_insecure under [DEFAULT] section in /etc/cinder/cinder.conf is set to False.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter nova_api_insecure under [DEFAULT] section in /etc/cinder/cinder.conf is set to True.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_nova_tls" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_osapi_max_request_body" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-08: Is max size for the body of a request set to default (114688)?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If the maximum body size per request is not defined, the attacker can craft an arbitrary osapi request of large size causing the service to crash and finally resulting in Denial Of Service attack. Assigning the maximum value ensures that any malicious oversized request gets blocked ensuring continued availability of the service.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter osapi_max_request_body_size under [DEFAULT] section in /etc/cinder/cinder.conf is set to 114688 or if value of parameter max_request_body_size under [oslo_middleware] section in /etc/cinder/cinder.conf is set to 114688.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter osapi_max_request_body_size under [DEFAULT] section in /etc/cinder/cinder.conf is not set to 114688 or if value of parameter max_request_body_size under [oslo_middleware] section in /etc/cinder/cinder.conf is not set to 114688.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.7</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_osapi_max_request_body" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_tls_enabled" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-04: Is TLS enabled for authentication?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack components communicate with each other using various protocols and the communication might involve sensitive / confidential data. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the components must communicate with each other using a secured communication protocol.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter auth_protocol under [keystone_authtoken] section in /etc/cinder/cinder.conf is set to https, or if value of parameter identity_uri under [keystone_authtoken] section in /etc/cinder/cinder.conf is set to Identity API endpoint starting with https:// and value of parameter insecure under the same [keystone_authtoken] section in the same /etc/cinder/cinder.conf is set to False.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter auth_protocol under [keystone_authtoken] section in /etc/cinder/cinder.conf is set to http, or if value of parameter identity_uri under [keystone_authtoken] section in /etc/cinder/cinder.conf is not set to Identity API endpoint starting with https:// or value of parameter insecure under the same [keystone_authtoken] section in the same /etc/cinder/cinder.conf is set to True.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_tls_enabled" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="cinder_using_keystone" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Block-03: Is keystone used for authentication?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack supports various authentication strategies like noauth, keystone etc. If the ‘noauth’ strategy is used then the users could interact with OpenStack services without any authentication. This could be a potential risk since an attacker might gain unauthorized access to the OpenStack components. Thus it is strongly recommended that all services must be authenticated with keystone using their service accounts.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter auth_strategy under [DEFAULT] section in /etc/cinder/cinder.conf is set to keystone.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter auth_strategy under [DEFAULT] section is set to noauth.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.5.2</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="cinder_using_keystone" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="horizon">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Horizon STIG Checklist</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">High level overview of Horizon STIG settings to go here!</description>
+      <Rule id="horizon_csrf_cookie_secure" selected="false" severity="high">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Cross-Site Request Forgery Prevention: Enable CSRF_COOKIE_SECURE (non-containerized deployments)</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Usage of a secure cookie for the CSRF cookie is determined by the <xhtml:code>CSRF_COOKIE_SECURE</xhtml:code>
+parameter. When Red Hat OpenStack Platform is deployed as non-containerized services,
+this configuration setting is configured in the
+<xhtml:code>/etc/openstack-dashboard/local_settings</xhtml:code> file.
+
+The <xhtml:code>CSRF_COOKIE_SECURE</xhtml:code> option must be set to <xhtml:code>True</xhtml:code>:
+
+<pre xmlns="http://www.w3.org/1999/xhtml">CSRF_COOKIE_SECURE True</pre>
+
+When <xhtml:code>CSRF_COOKIE_SECURE</xhtml:code> is set to <xhtml:code>True</xhtml:code>, the cookie will be marked
+as "secure," which means web browsers may ensure that the cookie is only sent
+with an HTTPS connection.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.1</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.2</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">CSRF (Cross-site request forgery) is an attack which forces an end user
+to execute unauthorized commands on a web application in which he/she is
+currently authenticated. A successful CSRF exploit can compromise end
+user data and operations in case of normal user. If the targeted end
+user has admin privileges, this can compromise the entire web application.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_csrf_cookie_secure" href="oval-unlinked.xml"/>
+        </check>
+        <check system="ocil-transitional">
+          <check-export export-name="CSRF_COOKIE_SECURE is set to False" value-id="conditional_clause"/>
+          <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">Check the file <xhtml:code>/etc/openstack-dashboard/local_settings</xhtml:code> and ensure the
+following line appears:
+<pre xmlns="http://www.w3.org/1999/xhtml">CSRF_COOKIE_SECURE True</pre></check-content>
+        </check>
+      </Rule>
+      <Rule id="horizon_disable_password_reveal" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-08: Is disable_password_reveal set to True?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended not to reveal password fields.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter disable_password_reveal in /etc/openstack-dashboard/local_settings is set to True.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter disable_password_reveal in /etc/openstack-dashboard/local_settings is set to False.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_disable_password_reveal" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="horizon_file_ownership" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-01: Is user/group of config files set to root/horizon?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuration files contain critical parameters and information required for smooth functioning of the component. If an unprivileged user, either intentionally or accidentally modifies or deletes any of the parameters or the file itself then it would cause severe availability issues causing a denial of service to the other end users. Thus user ownership of such critical configuration files must be set to root and group ownership must be set to horizon.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%U %G"  /etc/openstack-dashboard/local_settings | egrep "root horizon"
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If user and group ownership of the config file is set to root and horizon respectively. The above commands show output of root horizon.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If the above commands does not return any output as the user and group ownership might have set to any user other than root or any group other than horizon.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_file_ownership" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="horizon_file_perms" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-02: Are strict permissions set for horizon configuration files?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended to set strict access permissions for such configuration files.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Run the following commands:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%a" /etc/openstack-dashboard/local_settings
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If permissions are set to 640 or stricter. The permissions of 640 translates into owner r/w, group r, and no rights to others i.e. “u=rw,g=r,o=”. Note that with Check-Dashboard-01: Is user/group of config files set to root/horizon? and permissions set to 640, root has read/write access and horizon has read access to these configuration files. The access rights can also be validated using the following command. This command will only be available on your system if it supports ACLs.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ getfacl --tabular -a /etc/openstack-dashboard/local_settings
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+getfacl: Removing leading '/' from absolute path names
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+# file: etc/openstack-dashboard/local_settings
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+USER   root     rw-
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+GROUP  horizon  r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+mask            r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+other           ---
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If permissions are not set to at least 640.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_file_perms" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="horizon_password_autocomplete" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-07: Is password_autocomplete set to False?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Common feature that applications use to provide users a convenience is to cache the password locally in the browser (on the client machine) and having it ‘pre-typed’ in all subsequent requests. While this feature can be perceived as extremely friendly for the average user, at the same time, it introduces a flaw, as the user account becomes easily accessible to anyone that uses the same account on the client machine and thus may lead to compromise of the user account.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter password_autocomplete in /etc/openstack-dashboard/local_settings is set to off.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter password_autocomplete in /etc/openstack-dashboard/local_settings is set to on.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_password_autocomplete" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="horizon_session_cookie_httponly" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-06: Is SESSION_COOKIE_HTTPONLY parameter set to True?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The “HTTPONLY” cookie attribute instructs web browsers not to allow scripts (e.g. JavaScript or VBscript) an ability to access the cookies via the DOM document.cookie object. This session ID protection is mandatory to prevent session ID stealing through XSS attacks.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter SESSION_COOKIE_HTTPONLY in /etc/openstack-dashboard/local_settings is set to True.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter SESSION_COOKIE_HTTPONLY in /etc/openstack-dashboard/local_settings is set to False.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_session_cookie_httponly" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="horizon_session_cookie_secure" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-05: Is SESSION_COOKIE_SECURE parameter set to True?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The “SECURE” cookie attribute instructs web browsers to only send the cookie through an encrypted HTTPS (SSL/TLS) connection. This session protection mechanism is mandatory to prevent the disclosure of the session ID through MitM (Man-in-the-Middle) attacks. It ensures that an attacker cannot simply capture the session ID from web browser traffic.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter SESSION_COOKIE_SECURE in /etc/openstack-dashboard/local_settings is set to True.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter SESSION_COOKIE_SECURE in /etc/openstack-dashboard/local_settings is set to False.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_session_cookie_secure" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="horizon_use_ssl" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Dashboard-03: Is USE_SSL parameter set to True?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Openstack services communicate with each other using various protocols and the communication might involve sensitive/confidential information. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the services must communicate with each other using a secured communication protocol like HTTPS.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter USE_SSL in /etc/openstack-dashboard/local_settings is set to True.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter USE_SSL in /etc/openstack-dashboard/local_settings is set to False.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="horizon_use_ssl" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="keystone">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Keystone STIG Checklist</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">High level overview of Keystone STIG settings to go here!</description>
+      <Value id="var_keystone_disable_user_account_days_inactive" operator="less than or equal" type="string">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Maximum Number of Days Since Last Authentication</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Specifies the maximum number of days a user has not authenticated
+prior to automatically disabling the account.</description>
+        <value>90</value>
+        <value selector="45">45</value>
+        <value selector="90">90</value>
+        <value selector="180">180</value>
+      </Value>
+      <Value id="var_keystone_lockout_duration" operator="greater than or equal" type="string">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Account Lockout Duration</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Specifies the time period, in seconds, of how long a user
+account will be disabled after exceeding the maximum failed
+logon attempts.</description>
+        <value>1800</value>
+        <value selector="15_minutes">900</value>
+      </Value>
+      <Value id="var_keystone_lockout_failure_attempts" operator="less than or equal" type="string">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Maximum Number of Failed Authentication Attempts</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Specifies the maximum number of failed authentication attempts allowed
+prior to disabling a Keystone user.</description>
+        <value>6</value>
+        <value selector="3">3</value>
+      </Value>
+      <Rule id="keystone_algorithm_hashing" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Identity-04: Does Identity use strong hashing algorithms for PKI tokens?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">MD5 is a weak and depreciated hashing algorithm. It can be cracked using brute force attack. Identity tokens are sensitive and need to be protected with a stronger hashing algorithm to prevent unauthorized disclosure and subsequent access.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter hash_algorithm under [token] section in /etc/keystone/keystone.conf is set to SHA256.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Fail: If value of parameter hash_algorithm under [token]section is set to MD5.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.11</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_algorithm_hashing" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="keystone_disable_admin_token" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Identity-06: Disable admin token in /etc/keystone/keystone.conf</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The admin token is generally used to bootstrap Identity. This token is the most valuable Identity asset, which could be used to gain cloud admin privileges.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If admin_token under [DEFAULT] section in /etc/keystone/keystone.conf is disabled. And, AdminTokenAuthMiddleware under [filter:admin_token_auth] is deleted from /etc/keystone/keystone-paste.ini
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If admin_token under [DEFAULT] section is set and AdminTokenAuthMiddleware exists in keystone-paste.ini.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_disable_admin_token" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="keystone_disable_user_account_days_inactive" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Set Maximum Inactivity Period</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Keystone can be configured to disable accounts after an
+organizationally-defined time period. This is achieved by configuring the
+<xhtml:code>disable_user_account_days_inactive</xhtml:code> setting in the
+<xhtml:code>[security_compliance]</xhtml:code> section in <xhtml:code>keystone.conf</xhtml:code>.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.1</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.2</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-2(3)</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Automatically disabling accounts ensures that users who have not
+authenticated for an organizationally-defined time period are
+automatically disabled. This reduces the risk of stale accounts
+being used for malicious purposes.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_disable_user_account_days_inactive" href="oval-unlinked.xml"/>
+        </check>
+        <check system="ocil-transitional">
+          <check-export export-name="disable_user_account_days_inactive is commented out or not configured properly" value-id="conditional_clause"/>
+          <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">Run the following command to see what the maximum authentication
+attempts is:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<pre xmlns="http://www.w3.org/1999/xhtml">$ grep disable_user_account_days_inactive /etc/keystone/keystone.conf</pre>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+If properly configured, the output should be:
+<pre xmlns="http://www.w3.org/1999/xhtml">disable_user_account_days_inactive = <sub xmlns="http://checklists.nist.gov/xccdf/1.1" idref="var_keystone_disable_user_account_days_inactive"/></pre></check-content>
+        </check>
+      </Rule>
+      <Rule id="keystone_file_ownership" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Identity-01: Is user/group ownership of config files set to keystone?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuration files contain critical parameters and information required for smooth functioning of the component. If an unprivileged user, either intentionally or accidentally modifies or deletes any of the parameters or the file itself then it would cause severe availability issues causing a denial of service to the other end users. Thus user and group ownership of such critical configuration files must be set to that component owner.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%U %G" /etc/keystone/keystone.conf | egrep "keystone keystone" <br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/keystone/keystone-paste.ini | egrep "keystone keystone"<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/keystone/policy.json | egrep "keystone keystone"<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/keystone/logging.conf | egrep "keystone keystone"<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/keystone/ssl/certs/signing_cert.pem | egrep "keystone keystone"<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/keystone/ssl/private/signing_key.pem | egrep "keystone keystone"<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/keystone/ssl/certs/ca.pem | egrep "keystone keystone"<br xmlns="http://www.w3.org/1999/xhtml"/>
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If user and group ownership of all these config files is set to keystone. The above commands show output of keystone keystone.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If the above commands does not return any output as the user or group ownership might have set to any user other than keystone.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_file_ownership" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="keystone_file_perms" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Identity-02: Are strict permissions set for Identity configuration files?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended to set strict access permissions for such configuration files.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code> 
+$ stat -L -c "%a" /etc/keystone/keystone.conf<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/keystone/keystone-paste.ini<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/keystone/policy.json<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/keystone/logging.conf<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/keystone/ssl/certs/signing_cert.pem<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/keystone/ssl/private/signing_key.pem<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/keystone/ssl/certs/ca.pem<br xmlns="http://www.w3.org/1999/xhtml"/>
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If permissions are set to 640 or stricter.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If permissions are not set to at least 640.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_file_perms" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="keystone_lockout_duration" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Set Account Lockout Duration</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Once a user account is locked out, such as exceeding the
+amount of logon attempts as defined by <xhtml:code>lockout_failure_attempts</xhtml:code>,
+Keystone will lockout an account for the time period defined by the
+<xhtml:code>lockout_duration</xhtml:code> configuration option unde the
+<xhtml:code>[security_compliance]</xhtml:code> section in <xhtml:code>keystone.conf</xhtml:code>.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Note that if <xhtml:code>lockout_failure_attempts</xhtml:code> is enabled and
+<xhtml:code>lockout_duration</xhtml:code> is left undefined, users will be
+locked out indefinitely until the user is explicitly re-enabled.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.2</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.2</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-7</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Defining a lockout duration helps mitigate certain attacks,
+such as brute force attempts. Additionally defining a lockout
+duration, versus indefinately locking an account, lowers
+administrative burden of re-enabling accounts of users
+who accidentally triggered the maximum failure attempts.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_lockout_duration" href="oval-unlinked.xml"/>
+        </check>
+        <check system="ocil-transitional">
+          <check-export export-name="lockout_duration is not configured properly" value-id="conditional_clause"/>
+          <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">Run the following command to see what the account lockout
+duration is:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<pre xmlns="http://www.w3.org/1999/xhtml">$ grep lockout_duration /etc/keystone/keystone.conf</pre>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+If properly configured, the output should be:
+<pre xmlns="http://www.w3.org/1999/xhtml">lockout_duration=<sub xmlns="http://checklists.nist.gov/xccdf/1.1" idref="var_keystone_lockout_failure_duration"/></pre></check-content>
+        </check>
+      </Rule>
+      <Rule id="keystone_lockout_failure_attempts" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Set Maximum Number of Failed Authentication Attempts</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The account lockout feature limits the number of incorrect password
+attempts. If a user fails to authenticate after the maximum number
+of attempts, the service disables the user.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+The maximum number of failed authentication attempts is set by the
+<xhtml:code>lockout_failure_attempts</xhtml:code> option in under the
+<xhtml:code>[security_compliance]</xhtml:code> section in <xhtml:code>keystone.conf</xhtml:code>.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.8</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-7</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Defining a maximum number of failed logon attempts can help
+mitigate brute force password attacks.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_lockout_failure_attempts" href="oval-unlinked.xml"/>
+        </check>
+        <check system="ocil-transitional">
+          <check-export export-name="lockout_failure_attempts is commented out or not configured properly" value-id="conditional_clause"/>
+          <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">Run the following command to see what the maximum authentication
+attempts is:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<pre xmlns="http://www.w3.org/1999/xhtml">$ grep lockout_failure_attempts /etc/keystone/keystone.conf</pre>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+If properly configured, the output should be:
+<pre xmlns="http://www.w3.org/1999/xhtml">lockout_failure_attempts=<sub xmlns="http://checklists.nist.gov/xccdf/1.1" idref="var_keystone_lockout_failure_attempts"/></pre></check-content>
+        </check>
+      </Rule>
+      <Rule id="keystone_max_request_body_size" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Identity-05: Is max_request_body_size set to default (114688)?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The parameter max_request_body_size defines the maximum body size per request in bytes. If the maximum size is not defined, the attacker could craft an arbitrary request of large size causing the service to crash and finally resulting in Denial Of Service attack. Assigning the maximum value ensures that any malicious oversized request gets blocked ensuring continued availability of the component.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter max_request_body_size in /etc/keystone/keystone.conf is set to default (114688) or some reasonable value based on your environment.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter max_request_body_size is not set.</description>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_max_request_body_size" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="keystone_use_ssl" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Identity-03: is SSL enabled for Identity?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack components communicate with each other using various protocols and the communication might involve sensitive or confidential data. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the components must communicate with each other using a secured communication protocol like HTTPS.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter enable under [ssl] section in /etc/keystone/keystone.conf is set to True.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter enable under [ssl] section is not set to True.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="keystone_use_ssl" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="neutron">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Neutron STIG Checklist</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">High level overview of Neutron STIG settings to go here!</description>
+      <Rule id="neutron_api_use_ssl" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Neutron-05: Is SSL enabled on Neutron API server?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended to enable secure communication on API server.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter use_ssl under [DEFAULT] section in /etc/neutron/neutron.conf is set to True.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter use_ssl under [DEFAULT] section in /etc/neutron/neutron.conf is set to False.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="neutron_api_use_ssl" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="neutron_file_ownership" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Neutron-01: Is user/group ownership of config files set to root/neutron?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuration files contain critical parameters and information required for smooth functioning of the component. If an unprivileged user, either intentionally or accidentally modifies or deletes any of the parameters or the file itself then it would cause severe availability issues causing a denial of service to the other end users. Thus user ownership of such critical configuration files must be set to root and group ownership must be set to neutron.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/neutron/neutron.conf | egrep "root neutron"
+$ stat -L -c "%U %G" /etc/neutron/api-paste.ini | egrep "root neutron"
+$ stat -L -c "%U %G" /etc/neutron/policy.json | egrep "root neutron"
+$ stat -L -c "%U %G" /etc/neutron/rootwrap.conf | egrep "root neutron"
+Pass: If user and group ownership of all these config files is set to root and neutron respectively. The above commands show output of root neutron.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Fail: If the above commands does not return any output as the user and group ownership might have set to any user other than root or any group other than neutron.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="neutron_file_ownership" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="neutron_file_perms" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Neutron-02: Are strict permissions set for Compute configuration files?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended to set strict access permissions for such configuration files.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%a" /etc/neutron/neutron.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/neutron/api-paste.ini
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/neutron/policy.json
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/neutron/rootwrap.conf
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If permissions are set to 640 or stricter. The permissions of 640 translates into owner r/w, group r, and no rights to others i.e. “u=rw,g=r,o=”. Note that with Check-Neutron-01: Is user/group ownership of config files set to root/neutron? and permissions set to 640, root has read/write access and neutron has read access to these configuration files. The access rights can also be validated using the following command. This command will only be available on your system if it supports ACLs.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ getfacl --tabular -a /etc/neutron/neutron.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+getfacl: Removing leading '/' from absolute path names
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+# file: etc/neutron/neutron.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+USER   root     rw-
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+GROUP  neutron  r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+mask            r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+other           ---
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If permissions are not set to at least 640.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="neutron_file_perms" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="neutron_use_https" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Neutron-04: Is secure protocol used for authentication?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack components communicate with each other using various protocols and the communication might involve sensitive / confidential data. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the components must communicate with each other using a secured communication protocol.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter auth_protocol under [keystone_authtoken] section in /etc/neutron/neutron.conf is set to https, or if value of parameter identity_uri under [keystone_authtoken] section in /etc/neutron/neutron.conf is set to Identity API endpoint starting with https://.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter auth_protocol under [keystone_authtoken] section in /etc/neutron/neutron.conf is set to http`, or if value of parameter identity_uri under [keystone_authtoken] section in /etc/neutron/neutron.conf is not set to Identity API endpoint starting with https://.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">13</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="neutron_use_https" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="neutron_use_keystone" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Neutron-03: Is keystone used for authentication?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack supports various authentication strategies like noauth, keystone etc. If the ‘noauth’ strategy is used then the users could interact with OpenStack services without any authentication. This could be a potential risk since an attacker might gain unauthorized access to the OpenStack components. Thus it is strongly recommended that all services must be authenticated with keystone using their service accounts.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter auth_strategy under [DEFAULT] section in /etc/neutron/neutron.conf is set to keystone.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If value of parameter auth_strategy under [DEFAULT] section is set to noauth or noauth2.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="neutron_use_keystone" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="nova">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Nova STIG Checklist</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">High level overview of Nova STIG settings to go here!</description>
+      <Rule id="nova_file_ownership" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Compute-01: Is user/group ownership of config files set to root/nova?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuration files contain critical parameters and information required for smooth functioning of the component. If an unprivileged user, either intentionally or accidentally modifies or deletes any of the parameters or the file itself then it would cause severe availability issues causing a denial of service to the other end users. Thus user ownership of such critical configuration files must be set to root and group ownership must be set to nova.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Run the following commands:
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%U %G" /etc/nova/nova.conf | egrep "root nova"
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/nova/api-paste.ini | egrep "root nova"
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/nova/policy.json | egrep "root nova"
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%U %G" /etc/nova/rootwrap.conf | egrep "root nova"
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If user and group ownership of all these config files is set to root and nova respectively. The above commands show output of root nova.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Fail: If the above commands does not return any output as the user and group ownership might have set to any user other than root or any group other than nova.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="nova_file_ownership" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="nova_file_perms" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Compute-02: Are strict permissions set for Compute configuration files?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Similar to the previous check, it is recommended to set strict access permissions for such configuration files.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Run the following commands:
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ stat -L -c "%a" /etc/nova/nova.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/nova/api-paste.ini
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/nova/policy.json
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+$ stat -L -c "%a" /etc/nova/rootwrap.conf
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Pass: If permissions are set to 640 or stricter. The permissions of 640 translates into owner r/w, group r, and no rights to others i.e. “u=rw,g=r,o=”. Note that with Check-Compute-01: Is user/group ownership of config files set to root/nova? and permissions set to 640, root has read/write access and nova has read access to these configuration files. The access rights can also be validated using the following command. This command will only be available on your system if it supports ACLs.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<xhtml:code>
+$ getfacl --tabular -a /etc/nova/nova.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+getfacl: Removing leading '/' from absolute path names
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+# file: etc/nova/nova.conf
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+USER   root  rw-
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+GROUP  nova  r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+mask         r--
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+other        ---
+</xhtml:code>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Fail: If permissions are not set to at least 640.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="nova_file_perms" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="nova_secure_authentication" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Compute-04: Is secure protocol used for authentication?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack components communicate with each other using various protocols and the communication might involve sensitive / confidential data. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the components must communicate with each other using a secured communication protocol.
+
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Pass: If value of parameter auth_protocol under [keystone_authtoken] section in /etc/nova/nova.conf is set to https, or if value of parameter identity_uri under [keystone_authtoken] section in /etc/nova/nova.conf is set to Identity API endpoint starting with https://.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Fail: If value of parameter auth_protocol under [keystone_authtoken] section in /etc/nova/nova.conf is set to http`, or if value of parameter identity_uri under [keystone_authtoken] section in /etc/nova/nova.conf is not set to Identity API endpoint starting with https://.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="nova_secure_authentication" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="nova_secure_glance" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Compute-05: Does Nova communicates with Glance securely?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack components communicate with each other using various protocols and the communication might involve sensitive / confidential data. An attacker may try to eavesdrop on the channel in order to get access to sensitive information. Thus all the components must communicate with each other using a secured communication protocol.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Pass: If value of parameter glance_api_insecure under [DEFAULT] section in /etc/nova/nova.conf is set to False, or if value of parameter api_insecure under [glance] section in /etc/nova/nova.conf is set to False.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Fail: If value of parameter glance_api_insecure under [DEFAULT] section in /etc/nova/nova.conf is set to True, or if value of parameter api_insecure under [glance] section in /etc/nova/nova.conf is set to True.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/></description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.13.8</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="nova_secure_glance" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="nova_use_keystone" selected="false" severity="unknown">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Check-Compute-03: Is keystone used for authentication?</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">OpenStack supports various authentication strategies like noauth, keystone etc. If the ‘noauth’ strategy is used then the users could interact with OpenStack services without any authentication. This could be a potential risk since an attacker might gain unauthorized access to the OpenStack components. Thus it is strongly recommended that all services must be authenticated with keystone using their service accounts.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Pass: If value of parameter auth_strategy under [DEFAULT] section in /etc/nova/nova.conf is set to keystone.
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+Fail: If value of parameter auth_strategy under [DEFAULT] section is set to noauth or noauth2.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171.pdf">3.1.5</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"/>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="nova_use_keystone" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+    </Group>
+  </Group>
+</Benchmark>

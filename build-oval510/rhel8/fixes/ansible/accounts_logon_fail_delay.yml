@@ -1,0 +1,39 @@
+# platform = Red Hat Virtualization 4,multi_platform_rhel,multi_platform_sle,multi_platform_ol
+# disruption = low
+# strategy = restrict
+# complexity = low
+# reboot = true
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-84037-1
+    - DISA-STIG-RHEL-08-020310
+    - NIST-800-53-AC-7(b)
+    - NIST-800-53-CM-6(a)
+    - accounts_logon_fail_delay
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - reboot_required
+    - restrict_strategy
+- (xccdf-var var_accounts_fail_delay)
+
+- name: Set accounts logon fail delay
+  lineinfile:
+    dest: /etc/login.defs
+    regexp: ^FAIL_DELAY
+    line: FAIL_DELAY {{ var_accounts_fail_delay }}
+    create: true
+  when: '"shadow-utils" in ansible_facts.packages'
+  tags:
+    - CCE-84037-1
+    - DISA-STIG-RHEL-08-020310
+    - NIST-800-53-AC-7(b)
+    - NIST-800-53-CM-6(a)
+    - accounts_logon_fail_delay
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - reboot_required
+    - restrict_strategy

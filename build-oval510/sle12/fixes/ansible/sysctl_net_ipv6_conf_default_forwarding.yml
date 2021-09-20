@@ -1,0 +1,25 @@
+# platform = multi_platform_all
+# reboot = true
+# strategy = disable
+# complexity = low
+# disruption = medium
+- (xccdf-var sysctl_net_ipv6_conf_default_forwarding_value)
+
+- name: Ensure sysctl net.ipv6.conf.default.forwarding is set
+  sysctl:
+    name: net.ipv6.conf.default.forwarding
+    value: '{{ sysctl_net_ipv6_conf_default_forwarding_value }}'
+    state: present
+    reload: true
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83248-5
+    - DISA-STIG-SLES-12-030363
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - disable_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - reboot_required
+    - sysctl_net_ipv6_conf_default_forwarding

@@ -1,0 +1,17 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure abrt-addon-kerneloops is removed
+  package:
+    name: abrt-addon-kerneloops
+    state: absent
+  tags:
+    - CCE-82927-5
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - low_severity
+    - no_reboot_needed
+    - package_abrt-addon-kerneloops_removed

@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-install_extensions/rule.yml
+description: 'Firefox provides the ability to disable the installation of extensions.
+
+  This can be disabled by setting <tt>xpinstall.enabled</tt> to
+
+  <tt>false</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that the installation of extensions is disabled,
+
+  run the following command:
+
+  <pre>$ grep ''xpinstall.enabled'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("xpinstall.enabled", false);</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "If a browser is configured to allow unrestricted use of extensions then\
+  \ \nplug-ins can be loaded and installed from malicious sources and used on \nthe\
+  \ browser."
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF186
+requires: []
+severity: medium
+template: null
+title: Disable Extension Installation
+warnings: []

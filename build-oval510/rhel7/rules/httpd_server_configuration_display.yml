@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_minimize_loadable_modules/httpd_core_modules/httpd_server_configuration_display/rule.yml
+description: 'The <tt>info</tt> module creates a web page illustrating the configuration
+  of the web server. This
+
+  can create an unnecessary security leak and should be disabled.
+
+  If its functionality is unnecessary, comment out the module:
+
+  <pre>#LoadModule info_module modules/mod_info.so</pre>
+
+  If there is a critical need for this module, use the <tt>Location</tt> directive
+  to provide
+
+  an access control list to restrict access to the information.'
+identifiers:
+  cce: CCE-80311-4
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: 'Minimizing the number of loadable modules available to the web server
+  reduces risk
+
+  by limiting the capabilities allowed by the web server.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Disable Web Server Configuration Display
+warnings: []

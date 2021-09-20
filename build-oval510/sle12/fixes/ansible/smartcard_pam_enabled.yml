@@ -1,0 +1,125 @@
+# platform = multi_platform_sle
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Gather list of packages
+  package_facts:
+    manager: auto
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83208-9
+    - DISA-STIG-SLES-12-030520
+    - NIST-800-53-IA-2(1)
+    - NIST-800-53-IA-2(1).1
+    - NIST-800-53-IA-2(11)
+    - NIST-800-53-IA-2(12)
+    - NIST-800-53-IA-2(2)
+    - NIST-800-53-IA-2(2).1
+    - NIST-800-53-IA-2(3)
+    - NIST-800-53-IA-2(3).1
+    - NIST-800-53-IA-2(4)
+    - NIST-800-53-IA-2(4).1
+    - NIST-800-53-IA-5(2)
+    - NIST-800-53-IA-5(2)(c)
+    - NIST-800-53-IA-5(2).1
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - smartcard_pam_enabled
+
+- name: Check to see if 'pam_pkcs11' module is configured in '/etc/pam.d/common-auth'
+  shell: grep -E '^\s*auth\s+\S+\s+pam_pkcs11\.so' /etc/pam.d/common-auth || true
+  register: check_pam_pkcs11_module_result
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '"pam_pkcs11" in ansible_facts.packages'
+  tags:
+    - CCE-83208-9
+    - DISA-STIG-SLES-12-030520
+    - NIST-800-53-IA-2(1)
+    - NIST-800-53-IA-2(1).1
+    - NIST-800-53-IA-2(11)
+    - NIST-800-53-IA-2(12)
+    - NIST-800-53-IA-2(2)
+    - NIST-800-53-IA-2(2).1
+    - NIST-800-53-IA-2(3)
+    - NIST-800-53-IA-2(3).1
+    - NIST-800-53-IA-2(4)
+    - NIST-800-53-IA-2(4).1
+    - NIST-800-53-IA-5(2)
+    - NIST-800-53-IA-5(2)(c)
+    - NIST-800-53-IA-5(2).1
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - smartcard_pam_enabled
+
+- name: Configure 'pam_pkcs11' module in '/etc/pam.d/common-auth'
+  lineinfile:
+    path: /etc/pam.d/common-auth
+    line: auth sufficient pam_pkcs11.so
+    insertafter: ^\s*#
+    state: present
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '"pam_pkcs11" in ansible_facts.packages'
+    - '"pam_pkcs11.so" not in check_pam_pkcs11_module_result.stdout'
+  tags:
+    - CCE-83208-9
+    - DISA-STIG-SLES-12-030520
+    - NIST-800-53-IA-2(1)
+    - NIST-800-53-IA-2(1).1
+    - NIST-800-53-IA-2(11)
+    - NIST-800-53-IA-2(12)
+    - NIST-800-53-IA-2(2)
+    - NIST-800-53-IA-2(2).1
+    - NIST-800-53-IA-2(3)
+    - NIST-800-53-IA-2(3).1
+    - NIST-800-53-IA-2(4)
+    - NIST-800-53-IA-2(4).1
+    - NIST-800-53-IA-5(2)
+    - NIST-800-53-IA-5(2)(c)
+    - NIST-800-53-IA-5(2).1
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - smartcard_pam_enabled
+
+- name: Ensure 'pam_pkcs11' module has 'sufficient' control flag
+  lineinfile:
+    path: /etc/pam.d/common-auth
+    regexp: ^(\s*auth\s+)\S+(\s+pam_pkcs11\.so.*)
+    line: \g<1>sufficient\g<2>
+    backrefs: true
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '"pam_pkcs11" in ansible_facts.packages'
+  tags:
+    - CCE-83208-9
+    - DISA-STIG-SLES-12-030520
+    - NIST-800-53-IA-2(1)
+    - NIST-800-53-IA-2(1).1
+    - NIST-800-53-IA-2(11)
+    - NIST-800-53-IA-2(12)
+    - NIST-800-53-IA-2(2)
+    - NIST-800-53-IA-2(2).1
+    - NIST-800-53-IA-2(3)
+    - NIST-800-53-IA-2(3).1
+    - NIST-800-53-IA-2(4)
+    - NIST-800-53-IA-2(4).1
+    - NIST-800-53-IA-5(2)
+    - NIST-800-53-IA-5(2)(c)
+    - NIST-800-53-IA-5(2).1
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - smartcard_pam_enabled

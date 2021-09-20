@@ -1,0 +1,23 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_directory_restrictions/httpd_restrict_root_directory/rule.yml
+description: "The <tt>httpd</tt> root directory should always have the most restrictive\
+  \ configuration enabled.\n<pre>&lt;Directory / &gt;\n   Options None\n   AllowOverride\
+  \ None\n   Order allow,deny\n&lt;/Directory&gt;</pre>"
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: 'The Web Server''s root directory content should be protected from unauthorized
+  access
+
+  by web clients.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Restrict Root Directory
+warnings: []

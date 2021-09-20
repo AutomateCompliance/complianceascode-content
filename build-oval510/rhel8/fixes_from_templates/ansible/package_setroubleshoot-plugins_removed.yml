@@ -1,0 +1,9 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure setroubleshoot-plugins is removed
+  package:
+    name: "setroubleshoot-plugins"
+    state: absent

@@ -1,0 +1,1 @@
+<fix-content system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix-group id="kubernetes" system="urn:xccdf:fix:script:kubernetes" xmlns="http://checklists.nist.gov/xccdf/1.1" /></fix-content>

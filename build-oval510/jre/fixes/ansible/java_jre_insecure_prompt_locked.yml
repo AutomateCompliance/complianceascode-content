@@ -1,0 +1,36 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Insecure Prompt of Mobile Code Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.insecure.jres.locked
+    line: deployment.insecure.jres.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

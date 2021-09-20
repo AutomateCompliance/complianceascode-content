@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/package_policycoreutils-python-utils_installed/rule.yml
+description: 'The <code>policycoreutils-python-utils</code> package can be installed
+  with the following command:
+
+  <pre>
+
+  $ sudo dnf install policycoreutils-python-utils</pre>'
+identifiers:
+  cce: CCE-84070-2
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>policycoreutils-python-utils</code>
+  package is installed:
+
+  <pre>$ rpm -q policycoreutils-python-utils</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhel8,rhel9
+rationale: 'This package is required to operate and manage an SELinux environment
+  and its policies.
+
+  It provides utilities such as semanage, audit2allow, audit2why, chcat and sandbox.'
+references:
+  srg: SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: policycoreutils-python-utils
+title: Install policycoreutils-python-utils package
+warnings: []

@@ -1,0 +1,55 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/restrictions/poisoning/coreos_slub_debug_kernel_argument/rule.yml
+description: 'To enable poisoning of SLUB/SLAB objects, add the argument <tt>slub_debug=P</tt>
+  to all
+
+  BLS (Boot Loader Specification) entries (''options'' line) for the Linux
+
+  operating system in <tt>/boot/loader/entries/*.conf</tt>.'
+identifiers:
+  cce: CCE-82672-7
+inherited_platforms:
+- machine
+ocil: 'Inspect the form of all the BLS (Boot Loader Specification) entries
+
+  (''options'' line) in <tt>/boot/loader/entries/*.conf</tt>. If they include
+
+  <tt>slub_debug=P</tt>, then SLUB/SLAB poisoning is enabled at boot time.
+
+  <br /><br />
+
+  To ensure <tt>vsyscall=none</tt> is configured on the installed kernel, add
+
+  the kernel argument via a <pre>MachineConfig</pre> object to the appropriate
+
+  pools.'
+ocil_clause: SLUB/SLAB poisoning is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhcos4
+rationale: 'Poisoning writes an arbitrary value to freed objects, so any modification
+  or
+
+  reference to that object after being freed or before being initialized will be
+
+  detected and prevented.
+
+  This prevents many types of use-after-free vulnerabilities at little performance
+  cost.
+
+  Also prevents leak of data and detection of corrupted memory.'
+references:
+  nist: CM-6(a)
+  srg: SRG-OS-000433-GPOS-00192
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: coreos_kernel_option
+  vars:
+    arg_name: slub_debug
+    arg_value: P
+title: Enable SLUB/SLAB allocator poisoning
+warnings: []

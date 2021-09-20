@@ -1,0 +1,49 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/restrictions/sysctl_kernel_sysrq/rule.yml
+description: 'To set the runtime status of the <code>kernel.sysrq</code> kernel parameter,
+  run the following command: <pre>$ sudo sysctl -w kernel.sysrq=0</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>kernel.sysrq = 0</pre>'
+identifiers:
+  cce: CCE-83355-8
+inherited_platforms: []
+ocil: "The runtime status of the <code>kernel.sysrq</code> kernel parameter can be\
+  \ queried\nby running the following command:\n<pre>$ sysctl kernel.sysrq</pre>\n\
+  The output of the command should indicate a value of <code>0</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*kernel.sysrq\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>kernel.sysrq\
+  \ = 0</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>kernel.sysrq = 0</code>, and that one assignment\nis returned when\
+  \ \n<pre>$ grep -r kernel.sysrq /etc/sysctl.conf /etc/sysctl.d</pre>\nis executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: 'The Magic SysRq key allows sending certain commands directly to the running
+
+  kernel. It can dump various system and process information, potentially
+
+  revealing sensitive information. It can also reboot or shutdown the machine,
+
+  disturbing its availability.'
+references:
+  anssi: BP28(R23)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlval: '0'
+    sysctlvar: kernel.sysrq
+title: Disallow magic SysRq key
+warnings: []

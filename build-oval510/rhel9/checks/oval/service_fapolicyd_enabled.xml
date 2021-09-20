@@ -1,0 +1,114 @@
+<def-group>
+
+  <definition class="compliance" id="service_fapolicyd_enabled"
+  version="1">
+    <metadata>
+        <title>Enable the File Access Policy Service</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 9</platform>
+    </affected>
+        <description>The fapolicyd service should be enabled if possible.</description>
+    </metadata>
+    <criteria comment="package fapolicyd installed and service fapolicyd is configured to start" operator="AND">
+    <criterion comment="fapolicyd installed" test_ref="test_service_fapolicyd_package_fapolicyd_installed" />
+    <criteria operator="OR" comment="service fapolicyd is configured to start">
+      <criterion comment="fapolicyd runlevel 0" test_ref="test_runlevel0_fapolicyd_on" />
+      <criterion comment="fapolicyd runlevel 1" test_ref="test_runlevel1_fapolicyd_on" />
+      <criterion comment="fapolicyd runlevel 2" test_ref="test_runlevel2_fapolicyd_on" />
+      <criterion comment="fapolicyd runlevel 3" test_ref="test_runlevel3_fapolicyd_on" />
+      <criterion comment="fapolicyd runlevel 4" test_ref="test_runlevel4_fapolicyd_on" />
+      <criterion comment="fapolicyd runlevel 5" test_ref="test_runlevel5_fapolicyd_on" />
+      <criterion comment="fapolicyd runlevel 6" test_ref="test_runlevel6_fapolicyd_on" />
+    </criteria>
+    </criteria>
+  </definition>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel0_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel0_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel1_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel1_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel2_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel2_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel3_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel3_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel4_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel4_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel5_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel5_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_test check="all" check_existence="any_exist"
+  comment="Runlevel test" id="test_runlevel6_fapolicyd_on"
+  version="2">
+    <unix:object object_ref="obj_runlevel6_fapolicyd_on" />
+    <unix:state state_ref="state_service_fapolicyd_on" />
+  </unix:runlevel_test>
+  <unix:runlevel_object id="obj_runlevel0_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">0</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel1_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">1</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel2_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">2</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel3_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">3</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel4_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">4</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel5_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">5</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_object id="obj_runlevel6_fapolicyd_on" version="1">
+    <unix:service_name>fapolicyd</unix:service_name>
+    <unix:runlevel operation="equals">6</unix:runlevel>
+  </unix:runlevel_object>
+  <unix:runlevel_state comment="configured to start" id="state_service_fapolicyd_on" version="1">
+    <unix:start datatype="boolean">true</unix:start>
+    <unix:kill datatype="boolean">false</unix:kill>
+  </unix:runlevel_state>
+
+
+
+  <linux:rpminfo_test check="all" check_existence="all_exist"
+  id="test_service_fapolicyd_package_fapolicyd_installed" version="1"
+  comment="package fapolicyd is installed">
+    <linux:object object_ref="obj_test_service_fapolicyd_package_fapolicyd_installed" />
+    
+  </linux:rpminfo_test>
+  <linux:rpminfo_object id="obj_test_service_fapolicyd_package_fapolicyd_installed" version="1">
+    <linux:name>fapolicyd</linux:name>
+  </linux:rpminfo_object>
+  
+
+</def-group>

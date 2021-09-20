@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ssh/ssh_server/sshd_disable_tcp_forwarding/rule.yml
+description: 'The <tt>AllowTcpForwarding</tt> parameter specifies whether TCP forwarding
+  is permitted.
+
+  To disable TCP forwarding, add or correct the
+
+  following line in <tt>/etc/ssh/sshd_config</tt>:
+
+  <pre>AllowTcpForwarding no</pre>'
+identifiers:
+  cce: CCE-90806-1
+inherited_platforms:
+- machine
+ocil: 'To determine how the SSH daemon''s <tt>AllowTcpForwarding</tt> option is set,
+  run the following command:
+
+  <pre>$ sudo grep -i AllowTcpForwarding /etc/ssh/sshd_config</pre>
+
+  If no line, a commented line, or a line indicating the value <tt>no</tt> is returned,
+  then the required value is set.'
+ocil_clause: The AllowTcpForwarding option exists and is disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: Leaving port forwarding enabled can expose the organization to security
+  risks and back-doors.
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sshd_lineinfile
+  vars:
+    missing_parameter_pass: 'false'
+    parameter: AllowTcpForwarding
+    rule_id: sshd_disable_tcp_forwarding
+    value: 'no'
+title: Disable SSH TCP Forwarding
+warnings: []

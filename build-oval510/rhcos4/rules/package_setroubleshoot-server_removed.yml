@@ -1,0 +1,40 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/package_setroubleshoot-server_removed/rule.yml
+description: 'The SETroubleshoot service notifies desktop users of SELinux
+
+  denials. The service provides information around configuration errors,
+
+  unauthorized intrusions, and other potential errors.
+
+  The <code>setroubleshoot-server</code> package can be removed with the following
+  command:
+
+  <pre></pre>'
+identifiers:
+  cce: CCE-84093-4
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>setroubleshoot-server</code>
+  package is installed:
+
+  <pre>$ rpm -q setroubleshoot-server</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9
+rationale: 'The SETroubleshoot service is an unnecessary daemon to have
+
+  running on a server.'
+references:
+  anssi: BP28(R68)
+requires: []
+severity: low
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: setroubleshoot-server
+title: Uninstall setroubleshoot-server Package
+warnings: []

@@ -1,0 +1,44 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/obsolete/inetd_and_xinetd/file_owner_etc_hosts_allow/rule.yml
+description: '
+
+  To properly set the owner of <code>/etc/hosts.allow</code>, run the command:
+
+  <pre>$ sudo chown root /etc/hosts.allow </pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To check the ownership of <code>/etc/hosts.allow</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /etc/hosts.allow</pre>
+
+  If properly configured, the output should indicate the following owner:
+
+  <code>root</code>'
+ocil_clause: /etc/hosts.allow has owner root
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,rhel7
+rationale: 'The <tt>/etc/hosts.allow</tt> file is used to control access of clients
+  to daemons in the
+
+  server. Insecure groupownership of this file could allow users to grant clients
+  unrestricted
+
+  access or no access at all to services in the server.'
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_owner
+  vars:
+    filepath: /etc/hosts.allow
+    fileuid: '0'
+    missing_file_pass: 'true'
+title: Verify Ownership of /etc/hosts.allow
+warnings: []

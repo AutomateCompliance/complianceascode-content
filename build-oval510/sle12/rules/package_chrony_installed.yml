@@ -1,0 +1,48 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/package_chrony_installed/rule.yml
+description: 'System time should be synchronized between all systems in an environment.
+  This is
+
+  typically done by establishing an authoritative time server or set of servers and
+  having all
+
+  systems synchronize their clocks to them.
+
+  The <code>chrony</code> package can be installed with the following command:
+
+  <pre>
+
+  $ sudo zypper install chrony</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>chrony</code> package is
+  installed:
+
+  <pre>$ rpm -q chrony</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: 'Time synchronization is important to support time sensitive security mechanisms
+  like
+
+  Kerberos and also ensures log files have consistent time records across the enterprise,
+
+  which aids in forensic investigations.'
+references:
+  anssi: BP28(R43)
+  ism: 0988,1405
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000355-GPOS-00143
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: chrony
+title: The Chrony package is installed
+warnings: []

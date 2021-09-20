@@ -1,0 +1,58 @@
+<fix-content system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix-group id="ansible" system="urn:xccdf:fix:script:ansible" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix rule="cinder_conf_file_perms" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Find /etc/cinder/ file(s)
+  find:
+    paths: /etc/cinder/
+    patterns: ^.*.conf$
+    use_regex: true
+  register: files_found
+  tags:
+    - NIST-800-171-3.1.5
+    - cinder_conf_file_perms
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Set permissions for /etc/cinder/ file(s)
+  file:
+    path: '{{ item.path }}'
+    mode: '0640'
+  with_items:
+    - '{{ files_found.files }}'
+  tags:
+    - NIST-800-171-3.1.5
+    - cinder_conf_file_perms
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix><fix rule="container_horizon_csrf_cookie_secure" complexity="low" disruption="low" reboot="false" strategy="restrict">- name: Enable CSRF_COOKIE_SECURE
+  command: openstack-config --set /var/lib/config-data/puppet-generated/horizon/etc/openstack-dashboard/local_settings
+    DEFAULT CSRF_COOKIE_SECURE True
+  changed_when: false
+  tags:
+    - CCE-82166-0
+    - NIST-800-53-SC-5
+    - container_horizon_csrf_cookie_secure
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - restrict_strategy
+</fix><fix rule="horizon_csrf_cookie_secure" complexity="low" disruption="low" reboot="false" strategy="restrict">- name: Enable CSRF_COOKIE_SECURE
+  command: openstack-config --set /etc/openstack-dashboard/local_settings DEFAULT
+    CSRF_COOKIE_SECURE True
+  changed_when: false
+  tags:
+    - CCE-82165-2
+    - NIST-800-171-3.1.1
+    - NIST-800-171-3.1.2
+    - NIST-800-53-SC-5
+    - high_severity
+    - horizon_csrf_cookie_secure
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - restrict_strategy
+</fix></fix-group></fix-content>

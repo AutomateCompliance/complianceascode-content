@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_tmpreaper_use_nfs/rule.yml
+description: 'By default, the SELinux boolean <tt>tmpreaper_use_nfs</tt> is disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>tmpreaper_use_nfs</code> SELinux boolean, run the following
+  command:
+
+  <pre>$ sudo setsebool -P tmpreaper_use_nfs off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>tmpreaper_use_nfs</code> SELinux
+  boolean is disabled:
+
+  <pre>$ getsebool tmpreaper_use_nfs</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>tmpreaper_use_nfs --> off</code>'
+ocil_clause: tmpreaper_use_nfs is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: tmpreaper_use_nfs
+title: Disable the tmpreaper_use_nfs SELinux Boolean
+warnings: []
