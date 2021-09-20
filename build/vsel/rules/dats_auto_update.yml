@@ -1,0 +1,51 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/dats_auto_update/rule.yml
+description: "Anti-virus signature files are updated almost daily by anti-virus software\
+  \ vendors. These files are made available to anti-virus \nclients as they are published.\
+  \ Keeping virus signature files as current as possible is vital to the security\
+  \ of any system.\n\nTo check that anti-virus signature files are updated, you have\
+  \ to login to the VSEL Web Monitor.\nIn the VSEL WEB Monitor, under <tt>View</tt>,\
+  \ select <tt>Scheduled Tasks</tt>.\nUnder <tt>Scheduled Tasks</tt>, under <tt>Task\
+  \ Summaries</tt>, with the assistance of the McAfee VSEL SA, identify the VirusScan\
+  \ DAT update task.\nVerify the <tt>Type</tt> is <tt>Update</tt> and the <tt>Status</tt>\
+  \ is <tt>Completed</tt> with Results of <tt>Update Finished</tt>.\nUnder <tt>Task\
+  \ Details</tt> for the task, click on the <tt>Modify</tt> button.\nChoose <tt>2.\
+  \ Choose what to update</tt> and verify the <tt>Virus definition files (also known\
+  \ as DAT files)</tt> is selected.    "
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that anti-virus signature files are updated, login to VSEL Web Monitor
+  and verify the following:
+
+  Under <tt>View</tt>, select <tt>Scheduled Tasks</tt>.
+
+  Under <tt>Scheduled Tasks</tt>, under <tt>Task Summaries</tt>, with the assistance
+  of the McAfee VSEL SA, identify the VirusScan DAT update task.
+
+  Verify the <tt>Type</tt> is <tt>Update</tt> and the <tt>Status</tt> is <tt>Completed</tt>
+  with Results of <tt>Update Finished</tt>.
+
+  Under <tt>Task Details</tt> for the task, click on the <tt>Modify</tt> button.
+
+  Choose <tt>2. Choose what to update</tt> and verify the <tt>Virus definition files
+  (also known as DAT files)</tt> is selected.'
+ocil_clause: the VirusScan DAT update task doesn't exist or <tt>2. Choose what to
+  update</tt> does not have <tt>Virus definition files (also known as DAT files)</tt>
+  selected
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: The anti-virus software product must be configured to receive those updates
+  automatically in order to afford the expected protection.
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-002
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to
+  receive automatic updates
+warnings: []

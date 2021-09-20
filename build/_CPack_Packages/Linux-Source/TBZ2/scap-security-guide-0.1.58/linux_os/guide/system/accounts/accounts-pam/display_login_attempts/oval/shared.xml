@@ -1,0 +1,34 @@
+{{% if product in ["sle12", "sle15"] or 'ubuntu' in product %}}
+{{% set pam_lastlog_path = "/etc/pam.d/login" %}}
+{{% else %}}
+{{% set pam_lastlog_path = "/etc/pam.d/postlogin" %}}
+{{% endif %}}
+<def-group>
+  <definition class="compliance" id="display_login_attempts" version="1">
+    {{{ oval_metadata("Configure the system to notify users of last login/access using pam_lastlog.") }}}
+    <criteria operator="AND">
+      <criterion comment="Conditions for pam_lastlog are satisfied" test_ref="test_display_login_attempts" />
+      <criterion comment="silent option for pam_lastlog is not set" test_ref="test_display_login_attempts_silent" />
+    </criteria>
+  </definition>
+
+  <ind:textfilecontent54_test check="all" comment="Check the pam_lastlog configuration" id="test_display_login_attempts" version="1">
+    <ind:object object_ref="obj_display_login_attempts" />
+  </ind:textfilecontent54_test>
+
+  <ind:textfilecontent54_object id="obj_display_login_attempts" version="1">
+    <ind:filepath>{{{ pam_lastlog_path }}}</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*session\s+required\s+pam_lastlog.so[\s\w\d\=]+showfailed(\s|$)</ind:pattern>
+    <ind:instance datatype="int" operation="equals">1</ind:instance>
+  </ind:textfilecontent54_object>
+
+  <!-- DISA STIG forbids the 'silent' option for SLE12/SLE15, OL7, RHEL7/RHEL8 -->
+  <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Forbid 'silent' option for pam_lastlog" id="test_display_login_attempts_silent" version="1">
+    <ind:object object_ref="obj_display_login_attempts_silent" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="obj_display_login_attempts_silent" version="1">
+    <ind:filepath>{{{ pam_lastlog_path }}}</ind:filepath>
+    <ind:pattern operation="pattern match">^\s*session\s+required\s+pam_lastlog.so[\s\w\d\=]+silent(\s|$)</ind:pattern>
+    <ind:instance datatype="int" operation="equals">1</ind:instance>
+  </ind:textfilecontent54_object>
+</def-group>

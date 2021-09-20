@@ -1,0 +1,9 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure xserver-xorg is removed
+  package:
+    name: "xserver-xorg"
+    state: absent

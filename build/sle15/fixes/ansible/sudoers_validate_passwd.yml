@@ -1,0 +1,58 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Ensure that Defaults !targetpw is defined in sudoers
+  lineinfile:
+    path: /etc/sudoers
+    create: true
+    line: Defaults !targetpw
+    state: present
+  tags:
+    - CCE-85747-4
+    - DISA-STIG-SLES-15-020103
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - sudoers_validate_passwd
+
+- name: Ensure that Defaults !rootpw is defined in sudoers
+  lineinfile:
+    path: /etc/sudoers
+    create: true
+    line: Defaults !rootpw
+    state: present
+  tags:
+    - CCE-85747-4
+    - DISA-STIG-SLES-15-020103
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - sudoers_validate_passwd
+
+- name: Ensure that Defaults !runaspw is defined in sudoers
+  lineinfile:
+    path: /etc/sudoers
+    create: true
+    line: Defaults !runaspw
+    state: present
+  tags:
+    - CCE-85747-4
+    - DISA-STIG-SLES-15-020103
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+    - sudoers_validate_passwd

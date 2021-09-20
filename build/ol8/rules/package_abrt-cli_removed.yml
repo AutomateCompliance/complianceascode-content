@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/system-tools/package_abrt-cli_removed/rule.yml
+description: 'The <code>abrt-cli</code> package can be removed with the following
+  command:
+
+  <pre>
+
+  $ sudo yum erase abrt-cli</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>abrt-cli</code> package
+  is installed:
+
+  <pre>$ rpm -q abrt-cli</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: '<tt>abrt-cli</tt> contains a command line client for controlling abrt
+  daemon
+
+  over sockets.'
+references:
+  disa: CCI-000381
+  srg: SRG-OS-000095-GPOS-00049
+requires: []
+severity: low
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: abrt-cli
+title: Uninstall abrt-cli Package
+warnings: []

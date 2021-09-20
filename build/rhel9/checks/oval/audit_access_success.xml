@@ -1,0 +1,38 @@
+<def-group>
+    <definition class="compliance" id="audit_access_success" version="1">
+      <metadata>
+        <title>Configure auditing of successful file accesses</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 9</platform>
+    </affected>
+        <description>Inspect the contents of /etc/audit/rules.d/30-ospp-v42-3-access-success.rules</description>
+    </metadata>
+      <criteria>
+          <criterion comment="Check contents of file" test_ref="test_whole_file_contents_tc_audit_rules_d_30_ospp_v42_3_access_success_rules" />
+      </criteria>
+    </definition>
+
+    <ind:textfilecontent54_test check="all" check_existence="all_exist"
+    comment="Tests if contents of /etc/audit/rules.d/30-ospp-v42-3-access-success.rules is exactly what is defined in rule description"
+    id="test_whole_file_contents_tc_audit_rules_d_30_ospp_v42_3_access_success_rules" version="1">
+      <ind:object object_ref="object_whole_file_contents_tc_audit_rules_d_30_ospp_v42_3_access_success_rules" />
+      <ind:state state_ref="state_whole_file_contents_tc_audit_rules_d_30_ospp_v42_3_access_success_rules" />
+    </ind:textfilecontent54_test>
+
+    <ind:textfilecontent54_object id="object_whole_file_contents_tc_audit_rules_d_30_ospp_v42_3_access_success_rules" version="1">
+      <ind:behaviors singleline="true" multiline="false" />
+      <ind:filepath>/etc/audit/rules.d/30-ospp-v42-3-access-success.rules</ind:filepath>
+      <ind:pattern operation="pattern match">^.*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+
+    <ind:textfilecontent54_state id="state_whole_file_contents_tc_audit_rules_d_30_ospp_v42_3_access_success_rules" version="1">
+      <ind:text operation="equals">## Successful file access (any other opens) This has to go last.
+## These next two are likely to result in a whole lot of events
+-a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F success=1 -F auid&gt;=1000 -F auid!=unset -F key=successful-access
+-a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F success=1 -F auid&gt;=1000 -F auid!=unset -F key=successful-access
+</ind:text>
+    </ind:textfilecontent54_state>
+
+  </def-group>

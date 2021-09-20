@@ -1,0 +1,50 @@
+# platform = multi_platform_sle
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Service facts
+  service_facts: null
+  tags:
+    - CCE-83059-6
+    - DISA-STIG-SLES-12-030010
+    - ftp_present_banner
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Configure banner_file setting
+  lineinfile:
+    dest: /etc/vsftpd.conf
+    line: banner_file=/etc/issue
+    regexp: ^\s*banner_file\s*=\s*.*$
+    state: present
+  register: banner_file_update_result
+  when: ansible_facts.services["vsftpd.service"] is defined
+  tags:
+    - CCE-83059-6
+    - DISA-STIG-SLES-12-030010
+    - ftp_present_banner
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Restart vsftpd
+  systemd:
+    name: vsftpd.service
+    state: restarted
+  when: banner_file_update_result.changed and ansible_facts.services["vsftpd.service"].state
+    == "running"
+  tags:
+    - CCE-83059-6
+    - DISA-STIG-SLES-12-030010
+    - ftp_present_banner
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

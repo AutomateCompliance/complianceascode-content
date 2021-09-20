@@ -1,0 +1,32 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-addons_plugin_updates/rule.yml
+description: "Firefox automatically updates installed add-ons and plugins which \n\
+  can be disabled by setting <tt>extensions.update.enabled</tt> to\n<tt>false</tt>."
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that add-ons and plugins cannot automatically update,
+
+  run the following command:
+
+  <pre>$ grep ''extensions.update.enabled'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("extensions.update.enabled", false);</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Automatic updates from untrusted sites puts the enclave at
+
+  risk of attack and may override security settings.'
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF090
+requires: []
+severity: medium
+template: null
+title: Disable Addons Plugin Updates
+warnings: []

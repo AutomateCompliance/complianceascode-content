@@ -1,0 +1,26 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_sle
+# reboot = false
+# strategy = unknown
+# complexity = low
+# disruption = medium
+- (xccdf-var login_banner_text)
+
+- name: Modify the System Login Banner - ensure correct banner
+  copy:
+    dest: /etc/issue
+    content: '{{ login_banner_text | regex_replace("^\^(.*)\$$", "\1") | regex_replace("^\((.*)\|.*\)$",
+      "\1") | regex_replace("\[\\s\\n\]\+"," ") | regex_replace("\(\?:\[\\n\]\+\|\(\?:\\\\n\)\+\)",
+      "\n") | regex_replace("\\", "") | wordwrap() }}'
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-80763-6
+    - DISA-STIG-RHEL-08-010060
+    - NIST-800-171-3.1.9
+    - NIST-800-53-AC-8(a)
+    - NIST-800-53-AC-8(c)
+    - banner_etc_issue
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy

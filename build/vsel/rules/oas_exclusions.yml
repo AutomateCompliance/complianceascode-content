@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_exclusions/rule.yml
+description: 'When scanning for malware, excluding specific files will increase the
+  risk of a malware-infected file going undetected.
+
+
+  To check that VSEL settings are configured correctly, you have to examine the config
+  file
+
+  available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+
+  If this config file contains the line <tt>nailsd.profile.OAS.filter.varlog.type:
+  exclude-path</tt>, and the line <tt>nailsd.profile.OAS.filter.varlog.path: /var/log</tt>
+
+  no unapproved exclusions are defined.'
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that all file types will be scanned, \ncheck the respective VSEL\
+  \ config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains the <pre>nailsd.profile.OAS.filter.varlog.type:\
+  \ exclude-path</pre> and <tt>nailsd.profile.OAS.filter.varlog.path: /var/log</tt>\
+  \ lines:\n<pre>grep 'nailsd.profile.OAS.filter.varlog.type: exclude-path' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\n\
+  <pre>grep 'nailsd.profile.OAS.filter.varlog.path' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the lines <pre>nailsd.profile.OAS.filter.varlog.type:
+  exclude-path</pre> and <tt>nailsd.profile.OAS.filter.varlog.path: /var/log</tt>'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'By configuring anti-virus software without any exclusions, the scanner
+  has a higher success rate at detecting and eradicating malware. '
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-012
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  only be configured with exclusions that are documented and approved by the ISSO/ISSM/AO
+warnings: []

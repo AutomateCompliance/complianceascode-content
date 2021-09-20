@@ -1,0 +1,29 @@
+documentation_complete: true
+
+prodtype: rhel7,rhel8,rhel9,sle12,sle15,ubuntu2004
+
+title: 'Uninstall Samba Package'
+
+description: '{{{ describe_package_remove(package="samba") }}}'
+
+rationale: |-
+    If there is no need to make the Samba software available,
+    removing it provides a safeguard against its activation.
+
+severity: unknown
+
+identifiers:
+    cce@rhel7: CCE-80278-5
+
+references:
+    cis@rhel7: 2.2.11
+    cis@sle12: 2.2.11
+    cis@sle15: 2.2.13
+    cis@ubuntu2004: 2.2.12
+
+{{{ complete_ocil_entry_package(package="samba") }}}
+
+template:
+    name: package_removed
+    vars:
+        pkgname: samba

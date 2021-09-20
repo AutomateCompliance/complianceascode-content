@@ -1,0 +1,35 @@
+# platform = multi_platform_fedora,Red Hat Enterprise Linux 7,Red Hat Enterprise Linux 8
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Create /var/tmp/tmp-inst directory
+  file:
+    path: /var/tmp/tmp-inst
+    state: directory
+    mode: '000'
+    seuser: system_u
+    serole: object_r
+    setype: tmp_t
+  tags:
+    - accounts_polyinstantiated_var_tmp
+    - low_complexity
+    - low_disruption
+    - low_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Make changes to /etc/security/namespace.conf
+  lineinfile:
+    path: /etc/security/namespace.conf
+    create: false
+    regexp: ^\s*/var/tmp\s+/var/tmp/tmp-inst/\s+level\s+root,adm$
+    line: /var/tmp /var/tmp/tmp-inst/    level      root,adm
+    state: present
+  tags:
+    - accounts_polyinstantiated_var_tmp
+    - low_complexity
+    - low_disruption
+    - low_severity
+    - no_reboot_needed
+    - restrict_strategy

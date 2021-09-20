@@ -1,0 +1,51 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/usbguard/usbguard_allow_hid_and_hub/rule.yml
+description: 'To allow authorization of USB devices combining human interface device
+  and hub capabilities
+
+  by USBGuard daemon,
+
+  add the line
+
+  <tt>allow with-interface match-all { 03:*:* 09:00:* }</tt>
+
+  to <tt>/etc/usbguard/rules.conf</tt>.'
+identifiers: {}
+inherited_platforms:
+- not_s390x_arch
+ocil: 'To verify that USB Human Interface Devices and hubs will be authorized by the
+  USBGuard daemon,
+
+  run the following command:
+
+  <pre>$ sudo grep allow /etc/usbguard/rules.conf</pre>
+
+  The output lines should include
+
+  <pre>allow with-interface match-all { 03:*:* 09:00:* }</pre>'
+ocil_clause: USB devices of class 3 and 9:00 are not authorized
+oval_external_content: null
+platform: null
+platforms: !!set
+  not_s390x_arch: null
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+rationale: 'Without allowing Human Interface Devices, it might not be possible
+
+  to interact with the system. Without allowing hubs, it might not be possible to
+  use any
+
+  USB devices on the system.'
+references:
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000114-GPOS-00059
+requires: []
+severity: medium
+template: null
+title: Authorize Human Interface Devices and USB hubs in USBGuard daemon
+warnings:
+- general: This rule should be understood primarily as a convenience administration
+    feature. This rule ensures that if the USBGuard default rules.conf file is present,
+    it will alter it so that USB human interface devices and hubs are allowed. However,
+    if the rules.conf file is altered by system administrator, the rule does not check
+    if USB human interface devices and hubs are allowed. This assumes that an administrator
+    modified the file with some purpose in mind.

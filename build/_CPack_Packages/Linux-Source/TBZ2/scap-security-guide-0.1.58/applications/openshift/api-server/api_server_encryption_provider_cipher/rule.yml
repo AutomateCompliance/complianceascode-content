@@ -1,0 +1,52 @@
+documentation_complete: true
+
+prodtype: ocp4
+
+title: 'Configure the Encryption Provider Cipher'
+
+description: |-
+    To ensure the correct cipher, set the encryption type <tt>aescbc</tt> in the
+    <tt>apiserver</tt> object which configures the API server itself.
+    <pre>
+    spec:
+      encryption:
+        type: aescbc
+    </pre>
+
+    For more information, follow
+    {{{ weblink(link="https://docs.openshift.com/container-platform/4.6/security/encrypting-etcd.html",
+                text="the relevant documentation") }}}.
+
+rationale: |-
+    <tt>aescbc</tt> is currently the strongest encryption provider, it should
+    be preferred over other providers.
+
+severity: medium
+
+references:
+    cis@ocp4: 1.2.34
+    nerc-cip: CIP-003-3 R4.2
+    nist: SC-28,SC-28(1)
+
+ocil_clause: '<tt>aescbc</tt> is not configured as the encryption provider'
+
+ocil: |-
+    Run the following command:
+    <pre>$ oc get apiserver cluster -ojson | jq -r '.spec.encryption.type'</pre>
+    The output should return <tt>aescdc</tt> as the encryption type.
+
+warnings:
+- general: |-
+    {{{ openshift_cluster_setting("/apis/config.openshift.io/v1/apiservers/cluster") | indent(4) }}}
+
+template:
+  name: yamlfile_value
+  vars:
+    ocp_data: "true"
+    entity_check: "at least one"
+    filepath: '/apis/config.openshift.io/v1/apiservers/cluster'
+    yamlpath: '.spec.encryption.type'
+    values:
+    - value: 'aescbc'
+      type: "string"
+      operation: "pattern match"

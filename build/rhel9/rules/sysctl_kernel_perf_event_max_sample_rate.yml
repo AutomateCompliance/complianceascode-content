@@ -1,0 +1,50 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/restrictions/sysctl_kernel_perf_event_max_sample_rate/rule.yml
+description: 'To set the runtime status of the <code>kernel.perf_event_max_sample_rate</code>
+  kernel parameter, run the following command: <pre>$ sudo sysctl -w kernel.perf_event_max_sample_rate=1</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>kernel.perf_event_max_sample_rate = 1</pre>'
+identifiers:
+  cce: CCE-83962-1
+inherited_platforms: []
+ocil: "The runtime status of the <code>kernel.perf_event_max_sample_rate</code> kernel\
+  \ parameter can be queried\nby running the following command:\n<pre>$ sysctl kernel.perf_event_max_sample_rate</pre>\n\
+  The output of the command should indicate a value of <code>1</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*kernel.perf_event_max_sample_rate\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>kernel.perf_event_max_sample_rate\
+  \ = 1</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>kernel.perf_event_max_sample_rate = 1</code>, and that one assignment\n\
+  is returned when \n<pre>$ grep -r kernel.perf_event_max_sample_rate /etc/sysctl.conf\
+  \ /etc/sysctl.d</pre>\nis executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: 'The <tt>kernel.perf_event_max_sample_rate</tt> parameter configures maximum
+
+  frequency of collecting of samples for the Perf system. It is expressed in
+
+  samples per second. Restricting usage of <tt>Perf</tt> system decreases risk
+
+  of potential availability problems.'
+references:
+  anssi: BP28(R23)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlval: '1'
+    sysctlvar: kernel.perf_event_max_sample_rate
+title: Limit sampling frequency of the Perf system
+warnings: []

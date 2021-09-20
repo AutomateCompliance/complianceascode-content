@@ -1,0 +1,47 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/configure_auditd_data_retention/auditd_local_events/rule.yml
+description: 'To configure Audit daemon to include local events in Audit logs, set
+
+  <tt>local_events</tt> to <tt>yes</tt> in <tt>/etc/audit/auditd.conf</tt>.
+
+  This is the default setting.'
+identifiers:
+  cce: CCE-82233-8
+inherited_platforms:
+- audit
+ocil: 'To verify that Audit Daemon is configured to include local events, run the
+
+  following command:
+
+  <pre>$ sudo grep local_events /etc/audit/auditd.conf</pre>
+
+  The output should return the following:
+
+  <pre>local_events = yes</pre>'
+ocil_clause: local_events isn't set to yes
+oval_external_content: null
+platform: null
+platforms: !!set
+  audit: null
+prodtype: all
+rationale: 'If option <tt>local_events</tt> isn''t set to <tt>yes</tt> only events
+  from
+
+  network will be aggregated.'
+references:
+  disa: CCI-000366
+  ospp: FAU_GEN.1.1.c
+  srg: SRG-OS-000062-GPOS-00031,SRG-OS-000480-GPOS-00227
+  stigid: RHEL-08-030061
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: auditd_lineinfile
+  vars:
+    missing_parameter_pass: 'true'
+    parameter: local_events
+    rule_id: auditd_local_events
+    value: 'yes'
+title: Include Local Events in Audit Logs
+warnings: []

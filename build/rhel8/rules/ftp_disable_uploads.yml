@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ftp/ftp_configure_vsftpd/ftp_disable_uploads/rule.yml
+description: 'Is there a mission-critical reason for users to upload files via FTP?
+  If not,
+
+  edit the vsftpd configuration file to add or correct the following configuration
+  options:
+
+  <pre>write_enable=NO</pre>
+
+  If FTP uploads are necessary, follow the guidance in the remainder of this section
+  to secure these transactions
+
+  as much as possible.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,rhel7,rhel8
+rationale: 'Anonymous FTP can be a convenient way to make files available for universal
+  download. However, it is less
+
+  common to have a need to allow unauthenticated users to place files on the FTP server.
+  If this must be done, it
+
+  is necessary to ensure that files cannot be uploaded and downloaded from the same
+  directory.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Disable FTP Uploads if Possible
+warnings: []

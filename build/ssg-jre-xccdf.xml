@@ -1,0 +1,2151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="JRE" resolved="1" xml:lang="en-US" style="SCAP_1.1">
+  <status date="2021-09-19">draft</status>
+  <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Guide to the Secure Configuration of Java Runtime Environment</title>
+  <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for Java Runtime Environment. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <html:code xmlns:html="http://www.w3.org/1999/xhtml">scap-security-guide</html:code> package which is developed at
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/><html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <html:em xmlns:html="http://www.w3.org/1999/xhtml">catalog, not a
+checklist</html:em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <html:em xmlns:html="http://www.w3.org/1999/xhtml">Profiles</html:em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for Java Runtime Environment,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</description>
+  <notice xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The SCAP Security Guide Project<html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:sun:jre:"/>
+  <platform idref="cpe:/a:ibm:jre:"/>
+  <platform idref="cpe:/a:redhat:openjdk:"/>
+  <version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</version>
+  <metadata xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:publisher>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:creator>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">François Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Peter 'Pessoft' Kolínek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Šimon Lukašík &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fredrik Lysén &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Renaud Métrich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Thomas Sjögren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matěj Týč &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Černý &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michal Šrubař &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </metadata>
+  <model system="urn:xccdf:scoring:default"/>
+  <Profile id="stig">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">Java Runtime Environment (JRE) STIG</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">The Java Runtime Environment (JRE) is a bundle developed
+and offered by Oracle Corporation which includes the Java Virtual Machine
+(JVM), class libraries, and other components necessary to run Java
+applications and applets. Certain default settings within the JRE pose
+a security risk so it is necessary to deploy system wide properties to
+ensure a higher degree of security when utilizing the JRE.
+
+The IBM Corporation also develops and bundles the Java Runtime Environment
+(JRE) as well as Red Hat with OpenJDK.</description>
+    <select idref="java_jre_accepted_sites_exists" selected="true"/>
+    <select idref="java_jre_accepted_sites_properties" selected="true"/>
+    <select idref="java_jre_blacklist_check" selected="true"/>
+    <select idref="java_jre_blacklist_check_locked" selected="true"/>
+    <select idref="java_jre_clean_previous_version" selected="true"/>
+    <select idref="java_jre_deployment_config_exists" selected="true"/>
+    <select idref="java_jre_deployment_config_mandatory" selected="true"/>
+    <select idref="java_jre_deployment_config_properties" selected="true"/>
+    <select idref="java_jre_deployment_properties_exists" selected="true"/>
+    <select idref="java_jre_disable_untrusted_sources" selected="true"/>
+    <select idref="java_jre_disable_untrusted_sources_locked" selected="true"/>
+    <select idref="java_jre_enable_jws" selected="true"/>
+    <select idref="java_jre_enable_jws_locked" selected="true"/>
+    <select idref="java_jre_insecure_prompt" selected="true"/>
+    <select idref="java_jre_insecure_prompt_locked" selected="true"/>
+    <select idref="java_jre_lock_untrusted_sources" selected="true"/>
+    <select idref="java_jre_lock_untrusted_sources_locked" selected="true"/>
+    <select idref="java_jre_security_revocation_check" selected="true"/>
+    <select idref="java_jre_security_revocation_check_locked" selected="true"/>
+    <select idref="java_jre_unsigned_applications" selected="true"/>
+    <select idref="java_jre_unsigned_applications_locked" selected="true"/>
+    <select idref="java_jre_updated" selected="true"/>
+    <select idref="java_jre_validation_crl" selected="true"/>
+    <select idref="java_jre_validation_crl_locked" selected="true"/>
+    <select idref="java_jre_validation_ocsp" selected="true"/>
+    <select idref="java_jre_validation_ocsp_locked" selected="true"/>
+    <select idref="remediation_functions" selected="false"/>
+  </Profile>
+  <Group id="remediation_functions">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="java">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Java</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Java is a general-purpose computer programming language. It is intended to
+let application developers "write once, run anywhere." Java applications are
+typically compiled to bytecode that can run on any Java virtual machine (JVM)
+regardless of computer architecture. As such, the Java runtime environment (JRE)
+is required to be installed so that Java applications can run. This section
+provides settings for configuring Java policies to meet compliance
+settings for Java running on Red Hat Enterprise Linux systems.
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/><html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+<html:ul xmlns:html="http://www.w3.org/1999/xhtml">Refer to <html:li><html:a href="https://docs.oracle.com/javase/6/docs/technotes/guides/deployment/deployment-guide/properties.html">https://docs.oracle.com/javase/6/docs/technotes/guides/deployment/deployment-guide/properties.html</html:a></html:li>
+for a list of currently supported Java version 6 settings.</html:ul>
+<html:ul xmlns:html="http://www.w3.org/1999/xhtml">Refer to <html:li><html:a href="https://docs.oracle.com/javase/7/docs/technotes/guides/jweb/jcp/properties.html">https://docs.oracle.com/javase/7/docs/technotes/guides/jweb/jcp/properties.html</html:a></html:li>
+for a list of currently supported Java version 7 settings.</html:ul>
+<html:ul xmlns:html="http://www.w3.org/1999/xhtml">Refer to <html:li><html:a href="https://docs.oracle.com/javase/8/docs/technotes/guides/deploy/properties.html">https://docs.oracle.com/javase/8/docs/technotes/guides/deploy/properties.html</html:a></html:li>
+for a list of currently supported Java version 8 settings.</html:ul></description>
+    <Rule id="java_jre_blacklist_check" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Prevent the Download of Prohibited Mobile Code</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that Java prevents the download of prohibited mobile code, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.blacklist.check</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001169</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(3)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000209</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000110</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. Therefore it is important to allow vetted
+mobile code and prevent potentially malicious execution of mobile code.
+Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. Therefore it is important to allow vetted
+mobile code and prevent potentially malicious execution of mobile code.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_blacklist_check" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.blacklist.check=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.blacklist.check=.*/deployment.security.blacklist.check=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.blacklist.check=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_blacklist_check" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Prevent the Download of Prohibited Mobile Code
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.blacklist.check=.*
+    line: deployment.security.blacklist.check=true
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_blacklist_check:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_blacklist_check_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_blacklist_check_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Prohibited Mobile Code Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the download of prohibited mobile code
+setting, add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.blacklist.check.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001169</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(3)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000209</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000110</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. Therefore, it is important to allow vetted
+mobile code and prevent potentially malicious execution of mobile code.
+As such, ensuring
+users cannot change the permission settings which control the downloading of
+prohibited mobile code contributes to a more consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_blacklist_check_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.webjava.enabled.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.webjava.enabled.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_blacklist_check_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Prohibited Mobile Code Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.blacklist.check.locked
+    line: deployment.security.blacklist.check.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_blacklist_check_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_blacklist_check_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_clean_previous_version" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Ensure yum Removes Previous Package Versions</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"><html:code xmlns:html="http://www.w3.org/1999/xhtml">yum</html:code> should be configured to remove previous versions of Java after
+new versions have been installed. To configure <html:code xmlns:html="http://www.w3.org/1999/xhtml">yum</html:code> to remove the
+previous versions of Java after updating, set the <html:code xmlns:html="http://www.w3.org/1999/xhtml">clean_requirements_on_remove</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">1</html:code> in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/yum.conf</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-002617</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-2(6)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000454</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000190</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Previous versions of software components that are not removed from the information
+system after updates have been installed may be exploited by some adversaries.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_clean_previous_version" system="urn:xccdf:fix:script:sh">
+if grep --silent ^clean_requirements_on_remove /etc/yum.conf ; then
+        sed -i "s/^clean_requirements_on_remove.*/clean_requirements_on_remove=1/g" /etc/yum.conf
+else
+        echo -e "\n# Set clean_requirements_on_remove to 1 per security requirements" &gt;&gt; /etc/yum.conf
+        echo "clean_requirements_on_remove=1" &gt;&gt; /etc/yum.conf
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_clean_previous_version" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="restrict">- name: Ensure YUM Removes Previous Package Versions
+  lineinfile:
+    dest: /etc/yum.conf
+    regexp: ^#?clean_requirements_on_remove
+    line: clean_requirements_on_remove=1
+    insertafter: \[main\]
+    create: true
+  tags:
+    - DISA-STIG-JRE8-UX-000190
+    - NIST-800-53-SI-2(6)
+    - java_jre_clean_previous_version
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+</fix>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_clean_previous_version_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_configure_crypto_policy" selected="false" severity="unknown">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure Java Runtime to use System Crypto Policy</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Crypto Policies provide a centralized control over crypto algorithms usage of many packages.
+Java is supported by crypto policy, but the Java configuration may be
+set up to ignore it.
+
+To check that Crypto Policies settings are configured correctly, you have to examine the JRE config file
+available under <html:code xmlns:html="http://www.w3.org/1999/xhtml">/usr/lib/jvm/jre/lib/security/java.security</html:code>.
+If this config file contains the line <html:code xmlns:html="http://www.w3.org/1999/xhtml">security.useSystemPropertiesFile=true</html:code>,
+settings that are part of the system-wide crypto policy take precedence.</description>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Overriding the system crypto policy makes the behavior of the Java runtime violates expectations,
+and makes system configuration more fragmented.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_configure_crypto_policy" system="urn:xccdf:fix:script:sh">
+
+JRE_CONFIG_FILE="/usr/lib/jvm/jre/lib/security/java.security"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$JRE_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^security.useSystemPropertiesFile")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s=%s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^security.useSystemPropertiesFile\\&gt;" "$JRE_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^security.useSystemPropertiesFile\\&gt;.*/$formatted_output/gi" "$JRE_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$JRE_CONFIG_FILE" &gt;&gt; "$JRE_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$JRE_CONFIG_FILE"
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_configure_crypto_policy" system="urn:xccdf:fix:script:ansible" reboot="true" complexity="low" disruption="medium" strategy="disable">- name: Configure Java Runtime to use System Crypto Policy
+  lineinfile:
+    create: true
+    dest: /usr/lib/jvm/jre/lib/security/java.security
+    regexp: ^\s*#?\s*security.useSystemPropertiesFile=true
+    line: security.useSystemPropertiesFile=true
+  tags:
+    - disable_strategy
+    - java_jre_configure_crypto_policy
+    - low_complexity
+    - medium_disruption
+    - reboot_required
+    - unknown_severity
+</fix>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_configure_crypto_policy_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_deployment_properties_exists" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Java deployment.properties File Exists</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If the Java deployment properties file does not exist, it can be added
+by running:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo mkdir -p -m 755 /etc/.java/deployment
+$ sudo touch /etc/.java/deployment/deployment.properties
+$ sudo chmod 644 /etc/.java/deployment/deployment.properties</html:pre></description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000030</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Each option in the Java control panel is represented by property keys.
+These keys adjust the options in the Java control panel based on the value
+assigned to that key. By default no deployment.properties file exists; thus,
+no system-wide deployment exists. Without the deployment.properties file, setting particular
+options for the Java control panel is impossible.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_properties_exists" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+chmod 644 ${JAVA_PROPERTIES}
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_properties_exists" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000030
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_properties_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java deployment.properties File Exists
+  file:
+    path: /etc/.java/deployment/deployment.properties
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000030
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_properties_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_deployment_properties_exists:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_deployment_properties_exists_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_disable_untrusted_sources" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Execution of Signed Java Applets From Untrusted Sources Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that Java cannot execute from untrusted sources, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.askgrantdialog.notinca</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>
+in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000080</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in acquiring malware, and risks system modification, invasion of
+privacy, or denial of service. Block users from granting permissions to
+certificates that are not issued by a CA in the Root/JSSE CA certificate
+store.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_disable_untrusted_sources" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.notinca=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.askgrantdialog.notinca=.*/deployment.security.askgrantdialog.notinca=false/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.notinca=false" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_disable_untrusted_sources" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable Execution of Signed Java Applets From Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.notinca=.*
+    line: deployment.security.askgrantdialog.notinca=false
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_disable_untrusted_sources:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_disable_untrusted_sources_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_disable_untrusted_sources_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Disabling Untrusted Sources Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the untrusted sources settings,
+add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.askgrantdialog.notinca.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000080</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in malware running on the system, and risks system modification,
+invasion of privacy, or denial of service. As such, ensuring users cannot
+change the permission settings which control the execution of signed Java
+applets contributes to a more consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_disable_untrusted_sources_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.notinca.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.notinca.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_disable_untrusted_sources_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Disabling Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.notinca.locked
+    line: deployment.security.askgrantdialog.notinca.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_disable_untrusted_sources_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_disable_untrusted_sources_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_enable_jws" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Java Web Start Applications to Run</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that Java allows applets or Java Web Start (JWS) applications to
+run, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.webjava.enabled</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code> in
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000070</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Due to the popularity of Java Web Start (JWS) applications, denying these
+applications could have a negative impact to the user experience. Whitelisting,
+blacklisting, and signing of applications help mitigate the risk of running
+JWS applications.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_enable_jws" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.webjava.enabled=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.webjava.enabled=.*/deployment.webjava.enabled=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.webjava.enabled=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_enable_jws" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Enable Java Web Start Applications to Run
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.webjava.enabled=.*
+    line: deployment.webjava.enabled=true
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_enable_jws:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_enable_jws_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_enable_jws_locked" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Java Web Start Application Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the Java Web Start (JWS) application
+setting, add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.webjava.enabled.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000070</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Due to the popularity of Java Web Start (JWS) applications, denying these
+applications could have a negative impact to the user experience. Whitelisting,
+blacklisting, and signing of applications help mitigate the risk of running
+JWS applications.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_enable_jws_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.webjava.enabled.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.webjava.enabled.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_enable_jws_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable User Access to Java Web Start Application Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.webjava.enabled.locked
+    line: deployment.webjava.enabled.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_enable_jws_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_enable_jws_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_insecure_prompt" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Prompt User Prior to Executing Mobile Code</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that Java prevents mobile code from executing without prompting
+the user, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.insecure.jres</html:code> to equal
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">PROMPT</html:code> in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-002460</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(4)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000488</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000170</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. It can execute without explicit action
+from, or notification to, a user. Requiring Java to enforce prompting the user prior
+to executing mobile code will strenghten the security posture of the system.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_insecure_prompt" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.insecure.jres=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.insecure.jres=.*/deployment.insecure.jres=PROMPT/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.insecure.jres=PROMPT" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_insecure_prompt" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Prompt User Prior to Executing Mobile Code
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.insecure.jres=.*
+    line: deployment.insecure.jres=PROMPT
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_insecure_prompt:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_insecure_prompt_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_insecure_prompt_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Insecure Prompt of Mobile Code Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the mobile code setting for insecure
+prompts, add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.insecure.jres.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-002460</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(4)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000488</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000170</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. It can execute without explicit action
+from, or notification to, a user. Requiring Java to enforce prompting the user
+prior to executing mobile code will strengthen the security posture of the
+system. As such, ensuring users cannot change the permission settings which
+control the insecure prompts for mobile code execution contributes to a more
+consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_insecure_prompt_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.insecure.jres.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.insecure.jres.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_insecure_prompt_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Insecure Prompt of Mobile Code Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.insecure.jres.locked
+    line: deployment.insecure.jres.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_insecure_prompt_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_insecure_prompt_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_lock_untrusted_sources" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Lock Execution of Signed Java Applets From Untrusted Sources Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that Java cannot execute from untrusted sources, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.askgrantdialog.show</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>
+in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000090</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in acquiring malware, and risks system modification, invasion of
+privacy, or denial of service. Block users from granting permissions to
+applets and JWS applications.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_lock_untrusted_sources" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.show=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.askgrantdialog.show=.*/deployment.security.askgrantdialog.show=false/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.show=false" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_lock_untrusted_sources" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Lock Execution of Signed Java Applets From Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.show=.*
+    line: deployment.security.askgrantdialog.show=false
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_lock_untrusted_sources:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_lock_untrusted_sources_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_lock_untrusted_sources_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Locking Untrusted Sources Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the untrusted sources settings,
+add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.askgrantdialog.show.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000090</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in malware running on the system, and risks system modification,
+invasion of privacy, or denial of service. As such, ensuring users cannot
+change the permission settings which control the execution of signed Java
+applets contributes to a more consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_lock_untrusted_sources_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.show.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.show.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_lock_untrusted_sources_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Locking Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.show.locked
+    line: deployment.security.askgrantdialog.show.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_lock_untrusted_sources_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_lock_untrusted_sources_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_security_revocation_check" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Revocation Checks for Publisher Certificates</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that certificate revocation checks are enabled, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.revocation.check</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">ALL_CERTIFICATES</html:code>
+in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000160</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Certificates may be revoked due to improper issuance, compromise of the certificate,
+and failure to adhere to policy. Therefore, any certificate found on a CRL
+should not be trusted. Permitting execution of an applet published with a
+revoked certificate may result in spoofing, malware, system modification,
+invasion of privacy, and denial of service.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_security_revocation_check" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.revocation.check=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.revocation.check=.*/deployment.security.revocation.check=ALL_CERTIFICATES/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.revocation.check=ALL_CERTIFICATES" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_security_revocation_check" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Enable Revocation Checks for Publisher Certificates
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.revocation.check=.*
+    line: deployment.security.revocation.check=ALL_CERTIFICATES
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_security_revocation_check:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_security_revocation_check_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_security_revocation_check_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Revocation Check Settings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change certificate revocation check settings,
+add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.revocation.check.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000160</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Permitting execution of an applet published with a revoked certificate may
+result in spoofing, malware, system modification, invasion of privacy,
+and denial of service. As such, ensuring users cannot change settings
+contributes to a more consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_security_revocation_check_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.revocation.check.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.revocation.check.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_security_revocation_check_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Revocation Check Settings
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.revocation.check.locked
+    line: deployment.security.revocation.check.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_security_revocation_check_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_security_revocation_check_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_unsigned_applications" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Execution of Unsigned Applications</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that Java does not allow unsigned applications to run, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.level</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">VERY_HIGH</html:code> in
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000060</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Unsigned applications could perform numerous types of attacks on a system.
+Applications that are signed with a valid certificate and include the
+permissions attribute in the manifest for the main JAR file are allowed to
+run with security prompts. All other applications are blocked.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_unsigned_applications" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.level=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.level=.*/deployment.security.level=VERY_HIGH/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.level=VERY_HIGH" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_unsigned_applications" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable Execution of Unsigned Applications
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.level=.*
+    line: deployment.security.level=VERY_HIGH
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_unsigned_applications:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_unsigned_applications_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_unsigned_applications_locked" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Unsigned Applications Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the unsigned applications setting, add
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.level.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000060</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Unsigned applications could perform numerous types of attacks on a system.
+As such, ensuring users cannot change the permission settings which control
+the execution of unsigned Java applications contributes to a more consistent
+security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_unsigned_applications_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.level.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.level.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_unsigned_applications_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable User Access to Unsigned Applications Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.level.locked
+    line: deployment.security.level.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_unsigned_applications_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_unsigned_applications_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_updated" selected="false" severity="low">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Ensure Java Patches Installed</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If the system is joined to the Red Hat Network, a Red Hat Satellite Server,
+or a yum server, run the following command to install updates:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo yum update</html:pre>
+If the system is not configured to use one of these sources, updates (in the form of RPM packages)
+can be manually downloaded and installed using <html:code xmlns:html="http://www.w3.org/1999/xhtml">rpm</html:code>.
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/><html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+NOTE: U.S. Defense systems are required to be patched within 30 days or sooner as local policy
+dictates.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-002605</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-2(c)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000456</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000180</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Running an older version of the JRE can introduce security
+vulnerabilities to the system.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_updated" system="urn:xccdf:fix:script:sh">
+
+yum -y update
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_updated" system="urn:xccdf:fix:script:ansible" reboot="true" complexity="low" disruption="high" strategy="patch">- name: Security patches are up to date
+  package:
+    name: '*'
+    state: latest
+  tags:
+    - DISA-STIG-JRE8-UX-000180
+    - NIST-800-53-SI-2(c)
+    - high_disruption
+    - java_jre_updated
+    - low_complexity
+    - low_severity
+    - patch_strategy
+    - reboot_required
+    - skip_ansible_lint
+</fix>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_updated_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_validation_crl" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Use of Certificate Revocation Lists</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that certificate revocation lists are enabled, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.validation.crl</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>
+in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000150</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A certificate revocation list is a directory which contains a list of
+certificates that have been revoked for various reasons. Certificates may be
+revoked due to improper issuance, compromise of the certificate, and failure
+to adhere to policy. Therefore, any certificate found on a CRL should not be
+trusted. Permitting execution of an applet published with a revoked
+certificate may result in spoofing, malware, system modification, invasion
+of privacy, and denial of service.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_crl" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.crl=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.validation.crl=.*/deployment.security.validation.crl=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.crl=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_crl" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Enable Use of Certificate Revocation Lists
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.crl=.*
+    line: deployment.security.validation.crl=true
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_validation_crl:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_validation_crl_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_validation_crl_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Certificate Revocation List Settings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change certificate revocation list settings,
+add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.validation.crl.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000150</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Permitting execution of an applet published with a revoked certificate may
+result in spoofing, malware, system modification, invasion of privacy, and
+denial of service. This is why it is important to ensure to check against a
+Certificate Revocation List. As such, ensuring users cannot change settings
+contributes to a more consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_crl_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.crl.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.crl.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_crl_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Certificate Revocation List Settings
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.crl.locked
+    line: deployment.security.validation.crl.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_validation_crl_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_validation_crl_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_validation_ocsp" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Online Certificate Validation</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that online certificate verification is enabled, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.validation.ocsp</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>
+in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000185</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(a)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000175</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000100</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Online certificate validation provides a greater degree of validation of certificates
+when running a signed Java applet. Permitting execution of an applet with an invalid
+certificate may result in malware execution , system modification, invasion of privacy,
+and denial of service.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_ocsp" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.ocsp=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.validation.ocsp=.*/deployment.security.validation.ocsp=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.ocsp=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_ocsp" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Enable Online Certificate Validation
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.ocsp=.*
+    line: deployment.security.validation.ocsp=true
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_validation_ocsp:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_validation_ocsp_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="java_jre_validation_ocsp_locked" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Access to Online Certificate Validation Setting</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that users cannot change the online certificate verification setting,
+add <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.security.validation.ocsp.locked</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000185</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(a)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000175</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000100</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Online certificate validation provides a greater degree of validation of certificates
+when running a signed Java applet. Permitting execution of an applet with an invalid
+certificate may result in malware execution , system modification, invasion of privacy,
+and denial of service. As such, ensuring users cannot change settings contributes to
+a more consistent security profile.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_ocsp_locked" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.ocsp.locked$" ${JAVA_PROPERTIES}
+
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.ocsp.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_validation_ocsp_locked" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Online Certificate Validation Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.ocsp.locked
+    line: deployment.security.validation.ocsp.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-java_jre_validation_ocsp_locked:def:1" href="ssg-jre-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-java_jre_validation_ocsp_locked_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+      </check>
+    </Rule>
+    <Group id="java_jre_accepted_sites_configured">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure the exception.sites File</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Utilizing a whitelist provides a configuration management method for
+allowing the execution of only authorized software. Using only authorized
+software decreases risk by limiting the number of potential vulnerabilities.
+The <html:code xmlns:html="http://www.w3.org/1999/xhtml">exception.sites</html:code> file is used for ensuring that authorized
+software is allowed to be executed. To ensure that the Java
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code> file is configured
+correctly, <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.user.security.exception.sites</html:code> must be configured
+to point to a valid <html:code xmlns:html="http://www.w3.org/1999/xhtml">exception.sites</html:code> file.</description>
+      <Rule id="java_jre_accepted_sites_exists" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Java exception.sites File Exists</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By default, no <html:code xmlns:html="http://www.w3.org/1999/xhtml">exception.sites</html:code> file exists which means that there is no prevention of
+unauthorized software. The <html:code xmlns:html="http://www.w3.org/1999/xhtml">exception.sites</html:code> file is a text file containing single-line URLs for
+accepted risk sites. If the Java accepted sites list file does not exist, it can be added
+by running:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo mkdir -p -m 755 /etc/.java/deployment
+$ sudo touch /etc/.java/deployment/exception.sites
+$ sudo chmod 644 /etc/.java/deployment/exception.sites</html:pre></description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001774</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7(5)(b)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000386</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000130</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Utilizing a
+whitelist provides a configuration management method for allowing the
+execution of only authorized software. Using only authorized software
+decreases risk by limiting the number of potential vulnerabilities.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_accepted_sites_exists" system="urn:xccdf:fix:script:sh">JAVA_FILE="/etc/.java/deployment/exception.sites"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_FILE} ]; then
+  touch ${JAVA_FILE} &amp;&amp; chmod 644 ${JAVA_FILE}
+fi
+
+chmod 644 ${JAVA_FILE}
+</fix>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_accepted_sites_exists" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000130
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java exception.sites File Exists
+  file:
+    path: /etc/.java/deployment/exception.sites
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000130
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-java_jre_accepted_sites_exists:def:1" href="ssg-jre-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-java_jre_accepted_sites_exists_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+        </check>
+      </Rule>
+      <Rule id="java_jre_accepted_sites_properties" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure the Path to the exception.sites File</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that the accepted sites list file is set in
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>, add or modify
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.user.security.exception.sites</html:code> to equal
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/exception.sites</html:code>.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001774</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7(5)(b)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000386</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000120</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Without a proper path for the accepted sites list file, unauthorized
+software programs are able to be executed. Using only authorized software
+decreases risk by limiting the number of potential vulnerabilities.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_accepted_sites_properties" system="urn:xccdf:fix:script:sh">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+JAVA_FILE="/etc/.java/deployment/exception.sites"
+
+grep -q "^deployment.user.security.exception.sites=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s;deployment.user.security.exception.sites=.*;deployment.user.security.exception.sites=${JAVA_FILE};g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.user.security.exception.sites=${JAVA_FILE}" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</fix>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_accepted_sites_properties" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000120
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure the Path to the exception.sites File
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.user.security.exception.sites=.*
+    line: deployment.user.security.exception.sites=/etc/.java/deployment/exception.sites
+  tags:
+    - DISA-STIG-JRE8-UX-000120
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-java_jre_accepted_sites_properties:def:1" href="ssg-jre-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-java_jre_accepted_sites_properties_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="java_jre_deployment_config_configured">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure the deployment.config File</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.config</html:code> file if used for specifying the System-level
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.properties</html:code> file. The System-level configuration for Java is
+configured in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment</html:code>. By default, no <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.config</html:code>
+file exists. To ensure that the Java <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.config</html:code> file
+is configured correctly, <html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.system.config</html:code> and
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.system.config.mandatory</html:code> need to be set correctly.</description>
+      <Rule id="java_jre_deployment_config_exists" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Java deployment.config File Exists</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If the Java deployment configuration file does not exist, it can be added
+by running:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo mkdir -p -m 755 /etc/.java/deployment
+$ sudo touch /etc/.java/deployment/deployment.config
+$ sudo chmod 644 /etc/.java/deployment/deployment.config</html:pre></description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000010</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By default no deployment.config file exists; thus, no system-wide deployment.properties file
+exists. The file must be created. The deployment.config file is used for specifying the
+location and execution of system-level properties for the Java Runtime Environment. Without
+the deployment.config file, setting particular options for the Java control panel is
+not possible.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_config_exists" system="urn:xccdf:fix:script:sh">JAVA_CONFIG="/etc/.java/deployment/deployment.config"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_CONFIG} ]; then
+  touch ${JAVA_CONFIG} &amp;&amp; chmod 644 ${JAVA_CONFIG}
+fi
+
+chmod 644 ${JAVA_CONFIG}
+</fix>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_config_exists" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000010
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java Config File Exists
+  file:
+    path: /etc/.java/deployment/deployment.config
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000010
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-java_jre_deployment_config_exists:def:1" href="ssg-jre-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-java_jre_deployment_config_exists_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+        </check>
+      </Rule>
+      <Rule id="java_jre_deployment_config_mandatory" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure The Java Deployment Mandatory Setting</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To configure the Java mandatory deployment setting, add or modify
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.system.config.mandatory</html:code> to equal <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>
+in <html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.config</html:code>.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000020</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Without a proper path for the properties file, deployment would not be possible.
+If the path specified does not lead to a properties file, the value of the
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.system.config.mandatory</html:code> key determines how to handle the situation.
+If the value of this key is true, JRE will not allow Java applications to run if
+the path to the properties file is invalid.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_config_mandatory" system="urn:xccdf:fix:script:sh">JAVA_CONFIG="/etc/.java/deployment/deployment.config"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_CONFIG} ]; then
+  touch ${JAVA_CONFIG} &amp;&amp; chmod 644 ${JAVA_CONFIG}
+fi
+
+grep -q "^deployment.system.config.mandatory=.*" ${JAVA_CONFIG} &amp;&amp; \
+sed -i "s/deployment.system.config.mandatory=.*/deployment.system.config.mandatory=true/g" ${JAVA_CONFIG}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.system.config.mandatory=true" &gt;&gt; ${JAVA_CONFIG}
+fi
+</fix>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_config_mandatory" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_mandatory
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure The Java Deployment Mandatory Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.config
+    regexp: ^\s*#?\s*deployment.system.config.mandatory=.*
+    line: deployment.system.config.mandatory=true
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_mandatory
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-java_jre_deployment_config_mandatory:def:1" href="ssg-jre-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-java_jre_deployment_config_mandatory_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+        </check>
+      </Rule>
+      <Rule id="java_jre_deployment_config_properties" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configure the Path to the deployment.properties File</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To ensure that the Java properties file is set in
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.config</html:code>, add or modify
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.system.config</html:code> to equal
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/.java/deployment/deployment.properties</html:code>.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000020</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Without a proper path for the properties file, deployment would not be possible.
+If the path specified does not lead to a properties file, the value of the
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">deployment.system.config.mandatory</html:code> key determines how to handle the situation.
+If the value of this key is true, JRE will not allow Java applications to run if
+the path to the properties file is invalid.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_config_properties" system="urn:xccdf:fix:script:sh">JAVA_CONFIG="/etc/.java/deployment/deployment.config"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_CONFIG} ]; then
+  touch ${JAVA_CONFIG} &amp;&amp; chmod 644 ${JAVA_CONFIG}
+fi
+
+JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+
+grep -q "^deployment.system.config=.*" ${JAVA_CONFIG} &amp;&amp; \
+sed -i "s;deployment.system.config=.*;deployment.system.config=file:\/\/${JAVA_PROPERTIES};g" ${JAVA_CONFIG}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.system.config=file://${JAVA_PROPERTIES}" &gt;&gt; ${JAVA_CONFIG}
+fi
+</fix>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="java_jre_deployment_config_properties" system="urn:xccdf:fix:script:ansible" complexity="low" disruption="low" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure the Path to the deployment.properties File
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.config
+    regexp: ^\s*#?\s*deployment.system.config=.*
+    line: deployment.system.config=file:///etc/.java/deployment/deployment.properties
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-java_jre_deployment_config_properties:def:1" href="ssg-jre-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-java_jre_deployment_config_properties_ocil:questionnaire:1" href="ssg-jre-ocil.xml"/>
+        </check>
+      </Rule>
+    </Group>
+  </Group>
+</Benchmark>

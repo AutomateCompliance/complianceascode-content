@@ -1,0 +1,59 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-physical/screen_locking/console_screen_locking/vlock_installed/rule.yml
+description: 'The Ubuntu 20.04 operating system must have vlock installed to allow
+  for session locking.
+
+
+
+  The <code>vlock</code> package can be installed with the following command:
+
+  <pre>
+
+  $ apt-get install vlock</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: '
+
+
+  Run the following command to determine if the <code>vlock</code> package is installed:
+
+  <pre>$ dpkg -l  vlock</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: sle12,sle15,ubuntu2004
+rationale: 'A session lock is a temporary action taken when a user stops work and
+
+  moves away from the immediate physical vicinity of the information
+
+  system but does not want to log out because of the temporary nature of
+
+  the absence.
+
+
+  The session lock is implemented at the point where session activity can
+
+  be determined.
+
+
+  Regardless of where the session lock is determined and implemented,
+
+  once invoked, the session lock must remain in place until the user
+
+  reauthenticates. No other activity aside from reauthentication must
+
+  unlock the system.'
+references:
+  disa: CCI-000056,CCI-000058,CCI-000060
+  srg: SRG-OS-000028-GPOS-00009
+  stigid: UBTU-20-010005
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: vlock
+title: Check that vlock is installed to allow session locking
+warnings: []

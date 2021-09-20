@@ -1,0 +1,17 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure gssproxy is removed
+  package:
+    name: gssproxy
+    state: absent
+  tags:
+    - CCE-83516-5
+    - disable_strategy
+    - low_complexity
+    - low_disruption
+    - low_severity
+    - no_reboot_needed
+    - package_gssproxy_removed

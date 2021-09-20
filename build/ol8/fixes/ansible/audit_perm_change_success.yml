@@ -1,0 +1,37 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Put contents into /etc/audit/rules.d/30-ospp-v42-5-perm-change-success.rules
+    according to policy
+  copy:
+    dest: /etc/audit/rules.d/30-ospp-v42-5-perm-change-success.rules
+    content: |
+      ## Successful permission change
+      -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-perm-change
+      -a always,exit -F arch=b64 -S chmod,fchmod,fchmodat,setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-perm-change
+    force: true
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - NIST-800-53-AU-2(a)
+    - audit_perm_change_success
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Remove any permissions from other group
+  file:
+    path: /etc/audit/rules.d/30-ospp-v42-5-perm-change-success.rules
+    mode: o-rwx
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - NIST-800-53-AU-2(a)
+    - audit_perm_change_success
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

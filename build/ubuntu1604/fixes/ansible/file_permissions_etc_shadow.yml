@@ -1,0 +1,37 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Test for existence /etc/shadow
+  stat:
+    path: /etc/shadow
+  register: file_exists
+  tags:
+    - CJIS-5.5.2.2
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-8.7.c
+    - configure_strategy
+    - file_permissions_etc_shadow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure permission 0640 on /etc/shadow
+  file:
+    path: /etc/shadow
+    mode: '0640'
+  when: file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - CJIS-5.5.2.2
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - PCI-DSS-Req-8.7.c
+    - configure_strategy
+    - file_permissions_etc_shadow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

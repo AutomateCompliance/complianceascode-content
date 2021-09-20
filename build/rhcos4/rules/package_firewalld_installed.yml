@@ -1,0 +1,32 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-firewalld/firewalld_activation/package_firewalld_installed/rule.yml
+description: 'The <code>firewalld</code> package can be installed with the following
+  command:
+
+  <pre></pre>'
+identifiers:
+  cce: CCE-82521-6
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>firewalld</code> package
+  is installed: <pre>$ rpm -q firewalld</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhcos4,rhel7,rhel8,rhel9,sle15
+rationale: The firewalld package should be installed to provide access control methods.
+references:
+  disa: CCI-002314
+  nist: CM-6(a)
+  srg: SRG-OS-000096-GPOS-00050,SRG-OS-000297-GPOS-00115,SRG-OS-000298-GPOS-00116,SRG-OS-000480-GPOS-00227,SRG-OS-000480-GPOS-00232
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: firewalld
+title: Install firewalld Package
+warnings: []

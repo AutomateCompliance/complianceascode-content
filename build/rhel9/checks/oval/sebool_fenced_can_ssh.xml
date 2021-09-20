@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="sebool_fenced_can_ssh" version="1">
+    <metadata>
+        <title>Disable the fenced_can_ssh SELinux Boolean</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 9</platform>
+    </affected>
+        <description>The SELinux 'fenced_can_ssh' boolean should be set in the system configuration.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="fenced_can_ssh is configured correctly" test_ref="test_sebool_fenced_can_ssh" />
+    </criteria>
+  </definition>
+
+  <linux:selinuxboolean_test check="all" check_existence="all_exist" comment="fenced_can_ssh is configured correctly" id="test_sebool_fenced_can_ssh" version="1">
+    <linux:object object_ref="object_sebool_fenced_can_ssh" />
+    <linux:state state_ref="state_sebool_fenced_can_ssh" />
+  </linux:selinuxboolean_test>
+
+  <linux:selinuxboolean_object id="object_sebool_fenced_can_ssh" version="1">
+    <linux:name>fenced_can_ssh</linux:name>
+  </linux:selinuxboolean_object>
+
+  <linux:selinuxboolean_state id="state_sebool_fenced_can_ssh" version="1">
+    <linux:name>fenced_can_ssh</linux:name>
+    
+      <linux:current_status datatype="boolean" var_ref="var_fenced_can_ssh"/>
+      <linux:pending_status datatype="boolean" var_ref="var_fenced_can_ssh"/>
+    
+  </linux:selinuxboolean_state>
+
+  
+    <external_variable comment="external variable for fenced_can_ssh" datatype="boolean" id="var_fenced_can_ssh" version="1" />
+  
+</def-group>

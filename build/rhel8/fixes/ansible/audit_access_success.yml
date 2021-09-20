@@ -1,0 +1,40 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Put contents into /etc/audit/rules.d/30-ospp-v42-3-access-success.rules according
+    to policy
+  copy:
+    dest: /etc/audit/rules.d/30-ospp-v42-3-access-success.rules
+    content: |
+      ## Successful file access (any other opens) This has to go last.
+      ## These next two are likely to result in a whole lot of events
+      -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-access
+      -a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F success=1 -F auid>=1000 -F auid!=unset -F key=successful-access
+    force: true
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-82834-3
+    - NIST-800-53-AU-2(a)
+    - audit_access_success
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Remove any permissions from other group
+  file:
+    path: /etc/audit/rules.d/30-ospp-v42-3-access-success.rules
+    mode: o-rwx
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-82834-3
+    - NIST-800-53-AU-2(a)
+    - audit_access_success
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

@@ -1,0 +1,40 @@
+<def-group>
+    <definition class="compliance" id="audit_module_load" version="1">
+      <metadata>
+        <title>Configure auditing of loading and unloading of kernel modules</title>
+        
+    <affected family="unix">
+    <platform>Oracle Linux 8</platform>
+    </affected>
+        <description>Inspect the contents of /etc/audit/rules.d/43-module-load.rules</description>
+    </metadata>
+      <criteria>
+          <criterion comment="Check contents of file" test_ref="test_whole_file_contents_tc_audit_rules_d_43_module_load_rules" />
+      </criteria>
+    </definition>
+
+    <ind:textfilecontent54_test check="all" check_existence="all_exist"
+    comment="Tests if contents of /etc/audit/rules.d/43-module-load.rules is exactly what is defined in rule description"
+    id="test_whole_file_contents_tc_audit_rules_d_43_module_load_rules" version="1">
+      <ind:object object_ref="object_whole_file_contents_tc_audit_rules_d_43_module_load_rules" />
+      <ind:state state_ref="state_whole_file_contents_tc_audit_rules_d_43_module_load_rules" />
+    </ind:textfilecontent54_test>
+
+    <ind:textfilecontent54_object id="object_whole_file_contents_tc_audit_rules_d_43_module_load_rules" version="1">
+      <ind:behaviors singleline="true" multiline="false" />
+      <ind:filepath>/etc/audit/rules.d/43-module-load.rules</ind:filepath>
+      <ind:pattern operation="pattern match">^.*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+
+    <ind:textfilecontent54_state id="state_whole_file_contents_tc_audit_rules_d_43_module_load_rules" version="1">
+      <ind:text operation="equals">## These rules watch for kernel module insertion. By monitoring
+## the syscall, we do not need any watches on programs.
+-a always,exit -F arch=b32 -S init_module,finit_module -F key=module-load
+-a always,exit -F arch=b64 -S init_module,finit_module -F key=module-load
+-a always,exit -F arch=b32 -S delete_module -F key=module-unload
+-a always,exit -F arch=b64 -S delete_module -F key=module-unload
+</ind:text>
+    </ind:textfilecontent54_state>
+
+  </def-group>

@@ -1,0 +1,34 @@
+<def-group>
+    <definition class="compliance" id="sudo_add_passwd_timeout" version="1">
+    <metadata>
+        <title>Ensure sudo passwd_timeout is appropriate - sudo passwd_timeout</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 8</platform>
+    </affected>
+        <description>Checks sudoers Defaults {{ OPTION }} configuration</description>
+    </metadata>
+    <criteria >
+        <criterion comment="passwd_timeout is configured in /etc/sudoers or /etc/sudoers.d/" test_ref="test_passwd_timeout_sudoers" />
+    </criteria>
+  </definition>
+
+  <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" id="test_passwd_timeout_sudoers"
+      comment="passwd_timeout exists in /etc/sudoers or /etc/sudoers.d/" version="1">
+  <ind:object object_ref="object_passwd_timeout_sudoers" />
+<ind:state state_ref="state_passwd_timeout_sudoers" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="object_passwd_timeout_sudoers" version="1">
+    <ind:filepath operation="pattern match">^/etc/sudoers(|\.d/.*)$</ind:filepath>
+    <ind:pattern operation="pattern match">^[\s]*Defaults.*\bpasswd_timeout=(\w+)\b.*$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal" >1</ind:instance>
+  </ind:textfilecontent54_object>
+
+
+  <ind:textfilecontent54_state id="state_passwd_timeout_sudoers" version="1">
+    <ind:subexpression datatype="string" operation="equals" var_ref="var_sudo_passwd_timeout" />
+  </ind:textfilecontent54_state>
+
+  <external_variable comment="Variable value for sudo passwd_timeout " datatype="string" id="var_sudo_passwd_timeout" version="1" />
+
+</def-group>

@@ -1,0 +1,18 @@
+# platform = multi_platform_wrlinux,multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv,multi_platform_rhcos
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  annotations:
+    complianceascode.io/depends-on: xccdf_org.ssgproject.content_rule_package_usbguard_installed
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:,%0Aallow%20with-interface%20match-all%20%7B%2003%3A%2A%3A%2A%2009%3A00%3A%2A%20%7D
+        mode: 0600
+        path: /etc/usbguard/rules.d/75-hid-and-hub.conf
+        overwrite: true

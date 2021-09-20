@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/sudo/sudo_dedicated_group/rule.yml
+description: 'Restrict the execution of privilege escalated commands to a dedicated
+  group of users.
+
+  Ensure the group owner of /usr/bin/sudo is <sub idref="var_sudo_dedicated_group"
+  />.'
+identifiers:
+  cce: CCE-83491-1
+inherited_platforms: []
+ocil: 'To check the group ownership of <code>/usr/bin/sudo</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /usr/bin/sudo</pre>
+
+  If properly configured, the output should indicate the following group-owner:
+
+  <code><sub idref="var_sudo_dedicated_group" /></code>'
+ocil_clause: /usr/bin/sudo has group owner <sub idref="var_sudo_dedicated_group" />
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8
+rationale: Restricting the set of users able to execute commands as privileged user
+  reduces the attack surface.
+references:
+  anssi: BP28(R57)
+requires: []
+severity: medium
+template: null
+title: Ensure a dedicated group owns sudo
+warnings:
+- functionality: 'Changing group owner of <tt>/usr/bin/sudo</tt> to a group with no
+    member users will prevent
+
+    any and all escalatation of privileges.
+
+    Additionally, the system may become unmanageable if root logins are not allowed.'
+- general: This rule doesn't come with a remediation, before remediating the sysadmin
+    needs to add users to the dedicated sudo group.

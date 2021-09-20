@@ -1,0 +1,9 @@
+# platform = multi_platform_sle
+# reboot = false
+# strategy = unknown
+# complexity = low
+# disruption = medium
+- name: "Run dconf update"
+  shell: |
+    set -o pipefail
+    dconf update

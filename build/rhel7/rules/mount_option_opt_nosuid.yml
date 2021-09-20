@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_opt_nosuid/rule.yml
+description: 'The <tt>nosuid</tt> mount option can be used to prevent
+
+  execution of setuid programs in <tt>/opt</tt>. The SUID and SGID permissions
+
+  should not be required in this directory.
+
+  Add the <code>nosuid</code> option to the fourth column of
+
+  <tt>/etc/fstab</tt> for the line which controls mounting of
+
+  <code>/opt</code>.'
+identifiers:
+  cce: CCE-83317-8
+inherited_platforms: []
+ocil: "To verify the <tt>nosuid</tt> option is configured for the <tt>/opt</tt> mount\
+  \ point,\n    run the following command:\n    <pre>$ mount | grep '\\s/opt\\s'</pre>\n\
+  \    The output should show the corresponding mount point along with the <tt>nosuid</tt>\
+  \ setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,wrlinux1019
+rationale: 'The presence of SUID and SGID executables should be tightly controlled.
+  The
+
+  <tt>/opt</tt> directory contains additional software packages. Users should
+
+  not be able to execute SUID or SGID binaries from this directory.'
+references:
+  anssi: BP28(R12)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: nosuid
+    mountpoint: /opt
+title: Add nosuid Option to /opt
+warnings: []

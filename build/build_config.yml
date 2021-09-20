@@ -1,0 +1,11 @@
+cmake_build_type: "Release"
+
+ssg_version: [0, 1, 58]
+ssg_version_str: "0.1.58"
+target_oval_version: [5, 11]
+target_oval_version_str: "5.11"
+
+jinja2_cache_enabled: true
+jinja2_cache_dir: "/home/chase/_work/complianceascode-content/complianceascode-content/build/jinja2_cache"
+
+sce_enabled: "OFF"

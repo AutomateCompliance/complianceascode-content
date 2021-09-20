@@ -1,0 +1,25 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/deprecated/package_ntpdate_removed/rule.yml
+description: ntpdate is a historical ntp synchronization client for unixes. It sould
+  be uninstalled.
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: ntpdate is an old not security-compliant ntp client. It should be replaced
+  by modern ntp clients such as ntpd, able to use cryptographic mechanisms integrated
+  in NTP.
+references: {}
+requires: []
+severity: low
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: ntpdate
+title: Uninstall the ntpdate package
+warnings: []

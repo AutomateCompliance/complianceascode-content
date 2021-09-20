@@ -1,0 +1,45 @@
+# platform = multi_platform_sle,multi_platform_rhel
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+
+{{% if 'rhel' not in product %}}
+{{% set aide_string = 'p+i+n+u+g+s+b+acl+selinux+xattrs+sha512' %}}
+{{% else %}}
+{{% set aide_string = 'p+i+n+u+g+s+b+acl+xattrs+sha512' %}}
+{{% endif %}}
+
+
+
+- name: Ensure aide is installed
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - aide
+
+
+- name: Set audit_tools fact
+  set_fact:
+    audit_tools:
+      {{% if 'rhel' not in product %}}- /usr/sbin/audispd{{% endif %}}
+      - /usr/sbin/auditctl
+      - /usr/sbin/auditd
+      - /usr/sbin/augenrules
+      - /usr/sbin/aureport
+      - /usr/sbin/ausearch
+      - /usr/sbin/autrace
+
+- name: Ensure existing AIDE configuration for audit tools are correct
+  lineinfile:
+    path: /etc/aide.conf
+    regexp: ^{{ item }}\s
+    line: "{{ item }} {{{ aide_string }}}"
+  with_items: "{{ audit_tools }}"
+
+- name: Configure AIDE to properly protect audit tools
+  lineinfile:
+    path: /etc/aide.conf
+    line: "{{ item }} {{{ aide_string }}}"
+  with_items: "{{ audit_tools }}"

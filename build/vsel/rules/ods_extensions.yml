@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_demand_settings/ods_extensions/rule.yml
+description: "When scanning for malware, excluding specific file types will increase\
+  \ the risk of a malware-infected file going undetected. By configuring anti-virus\
+  \ software to scan all file types, the scanner has a higher success rate at detecting\
+  \ and eradicating malware.\n\nTo check that VSEL settings are configured correctly,\
+  \ you have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.\n\
+  If this config file contains a line with \"extensions.mode\" with values set to\
+  \ anything other than <tt>extensions.mode: all</tt>, \nassociated scans may ignore\
+  \ certain file extensions."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that various extensions are not ignored by the scanner, \ncheck the\
+  \ respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains\
+  \ lines with <pre>extensions.mode: all</pre>:\n<pre>grep 'extensions.mode: all'\
+  \ /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>"
+ocil_clause: 'the <pre>ods.cfg</pre> contains lines with extensions.mode occurences
+  with settings other than <pre>extensions.mode: all</pre> '
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Excluding file types from scans introduces the possibility for infected
+  files to go undetected by the scanner. '
+references:
+  disa: CCI-001241
+  nist: SI-3
+  srg: SRG-APP-000277
+  stigid: DTAVSEL-113
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must
+  be configured to include all local drives and their sub-directories
+warnings: []

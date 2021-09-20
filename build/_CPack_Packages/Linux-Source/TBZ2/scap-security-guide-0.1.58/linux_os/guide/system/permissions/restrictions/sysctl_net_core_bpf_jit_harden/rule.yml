@@ -1,0 +1,37 @@
+documentation_complete: true
+
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+
+title: 'Harden the operation of the BPF just-in-time compiler'
+
+description: '{{{ describe_sysctl_option_value(sysctl="net.core.bpf_jit_harden", value="2") }}}'
+
+rationale: |-
+    When hardened, the extended Berkeley Packet Filter just-in-time compiler
+    will randomize any kernel addresses in the BPF programs and maps,
+    and will not expose the JIT addresses in <tt>/proc/kallsyms</tt>.
+
+severity: medium
+
+identifiers:
+    cce@rhcos4: CCE-82505-9
+    cce@rhel8: CCE-82934-1
+    cce@rhel9: CCE-83966-2
+
+references:
+    disa: CCI-000366
+    nist: CM-6b
+    ospp: FMT_SMF_EXT.1
+    srg: SRG-OS-000480-GPOS-00227
+    stigid@rhel8: RHEL-08-040286
+
+{{{ complete_ocil_entry_sysctl_option_value(sysctl="net.core.bpf_jit_harden", value="2") }}}
+
+platform: machine
+
+template:
+    name: sysctl
+    vars:
+        sysctlvar: net.core.bpf_jit_harden
+        sysctlval: '2'
+        datatype: int

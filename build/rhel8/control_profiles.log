@@ -1,0 +1,30 @@
+INFO:root:Found file /home/chase/_work/complianceascode-content/complianceascode-content/controls/anssi.yml
+INFO:root:Rule ensure_oracle_gpgkey_installed doesn't apply to rhel8
+INFO:root:Rule sshd_use_directory_configuration doesn't apply to rhel8
+INFO:root:Found file /home/chase/_work/complianceascode-content/complianceascode-content/controls/cis_rhel7.yml
+INFO:root:Rule disable_prelink doesn't apply to rhel8
+INFO:root:Rule ntpd_configure_restrictions doesn't apply to rhel8
+INFO:root:Rule ntpd_run_as_ntp_user doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_insmod doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_rmmod doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_modprobe doesn't apply to rhel8
+INFO:root:Found file /home/chase/_work/complianceascode-content/complianceascode-content/controls/cis_rhel8.yml
+INFO:root:Rule audit_rules_privileged_commands_insmod doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_modprobe doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_rmmod doesn't apply to rhel8
+INFO:root:Found file /home/chase/_work/complianceascode-content/complianceascode-content/controls/cis_sle12.yml
+INFO:root:Rule disable_prelink doesn't apply to rhel8
+INFO:root:Rule package_pam_apparmor_installed doesn't apply to rhel8
+INFO:root:Rule ntpd_configure_restrictions doesn't apply to rhel8
+INFO:root:Rule ntpd_run_as_ntp_user doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_insmod doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_rmmod doesn't apply to rhel8
+INFO:root:Rule audit_rules_privileged_commands_modprobe doesn't apply to rhel8
+INFO:root:Rule cracklib_accounts_password_pam_dcredit doesn't apply to rhel8
+INFO:root:Rule cracklib_accounts_password_pam_ucredit doesn't apply to rhel8
+INFO:root:Rule cracklib_accounts_password_pam_lcredit doesn't apply to rhel8
+INFO:root:Rule cracklib_accounts_password_pam_ocredit doesn't apply to rhel8
+INFO:root:Rule cracklib_accounts_password_pam_minlen doesn't apply to rhel8
+INFO:root:Rule cracklib_accounts_password_pam_retry doesn't apply to rhel8
+INFO:root:Rule accounts_passwords_pam_tally2 doesn't apply to rhel8
+INFO:root:Found file /home/chase/_work/complianceascode-content/complianceascode-content/controls/pcidss_ocp4.yml

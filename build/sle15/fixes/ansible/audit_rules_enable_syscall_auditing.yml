@@ -1,0 +1,137 @@
+# platform = multi_platform_sle
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Service facts
+  service_facts: null
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Check the rules script being used
+  command: grep '^ExecStartPost' /usr/lib/systemd/system/auditd.service
+  register: check_rules_scripts_result
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Find audit rules in /etc/audit/rules.d
+  find:
+    paths: /etc/audit/rules.d
+    file_type: file
+    follow: true
+  register: find_audit_rules_result
+  when:
+    - '"audit" in ansible_facts.packages'
+    - '"auditd.service" in ansible_facts.services'
+    - '"augenrules" in check_rules_scripts_result.stdout'
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Enable syscall auditing (augenrules)
+  lineinfile:
+    path: '{{ item.path }}'
+    regex: ^(?i)(\s*-a\s+task,never)\s*$
+    line: '#-a task,never'
+  with_items: '{{ find_audit_rules_result.files }}'
+  when:
+    - '"audit" in ansible_facts.packages'
+    - '"auditd.service" in ansible_facts.services'
+    - '"augenrules" in check_rules_scripts_result.stdout'
+  register: augenrules_syscall_auditing_rule_update_result
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Enable syscall auditing (auditctl)
+  lineinfile:
+    path: /etc/audit/audit.rules
+    regex: ^(?i)(\s*-a\s+task,never)\s*$
+    line: '#-a task,never'
+  when:
+    - '"audit" in ansible_facts.packages'
+    - '"auditd.service" in ansible_facts.services'
+    - '"auditctl" in check_rules_scripts_result.stdout'
+  register: auditctl_syscall_auditing_rule_update_result
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Restart auditd.service
+  systemd:
+    name: auditd.service
+    state: restarted
+  when:
+    - '"audit" in ansible_facts.packages'
+    - ansible_facts.services["auditd.service"].state == "running"
+    - (augenrules_syscall_auditing_rule_update_result.changed or auditctl_syscall_auditing_rule_update_result.changed)
+  tags:
+    - CCE-85706-0
+    - DISA-STIG-SLES-15-030820
+    - NIST-800-53-CM-6(b)
+    - NIST-800-53-CM-6.1(iv)
+    - audit_rules_enable_syscall_auditing
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

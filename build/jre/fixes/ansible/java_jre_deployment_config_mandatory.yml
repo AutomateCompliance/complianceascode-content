@@ -1,0 +1,36 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_mandatory
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure The Java Deployment Mandatory Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.config
+    regexp: ^\s*#?\s*deployment.system.config.mandatory=.*
+    line: deployment.system.config.mandatory=true
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_mandatory
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

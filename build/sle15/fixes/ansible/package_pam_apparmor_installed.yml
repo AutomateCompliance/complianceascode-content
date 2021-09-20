@@ -1,0 +1,26 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure pam_apparmor is installed
+  package:
+    name: pam_apparmor
+    state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-85765-6
+    - DISA-STIG-SLES-15-010390
+    - NIST-800-53-AC-3(4)
+    - NIST-800-53-AC-6(10)
+    - NIST-800-53-AC-6(8)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(2)
+    - NIST-800-53-CM-7(5)(b)
+    - NIST-800-53-SC-7(21)
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - package_pam_apparmor_installed

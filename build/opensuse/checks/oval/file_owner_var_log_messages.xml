@@ -1,0 +1,23 @@
+<def-group>
+  <definition class="compliance" id="file_owner_var_log_messages" version="1">
+    <metadata>
+        <title>Verify User Who Owns /var/log/messages File</title>
+        
+    <affected family="unix">
+    <platform>openSUSE</platform>
+    </affected>
+        <description>This test makes sure that /var/log/messages is owned by 0.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="Check file ownership of /var/log/messages" test_ref="test_file_owner_var_log_messages" />
+    </criteria>
+  </definition>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing user ownership of /var/log/messages" id="test_file_owner_var_log_messages" version="1">
+    <unix:object object_ref="object_file_owner_var_log_messages" />
+    <unix:state state_ref="state_file_owner_var_log_messages_uid_0" />
+  </unix:file_test>
+  <unix:file_state id="state_file_owner_var_log_messages_uid_0" version="1">
+    <unix:user_id datatype="int">0</unix:user_id>
+  </unix:file_state>
+  <unix:file_object comment="/var/log/messages" id="object_file_owner_var_log_messages" version="1"><unix:filepath>/var/log/messages</unix:filepath></unix:file_object>
+</def-group>

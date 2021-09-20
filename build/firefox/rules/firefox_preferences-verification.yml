@@ -1,0 +1,33 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-verification/rule.yml
+description: "Firefox can be configured to prompt the user to choose a certificate\n\
+  to present to a website when asked. To enable certificate verification, \nset <tt>security.default_personal_cert</tt>\
+  \ to <tt>Ask Every Time</tt>."
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that certificate verification is enabled, run the following command:
+
+  <pre>$ grep ''security.default_personal_cert'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("security.default_personal_cert", "Ask Every Time");</pre>'
+ocil_clause: it is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Websites within DoD require user authentication for access which increases
+
+  security for DoD information. Access will be denied to the user if
+
+  certificate management is not configured.'
+references:
+  disa: CCI-001274
+  nist: SI-4(12)
+  stigid: DTBF050
+requires: []
+severity: medium
+template: null
+title: Enable Certificate Verification
+warnings: []

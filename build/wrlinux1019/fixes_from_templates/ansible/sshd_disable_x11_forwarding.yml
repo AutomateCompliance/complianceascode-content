@@ -1,0 +1,35 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+
+
+
+- name: "Disable X11 Forwarding"
+  block:
+    - name: "Check for duplicate values"
+      lineinfile:
+        path: '/etc/ssh/sshd_config'
+        create: no
+        regexp: '(?i)^\s*X11Forwarding\s+'
+        state: 'absent'
+      check_mode: yes
+      changed_when: no
+      register: 'dupes'
+    - name: "Deduplicate values from /etc/ssh/sshd_config"
+      lineinfile:
+        path: '/etc/ssh/sshd_config'
+        create: no
+        regexp: '(?i)^\s*X11Forwarding\s+'
+        state: 'absent'
+      when: 'dupes.found is defined and dupes.found > 1'
+    - name: "Insert correct line to /etc/ssh/sshd_config"
+      lineinfile:
+        path: '/etc/ssh/sshd_config'
+        create: yes
+        regexp: '(?i)^\s*X11Forwarding\s+'
+        line: 'X11Forwarding no'
+        state: present
+        insertbefore: '^[#\s]*Match'
+        validate: '/usr/sbin/sshd -t -f %s'

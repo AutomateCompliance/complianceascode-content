@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_var_log_dir/file_owner_var_log/rule.yml
+description: ' To properly set the owner of <code>/var/log</code>, run the command:
+  <pre>$ sudo chown root /var/log </pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the ownership of <code>/var/log</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /var/log</pre>
+
+  If properly configured, the output should indicate the following owner:
+
+  <code>root</code>'
+ocil_clause: /var/log has owner root
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/var/log</tt> directory contains files with logs of error
+
+  messages in the system and should only be accessed by authorized
+
+  personnel.'
+references:
+  disa: CCI-001314
+  srg: SRG-OS-000206-GPOS-00084
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_owner
+  vars:
+    filepath: /var/log/
+    fileuid: '0'
+title: Verify User Who Owns /var/log Directory
+warnings: []

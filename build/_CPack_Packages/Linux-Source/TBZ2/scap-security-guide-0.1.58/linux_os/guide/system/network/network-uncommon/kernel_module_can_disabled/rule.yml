@@ -1,0 +1,36 @@
+documentation_complete: true
+
+prodtype: fedora,ol8,rhcos4,rhel7,rhel8,rhel9
+
+title: 'Disable CAN Support'
+
+description: |-
+    The Controller Area Network (CAN) is a serial communications
+    protocol which was initially developed for automotive and
+    is now also used in marine, industrial, and medical applications.
+    {{{ describe_module_disable(module="can") }}}
+
+rationale: |-
+    Disabling CAN protects the system against exploitation of any
+    flaws in its implementation.
+
+severity: medium
+
+identifiers:
+    cce@rhcos4: CCE-82519-0
+    cce@rhel7: CCE-82164-5
+    cce@rhel8: CCE-82059-7
+    cce@rhel9: CCE-84134-6
+
+references:
+    disa: CCI-000381
+    ospp: FMT_SMF_EXT.1
+    srg: SRG-OS-000095-GPOS-00049
+    stigid@rhel8: RHEL-08-040022
+
+{{{ complete_ocil_entry_module_disable(module="can") }}}
+
+template:
+    name: kernel_module_disabled
+    vars:
+        kernmodule: can

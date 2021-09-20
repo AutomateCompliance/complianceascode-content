@@ -1,0 +1,28 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-session/accounts_users_own_home_directories/rule.yml
+description: 'The user home directory is space defined for the particular user to
+  set local
+
+  environment variables and to store personal files. Since the user is
+
+  accountable for files stored in the user home directory, the user must be
+
+  the owner of the directory.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ubuntu2004
+rationale: 'Since the user is accountable for files stored in the user home directory,
+
+  the user must be the owner of the directory.'
+references:
+  cis: 6.2.6
+requires: []
+severity: medium
+template: null
+title: Ensure users own their home directories
+warnings: []

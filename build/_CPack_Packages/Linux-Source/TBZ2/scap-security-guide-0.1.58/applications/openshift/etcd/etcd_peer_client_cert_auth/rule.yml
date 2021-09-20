@@ -1,0 +1,49 @@
+documentation_complete: true
+
+prodtype: ocp4
+
+title: 'Enable The Peer Client Certificate Authentication'
+
+description: |-
+    To ensure the <tt>etcd</tt> service is serving TLS to clients,
+    make sure the <tt>etcd-pod*</tt> <tt>ConfigMaps</tt> in the
+    <tt>openshift-etcd</tt> namespace contain the following argument
+    for the <tt>etcd</tt> binary in the <tt>etcd</tt> pod:
+    <pre>oc get -nopenshift-etcd cm etcd-pod -oyaml | grep "\-\-peer-client-cert-auth="</pre>
+    the parameter should be set to <tt>true</tt>.
+
+rationale: |-
+    Without cryptographic integrity protections, information can be
+    altered by unauthorized users without detection.
+
+severity: medium
+
+identifiers:
+    cce@ocp4: CCE-83465-5
+
+references:
+    cis@ocp4: '2.5'
+    nerc-cip: CIP-003-3 R4.2,CIP-003-3 R6,CIP-004-3 R3,CIP-007-3 R5.1,CIP-007-3 R6.1
+    nist: CM-6,CM-6(1),SC-8,SC-8(1)
+
+ocil_clause: 'the etcd peer client certificate authentication is not configured'
+
+ocil: |-
+    Run the following command:
+    <pre>oc get -nopenshift-etcd cm etcd-pod -oyaml | grep "\-\-peer-client-cert-auth="</pre>
+    The parameter should be set to <tt>true</tt>.
+
+warnings:
+    - general: |-
+        {{{ openshift_cluster_setting("/api/v1/namespaces/openshift-etcd/configmaps/etcd-pod") | indent(8) }}}
+
+
+template:
+    name: yamlfile_value
+    vars:
+        ocp_data: "true"
+        filepath: /api/v1/namespaces/openshift-etcd/configmaps/etcd-pod
+        yamlpath: ".data['pod.yaml']"
+        values:
+          - value: ".*--peer-client-cert-auth=true \\.*"
+            operation: "pattern match"

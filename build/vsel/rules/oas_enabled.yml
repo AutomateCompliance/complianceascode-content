@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_enabled/rule.yml
+description: "For anti-virus software to be effective, it must be running at all times,\
+  \ beginning from the point of the system's initial startup. \nOtherwise, the risk\
+  \ is greater for viruses, Trojans, and other malware infecting the system during\
+  \ that startup phase.\n\nTo check that VSEL settings are configured correctly, you\
+  \ have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.oasEnabled: true</tt>,\nthe antivirus\
+  \ software will be running at initial startup of the system."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that the antivirus software will be running at initial startup of\
+  \ the system, \ncheck the respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\
+  \ contains the <pre>nailsd.oasEnabled: true</pre> line:\n<pre>grep 'nailsd.oasEnabled:\
+  \ true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.oasEnabled:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: For anti-virus software to be effective, it must be running at all times,
+  beginning from the point of the system's initial startup.
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-003
+requires: []
+severity: high
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to
+  enable On-Access scanning
+warnings: []

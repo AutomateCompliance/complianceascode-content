@@ -1,0 +1,631 @@
+<fix-content system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix-group id="puppet" system="urn:xccdf:fix:script:puppet" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix rule="apparmor_configured" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_apparmor
+
+class enable_apparmor {
+  service {'apparmor':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="file_permissions_sshd_private_key">include ssh_private_key_perms
+
+class ssh_private_key_perms {
+  exec { 'sshd_priv_key':
+    command =&gt; "chmod 0640 /etc/ssh/*_key",
+    path    =&gt; '/bin:/usr/bin'
+  }
+}
+</fix><fix rule="file_permissions_sshd_pub_key">include ssh_public_key_perms
+
+class ssh_public_key_perms {
+  exec { 'sshd_pub_key':
+    command =&gt; "chmod 0644 /etc/ssh/*.pub",
+    path    =&gt; '/bin:/usr/bin'
+  }
+}
+</fix><fix rule="package_aide_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_aide
+
+class install_aide {
+  package { 'aide':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_audit-audispd-plugins_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_audit-audispd-plugins
+
+class install_audit-audispd-plugins {
+  package { 'audit-audispd-plugins':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_audit_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_audit
+
+class install_audit {
+  package { 'audit':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_bind_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_bind
+
+class remove_bind {
+  package { 'bind':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_chrony_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_chrony
+
+class install_chrony {
+  package { 'chrony':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_cron_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_cron
+
+class install_cron {
+  package { 'cron':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_dhcp_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_dhcp
+
+class remove_dhcp {
+  package { 'dhcp':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_dovecot_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_dovecot
+
+class remove_dovecot {
+  package { 'dovecot':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_firewalld_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_firewalld
+
+class install_firewalld {
+  package { 'firewalld':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_gnutls-utils_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_gnutls-utils
+
+class install_gnutls-utils {
+  package { 'gnutls-utils':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_httpd_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_httpd
+
+class remove_httpd {
+  package { 'httpd':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_inetutils-telnetd_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_inetutils-telnetd
+
+class remove_inetutils-telnetd {
+  package { 'inetutils-telnetd':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_iptables_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_iptables
+
+class install_iptables {
+  package { 'iptables':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_libreswan_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_libreswan
+
+class install_libreswan {
+  package { 'libreswan':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_libselinux_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_libselinux1
+
+class install_libselinux1 {
+  package { 'libselinux1':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_mcstrans_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_mcstrans
+
+class remove_mcstrans {
+  package { 'mcstrans':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_net-snmp_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_net-snmp
+
+class remove_net-snmp {
+  package { 'net-snmp':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_nfs-utils_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_nfs-utils
+
+class remove_nfs-utils {
+  package { 'nfs-utils':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_nis_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_nis
+
+class remove_nis {
+  package { 'nis':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_nss-tools_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_nss-tools
+
+class install_nss-tools {
+  package { 'nss-tools':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_ntp_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_ntp
+
+class install_ntp {
+  package { 'ntp':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_ntpdate_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_ntpdate
+
+class remove_ntpdate {
+  package { 'ntpdate':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_openldap-clients_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_openldap-clients
+
+class remove_openldap-clients {
+  package { 'openldap-clients':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_openldap-servers_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_openldap-servers
+
+class remove_openldap-servers {
+  package { 'openldap-servers':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_openssh-server_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_openssh-server
+
+class install_openssh-server {
+  package { 'openssh-server':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_openssh-server_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_openssh-server
+
+class remove_openssh-server {
+  package { 'openssh-server':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_openssh_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_openssh
+
+class install_openssh {
+  package { 'openssh':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_openssh_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_openssh
+
+class remove_openssh {
+  package { 'openssh':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_pam_apparmor_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_pam_apparmor
+
+class install_pam_apparmor {
+  package { 'pam_apparmor':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_rsh_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_rsh
+
+class remove_rsh {
+  package { 'rsh':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_rsyslog_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_rsyslog
+
+class install_rsyslog {
+  package { 'rsyslog':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_samba-common_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_samba-common
+
+class install_samba-common {
+  package { 'samba-common':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_samba_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_samba
+
+class remove_samba {
+  package { 'samba':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_setroubleshoot_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_setroubleshoot
+
+class remove_setroubleshoot {
+  package { 'setroubleshoot':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_squid_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_squid
+
+class remove_squid {
+  package { 'squid':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_strongswan_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_strongswan
+
+class install_strongswan {
+  package { 'strongswan':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_sudo_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_sudo
+
+class install_sudo {
+  package { 'sudo':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_syslogng_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_syslogng
+
+class install_syslogng {
+  package { 'syslogng':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_talk_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_talk
+
+class remove_talk {
+  package { 'talk':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_tcp_wrappers_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_tcpd
+
+class install_tcpd {
+  package { 'tcpd':
+    ensure =&gt; 'installed',
+  }
+}
+</fix><fix rule="package_telnet-server_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_telnet-server
+
+class remove_telnet-server {
+  package { 'telnet-server':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_telnet_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_telnet
+
+class remove_telnet {
+  package { 'telnet':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_telnetd-ssl_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_telnetd-ssl
+
+class remove_telnetd-ssl {
+  package { 'telnetd-ssl':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_telnetd_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_telnetd
+
+class remove_telnetd {
+  package { 'telnetd':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_vsftpd_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_vsftpd
+
+class remove_vsftpd {
+  package { 'vsftpd':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_xinetd_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_xinetd
+
+class remove_xinetd {
+  package { 'xinetd':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_xorg-x11-server-common_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_xorg-x11-server-common
+
+class remove_xorg-x11-server-common {
+  package { 'xorg-x11-server-common':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_ypbind_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_ypbind
+
+class remove_ypbind {
+  package { 'ypbind':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="package_ypserv_removed" complexity="low" disruption="low" reboot="false" strategy="disable">include remove_ypserv
+
+class remove_ypserv {
+  package { 'ypserv':
+    ensure =&gt; 'purged',
+  }
+}
+</fix><fix rule="service_auditd_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_auditd
+
+class enable_auditd {
+  service {'auditd':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_autofs_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_autofs
+
+class disable_autofs {
+  service {'autofs':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_avahi-daemon_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_avahi-daemon
+
+class disable_avahi-daemon {
+  service {'avahi-daemon':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_chronyd_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_chronyd
+
+class enable_chronyd {
+  service {'chronyd':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_cron_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_cron
+
+class enable_cron {
+  service {'cron':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_crond_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_crond
+
+class enable_crond {
+  service {'crond':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_cups_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_cups
+
+class disable_cups {
+  service {'cups':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_dhcpd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_dhcpd
+
+class disable_dhcpd {
+  service {'dhcpd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_dovecot_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_dovecot
+
+class disable_dovecot {
+  service {'dovecot':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_firewalld_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_firewalld
+
+class enable_firewalld {
+  service {'firewalld':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_httpd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_httpd
+
+class disable_httpd {
+  service {'httpd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_ip6tables_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_ip6tables
+
+class enable_ip6tables {
+  service {'ip6tables':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_iptables_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_iptables
+
+class enable_iptables {
+  service {'iptables':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_kdump_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_kdump
+
+class disable_kdump {
+  service {'kdump':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_named_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_named
+
+class disable_named {
+  service {'named':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_netfs_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_netfs
+
+class disable_netfs {
+  service {'netfs':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_ntp_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_ntp
+
+class enable_ntp {
+  service {'ntp':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_ntpd_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_ntpd
+
+class enable_ntpd {
+  service {'ntpd':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_pcscd_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_pcscd
+
+class enable_pcscd {
+  service {'pcscd':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_postfix_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_postfix
+
+class enable_postfix {
+  service {'postfix':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_rpcbind_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_rpcbind
+
+class disable_rpcbind {
+  service {'rpcbind':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_rsyncd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_rsyncd
+
+class disable_rsyncd {
+  service {'rsyncd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_rsyslog_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_rsyslog
+
+class enable_rsyslog {
+  service {'rsyslog':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_smb_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_smb
+
+class disable_smb {
+  service {'smb':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_snmpd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_snmpd
+
+class disable_snmpd {
+  service {'snmpd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_squid_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_squid
+
+class disable_squid {
+  service {'squid':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_sshd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_sshd
+
+class disable_sshd {
+  service {'sshd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_sshd_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_sshd
+
+class enable_sshd {
+  service {'sshd':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_syslogng_enabled" complexity="low" disruption="low" reboot="false" strategy="enable">include enable_syslogng
+
+class enable_syslogng {
+  service {'syslogng':
+    enable =&gt; true,
+    ensure =&gt; 'running',
+  }
+}
+</fix><fix rule="service_tftp_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_tftp
+
+class disable_tftp {
+  service {'tftp':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_vsftpd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_vsftpd
+
+class disable_vsftpd {
+  service {'vsftpd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="service_xinetd_disabled" complexity="low" disruption="low" reboot="false" strategy="enable">include disable_xinetd
+
+class disable_xinetd {
+  service {'xinetd':
+    enable =&gt; false,
+    ensure =&gt; 'stopped',
+  }
+}
+</fix><fix rule="vlock_installed" complexity="low" disruption="low" reboot="false" strategy="enable">include install_kbd
+
+class install_kbd {
+  package { 'kbd':
+    ensure =&gt; 'installed',
+  }
+}
+</fix></fix-group></fix-content>

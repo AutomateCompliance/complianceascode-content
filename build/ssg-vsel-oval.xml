@@ -1,0 +1,711 @@
+<?xml version="1.0"?>
+<oval-def:oval_definitions xmlns:ind="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:linux="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <oval-def:generator>
+    <oval:product_name>combine_ovals.py from SCAP Security Guide</oval:product_name>
+    <oval:product_version>ssg: [0, 1, 58], python: 3.8.10</oval:product_version>
+    <oval:schema_version>5.11</oval:schema_version>
+    <oval:timestamp>2021-09-20T02:50:45</oval:timestamp>
+  </oval-def:generator>
+  <oval-def:definitions>
+    <oval-def:definition class="compliance" id="oval:ssg-virus_notification:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="virus_notification" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check notifications.virusDetected.active" test_ref="oval:ssg-test_virus_notification:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-web_client_disabled:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="web_client_disabled" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.disableCltWebUI" test_ref="oval:ssg-test_web_client_disabled:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_action_app_primary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_action_app_primary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.action.App.primary" test_ref="oval:ssg-test_oas_action_app_primary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_action_app_secondary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_action_app_secondary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.action.App.secondary" test_ref="oval:ssg-test_oas_action_app_secondary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_action_default_primary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_action_default_primary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.action.Default.primary" test_ref="oval:ssg-test_oas_action_default_primary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_action_default_secondary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_action_default_secondary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.action.Default.secondary" test_ref="oval:ssg-test_oas_action_default_secondary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_action_error:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_action_error" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.action.error" test_ref="oval:ssg-test_oas_action_error:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_action_timeout:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_action_timeout" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.action.timeout" test_ref="oval:ssg-test_oas_action_timeout:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_allFiles:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_allFiles" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.allFiles" test_ref="oval:ssg-test_oas_allFiles:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_decompArchive:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_decompArchive" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.decompArchive" test_ref="oval:ssg-test_oas_decompArchive:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_enabled:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_enabled" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.oasEnabled" test_ref="oval:ssg-test_oas_enabled:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_heuristicAnalysis:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_heuristicAnalysis" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.heuristicAnalysis" test_ref="oval:ssg-test_oas_heuristicAnalysis:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_macroAnalysis:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_macroAnalysis" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.macroAnalysis" test_ref="oval:ssg-test_oas_macroAnalysis:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_program:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_program" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.program" test_ref="oval:ssg-test_oas_program:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_scanMaxTmo:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_scanMaxTmo" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.scanMaxTmo" test_ref="oval:ssg-test_oas_scanMaxTmo:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_scanNWFiles:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_scanNWFiles" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.scanNWFiles" test_ref="oval:ssg-test_oas_scanNWFiles:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_scanOnRead:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_scanOnRead" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.scanOnRead" test_ref="oval:ssg-test_oas_scanOnRead:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-oas_scanOnWrite:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="oas_scanOnWrite" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.OAS.scanOnWrite" test_ref="oval:ssg-test_oas_scanOnWrite:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_action_app_primary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_action_app_primary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.action.App.primary" test_ref="oval:ssg-test_ods_action_app_primary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_action_app_secondary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_action_app_secondary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.action.App.secondary" test_ref="oval:ssg-test_ods_action_app_secondary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_action_default_primary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_action_default_primary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check ODS.action.Default.primary" test_ref="oval:ssg-test_ods_action_default_primary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_action_default_secondary:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_action_default_secondary" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check ODS.action.Default.secondary" test_ref="oval:ssg-test_ods_action_default_secondary:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_allFiles:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_allFiles" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.allFiles" test_ref="oval:ssg-test_ods_allFiles:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_decompArchive:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_decompArchive" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.decompArchive" test_ref="oval:ssg-test_ods_decompArchive:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_extensions:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>VSEL ODS configured to include all local drives and their sub-directories.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_extensions" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.filter.extensions.mode" test_ref="oval:ssg-test_ods_filter_extensions:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_heuristicAnalysis:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_heuristicAnalysis" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.heuristicAnalysis" test_ref="oval:ssg-test_ods_heuristicAnalysis:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_macroAnalysis:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_macroAnalysis" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.macroAnalysis" test_ref="oval:ssg-test_ods_macroAnalysis:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_mime:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_mime" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.mime" test_ref="oval:ssg-test_ods_mime:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_program:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_program" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.program" test_ref="oval:ssg-test_ods_program:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-ods_scanNWFiles_local:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The McAfee VirusScan Enterprise for Linux  Web interface must be disabled unless the system is on a segregated network.</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description/>
+        <oval-def:reference ref_id="ods_scanNWFiles_local" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check nailsd.profile.ODS.scanNWFiles" test_ref="oval:ssg-test_ods_scanNWFiles_local:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="inventory" id="oval:ssg-installed_app_is_vsel:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>McAfee VirusScan Enterprise for Linux</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:reference ref_id="installed_app_is_vsel" source="CPE"/>
+        <oval-def:description>The application installed on the system is McAfee VSEL 1.9 or 2.0.</oval-def:description>
+        <oval-def:reference ref_id="installed_app_is_vsel" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria operator="OR">
+        <oval-def:criterion comment="McAfee's VSEL 1.9.x is installed" test_ref="oval:ssg-test_vsel_19:tst:1"/>
+        <oval-def:criterion comment="McAfee's VSEL 2.0.x is installed" test_ref="oval:ssg-test_vsel_20:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-sshd_includes_config_files:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>sshd_includes_config_files</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>McAfee VirusScan Enterprise for Linux</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>Check presence of Include /etc/ssh/sshd_config.d/*.conf in /etc/ssh/sshd_config</oval-def:description>
+        <oval-def:reference ref_id="sshd_includes_config_files" source="ssg"/>
+      </oval-def:metadata>
+      <oval-def:criteria operator="AND" comment="Test conditions - presence of the file plus 0 extra definitions.">
+        <oval-def:criterion comment="Check that /etc/ssh/sshd_config contains a line with certain text" test_ref="oval:ssg-test_sshd_includes_config_files:tst:1"/>
+      </oval-def:criteria>
+    </oval-def:definition>
+  </oval-def:definitions>
+  <oval-def:tests>
+    <ind:textfilecontent54_test check="all" comment="Check notifications.virusDetected.active" id="oval:ssg-test_virus_notification:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_virus_notification:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.disableCltWebUI" id="oval:ssg-test_web_client_disabled:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_web_client_disabled:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.App.primary" id="oval:ssg-test_oas_action_app_primary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_action_app_primary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.App.secondary" id="oval:ssg-test_oas_action_app_secondary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_action_app_secondary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.Default.primary" id="oval:ssg-test_oas_action_default_primary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_action_default_primary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.Default.secondary" id="oval:ssg-test_oas_action_default_secondary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_action_default_secondary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.error" id="oval:ssg-test_oas_action_error:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_action_error:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.action.timeout" id="oval:ssg-test_oas_action_timeout:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_action_timeout:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.allFiles" id="oval:ssg-test_oas_allFiles:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_allFiles:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.decompArchive" id="oval:ssg-test_oas_decompArchive:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_decompArchive:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.oasEnabled" id="oval:ssg-test_oas_enabled:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_enabled:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.heuristicAnalysis" id="oval:ssg-test_oas_heuristicAnalysis:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_heuristicAnalysis:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.macroAnalysis" id="oval:ssg-test_oas_macroAnalysis:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_macroAnalysis:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.program" id="oval:ssg-test_oas_program:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_program:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanMaxTmo" id="oval:ssg-test_oas_scanMaxTmo:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_scanMaxTmo:obj:1"/>
+      <ind:state state_ref="oval:ssg-state_oas_scanMaxTmo:ste:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanNWFiles" id="oval:ssg-test_oas_scanNWFiles:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_scanNWFiles:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanOnRead" id="oval:ssg-test_oas_scanOnRead:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_scanOnRead:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.OAS.scanOnWrite" id="oval:ssg-test_oas_scanOnWrite:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_oas_scanOnWrite:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.action.App.primary" id="oval:ssg-test_ods_action_app_primary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_action_app_primary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.action.App.secondary" id="oval:ssg-test_ods_action_app_secondary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_action_app_secondary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check ODS.action.Default.primary" id="oval:ssg-test_ods_action_default_primary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_action_default_primary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check ODS.action.Default.secondary" id="oval:ssg-test_ods_action_default_secondary:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_action_default_secondary:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.allFiles" id="oval:ssg-test_ods_allFiles:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_allFiles:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.decompArchive" id="oval:ssg-test_ods_decompArchive:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_decompArchive:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="Check nailsd.profile.ODS.filter.extensions.mode" id="oval:ssg-test_ods_filter_extensions:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_filter_extensions:obj:1"/>
+      <ind:state state_ref="oval:ssg-state_ods_filter_extensions:ste:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.heuristicAnalysis" id="oval:ssg-test_ods_heuristicAnalysis:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_heuristicAnalysis:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.macroAnalysis" id="oval:ssg-test_ods_macroAnalysis:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_macroAnalysis:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.mime" id="oval:ssg-test_ods_mime:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_mime:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.program" id="oval:ssg-test_ods_program:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_program:obj:1"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check nailsd.profile.ODS.scanNWFiles" id="oval:ssg-test_ods_scanNWFiles_local:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_ods_scanNWFiles_local:obj:1"/>
+    </ind:textfilecontent54_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="McAfee's VSEL 1.9.x is installed" id="oval:ssg-test_vsel_19:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_vsel_19:obj:1"/>
+      <linux:state state_ref="oval:ssg-state_vsel_19:ste:1"/>
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="McAfee's VSEL 2.0.x is installed" id="oval:ssg-test_vsel_20:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_vsel_20:obj:1"/>
+      <linux:state state_ref="oval:ssg-state_vsel_20:ste:1"/>
+    </linux:rpminfo_test>
+    <ind:textfilecontent54_test check="all" comment="tests the presence of 'Include /etc/ssh/sshd_config.d/*.conf' setting in the /etc/ssh/sshd_config file" id="oval:ssg-test_sshd_includes_config_files:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-obj_sshd_includes_config_files:obj:1"/>
+    </ind:textfilecontent54_test>
+  </oval-def:tests>
+  <oval-def:objects>
+    <ind:textfilecontent54_object id="oval:ssg-object_virus_notification:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^notifications.virusDetected.active: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_web_client_disabled:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.disableCltWebUI: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_action_app_primary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.action.App.primary: Clean$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_action_app_secondary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.action.App.secondary: Quarantine$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_action_default_primary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.action.Default.primary: Clean$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_action_default_secondary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.action.Default.secondary: Quarantine$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_action_error:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.action.error: Block$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_action_timeout:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.action.timeout: Pass$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_allFiles:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.allFiles: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_decompArchive:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.decompArchive: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_enabled:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.oasEnabled: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_heuristicAnalysis:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.heuristicAnalysis: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_macroAnalysis:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.macroAnalysis: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_program:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.program: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_scanMaxTmo:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.scanMaxTmo:[\s]+(\d+)\s*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_scanNWFiles:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.scanNWFiles: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_scanOnRead:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.scanOnRead: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_oas_scanOnWrite:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.OAS.scanOnWrite: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_action_app_primary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.action.App.primary: Clean$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_action_app_secondary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.action.App.secondary: Quarantine$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_action_default_primary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.action.Default.primary: Clean$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_action_default_secondary:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.action.Default.secondary: Quarantine$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_allFiles:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.allFiles: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_decompArchive:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.decompArchive: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_filter_extensions:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^.*.extensions.mode: (.*)$</ind:pattern>
+      <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_heuristicAnalysis:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.heuristicAnalysis: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_macroAnalysis:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.macroAnalysis: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_mime:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.mime: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_program:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.program: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_ods_scanNWFiles_local:obj:1" version="1">
+      <ind:filepath>/var/opt/NAI/LinuxShield/etc/ods.cfg</ind:filepath>
+      <ind:pattern operation="pattern match">^nailsd.profile.ODS.scanNWFiles: true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <linux:rpminfo_object id="oval:ssg-obj_vsel_19:obj:1" version="1">
+      <linux:name operation="pattern match">^McAfeeVSEForLinux$</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg-obj_vsel_20:obj:1" version="1">
+      <linux:name operation="pattern match">^McAfeeVSEForLinux$</linux:name>
+    </linux:rpminfo_object>
+    <ind:textfilecontent54_object id="oval:ssg-obj_sshd_includes_config_files:obj:1" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*Include /etc/ssh/sshd_config\.d/\*\.conf[\s]*$</ind:pattern>
+      <ind:instance operation="greater than or equal" datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+  </oval-def:objects>
+  <oval-def:states>
+    <ind:textfilecontent54_state id="oval:ssg-state_oas_scanMaxTmo:ste:1" version="1">
+      <ind:subexpression operation="greater than or equal" datatype="int">45</ind:subexpression>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg-state_ods_filter_extensions:ste:1" version="1">
+      <ind:subexpression datatype="string" operation="pattern match">all</ind:subexpression>
+    </ind:textfilecontent54_state>
+    <linux:rpminfo_state id="oval:ssg-state_vsel_19:ste:1" version="1">
+      <linux:version operation="pattern match">^1.9.*$</linux:version>
+    </linux:rpminfo_state>
+    <linux:rpminfo_state id="oval:ssg-state_vsel_20:ste:1" version="1">
+      <linux:version operation="pattern match">^2.0.*$</linux:version>
+    </linux:rpminfo_state>
+  </oval-def:states>
+</oval-def:oval_definitions>

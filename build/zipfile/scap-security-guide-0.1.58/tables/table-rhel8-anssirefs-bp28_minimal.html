@@ -1,0 +1,833 @@
+<html xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cdf="http://checklists.nist.gov/xccdf/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ANSSI-BP-028 (minimal)</title>
+</head>
+<body>
+<br><br><div style="text-align: center; font-size: x-large; font-weight:bold">ANSSI-BP-028 (minimal)</div>
+<br><br><style type="text/css">
+		table
+		{
+			border-collapse:collapse;
+		}
+		table, th, td
+		{
+			border: 2px solid #dcdcdc;
+			border-left: none;
+			border-right: none;
+			vertical-align: top;
+			padding: 2px;
+			font-family: verdana,arial,sans-serif;
+			font-size:11px;
+		}
+		pre { 
+			white-space: pre-wrap;
+			white-space: -moz-pre-wrap !important;
+			word-wrap:break-word; 
+		}
+		table tr:nth-child(2n+2) { background-color: #f4f4f4; }
+		thead
+		{
+			display: table-header-group;
+			font-weight: bold;
+			background-color: #dedede;
+		}
+	</style>
+<table>
+<thead>
+<td>ANSSI Mapping</td>
+<td>Rule Title</td>
+<td>Description</td>
+<td>Rationale</td>
+<td>Variable Setting</td>
+</thead>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Set Password Maximum Age</td>
+<td xml:lang="en-US">To specify password maximum age for new accounts,
+edit the file <code>/etc/login.defs</code>
+and add or correct the following line:
+<pre>PASS_MAX_DAYS <xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_maximum_age_login_defs"></xccdf-1.1:sub></pre>
+A value of 180 days is sufficient for many environments.
+The DoD requirement is 60.
+The profile requirement is <code><xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_maximum_age_login_defs"></xccdf-1.1:sub></code>.</td>
+<td xml:lang="en-US">Any password, no matter how complex, can eventually be cracked. Therefore, passwords
+need to be changed periodically. If the operating system does not limit the lifetime
+of passwords and force users to change their passwords, there is the risk that the
+operating system passwords could be compromised.
+<br><br>
+Setting the password maximum age ensures users are required to
+periodically change their passwords. Requiring shorter password lifetimes
+increases the risk of users writing down the password in a convenient
+location subject to physical compromise.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Set Password Minimum Length in login.defs</td>
+<td xml:lang="en-US">To specify password length requirements for new accounts, edit the file
+<code>/etc/login.defs</code> and add or correct the following line:
+<pre>PASS_MIN_LEN <xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_password_minlen_login_defs"></xccdf-1.1:sub></pre>
+<br><br>
+The DoD requirement is <code>15</code>.
+The FISMA requirement is <code>12</code>.
+The profile requirement is
+<code><xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_password_minlen_login_defs"></xccdf-1.1:sub></code>.
+If a program consults <code>/etc/login.defs</code> and also another PAM module
+(such as <code>pam_pwquality</code>) during a password change operation, then
+the most restrictive must be satisfied. See PAM section for more
+information about enforcing password quality requirements.</td>
+<td xml:lang="en-US">Requiring a minimum password length makes password
+cracking attacks more difficult by ensuring a larger
+search space. However, any security benefit from an onerous requirement
+must be carefully weighed against usability problems, support costs, or counterproductive
+behavior that may result.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Ensure PAM Enforces Password Requirements - Minimum Digit Characters</td>
+<td xml:lang="en-US">The pam_pwquality module's <code>dcredit</code> parameter controls requirements for
+usage of digits in a password. When set to a negative number, any password will be required to
+contain that many digits. When set to a positive number, pam_pwquality will grant +1 additional
+length credit for each digit. Modify the <code>dcredit</code> setting in
+<code>/etc/security/pwquality.conf</code> to require the use of a digit in passwords.</td>
+<td xml:lang="en-US">Use of a complex password helps to increase the time and resources required
+to compromise the password. Password complexity, or strength, is a measure of
+the effectiveness of a password in resisting attempts at guessing and brute-force
+attacks.
+<br><br>
+Password complexity is one factor of several that determines how long it takes
+to crack a password. The more complex the password, the greater the number of
+possible combinations that need to be tested before the password is compromised.
+Requiring digits makes password guessing attacks more difficult by ensuring a larger
+search space.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Ensure PAM Enforces Password Requirements - Minimum Lowercase Characters</td>
+<td xml:lang="en-US">The pam_pwquality module's <code>lcredit</code> parameter controls requirements for
+usage of lowercase letters in a password. When set to a negative number, any password will be required to
+contain that many lowercase characters. When set to a positive number, pam_pwquality will grant +1 additional
+length credit for each lowercase character. Modify the <code>lcredit</code> setting in
+<code>/etc/security/pwquality.conf</code> to require the use of a lowercase character in passwords.</td>
+<td xml:lang="en-US">Use of a complex password helps to increase the time and resources required
+to compromise the password. Password complexity, or strength, is a measure of
+the effectiveness of a password in resisting attempts at guessing and brute-force
+attacks.
+<br><br>
+Password complexity is one factor of several that determines how long it takes
+to crack a password. The more complex the password, the greater the number of
+possble combinations that need to be tested before the password is compromised.
+Requiring a minimum number of lowercase characters makes password guessing attacks
+more difficult by ensuring a larger search space.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Ensure PAM Enforces Password Requirements - Minimum Length</td>
+<td xml:lang="en-US">The pam_pwquality module's <code>minlen</code> parameter controls requirements for
+minimum characters required in a password. Add <code>minlen=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_minlen"></xccdf-1.1:sub></code>
+after pam_pwquality to set minimum password length requirements.</td>
+<td xml:lang="en-US">The shorter the password, the lower the number of possible combinations
+that need to be tested before the password is compromised.
+<br>
+Password complexity, or strength, is a measure of the effectiveness of a
+password in resisting attempts at guessing and brute-force attacks.
+Password length is one factor of several that helps to determine strength
+and how long it takes to crack a password. Use of more characters in a password
+helps to exponentially increase the time and/or resources required to
+compromose the password.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Ensure PAM Enforces Password Requirements - Minimum Special Characters</td>
+<td xml:lang="en-US">The pam_pwquality module's <code>ocredit=</code> parameter controls requirements for
+usage of special (or "other") characters in a password. When set to a negative number,
+any password will be required to contain that many special characters.
+When set to a positive number, pam_pwquality will grant +1
+additional length credit for each special character. Modify the <code>ocredit</code> setting
+in <code>/etc/security/pwquality.conf</code> to equal <xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_ocredit"></xccdf-1.1:sub>
+to require use of a special character in passwords.</td>
+<td xml:lang="en-US">Use of a complex password helps to increase the time and resources required
+to compromise the password. Password complexity, or strength, is a measure of
+the effectiveness of a password in resisting attempts at guessing and brute-force
+attacks.
+<br><br>
+Password complexity is one factor of several that determines how long it takes
+to crack a password. The more complex the password, the greater the number of
+possble combinations that need to be tested before the password is compromised.
+Requiring a minimum number of special characters makes password guessing attacks
+more difficult by ensuring a larger search space.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Ensure PAM Enforces Password Requirements - Minimum Uppercase Characters</td>
+<td xml:lang="en-US">The pam_pwquality module's <code>ucredit=</code> parameter controls requirements for
+usage of uppercase letters in a password. When set to a negative number, any password will be required to
+contain that many uppercase characters. When set to a positive number, pam_pwquality will grant +1 additional
+length credit for each uppercase character. Modify the <code>ucredit</code> setting in
+<code>/etc/security/pwquality.conf</code> to require the use of an uppercase character in passwords.</td>
+<td xml:lang="en-US">Use of a complex password helps to increase the time and resources reuiqred to compromise the password.
+Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts
+at guessing and brute-force attacks.
+<br><br>
+Password complexity is one factor of several that determines how long it takes to crack a password. The more
+complex the password, the greater the number of possible combinations that need to be tested before
+the password is compromised.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Limit Password Reuse</td>
+<td xml:lang="en-US">Do not allow users to reuse recent passwords. This can be
+accomplished by using the <code>remember</code> option for the <code>pam_unix</code>
+or <code>pam_pwhistory</code> PAM modules.
+<br><br>
+In the file <code>/etc/pam.d/system-auth</code>, append <code>remember=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_remember"></xccdf-1.1:sub></code>
+to the line which refers to the <code>pam_unix.so</code> or <code>pam_pwhistory.so</code>module, as shown below:
+<ul>
+<li>for the <code>pam_unix.so</code> case:
+<pre>password sufficient pam_unix.so <i>...existing_options...</i> remember=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_remember"></xccdf-1.1:sub></pre>
+</li>
+<li>for the <code>pam_pwhistory.so</code> case:
+<pre>password requisite pam_pwhistory.so <i>...existing_options...</i> remember=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_remember"></xccdf-1.1:sub></pre>
+</li>
+</ul>
+The DoD STIG requirement is 5 passwords.</td>
+<td xml:lang="en-US">Preventing re-use of previous passwords helps ensure that a compromised password is not re-used by a user.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R32)<br>
+</td>
+<td>Set number of Password Hashing Rounds - password-auth</td>
+<td xml:lang="en-US">Configure the number or rounds for the password hashing algorithm. This can be
+accomplished by using the <code>rounds</code> option for the <code>pam_unix</code> PAM module.
+<br><br>
+In file <code>/etc/pam.d/password-auth</code> append <code>rounds=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_rounds"></xccdf-1.1:sub></code>
+to the <code>pam_unix.so</code> file, as shown below:
+<pre>password sufficient pam_unix.so <i>...existing_options...</i> rounds=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_rounds"></xccdf-1.1:sub></pre>
+The system's default number of rounds is 5000.</td>
+<td xml:lang="en-US">Using a higher number of rounds makes password cracking attacks more difficult.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R32)<br>
+</td>
+<td>Set number of Password Hashing Rounds - system-auth</td>
+<td xml:lang="en-US">Configure the number or rounds for the password hashing algorithm. This can be
+accomplished by using the <code>rounds</code> option for the <code>pam_unix</code> PAM module.
+<br><br>
+In file <code>/etc/pam.d/system-auth</code> append <code>rounds=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_rounds"></xccdf-1.1:sub></code>
+to the <code>pam_unix.so</code> file, as shown below:
+<pre>password sufficient pam_unix.so <i>...existing_options...</i> rounds=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_unix_rounds"></xccdf-1.1:sub></pre>
+The system's default number of rounds is 5000.</td>
+<td xml:lang="en-US">Using a higher number of rounds makes password cracking attacks more difficult.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Set Deny For Failed Password Attempts</td>
+<td xml:lang="en-US">To configure the system to lock out accounts after a number of incorrect login
+attempts using <code>pam_faillock.so</code>, modify the content of both
+<code>/etc/pam.d/system-auth</code> and <code>/etc/pam.d/password-auth</code> as follows:
+<br><br>
+<ul>
+<li> add the following line immediately <code>before</code> the <code>pam_unix.so</code> statement in the <code>AUTH</code> section:
+<pre>auth required pam_faillock.so preauth silent deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+<li> add the following line immediately <code>after</code> the <code>pam_unix.so</code> statement in the <code>AUTH</code> section:
+<pre>auth [default=die] pam_faillock.so authfail deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+<li> add the following line immediately <code>before</code> the <code>pam_unix.so</code> statement in the <code>ACCOUNT</code> section:
+<pre>account required pam_faillock.so</pre>
+</li>
+</ul>
+</td>
+<td xml:lang="en-US">Locking out user accounts after a number of incorrect attempts
+prevents direct password guessing attacks.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Configure the root Account for Failed Password Attempts</td>
+<td xml:lang="en-US">To configure the system to lock out the <code>root</code> account after a
+number of incorrect login attempts using <code>pam_faillock.so</code>, modify
+the content of both <code>/etc/pam.d/system-auth</code> and
+<code>/etc/pam.d/password-auth</code> as follows:
+<br><br>
+<ul>
+<li>Modify the following line in the <code>AUTH</code> section to add
+<code>even_deny_root</code>:
+<pre>auth required pam_faillock.so preauth silent <b>even_deny_root</b> deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+<li>Modify the following line in the <code>AUTH</code> section to add
+<code>even_deny_root</code>:
+<pre>auth [default=die] pam_faillock.so authfail <b>even_deny_root</b> deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+</ul>
+</td>
+<td xml:lang="en-US">By limiting the number of failed logon attempts, the risk of unauthorized system access via user password
+guessing, otherwise known as brute-forcing, is reduced. Limits are imposed by locking the account.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Set Interval For Counting Failed Password Attempts</td>
+<td xml:lang="en-US">Utilizing <code>pam_faillock.so</code>, the <code>fail_interval</code> directive
+configures the system to lock out an account after a number of incorrect
+login attempts within a specified time period. Modify the content of both
+<code>/etc/pam.d/system-auth</code> and <code>/etc/pam.d/password-auth</code>
+as follows:
+<br><br>
+<ul>
+<li>Add the following line immediately <code>before</code> the
+    <code>pam_unix.so</code> statement in the <code>AUTH</code> section:
+<pre>auth required pam_faillock.so preauth silent deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+<li>Add the following line immediately <code>after</code> the
+    <code>pam_unix.so</code> statement in the <code>AUTH</code> section:
+<pre>auth [default=die] pam_faillock.so authfail deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub>
+</pre>
+</li>
+<li>Add the following line immediately <code>before</code> the
+    <code>pam_unix.so</code> statement in the <code>ACCOUNT</code> section:
+<pre>account required pam_faillock.so</pre>
+</li>
+</ul>
+</td>
+<td xml:lang="en-US">By limiting the number of failed logon attempts the risk of unauthorized system
+access via user password guessing, otherwise known as brute-forcing, is reduced.
+Limits are imposed by locking the account.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R18)<br>
+</td>
+<td>Set Lockout Time for Failed Password Attempts</td>
+<td xml:lang="en-US">To configure the system to lock out accounts after a number of incorrect login
+attempts and require an administrator to unlock the account using <code>pam_faillock.so</code>,
+modify the content of both <code>/etc/pam.d/system-auth</code> and <code>/etc/pam.d/password-auth</code> as follows:
+<br><br>
+<ul>
+<li> add the following line immediately <code>before</code> the <code>pam_unix.so</code> statement in the <code>AUTH</code> section:
+<pre>auth required pam_faillock.so preauth silent deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+<li> add the following line immediately <code>after</code> the <code>pam_unix.so</code> statement in the <code>AUTH</code> section:
+<pre>auth [default=die] pam_faillock.so authfail deny=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_deny"></xccdf-1.1:sub> unlock_time=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_unlock_time"></xccdf-1.1:sub> fail_interval=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_accounts_passwords_pam_faillock_fail_interval"></xccdf-1.1:sub></pre>
+</li>
+<li> add the following line immediately <code>before</code> the <code>pam_unix.so</code> statement in the <code>ACCOUNT</code> section:
+<pre>account required pam_faillock.so</pre>
+</li>
+</ul>
+If <code>unlock_time</code> is set to <code>0</code>, manual intervention by an administrator is required to unlock a user.</td>
+<td xml:lang="en-US">Locking out user accounts after a number of incorrect attempts
+prevents direct password guessing attacks. Ensuring that an administrator is
+involved in unlocking locked accounts draws appropriate attention to such
+situations.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R8)<br>
+</td>
+<td>Configure dnf-automatic to Install Available Updates Automatically</td>
+<td xml:lang="en-US">To ensure that the packages comprising the available updates will be automatically installed by <code>dnf-automatic</code>, set <code>apply_updates</code> to <code>yes</code> under <code>[commands]</code> section in <code>/etc/dnf/automatic.conf</code>.</td>
+<td xml:lang="en-US">Installing software updates is a fundamental mitigation against
+the exploitation of publicly-known vulnerabilities. If the most
+recent security patches and updates are not installed, unauthorized
+users may take advantage of weaknesses in the unpatched software. The
+lack of prompt attention to patching could result in a system compromise.
+The automated installation of updates ensures that recent security patches
+are applied in a timely manner.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R8)<br>
+</td>
+<td>Configure dnf-automatic to Install Only Security Updates</td>
+<td xml:lang="en-US">To configure <code>dnf-automatic</code> to install only security updates
+automatically, set <code>upgrade_type</code> to <code>security</code> under
+<code>[commands]</code> section in <code>/etc/dnf/automatic.conf</code>.</td>
+<td xml:lang="en-US">By default, <code>dnf-automatic</code> installs all available updates.
+Reducing the amount of updated packages only to updates that were
+issued as a part of a security advisory increases the system stability.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R15)<br>
+</td>
+<td>Ensure gpgcheck Enabled In Main yum Configuration</td>
+<td xml:lang="en-US">The <code>gpgcheck</code> option controls whether
+RPM packages' signatures are always checked prior to installation.
+To configure yum to check package signatures before installing
+them, ensure the following line appears in <code>/etc/yum.conf</code> in
+the <code>[main]</code> section:
+<pre>gpgcheck=1</pre>
+</td>
+<td xml:lang="en-US">Changes to any software components can have significant effects on the
+overall security of the operating system. This requirement ensures the
+software has not been tampered with and that it has been provided by a
+trusted vendor.
+<br>
+Accordingly, patches, service packs, device drivers, or operating system
+components must be signed with a certificate recognized and approved by the
+organization.
+<br>Verifying the authenticity of the software prior to installation
+validates the integrity of the patch or upgrade received from a vendor.
+This ensures the software has not been tampered with and that it has been
+provided by a trusted vendor. Self-signed certificates are disallowed by
+this requirement. Certificates used to verify the software must be from an
+approved Certificate Authority (CA).</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R15)<br>
+</td>
+<td>Ensure gpgcheck Enabled for Local Packages</td>
+<td xml:lang="en-US">
+<code>yum</code> should be configured to verify the signature(s) of local packages
+prior to installation. To configure <code>yum</code> to verify signatures of local
+packages, set the <code>localpkg_gpgcheck</code> to <code>1</code> in <code>/etc/yum.conf</code>.</td>
+<td xml:lang="en-US">Changes to any software components can have significant effects to the overall security
+of the operating system. This requirement ensures the software has not been tampered and
+has been provided by a trusted vendor.
+<br><br>
+Accordingly, patches, service packs, device drivers, or operating system components must
+be signed with a certificate recognized and approved by the organization.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R15)<br>
+</td>
+<td>Ensure gpgcheck Enabled for All yum Package Repositories</td>
+<td xml:lang="en-US">To ensure signature checking is not disabled for
+any repos, remove any lines from files in <code>/etc/yum.repos.d</code> of the form:
+<pre>gpgcheck=0</pre>
+</td>
+<td xml:lang="en-US">Verifying the authenticity of the software prior to installation validates
+the integrity of the patch or upgrade received from a vendor. This ensures
+the software has not been tampered with and that it has been provided by a
+trusted vendor. Self-signed certificates are disallowed by this
+requirement. Certificates used to verify the software must be from an
+approved Certificate Authority (CA)."</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R15)<br>
+</td>
+<td>Ensure Red Hat GPG Key Installed</td>
+<td xml:lang="en-US">To ensure the system can cryptographically verify base software packages
+come from Red Hat (and to connect to the Red Hat Network to receive them),
+the Red Hat GPG key must properly be installed. To install the Red Hat GPG
+key, run:
+<pre>$ sudo subscription-manager register</pre>
+
+If the system is not connected to the Internet or an RHN Satellite, then
+install the Red Hat GPG key from trusted media such as the Red Hat
+installation CD-ROM or DVD. Assuming the disc is mounted in
+<code>/media/cdrom</code>, use the following command as the root user to import
+it into the keyring:
+<pre>$ sudo rpm --import /media/cdrom/RPM-GPG-KEY</pre>
+
+Alternatively, the key may be pre-loaded during the RHEL installation. In
+such cases, the key can be installed by running the following command:
+<pre>sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release</pre>
+</td>
+<td xml:lang="en-US">Changes to software components can have significant effects on the overall
+security of the operating system. This requirement ensures the software has
+not been tampered with and that it has been provided by a trusted vendor.
+The Red Hat GPG key is necessary to cryptographically verify packages are
+from Red Hat.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R37)<br>BP28(R38)<br>
+</td>
+<td>Ensure All SGID Executables Are Authorized</td>
+<td xml:lang="en-US">The SGID (set group id) bit should be set only on files that were
+installed via authorized means. A straightforward means of identifying
+unauthorized SGID files is determine if any were not installed as part of an
+RPM package, which is cryptographically verified. Investigate the origin
+of any unpackaged SGID files.
+This configuration check considers authorized SGID files which were installed via RPM.
+It is assumed that when an individual has sudo access to install an RPM
+and all packages are signed with an organizationally-recognized GPG key,
+the software should be considered an approved package on the system.
+Any SGID file not deployed through an RPM will be flagged for further review.</td>
+<td xml:lang="en-US">Executable files with the SGID permission run with the privileges of
+the owner of the file. SGID files of uncertain provenance could allow for
+unprivileged users to elevate privileges. The presence of these files should be
+strictly controlled on the system.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R37)<br>BP28(R38)<br>
+</td>
+<td>Ensure All SUID Executables Are Authorized</td>
+<td xml:lang="en-US">The SUID (set user id) bit should be set only on files that were
+installed via authorized means. A straightforward means of identifying
+unauthorized SUID files is determine if any were not installed as part of an
+RPM package, which is cryptographically verified. Investigate the origin
+of any unpackaged SUID files.
+This configuration check considers authorized SUID files which were installed via RPM.
+It is assumed that when an individual has sudo access to install an RPM
+and all packages are signed with an organizationally-recognized GPG key,
+the software should be considered an approved package on the system.
+Any SUID file not deployed through an RPM will be flagged for further review.</td>
+<td xml:lang="en-US">Executable files with the SUID permission run with the privileges of
+the owner of the file. SUID files of uncertain provenance could allow for
+unprivileged users to elevate privileges. The presence of these files should be
+strictly controlled on the system.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall DHCP Server Package</td>
+<td xml:lang="en-US">If the system does not need to act as a DHCP server,
+the dhcp package can be uninstalled.
+
+The <code>dhcp-server</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase dhcp-server</pre>
+</td>
+<td xml:lang="en-US">Removing the DHCP server ensures that it cannot be easily or
+accidentally reactivated and disrupt network operation.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R8)<br>
+</td>
+<td>Install dnf-automatic Package</td>
+<td xml:lang="en-US">The <code>dnf-automatic</code> package can be installed with the following command:
+<pre>
+$ sudo yum install dnf-automatic</pre>
+</td>
+<td xml:lang="en-US">
+<code>dnf-automatic</code> is an alternative command line interface (CLI)
+to <code>dnf upgrade</code> suitable for automatic, regular execution.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall rsh-server Package</td>
+<td xml:lang="en-US">The <code>rsh-server</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase rsh-server</pre>
+</td>
+<td xml:lang="en-US">The <code>rsh-server</code> service provides unencrypted remote access service which does not
+provide for the confidentiality and integrity of user passwords or the remote session and has very weak
+authentication. If a privileged user were to login using this service, the privileged user password
+could be compromised. The <code>rsh-server</code> package provides several obsolete and insecure
+network services. Removing it decreases the risk of those services' accidental (or intentional)
+activation.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall rsh Package</td>
+<td xml:lang="en-US">
+The <code>rsh</code> package contains the client commands
+
+for the rsh services</td>
+<td xml:lang="en-US">These legacy clients contain numerous security exposures and have
+been replaced with the more secure SSH package. Even if the server is removed,
+it is best to ensure the clients are also removed to prevent users from
+inadvertently attempting to use these commands and therefore exposing
+
+their credentials. Note that removing the <code>rsh</code> package removes
+
+the clients for <code>rsh</code>,<code>rcp</code>, and <code>rlogin</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R5)<br>NT28(R46)<br>
+</td>
+<td>Ensure rsyslog is Installed</td>
+<td xml:lang="en-US">Rsyslog is installed by default. The <code>rsyslog</code> package can be installed with the following command: <pre> $ sudo yum install rsyslog</pre>
+</td>
+<td xml:lang="en-US">The rsyslog package provides the rsyslog daemon, which provides
+system logging services.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall Sendmail Package</td>
+<td xml:lang="en-US">Sendmail is not the default mail transfer agent and is
+not installed by default.
+The <code>sendmail</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase sendmail</pre>
+</td>
+<td xml:lang="en-US">The sendmail software was not developed with security in mind and
+its design prevents it from being effectively contained by SELinux.  Postfix
+should be used instead.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall talk-server Package</td>
+<td xml:lang="en-US">The <code>talk-server</code> package can be removed with the following command: <pre> $ sudo yum erase talk-server</pre>
+</td>
+<td xml:lang="en-US">The talk software presents a security risk as it uses unencrypted protocols
+for communications. Removing the <code>talk-server</code> package decreases the
+risk of the accidental (or intentional) activation of talk services.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall talk Package</td>
+<td xml:lang="en-US">The <code>talk</code> package contains the client program for the
+Internet talk protocol, which allows the user to chat with other users on
+different systems. Talk is a communication program which copies lines from one
+terminal to the terminal of another user.
+The <code>talk</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase talk</pre>
+</td>
+<td xml:lang="en-US">The talk software presents a security risk as it uses unencrypted protocols
+for communications. Removing the <code>talk</code> package decreases the
+risk of the accidental (or intentional) activation of talk client program.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall telnet-server Package</td>
+<td xml:lang="en-US">The <code>telnet-server</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase telnet-server</pre>
+</td>
+<td xml:lang="en-US">It is detrimental for operating systems to provide, or install by default,
+functionality exceeding requirements or mission objectives. These
+unnecessary capabilities are often overlooked and therefore may remain
+unsecure. They increase the risk to the platform by providing additional
+attack vectors.
+<br>
+The telnet service provides an unencrypted remote access service which does
+not provide for the confidentiality and integrity of user passwords or the
+remote session. If a privileged user were to login using this service, the
+privileged user password could be compromised.
+<br>
+Removing the <code>telnet-server</code> package decreases the risk of the
+telnet service's accidental (or intentional) activation.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Remove telnet Clients</td>
+<td xml:lang="en-US">The telnet client allows users to start connections to other systems via
+the telnet protocol.</td>
+<td xml:lang="en-US">The <code>telnet</code> protocol is insecure and unencrypted. The use
+of an unencrypted transmission medium could allow an unauthorized user
+to steal credentials. The <code>ssh</code> package provides an
+encrypted session and stronger security and is included in Red Hat Enterprise Linux 8.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall tftp-server Package</td>
+<td xml:lang="en-US">The <code>tftp-server</code> package can be removed with the following command: <pre> $ sudo yum erase tftp-server</pre>
+</td>
+<td xml:lang="en-US">Removing the <code>tftp-server</code> package decreases the risk of the accidental
+(or intentional) activation of tftp services.
+<br><br>
+If TFTP is required for operational support (such as transmission of router
+configurations), its use must be documented with the Information Systems
+Securty Manager (ISSM), restricted to only authorized personnel, and have
+access control rules established.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Remove tftp Daemon</td>
+<td xml:lang="en-US">Trivial File Transfer Protocol (TFTP) is a simple file transfer protocol,
+typically used to automatically transfer configuration or boot files between systems.
+TFTP does not support authentication and can be easily hacked. The package
+<code>tftp</code> is a client program that allows for connections to a <code>tftp</code> server.</td>
+<td xml:lang="en-US">It is recommended that TFTP be removed, unless there is a specific need
+for TFTP (such as a boot server). In that case, use extreme caution when configuring
+the services.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall xinetd Package</td>
+<td xml:lang="en-US">The <code>xinetd</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase xinetd</pre>
+</td>
+<td xml:lang="en-US">Removing the <code>xinetd</code> package decreases the risk of the
+xinetd service's accidental (or intentional) activation.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Remove NIS Client</td>
+<td xml:lang="en-US">The Network Information Service (NIS), formerly known as Yellow Pages,
+is a client-server directory service protocol used to distribute system configuration
+files. The NIS client (<code>ypbind</code>) was used to bind a system to an NIS server
+and receive the distributed configuration files.</td>
+<td xml:lang="en-US">The NIS service is inherently an insecure system that has been vulnerable
+to DOS attacks, buffer overflows and has poor authentication for querying
+NIS maps. NIS generally has been replaced by such protocols as Lightweight
+Directory Access Protocol (LDAP). It is recommended that the service be
+removed.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R1)<br>
+</td>
+<td>Uninstall ypserv Package</td>
+<td xml:lang="en-US">The <code>ypserv</code> package can be removed with the following command:
+<pre>
+$ sudo yum erase ypserv</pre>
+</td>
+<td xml:lang="en-US">The NIS service provides an unencrypted authentication service which does
+not provide for the confidentiality and integrity of user passwords or the
+remote session.
+
+Removing the <code>ypserv</code> package decreases the risk of the accidental
+(or intentional) activation of NIS or NIS+ services.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R08)<br>
+</td>
+<td>Ensure Software Patches Installed</td>
+<td xml:lang="en-US">
+If the system is joined to the Red Hat Network, a Red Hat Satellite Server,
+or a yum server, run the following command to install updates:
+<pre>$ sudo yum update</pre>
+If the system is not configured to use one of these sources, updates (in the form of RPM packages)
+can be manually downloaded from the Red Hat Network and installed using <code>rpm</code>.
+
+<br><br>
+NOTE: U.S. Defense systems are required to be patched within 30 days or sooner as local policy
+dictates.</td>
+<td xml:lang="en-US">Installing software updates is a fundamental mitigation against
+the exploitation of publicly-known vulnerabilities. If the most
+recent security patches and updates are not installed, unauthorized
+users may take advantage of weaknesses in the unpatched software. The
+lack of prompt attention to patching could result in a system compromise.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R5)<br>NT28(R46)<br>
+</td>
+<td>Enable rsyslog Service</td>
+<td xml:lang="en-US">The <code>rsyslog</code> service provides syslog-style logging by default on Red Hat Enterprise Linux 8.
+
+The <code>rsyslog</code> service can be enabled with the following command:
+<pre>$ sudo systemctl enable rsyslog.service</pre>
+</td>
+<td xml:lang="en-US">The <code>rsyslog</code> service must be running in order to provide
+logging services, which are essential to system administration.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R32)<br>
+</td>
+<td>Set PAM's Password Hashing Algorithm</td>
+<td xml:lang="en-US">The PAM system service can be configured to only store encrypted
+representations of passwords. In
+
+<code>/etc/pam.d/system-auth</code>,
+
+the
+<code>password</code> section of the file controls which PAM modules execute
+during a password change. Set the <code>pam_unix.so</code> module in the
+<code>password</code> section to include the argument <code>sha512</code>, as shown
+below:
+<br>
+
+<pre>password    sufficient    pam_unix.so sha512 <i>other arguments...</i></pre>
+
+<br>
+This will help ensure when local users change their passwords, hashes for
+the new passwords will be generated using the SHA-512 algorithm. This is
+the default.</td>
+<td xml:lang="en-US">Passwords need to be protected at all times, and encryption is the standard
+method for protecting passwords. If passwords are not encrypted, they can
+be plainly read (i.e., clear text) and easily compromised. Passwords that
+are encrypted with a weak algorithm are no more protected than if they are
+kepy in plain text.
+<br><br>
+This setting ensures user and group account administration utilities are
+configured to store only encrypted representations of passwords.
+Additionally, the <code>crypt_style</code> configuration option ensures the use
+of a strong hashing algorithm that makes password cracking attacks more
+difficult.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R5)<br>BP28(R59)<br>
+</td>
+<td>Ensure Users Re-Authenticate for Privilege Escalation - sudo !authenticate</td>
+<td xml:lang="en-US">The sudo <code>!authenticate</code> option, when specified, allows a user to execute commands using
+sudo without having to authenticate. This should be disabled by making sure that the
+<code>!authenticate</code> option does not exist in <code>/etc/sudoers</code> configuration file or
+any sudo configuration snippets in <code>/etc/sudoers.d/</code>.</td>
+<td xml:lang="en-US">Without re-authentication, users may access resources or perform tasks for which they
+do not have authorization.
+<br><br>
+When operating systems provide the capability to escalate a functional capability, it
+is critical that the user re-authenticate.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R5)<br>BP28(R59)<br>
+</td>
+<td>Ensure Users Re-Authenticate for Privilege Escalation - sudo NOPASSWD</td>
+<td xml:lang="en-US">The sudo <code>NOPASSWD</code> tag, when specified, allows a user to execute
+commands using sudo without having to authenticate. This should be disabled
+by making sure that the <code>NOPASSWD</code> tag does not exist in
+<code>/etc/sudoers</code> configuration file or any sudo configuration snippets
+in <code>/etc/sudoers.d/</code>.</td>
+<td xml:lang="en-US">Without re-authentication, users may access resources or perform tasks for which they
+do not have authorization.
+<br><br>
+When operating systems provide the capability to escalate a functional capability, it
+is critical that the user re-authenticate.</td>
+<td></td>
+</tr>
+<tr>
+<td>BP28(R8)<br>
+</td>
+<td>Enable dnf-automatic Timer</td>
+<td xml:lang="en-US">
+The <code>dnf-automatic</code> timer can be enabled with the following command:
+<pre>$ sudo systemctl enable dnf-automatic.timer</pre>
+</td>
+<td xml:lang="en-US">The <code>dnf-automatic</code> is an alternative command line interface (CLI) to <code>dnf upgrade</code> with specific facilities to make it suitable to be executed automatically and regularly from systemd timers, cron jobs and similar.
+The tool is controlled by <code>dnf-automatic.timer</code> SystemD timer.</td>
+<td></td>
+</tr>
+</table>
+</body>
+</html>

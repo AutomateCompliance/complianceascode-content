@@ -1,0 +1,13 @@
+# platform = multi_platform_all
+# reboot = true
+# strategy = disable
+# complexity = low
+# disruption = medium
+- (xccdf-var sysctl_net_ipv4_tcp_rfc1337_value)
+
+- name: Ensure sysctl net.ipv4.tcp_rfc1337 is set
+  sysctl:
+    name: "net.ipv4.tcp_rfc1337"
+    value: "{{ sysctl_net_ipv4_tcp_rfc1337_value }}"
+    state: present
+    reload: yes

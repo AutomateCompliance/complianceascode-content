@@ -1,0 +1,1761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="FIREFOX" resolved="1" xml:lang="en-US" style="SCAP_1.1">
+  <status date="2021-09-19">draft</status>
+  <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Guide to the Secure Configuration of Firefox</title>
+  <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for Firefox. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <html:code xmlns:html="http://www.w3.org/1999/xhtml">scap-security-guide</html:code> package which is developed at
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<html:br xmlns:html="http://www.w3.org/1999/xhtml"/><html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <html:em xmlns:html="http://www.w3.org/1999/xhtml">catalog, not a
+checklist</html:em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <html:em xmlns:html="http://www.w3.org/1999/xhtml">Profiles</html:em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for Firefox,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</description>
+  <notice xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The SCAP Security Guide Project<html:br xmlns:html="http://www.w3.org/1999/xhtml"/>
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:mozilla:firefox"/>
+  <version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</version>
+  <metadata xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:publisher>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:creator>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">François Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Peter 'Pessoft' Kolínek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Šimon Lukašík &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fredrik Lysén &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Renaud Métrich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Thomas Sjögren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matěj Týč &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Černý &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michal Šrubař &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </metadata>
+  <model system="urn:xccdf:scoring:default"/>
+  <Profile id="stig">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">Upstream Firefox STIG</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">This profile is developed under the DoD consensus model and DISA FSO Vendor STIG process,
+serving as the upstream development environment for the Firefox STIG.
+
+As a result of the upstream/downstream relationship between the SCAP Security Guide project
+and the official DISA FSO STIG baseline, users should expect variance between SSG and DISA FSO content.
+For official DISA FSO STIG content, refer to https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance.
+
+While this profile is packaged by Red Hat as part of the SCAP Security Guide package, please note
+that commercial support of this SCAP content is NOT available. This profile is provided as example
+SCAP content with no endorsement for suitability or production readiness. Support for this
+profile is provided by the upstream SCAP Security Guide community on a best-effort basis. The
+upstream project homepage is https://www.open-scap.org/security-policies/scap-security-guide/.</description>
+    <select idref="firefox_preferences-addons_plugin_updates" selected="true"/>
+    <select idref="firefox_preferences-auto-download_actions" selected="true"/>
+    <select idref="firefox_preferences-autofill_forms" selected="true"/>
+    <select idref="firefox_preferences-autofill_passwords" selected="true"/>
+    <select idref="firefox_preferences-background_data" selected="true"/>
+    <select idref="firefox_preferences-development_tools" selected="true"/>
+    <select idref="firefox_preferences-dod_root_certificate_installed" selected="true"/>
+    <select idref="firefox_preferences-enable_ca_trust" selected="true"/>
+    <select idref="firefox_preferences-install_extensions" selected="true"/>
+    <select idref="firefox_preferences-javascript_context_menus" selected="true"/>
+    <select idref="firefox_preferences-javascript_window_changes" selected="true"/>
+    <select idref="firefox_preferences-javascript_window_resizing" selected="true"/>
+    <select idref="firefox_preferences-lock_settings_config_file" selected="true"/>
+    <select idref="firefox_preferences-lock_settings_obscure" selected="true"/>
+    <select idref="firefox_preferences-open_confirmation" selected="true"/>
+    <select idref="firefox_preferences-password_store" selected="true"/>
+    <select idref="firefox_preferences-pop-up_windows" selected="true"/>
+    <select idref="firefox_preferences-search_update" selected="true"/>
+    <select idref="firefox_preferences-shell_protocol" selected="true"/>
+    <select idref="firefox_preferences-ssl_protocol_tls" selected="true"/>
+    <select idref="firefox_preferences-verification" selected="true"/>
+    <select idref="installed_firefox_version_supported" selected="true"/>
+    <select idref="remediation_functions" selected="false"/>
+    <select idref="firefox_preferences-cookies" selected="false"/>
+    <refine-value idref="var_default_home_page" selector="about_blank"/>
+  </Profile>
+  <Group id="remediation_functions">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="firefox">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox is an open-source web browser and developed by Mozilla.
+Web browsers such as Firefox are used for a number of reasons. This section
+provides settings for configuring Firefox policies to meet compliance
+settings for Firefox running on Red Hat Enterprise Linux systems.
+
+<html:ul xmlns:html="http://www.w3.org/1999/xhtml">Refer to <html:li><html:a href="http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries">http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries</html:a></html:li>
+for a list of currently supported Firefox settings.</html:ul></description>
+    <Value id="var_default_home_page" type="string">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Default Firefox Home Page</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The default home page for Firefox users.</description>
+      <value selector="about_blank">about:blank</value>
+      <value>None</value>
+    </Value>
+    <Value id="var_required_file_types" type="string">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Default Required Firefox File Types</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The default required file types that need to request usage
+confirmation in Firefox.</description>
+      <value>application/pdf,application/fdf,application/xfdf,application/lsl,application/lso,application/lss,application/iqy,application/rqy,application/xlk,application/xls,application/xlt,application/pot,application/pps,application/ppt,application/dos,application/dot,application/wks,application/bat,application/ps,application/eps,application/wch,application/wcm,application/wb1,application/wb3,application/rtf,application/doc,application/mdb,application/mde,application/wbk,application/ad,application/adp</value>
+    </Value>
+    <Rule id="firefox_preferences-addons_plugin_updates" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Addons Plugin Updates</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox automatically updates installed add-ons and plugins which 
+can be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">extensions.update.enabled</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF090</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223155r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Automatic updates from untrusted sites puts the enclave at
+risk of attack and may override security settings.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-addons_plugin_updates" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("extensions.update.enabled", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("extensions.update.enabled".*/lockPref("extensions.update.enabled", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("extensions.update.enabled", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-addons_plugin_updates:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-addons_plugin_updates_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-auto-download_actions" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Automatic Downloads of MIME Types</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">MIME type files are automatically downloaded or executed in Firefox. This
+can be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">browser.helperApps.alwaysAsk.force</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001242</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF100</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223156r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The default action for file types for which a plugin is installed is to
+automatically download and execute the file using the associated plugin.
+Firefox allows users to change the specified download action so that the
+file is opened with a selected external application or saved to disk
+instead.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-auto-download_actions" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("browser.helperApps.alwaysAsk.force", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("browser.helperApps.alwaysAsk.force".*/lockPref("browser.helperApps.alwaysAsk.force", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("browser.helperApps.alwaysAsk.force", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-auto-download_actions:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-auto-download_actions_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-auto-update_of_firefox" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Firefox Auto-Update Capability</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox can be set to automatically update as new updates. This can be
+disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">app.update.enable</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF080</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Allowing software updates from non-trusted sites can introduce settings
+that will override a secured installation of the application. This can
+place DoD information at risk. If this setting is enabled, then there are
+many other default settings which point to untrusted sites which must be
+changed to point to an authorized update site that is not publicly accessible.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-auto-update_of_firefox" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("app.update.enabled", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("app.update.enabled".*/lockPref("app.update.enabled", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("app.update.enabled", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-auto-update_of_firefox:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-auto-update_of_firefox_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-autofill_forms" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Autofill Form Assistance</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox provides tools to auto-fill forms from prefilled information.
+This can be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">browser.formfill.enable</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF140</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223160r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">In order to protect privacy and sensitive data, Firefox provides
+the ability to configure Firefox such that data entered into forms
+is not saved. This mitigates the risk of a website gleaning private
+information from prefilled information.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-autofill_forms" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("browser.formfill.enable", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("browser.formfill.enable".*/lockPref("browser.formfill.enable", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("browser.formfill.enable", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-autofill_forms:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-autofill_forms_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-autofill_passwords" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Ability To Autofill Passwords</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox automatically allows users to save passwords to be auto-filled
+into password forms. This can be disabled by setting
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">signon.autofillForms</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF150</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223161r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">While on the internet, it may be possible for an attacker to view
+the saved password files and gain access to the user's accounts on
+various hosts.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-autofill_passwords" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("signon.autofillForms", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("signon.autofillForms".*/lockPref("signon.autofillForms", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("signon.autofillForms", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-autofill_passwords:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-autofill_passwords_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-background_data" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Background Information Submission</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox submits usage data in the background to Mozilla and posts portions of the data publicly.
+This can be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">datareporting.policy.dataSubmissionEnabled</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF190</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223168r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">In order to protect privacy and sensitive data, Mozilla provides
+the ability to configure Firefox so that no data is submited to Mozilla. 
+This mitigates the risk of potentially compromizing information becoming publicly available.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-background_data" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("datareporting.policy.dataSubmissionEnabled", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("datareporting.policy.dataSubmissionEnabled".*/lockPref("datareporting.policy.dataSubmissionEnabled", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("datareporting.policy.dataSubmissionEnabled", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-background_data:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-background_data_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-development_tools" selected="false" severity="low">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Firefox Development Tools</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox provides development tools which identify detailed information 
+about the browser and its configuration. These details are often also 
+recorded into a log file, giving an attacker the ability to capture 
+detailed information about the system.
+This can be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">devtools.policy.disabled</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001312</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-11</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF195</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223169r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">In order to protect privacy and sensitive data, Mozilla provides
+the ability to configure Firefox so that development tools are prevented from being used.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-development_tools" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("devtools.policy.disabled", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("devtools.policy.disabled".*/lockPref("devtools.policy.disabled", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("devtools.policy.disabled", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-development_tools:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-development_tools_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-home_page" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Default Firefox Home Page Configured</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The default home page is set to a vendor's defined website or
+Firefox's own website. This can be changed to an organizationally defined website
+or <html:code xmlns:html="http://www.w3.org/1999/xhtml">about:blank</html:code>. To set the default home page, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">browser.startup.homepage</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><xccdf-1.1:sub idref="var_default_home_page"/></html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF017</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The browser home page parameter specifies the web page that is to be
+displayed when the browser is started explicitly and when product-specific
+buttons or key sequences for the home page are accessed. This helps to
+mitigate the possibility of automatic inadvertent execution of scripts 
+added to a previously safe site.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-home_page" system="urn:xccdf:fix:script:sh">
+var_default_home_page="<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_default_home_page"/>"
+
+
+
+firefox_cfg="mozilla.cfg"
+value="\"${var_default_home_page}\""
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("browser.startup.homepage", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("browser.startup.homepage".*/lockPref("browser.startup.homepage", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("browser.startup.homepage", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_default_home_page:var:1" value-id="var_default_home_page"/>
+        <check-content-ref name="oval:ssg-firefox_preferences-home_page:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-home_page_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-install_extensions" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Extension Installation</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox provides the ability to disable the installation of extensions.
+This can be disabled by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">xpinstall.enabled</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF186</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223167r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If a browser is configured to allow unrestricted use of extensions then 
+plug-ins can be loaded and installed from malicious sources and used on 
+the browser.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-install_extensions" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("xpinstall.enabled", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("xpinstall.enabled".*/lockPref("xpinstall.enabled", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("xpinstall.enabled", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-install_extensions:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-install_extensions_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_context_menus" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable JavaScript Context Menus</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can configure and make changes to the web browser's appearance by
+specifically disabling or replacing context menus. This can be disabled by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">dom.event.contextmenu.enabled</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF183</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223166r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A website may execute JavaScript that can make changes to these
+context menus. This can help disguise an attack.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-javascript_context_menus" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("dom.event.contextmenu.enabled", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("dom.event.contextmenu.enabled".*/lockPref("dom.event.contextmenu.enabled", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("dom.event.contextmenu.enabled", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-javascript_context_menus:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-javascript_context_menus_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_status_bar_changes" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable JavaScript's Ability To Change The Status Bar</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can configure and make changes to the web browser's appearance by
+specifically hiding or changing the status bar. This can be disabled by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">dom.disable_window_status_change</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF184</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When a user visits some webpages, JavaScript can hide or make changes
+to the browser’s appearance to hide unauthorized activity. This activity
+can help disguise an attack taking place in a minimized background window.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-javascript_status_bar_changes" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("dom.disable_window_status_change", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("dom.disable_window_status_change".*/lockPref("dom.disable_window_status_change", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("dom.disable_window_status_change", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-javascript_status_bar_changes:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-javascript_status_bar_changes_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_status_bar_text" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable JavaScript's Ability To Modify The Browser Appearance</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can configure and make changes to the web browser's appearance by
+specifically hiding the status bar from view. This can disabled by 
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">dom.disable_window_open_feature.status</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF185</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can make changes to the browser’s appearance. This activity
+can help disguise an attack taking place in a minimized background window.
+Webpage authors can disable many features of a popup window that they open.
+This setting prevents the status bar from being hidden.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-javascript_status_bar_text" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("dom.disable_window_open_feature.status", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("dom.disable_window_open_feature.status".*/lockPref("dom.disable_window_open_feature.status", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("dom.disable_window_open_feature.status", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-javascript_status_bar_text:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-javascript_status_bar_text_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_window_changes" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable JavaScript's Raise Or Lower Windows Capability</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can configure and make changes to the web browser's appearance by
+specifically raising and lowering windows. This can be disabled by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">dom.disable_window_flip</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF182</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223165r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can make changes to the browser’s appearance. Allowing a website
+to use JavaScript to raise and lower browser windows may disguise an attack.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-javascript_window_changes" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("dom.disable_window_flip", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("dom.disable_window_flip".*/lockPref("dom.disable_window_flip", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("dom.disable_window_flip", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-javascript_window_changes:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-javascript_window_changes_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_window_resizing" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable JavaScript's Moving Or Resizing Windows Capability</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can configure and make changes to the web browser's appearance by
+specifically moving and resizing browser windows. This can be disabled by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">dom.disable_window_move_resize</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF181</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223164r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">JavaScript can make changes to the browser’s appearance. This activity
+can help disguise an attack taking place in a minimized background window.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-javascript_window_resizing" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("dom.disable_window_move_resize", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("dom.disable_window_move_resize".*/lockPref("dom.disable_window_move_resize", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("dom.disable_window_move_resize", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-javascript_window_resizing:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-javascript_window_resizing_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-non-secure_page_warning" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Non-Secure Page Warnings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When users browse websites, web pages can switch in between secure and 
+non-secure protocols. Users can be warned each time by
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">security.warn_leaving_secure</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF130</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Users may not be aware that the information being viewed under secure
+conditions in a previous page are not currently being viewed under
+the same security settings.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-non-secure_page_warning" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("security.warn_leaving_secure", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("security.warn_leaving_secure".*/lockPref("security.warn_leaving_secure", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("security.warn_leaving_secure", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-non-secure_page_warning:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-non-secure_page_warning_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-open_confirmation" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Downloading and Opening File Confirmation</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To have an action dialog box appear promping users what action to take when
+certain types of files are downloaded or opened, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">plugin.disable_full_page_plugin_for_types</html:code> to
+<html:code xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1"><xccdf-1.1:sub idref="var_required_file_types"/></html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF110</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223158r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When the user receives a dialog box asking if they want to save the file
+or open it with a specified application, this indicates that a plugin does
+not exist. Also, the user has not previously selected a download action or helper
+application to automatically use for that type of file. When prompted, if the user
+checks the option to 'Do this automatically for files like this from now on', then
+an entry will appear for that type of file in the plugins listing, and this file
+type is automatically opened in the future. This can be a security issue. New file
+types cannot be added directly to the Application plugin listing.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-open_confirmation" system="urn:xccdf:fix:script:sh">
+var_required_file_types="<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_required_file_types"/>"
+
+
+
+firefox_cfg="mozilla.cfg"
+value="\"${var_required_file_types}\""
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("plugin.disable_full_page_plugin_for_types", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's|lockPref("plugin.disable_full_page_plugin_for_types".*|lockPref("plugin.disable_full_page_plugin_for_types", '"$value)"';|g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("plugin.disable_full_page_plugin_for_types", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:ssg-var_required_file_types:var:1" value-id="var_required_file_types"/>
+        <check-content-ref name="oval:ssg-firefox_preferences-open_confirmation:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-open_confirmation_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-password_store" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable the Firefox Password Store</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox allows users to store passwords whether or not a master password
+is set for the password store. To disable the storing of passwords, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">signon.rememberSignons</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF160</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223162r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Autofill of a password can be enabled when a site is visited. This feature could also
+be used to autofill the certificate pin which could lead to compromise of DoD information.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-password_store" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("signon.rememberSignons", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("signon.rememberSignons".*/lockPref("signon.rememberSignons", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("signon.rememberSignons", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-password_store:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-password_store_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-pop-up_windows" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Firefox Pop-up Blocker</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The pop-up blocker can be enabled by setting
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">dom.disable_window_open_feature.status</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF180</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223163r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Popup windows may be used to launch an attack within a new browser window
+with altered settings.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-pop-up_windows" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("dom.disable_window_open_feature.status", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("dom.disable_window_open_feature.status".*/lockPref("dom.disable_window_open_feature.status", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("dom.disable_window_open_feature.status", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-pop-up_windows:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-pop-up_windows_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-search_update" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Installed Search Plugins Update Checking</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox automatically checks for updated versions of search plugins.
+To disable the automatic updates of plugins, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">browser.search.update</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF085</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223154r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Updates need to be controlled and installed from authorized and trusted servers.
+This setting overrides a number of other settings which may direct the application
+to access external URLs.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-search_update" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("browser.search.update", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("browser.search.update".*/lockPref("browser.search.update", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("browser.search.update", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-search_update:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-search_update_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-shell_protocol" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Firefox Access to Shell Protocols</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Access to the shell is disabled by default but can be changed.
+To prevent shell access from being enabled, set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">network.protocol-handler.external.shell</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-000381</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF105</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223157r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If enabled, this setting would allow the browser to access the Windows shell.
+This could allow access to the underlying system.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-shell_protocol" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("network.protocol-handler.external.shell", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("network.protocol-handler.external.shell".*/lockPref("network.protocol-handler.external.shell", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("network.protocol-handler.external.shell", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-shell_protocol:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-shell_protocol_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-ssl_protocol_tls" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable TLS Usage in Firefox</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To enable TLS, set <html:code xmlns:html="http://www.w3.org/1999/xhtml">security.tls.version.min</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">2</html:code> and set <html:code xmlns:html="http://www.w3.org/1999/xhtml">security.tls.version.max</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">4</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-002450</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-13</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF030</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223152r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Earlier versions of SSL have known security vulnerabilities and are not
+authorized for use in DOD environments.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-ssl_protocol_tls" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="2"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("security.tls.version.min", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("security.tls.version.min".*/lockPref("security.tls.version.min", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("security.tls.version.min", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+
+firefox_cfg="mozilla.cfg"
+value="4"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("security.tls.version.max", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("security.tls.version.max".*/lockPref("security.tls.version.max", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("security.tls.version.max", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-ssl_protocol_tls:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-ssl_protocol_tls_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-ssl_version_2" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable SSL Version 2.0 in Firefox</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">SSL version 2 is not enabled by default and should not be enabled.
+To prevent SSL version 2 from being enabled set
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">security.enable_ssl2</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF010</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Use of versions prior to TLS 1.0 are not permitted because these versions are
+non-standard. SSL 2.0 and SSL 3.0 contain a number of security flaws.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-ssl_version_2" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("security.enable_ssl2", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("security.enable_ssl2".*/lockPref("security.enable_ssl2", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("security.enable_ssl2", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-ssl_version_2:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-ssl_version_2_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-ssl_version_3" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable SSL Version 3.0 in Firefox</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">SSL version 3.0 is vulnerable and should be disabled by setting
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">security.enable_ssl3</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF020</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Earlier versions of SSL have known security vulnerabilities and are not
+authorized for use in DOD.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-ssl_version_3" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("security.enable_ssl3", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("security.enable_ssl3".*/lockPref("security.enable_ssl3", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("security.enable_ssl3", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-ssl_version_3:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-ssl_version_3_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="firefox_preferences-verification" selected="false" severity="medium">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Certificate Verification</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox can be configured to prompt the user to choose a certificate
+to present to a website when asked. To enable certificate verification, 
+set <html:code xmlns:html="http://www.w3.org/1999/xhtml">security.default_personal_cert</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">Ask Every Time</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-001274</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-4(12)</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF050</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223153r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Websites within DoD require user authentication for access which increases
+security for DoD information. Access will be denied to the user if
+certificate management is not configured.</rationale>
+      <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-verification" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="\"Ask Every Time\""
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("security.default_personal_cert", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("security.default_personal_cert".*/lockPref("security.default_personal_cert", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("security.default_personal_cert", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-firefox_preferences-verification:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-firefox_preferences-verification_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Rule id="installed_firefox_version_supported" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Supported Version of Firefox Installed</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If the system is joined to the Red Hat Network, a Red Hat Satellite Server,
+or a yum server, run the following command to install updates:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo yum update</html:pre>
+If the system is not configured to use one of these sources, updates (in the form of RPM packages)
+can be manually downloaded and installed using <html:code xmlns:html="http://www.w3.org/1999/xhtml">rpm</html:code>.</description>
+      <reference href="https://public.cyber.mil/stigs/cci/">CCI-003376</reference>
+      <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SA-22</reference>
+      <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF003</reference>
+      <reference href="https://public.cyber.mil/stigs/srg-stig-tools/">SV-223151r612236_rule</reference>
+      <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Use of versions of an application which are not supported by the vendor
+are not permitted. Vendors respond to security flaws with updates and
+patches. These updates are not available for unsupported version which
+can leave the application vulnerable to attack.</rationale>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-content-ref name="oval:ssg-installed_firefox_version_supported:def:1" href="ssg-firefox-oval.xml"/>
+      </check>
+      <check system="http://scap.nist.gov/schema/ocil/2">
+        <check-content-ref name="ocil:ssg-installed_firefox_version_supported_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+      </check>
+    </Rule>
+    <Group id="firefox_preferences-cookies">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Clearing Cookies And Other Data</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Browser preferences should be set to perform a Clear Private Data
+operation when closing the browser in order to clear cookies and other
+data installed by websites visited during the session.</description>
+      <Rule id="firefox_preferences-cookies_clear" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Clear Data When Firefox Closes</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When a user browses to a website, cookies and other types of data
+get stored on the system. This can be disabled by setting
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">privacy.sanitize.sanitizeOnShutdown</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">true</html:code>.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF170</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Cookies can help websites perform better but can also be part of spyware.
+To mitigate this risk, set browser preferences to perform a Clear Private
+Data operation when closing the browser in order to clear cookies and
+other data installed by websites visited during the session.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-cookies_clear" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="true"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("privacy.sanitize.sanitizeOnShutdown", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("privacy.sanitize.sanitizeOnShutdown".*/lockPref("privacy.sanitize.sanitizeOnShutdown", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("privacy.sanitize.sanitizeOnShutdown", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-firefox_preferences-cookies_clear:def:1" href="ssg-firefox-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-firefox_preferences-cookies_clear_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+        </check>
+      </Rule>
+      <Rule id="firefox_preferences-cookies_user_notice" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable User Prompt When Data Is Cleared</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By default, users are asked if it is okay to clear out cookies and data
+when Firefox closes. This can be disabled by 
+setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">privacy.sanitize.promptOnSanitize</html:code> to <html:code xmlns:html="http://www.w3.org/1999/xhtml">false</html:code>.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF170</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Cookies can help websites perform better but can also be part of spyware.
+To mitigate this risk, set browser preferences to perform a Clear Private
+Data operation when closing the browser in order to clear cookies and
+other data installed by websites visited during the session.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-cookies_user_notice" system="urn:xccdf:fix:script:sh">
+
+firefox_cfg="mozilla.cfg"
+value="false"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Make sure the Firefox .cfg file exists and has the appropriate permissions
+        if ! [ -f "${firefox_dir}/${firefox_cfg}" ] ; then
+            echo "//" "${firefox_dir}/${firefox_cfg}"
+            chmod 644 "${firefox_dir}/${firefox_cfg}"
+        elif ! [ $(head -1 "${firefox_dir}/${firefox_cfg}" | grep "^//$") ]; then
+            sed -i '1 i\//' "${firefox_dir}/${firefox_cfg}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^lockPref("privacy.sanitize.promptOnSanitize", ' "${firefox_dir}/${firefox_cfg}"; then
+            
+            sed -i 's/lockPref("privacy.sanitize.promptOnSanitize".*/lockPref("privacy.sanitize.promptOnSanitize", '"$value)"';/g' "${firefox_dir}/${firefox_cfg}"
+        else
+            echo 'lockPref("privacy.sanitize.promptOnSanitize", '"$value"');' &gt;&gt; "${firefox_dir}/${firefox_cfg}"
+        fi
+    fi
+done
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-firefox_preferences-cookies_user_notice:def:1" href="ssg-firefox-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-firefox_preferences-cookies_user_notice_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="firefox_preferences-dod_root_certificate">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The DoD Root Certificate Is Required</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Shared System Certificates store contains certificates that
+applications can access for a single certificate repository.
+If enabled, Firefox can access that single system certificate
+repository. If the DoD root certificate is also installed into
+the shared system certificate repository, Firefox will see and 
+use the DoD root certificate as a valid certificate authority.</description>
+      <Rule id="firefox_preferences-dod_root_certificate_installed" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The DoD Root Certificate Exists</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The DoD root certificate should be installed in the Shared System Certificates store
+for Firefox to be able to access the DoD certificate. To install the root certificated
+into the Shared System Certificates store, copy the DoD root certificate into
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">/etc/pki/ca-trust/source/anchors</html:code>. Once the file is copied, run the following
+command:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo update-ca-trust extract</html:pre></description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000054</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-10</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The DOD root certificate will ensure that the trust chain is
+established for server certificates issued from the DOD CA.</rationale>
+        <ident system="https://nvd.nist.gov/cce/index.cfm">CCE-82056-3</ident>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-firefox_preferences-dod_root_certificate_installed_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+        </check>
+      </Rule>
+      <Rule id="firefox_preferences-enable_ca_trust" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Enable Shared System Certificates</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The Shared System Certificates store makes NSS, GnuTLS, OpenSSL, and Java
+share a default source for retrieving system certificate anchors and blacklist
+information. Firefox has the capability of using this centralized store for its
+CA certificates. If the Shared System Certificates store is disabled, it can
+be enabled by running the following command:
+<html:pre xmlns:html="http://www.w3.org/1999/xhtml">$ sudo update-ca-trust enable</html:pre></description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000054</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-10</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The DOD root certificate will ensure that the trust chain is
+established for server certificates issued from the DOD CA.</rationale>
+        <ident system="https://nvd.nist.gov/cce/index.cfm">CCE-82057-1</ident>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-enable_ca_trust" system="urn:xccdf:fix:script:sh">P11=$(readlink /etc/alternatives/libnssckbi.so*)
+P11LIB="/usr/lib/pkcs11/p11-kit-trust.so"
+P11LIB64="/usr/lib64/pkcs11/p11-kit-trust.so"
+
+if ! [[ ${P11} == "${P11LIB64}" ]] || ! [[ ${P11} == "${P11LIB}" ]] ; then
+   /usr/bin/update-ca-trust enable
+fi
+</fix>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-firefox_preferences-enable_ca_trust_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="firefox_preferences-lock_settings">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Prevent Users from Changing Firefox Configuration Settings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Firefox required security preferences cannot be changed by users.</description>
+      <Rule id="firefox_preferences-lock_settings_config_file" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Set Firefox Configuration File Location</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Specify the Firefox configuration file location by setting 
+<html:code xmlns:html="http://www.w3.org/1999/xhtml">general.config.filename</html:code> to the configuration (i.e. <html:code xmlns:html="http://www.w3.org/1999/xhtml">mozilla.cfg</html:code>)
+filename that contains the Firefox security preferences.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF070</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Locked settings prevents users from accessing about:config and changing
+the security settings set by the system administrator.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-lock_settings_config_file" system="urn:xccdf:fix:script:sh">
+
+value="\"mozilla.cfg\""
+firefox_js="local-settings.js"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+firefox_pref="defaults/pref"
+firefox_preferences="defaults/preferences"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Different versions of Firefox have different preferences directories, check for them and set the right one
+        if [ -d "${firefox_dir}/${firefox_preferences}" ] ; then
+            firefox_pref_dir="${firefox_dir}/${firefox_preferences}"
+        elif [ -d "${firefox_dir}/${firefox_pref}" ] ; then
+            firefox_pref_dir="${firefox_dir}/${firefox_pref}"
+        else
+            firefox_pref_dir="${firefox_dir}/${firefox_preferences}"
+            mkdir -m 755 -p "${firefox_pref_dir}"
+        fi
+
+        # Make sure the Firefox .js file exists and has the appropriate permissions
+        if ! [ -f "${firefox_pref_dir}/${firefox_js}" ] ; then
+            touch "${firefox_pref_dir}/${firefox_js}"
+            chmod 644 "${firefox_pref_dir}/${firefox_js}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^pref("general.config.filename", ' "${firefox_pref_dir}/${firefox_js}"; then
+            
+            sed -i 's/pref("general.config.filename".*/pref("general.config.filename", '"$value)"';/g' "${firefox_pref_dir}/${firefox_js}"
+        else
+            echo 'pref("general.config.filename", '"$value"');' &gt;&gt; "${firefox_pref_dir}/${firefox_js}"
+        fi
+    fi
+done
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-firefox_preferences-lock_settings_config_file:def:1" href="ssg-firefox-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-firefox_preferences-lock_settings_config_file_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+        </check>
+      </Rule>
+      <Rule id="firefox_preferences-lock_settings_obscure" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable Firefox Configuration File ROT-13 Encoding</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Disable ROT-13 encoding by setting <html:code xmlns:html="http://www.w3.org/1999/xhtml">general.config.obscure_value</html:code>
+to <html:code xmlns:html="http://www.w3.org/1999/xhtml">0</html:code>.</description>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">ECSC-1</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance">DTBF070</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">ROT-13 encoded prevents system adminstrators from easily configuring
+and deploying Firefox configuration settings. It also prevents validating
+settings easily from automated security tools.</rationale>
+        <fix xmlns:xhtml="http://www.w3.org/1999/xhtml" id="firefox_preferences-lock_settings_obscure" system="urn:xccdf:fix:script:sh">
+
+value="0"
+firefox_js="local-settings.js"
+firefox_dirs="/usr/lib/firefox /usr/lib64/firefox /usr/local/lib/firefox /usr/local/lib64/firefox"
+firefox_pref="defaults/pref"
+firefox_preferences="defaults/preferences"
+
+# Check the possible Firefox install directories
+for firefox_dir in ${firefox_dirs}; do
+    # If the Firefox directory exists, then Firefox is installed
+    if [ -d "${firefox_dir}" ]; then
+        # Different versions of Firefox have different preferences directories, check for them and set the right one
+        if [ -d "${firefox_dir}/${firefox_preferences}" ] ; then
+            firefox_pref_dir="${firefox_dir}/${firefox_preferences}"
+        elif [ -d "${firefox_dir}/${firefox_pref}" ] ; then
+            firefox_pref_dir="${firefox_dir}/${firefox_pref}"
+        else
+            firefox_pref_dir="${firefox_dir}/${firefox_preferences}"
+            mkdir -m 755 -p "${firefox_pref_dir}"
+        fi
+
+        # Make sure the Firefox .js file exists and has the appropriate permissions
+        if ! [ -f "${firefox_pref_dir}/${firefox_js}" ] ; then
+            touch "${firefox_pref_dir}/${firefox_js}"
+            chmod 644 "${firefox_pref_dir}/${firefox_js}"
+        fi
+
+        # If the key exists, change it. Otherwise, add it to the config_file.
+        if LC_ALL=C grep -m 1 -q '^pref("general.config.obscure_value", ' "${firefox_pref_dir}/${firefox_js}"; then
+            
+            sed -i 's/pref("general.config.obscure_value".*/pref("general.config.obscure_value", '"$value)"';/g' "${firefox_pref_dir}/${firefox_js}"
+        else
+            echo 'pref("general.config.obscure_value", '"$value"');' &gt;&gt; "${firefox_pref_dir}/${firefox_js}"
+        fi
+    fi
+done
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oval:ssg-firefox_preferences-lock_settings_obscure:def:1" href="ssg-firefox-oval.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref name="ocil:ssg-firefox_preferences-lock_settings_obscure_ocil:questionnaire:1" href="ssg-firefox-ocil.xml"/>
+        </check>
+      </Rule>
+    </Group>
+  </Group>
+</Benchmark>

@@ -1,0 +1,649 @@
+<?xml version="1.0"?>
+<Benchmark xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="http://purl.org/dc/elements/1.1/" id="product-name" xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.1 xccdf-1.1.4.xsd" style="SCAP_1.1" resolved="false" xml:lang="en-US">
+  <status date="2021-09-19">draft</status>
+  <title>Guide to the Secure Configuration of Firefox</title>
+  <description>This guide presents a catalog of security-relevant
+configuration settings for Firefox. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <tt>scap-security-guide</tt> package which is developed at
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<br/><br/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <em>catalog, not a
+checklist</em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <em>Profiles</em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for Firefox,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</description>
+  <notice id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter>The SCAP Security Guide Project<br/>
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter>Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:mozilla:firefox"/>
+  <version>0.9</version>
+  <metadata/>
+  <Profile id="stig">
+    <title override="true">Upstream Firefox STIG</title>
+    <description override="true">This profile is developed under the DoD consensus model and DISA FSO Vendor STIG process,
+serving as the upstream development environment for the Firefox STIG.
+
+As a result of the upstream/downstream relationship between the SCAP Security Guide project
+and the official DISA FSO STIG baseline, users should expect variance between SSG and DISA FSO content.
+For official DISA FSO STIG content, refer to https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Cbrowser-guidance.
+
+While this profile is packaged by Red Hat as part of the SCAP Security Guide package, please note
+that commercial support of this SCAP content is NOT available. This profile is provided as example
+SCAP content with no endorsement for suitability or production readiness. Support for this
+profile is provided by the upstream SCAP Security Guide community on a best-effort basis. The
+upstream project homepage is https://www.open-scap.org/security-policies/scap-security-guide/.</description>
+    <select idref="firefox_preferences-addons_plugin_updates" selected="true"/>
+    <select idref="firefox_preferences-auto-download_actions" selected="true"/>
+    <select idref="firefox_preferences-autofill_forms" selected="true"/>
+    <select idref="firefox_preferences-autofill_passwords" selected="true"/>
+    <select idref="firefox_preferences-background_data" selected="true"/>
+    <select idref="firefox_preferences-development_tools" selected="true"/>
+    <select idref="firefox_preferences-dod_root_certificate_installed" selected="true"/>
+    <select idref="firefox_preferences-enable_ca_trust" selected="true"/>
+    <select idref="firefox_preferences-install_extensions" selected="true"/>
+    <select idref="firefox_preferences-javascript_context_menus" selected="true"/>
+    <select idref="firefox_preferences-javascript_window_changes" selected="true"/>
+    <select idref="firefox_preferences-javascript_window_resizing" selected="true"/>
+    <select idref="firefox_preferences-lock_settings_config_file" selected="true"/>
+    <select idref="firefox_preferences-lock_settings_obscure" selected="true"/>
+    <select idref="firefox_preferences-open_confirmation" selected="true"/>
+    <select idref="firefox_preferences-password_store" selected="true"/>
+    <select idref="firefox_preferences-pop-up_windows" selected="true"/>
+    <select idref="firefox_preferences-search_update" selected="true"/>
+    <select idref="firefox_preferences-shell_protocol" selected="true"/>
+    <select idref="firefox_preferences-ssl_protocol_tls" selected="true"/>
+    <select idref="firefox_preferences-verification" selected="true"/>
+    <select idref="installed_firefox_version_supported" selected="true"/>
+    <refine-value idref="var_default_home_page" selector="about_blank"/>
+  </Profile>
+  <Value id="conditional_clause" type="string">
+    <title>A conditional clause for check statements.</title>
+    <description>A conditional clause for check statements.</description>
+    <value selector="">This is a placeholder</value>
+  </Value>
+  <Group id="remediation_functions">
+    <title>Remediation functions used by the SCAP Security Guide Project</title>
+    <description>XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="firefox">
+    <title>Firefox</title>
+    <description>Firefox is an open-source web browser and developed by Mozilla.
+Web browsers such as Firefox are used for a number of reasons. This section
+provides settings for configuring Firefox policies to meet compliance
+settings for Firefox running on Red Hat Enterprise Linux systems.
+
+<ul>Refer to <li><html:a href="http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries">http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries</html:a></li>
+for a list of currently supported Firefox settings.</ul></description>
+    <Value id="var_default_home_page" type="string">
+      <title>The Default Firefox Home Page</title>
+      <description>The default home page for Firefox users.</description>
+      <value selector="about_blank">about:blank</value>
+      <value>None</value>
+    </Value>
+    <Value id="var_required_file_types" type="string">
+      <title>The Default Required Firefox File Types</title>
+      <description>The default required file types that need to request usage
+confirmation in Firefox.</description>
+      <value>application/pdf,application/fdf,application/xfdf,application/lsl,application/lso,application/lss,application/iqy,application/rqy,application/xlk,application/xls,application/xlt,application/pot,application/pps,application/ppt,application/dos,application/dot,application/wks,application/bat,application/ps,application/eps,application/wch,application/wcm,application/wb1,application/wb3,application/rtf,application/doc,application/mdb,application/mde,application/wbk,application/ad,application/adp</value>
+    </Value>
+    <Rule id="firefox_preferences-addons_plugin_updates" severity="medium">
+      <title>Disable Addons Plugin Updates</title>
+      <description>Firefox automatically updates installed add-ons and plugins which 
+can be disabled by setting <tt>extensions.update.enabled</tt> to
+<tt>false</tt>.</description>
+      <rationale>Automatic updates from untrusted sites puts the enclave at
+risk of attack and may override security settings.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF090"/>
+      <oval id="firefox_preferences-addons_plugin_updates"/>
+      <ocil clause="it is not disabled">To verify that add-ons and plugins cannot automatically update,
+run the following command:
+<pre>$ grep 'extensions.update.enabled' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("extensions.update.enabled", false);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-auto-download_actions" severity="medium">
+      <title>Disable Automatic Downloads of MIME Types</title>
+      <description>MIME type files are automatically downloaded or executed in Firefox. This
+can be disabled by setting <tt>browser.helperApps.alwaysAsk.force</tt> to
+<tt>true</tt>.</description>
+      <rationale>The default action for file types for which a plugin is installed is to
+automatically download and execute the file using the associated plugin.
+Firefox allows users to change the specified download action so that the
+file is opened with a selected external application or saved to disk
+instead.</rationale>
+      <ref disa="CCI-001242" nist="SI-3" stigid="DTBF100"/>
+      <oval id="firefox_preferences-auto-download_actions"/>
+      <ocil clause="it is not disabled">To verify that user interaction is required for the downloading of MIME types,
+run the following command:
+<pre>$ grep 'browser.helperApps.alwaysAsk.force' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("browser.helperApps.alwaysAsk.force", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-auto-update_of_firefox" severity="medium">
+      <title>Disable Firefox Auto-Update Capability</title>
+      <description>Firefox can be set to automatically update as new updates. This can be
+disabled by setting <tt>app.update.enable</tt> to <tt>false</tt>.</description>
+      <rationale>Allowing software updates from non-trusted sites can introduce settings
+that will override a secured installation of the application. This can
+place DoD information at risk. If this setting is enabled, then there are
+many other default settings which point to untrusted sites which must be
+changed to point to an authorized update site that is not publicly accessible.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF080"/>
+      <oval id="firefox_preferences-auto-update_of_firefox"/>
+      <ocil clause="it is not disabled">To verify that Firefox cannot auto-update,
+run the following command:
+<pre>$ grep 'app.update.enable' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("app.update.enable", false);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-autofill_forms" severity="medium">
+      <title>Disable Autofill Form Assistance</title>
+      <description>Firefox provides tools to auto-fill forms from prefilled information.
+This can be disabled by setting <tt>browser.formfill.enable</tt> to
+<tt>false</tt>.</description>
+      <rationale>In order to protect privacy and sensitive data, Firefox provides
+the ability to configure Firefox such that data entered into forms
+is not saved. This mitigates the risk of a website gleaning private
+information from prefilled information.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF140"/>
+      <oval id="firefox_preferences-autofill_forms"/>
+      <ocil clause="it is not disabled">To verify that Autofill Form Assistance is disabled,
+run the following command:
+<pre>$ grep 'browser.formfill.enable' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("browser.formfill.enable", false);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-autofill_passwords" severity="medium">
+      <title>Disable User Ability To Autofill Passwords</title>
+      <description>Firefox automatically allows users to save passwords to be auto-filled
+into password forms. This can be disabled by setting
+<tt>signon.autofillForms</tt> to <tt>false</tt>.</description>
+      <rationale>While on the internet, it may be possible for an attacker to view
+the saved password files and gain access to the user's accounts on
+various hosts.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF150"/>
+      <oval id="firefox_preferences-autofill_passwords"/>
+      <ocil clause="it is not disabled">To verify that password autofill is disabled,
+run the following command:
+<pre>$ grep 'signon.autofillForms' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("signon.autofillForms", false);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-background_data" severity="medium">
+      <title>Disable Background Information Submission</title>
+      <description>Firefox submits usage data in the background to Mozilla and posts portions of the data publicly.
+This can be disabled by setting <tt>datareporting.policy.dataSubmissionEnabled</tt> to
+<tt>false</tt>.</description>
+      <rationale>In order to protect privacy and sensitive data, Mozilla provides
+the ability to configure Firefox so that no data is submited to Mozilla. 
+This mitigates the risk of potentially compromizing information becoming publicly available.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF190"/>
+      <oval id="firefox_preferences-background_data"/>
+      <ocil clause="it is not disabled">To verify that data submission is disabled,
+run the following command:
+<pre>$ grep 'datareporting.policy.dataSubmissionEnabled' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("datareporting.policy.dataSubmissionEnabled", false);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-development_tools" severity="low">
+      <title>Disable Firefox Development Tools</title>
+      <description>Firefox provides development tools which identify detailed information 
+about the browser and its configuration. These details are often also 
+recorded into a log file, giving an attacker the ability to capture 
+detailed information about the system.
+This can be disabled by setting <tt>devtools.policy.disabled</tt> to
+<tt>true</tt>.</description>
+      <rationale>In order to protect privacy and sensitive data, Mozilla provides
+the ability to configure Firefox so that development tools are prevented from being used.</rationale>
+      <ref disa="CCI-001312" nist="SI-11" stigid="DTBF195"/>
+      <oval id="firefox_preferences-development_tools"/>
+      <ocil clause="it is not disabled">To verify that Autofill Form Assistance is disabled,
+run the following command:
+<pre>$ grep 'devtools.policy.disabled' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("devtools.policy.disabled", true);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-home_page" severity="medium">
+      <title>Default Firefox Home Page Configured</title>
+      <description>The default home page is set to a vendor's defined website or
+Firefox's own website. This can be changed to an organizationally defined website
+or <tt>about:blank</tt>. To set the default home page, set
+<tt>browser.startup.homepage</tt> to <tt><sub idref="var_default_home_page"/></tt>.</description>
+      <rationale>The browser home page parameter specifies the web page that is to be
+displayed when the browser is started explicitly and when product-specific
+buttons or key sequences for the home page are accessed. This helps to
+mitigate the possibility of automatic inadvertent execution of scripts 
+added to a previously safe site.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF017"/>
+      <oval id="firefox_preferences-home_page"/>
+      <ocil clause="it is not configured">To verify that default home page is set,
+run the following command:
+<pre>$ grep 'browser.startup.homepage' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("browser.startup.homepage", "<sub idref="var_default_home_page"/>");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-install_extensions" severity="medium">
+      <title>Disable Extension Installation</title>
+      <description>Firefox provides the ability to disable the installation of extensions.
+This can be disabled by setting <tt>xpinstall.enabled</tt> to
+<tt>false</tt>.</description>
+      <rationale>If a browser is configured to allow unrestricted use of extensions then 
+plug-ins can be loaded and installed from malicious sources and used on 
+the browser.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF186"/>
+      <oval id="firefox_preferences-install_extensions"/>
+      <ocil clause="it is not disabled">To verify that the installation of extensions is disabled,
+run the following command:
+<pre>$ grep 'xpinstall.enabled' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("xpinstall.enabled", false);</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_context_menus" severity="medium">
+      <title>Disable JavaScript Context Menus</title>
+      <description>JavaScript can configure and make changes to the web browser's appearance by
+specifically disabling or replacing context menus. This can be disabled by
+setting <tt>dom.event.contextmenu.enabled</tt> to <tt>false</tt>.</description>
+      <rationale>A website may execute JavaScript that can make changes to these
+context menus. This can help disguise an attack.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF183"/>
+      <oval id="firefox_preferences-javascript_context_menus"/>
+      <ocil clause="it is not disabled">To verify that JavaScript cannot change context menus,
+run the following command:
+<pre>$ grep 'dom.event.contextmenu.enabled' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("dom.event.contextmenu.enabled", "false");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_status_bar_changes" severity="medium">
+      <title>Disable JavaScript's Ability To Change The Status Bar</title>
+      <description>JavaScript can configure and make changes to the web browser's appearance by
+specifically hiding or changing the status bar. This can be disabled by
+setting <tt>dom.disable_window_status_change</tt> to <tt>true</tt>.</description>
+      <rationale>When a user visits some webpages, JavaScript can hide or make changes
+to the browser&#x2019;s appearance to hide unauthorized activity. This activity
+can help disguise an attack taking place in a minimized background window.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF184"/>
+      <oval id="firefox_preferences-javascript_status_bar_changes"/>
+      <ocil clause="it is not disabled">To verify that JavaScript cannot change the status bar,
+run the following command:
+<pre>$ grep 'dom.disable_window_status_change' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("dom.disable_window_status_change", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_status_bar_text" severity="medium">
+      <title>Disable JavaScript's Ability To Modify The Browser Appearance</title>
+      <description>JavaScript can configure and make changes to the web browser's appearance by
+specifically hiding the status bar from view. This can disabled by 
+setting <tt>dom.disable_window_open_feature.status</tt> to <tt>true</tt>.</description>
+      <rationale>JavaScript can make changes to the browser&#x2019;s appearance. This activity
+can help disguise an attack taking place in a minimized background window.
+Webpage authors can disable many features of a popup window that they open.
+This setting prevents the status bar from being hidden.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF185"/>
+      <oval id="firefox_preferences-javascript_status_bar_text"/>
+      <ocil clause="it is not disabled">To verify that JavaScript cannot change the browser appearance,
+run the following command:
+<pre>$ grep 'dom.disable_window_open_feature.status' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("dom.disable_window_open_feature.status", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_window_changes" severity="medium">
+      <title>Disable JavaScript's Raise Or Lower Windows Capability</title>
+      <description>JavaScript can configure and make changes to the web browser's appearance by
+specifically raising and lowering windows. This can be disabled by
+setting <tt>dom.disable_window_flip</tt> to <tt>true</tt>.</description>
+      <rationale>JavaScript can make changes to the browser&#x2019;s appearance. Allowing a website
+to use JavaScript to raise and lower browser windows may disguise an attack.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF182"/>
+      <oval id="firefox_preferences-javascript_window_changes"/>
+      <ocil clause="it is not disabled">To verify that JavaScript cannot change windows sizing,
+run the following command:
+<pre>$ grep 'dom.disable_window_flip' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("dom.disable_window_flip", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-javascript_window_resizing" severity="medium">
+      <title>Disable JavaScript's Moving Or Resizing Windows Capability</title>
+      <description>JavaScript can configure and make changes to the web browser's appearance by
+specifically moving and resizing browser windows. This can be disabled by
+setting <tt>dom.disable_window_move_resize</tt> to <tt>true</tt>.</description>
+      <rationale>JavaScript can make changes to the browser&#x2019;s appearance. This activity
+can help disguise an attack taking place in a minimized background window.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF181"/>
+      <oval id="firefox_preferences-javascript_window_resizing"/>
+      <ocil clause="it is not disabled">To verify that JavaScript cannot change windows sizing,
+run the following command:
+<pre>$ grep 'dom.disable_window_move_resize' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("dom.disable_window_move_resize", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-non-secure_page_warning" severity="medium">
+      <title>Enable Non-Secure Page Warnings</title>
+      <description>When users browse websites, web pages can switch in between secure and 
+non-secure protocols. Users can be warned each time by
+setting <tt>security.warn_leaving_secure</tt> to <tt>true</tt>.</description>
+      <rationale>Users may not be aware that the information being viewed under secure
+conditions in a previous page are not currently being viewed under
+the same security settings.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF130"/>
+      <oval id="firefox_preferences-non-secure_page_warning"/>
+      <ocil clause="it is not enabled">To verify that non-secure page warnings are enabled,
+run the following command:
+<pre>$ grep 'security.warn_leaving_secure' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("security.warn_leaving_secure", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-open_confirmation" severity="medium">
+      <title>Enable Downloading and Opening File Confirmation</title>
+      <description>To have an action dialog box appear promping users what action to take when
+certain types of files are downloaded or opened, set
+<tt>plugin.disable_full_page_plugin_for_types</tt> to
+<tt><sub idref="var_required_file_types"/></tt>.</description>
+      <rationale>When the user receives a dialog box asking if they want to save the file
+or open it with a specified application, this indicates that a plugin does
+not exist. Also, the user has not previously selected a download action or helper
+application to automatically use for that type of file. When prompted, if the user
+checks the option to 'Do this automatically for files like this from now on', then
+an entry will appear for that type of file in the plugins listing, and this file
+type is automatically opened in the future. This can be a security issue. New file
+types cannot be added directly to the Application plugin listing.</rationale>
+      <ref disa="CCI-001243" nist="SI-3" stigid="DTBF110"/>
+      <oval id="firefox_preferences-open_confirmation"/>
+      <ocil clause="it is not set or application listing is incorrect">To verify that downloading and opening file confirmation is enabled,
+run the following command:
+<pre>$ grep 'plugin.disable_full_page_plugin_for_types' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("plugin.disable_full_page_plugin_for_types", "<sub idref="var_required_file_types"/>");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-password_store" severity="medium">
+      <title>Disable the Firefox Password Store</title>
+      <description>Firefox allows users to store passwords whether or not a master password
+is set for the password store. To disable the storing of passwords, set
+<tt>signon.rememberSignons</tt> to <tt>false</tt>.</description>
+      <rationale>Autofill of a password can be enabled when a site is visited. This feature could also
+be used to autofill the certificate pin which could lead to compromise of DoD information.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF160"/>
+      <oval id="firefox_preferences-password_store"/>
+      <ocil clause="it is not disabled">To verify that the password store is disabled,
+run the following command:
+<pre>$ grep 'signon.rememberSignons' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("signon.rememberSignons", "false");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-pop-up_windows" severity="medium">
+      <title>Enable Firefox Pop-up Blocker</title>
+      <description>The pop-up blocker can be enabled by setting
+<tt>dom.disable_window_open_feature.status</tt> to <tt>true</tt>.</description>
+      <rationale>Popup windows may be used to launch an attack within a new browser window
+with altered settings.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF180"/>
+      <oval id="firefox_preferences-pop-up_windows"/>
+      <ocil clause="it is not enabled">To verify that pop-up blocker is enabled,
+run the following command:
+<pre>$ grep 'dom.disable_window_open_feature.status' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("dom.disable_window_open_feature.status", "true");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-search_update" severity="medium">
+      <title>Disable Installed Search Plugins Update Checking</title>
+      <description>Firefox automatically checks for updated versions of search plugins.
+To disable the automatic updates of plugins, set
+<tt>browser.search.update</tt> to <tt>false</tt>.</description>
+      <rationale>Updates need to be controlled and installed from authorized and trusted servers.
+This setting overrides a number of other settings which may direct the application
+to access external URLs.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF085"/>
+      <oval id="firefox_preferences-search_update"/>
+      <ocil clause="it is not disabled">To verify that search plugins cannot automatically update,
+run the following command:
+<pre>$ grep 'browser.search.update' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("browser.search.update", "false");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-shell_protocol" severity="medium">
+      <title>Disable Firefox Access to Shell Protocols</title>
+      <description>Access to the shell is disabled by default but can be changed.
+To prevent shell access from being enabled, set
+<tt>network.protocol-handler.external.shell</tt> to <tt>false</tt>.</description>
+      <rationale>If enabled, this setting would allow the browser to access the Windows shell.
+This could allow access to the underlying system.</rationale>
+      <ref disa="CCI-000381" nist="CM-7" stigid="DTBF105"/>
+      <oval id="firefox_preferences-shell_protocol"/>
+      <ocil clause="it is not disabled">To verify that the shell protocol access is disabled,
+run the following command:
+<pre>$ grep 'network.protocol-handler.external.shell' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("network.protocol-handler.external.shell", "false");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-ssl_protocol_tls" severity="medium">
+      <title>Enable TLS Usage in Firefox</title>
+      <description>To enable TLS, set <tt>security.tls.version.min</tt> to <tt>2</tt> and set <tt>security.tls.version.max</tt> to <tt>4</tt>.</description>
+      <rationale>Earlier versions of SSL have known security vulnerabilities and are not
+authorized for use in DOD environments.</rationale>
+      <ref disa="CCI-002450" nist="SC-13" stigid="DTBF030"/>
+      <oval id="firefox_preferences-ssl_protocol_tls"/>
+      <ocil clause="it is not enabled">To verify that TLS is enabled, run the following commands:
+<pre>$ grep 'security.tls.version.min' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("security.tls.version.min", "2");</pre>
+<pre>$ grep 'security.tls.version.max' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("security.tls.version.max", "4");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-ssl_version_2" severity="medium">
+      <title>Disable SSL Version 2.0 in Firefox</title>
+      <description>SSL version 2 is not enabled by default and should not be enabled.
+To prevent SSL version 2 from being enabled set
+<tt>security.enable_ssl2</tt> to <tt>false</tt>.</description>
+      <rationale>Use of versions prior to TLS 1.0 are not permitted because these versions are
+non-standard. SSL 2.0 and SSL 3.0 contain a number of security flaws.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF010"/>
+      <oval id="firefox_preferences-ssl_version_2"/>
+      <ocil clause="it is not disabled">To verify that SSL version 2.0 is disabled,
+run the following command:
+<pre>$ grep 'security.enable_ssl2' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("security.enable_ssl2", "false");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-ssl_version_3" severity="medium">
+      <title>Disable SSL Version 3.0 in Firefox</title>
+      <description>SSL version 3.0 is vulnerable and should be disabled by setting
+<tt>security.enable_ssl3</tt> to <tt>false</tt>.</description>
+      <rationale>Earlier versions of SSL have known security vulnerabilities and are not
+authorized for use in DOD.</rationale>
+      <ref nist="ECSC-1" stigid="DTBF020"/>
+      <oval id="firefox_preferences-ssl_version_3"/>
+      <ocil clause="it is not enabled">To verify that SSL version 3 is disabled,
+run the following command:
+<pre>$ grep 'security.enable_ssl3' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("security.enable_ssl3", "false");</pre></ocil>
+    </Rule>
+    <Rule id="firefox_preferences-verification" severity="medium">
+      <title>Enable Certificate Verification</title>
+      <description>Firefox can be configured to prompt the user to choose a certificate
+to present to a website when asked. To enable certificate verification, 
+set <tt>security.default_personal_cert</tt> to <tt>Ask Every Time</tt>.</description>
+      <rationale>Websites within DoD require user authentication for access which increases
+security for DoD information. Access will be denied to the user if
+certificate management is not configured.</rationale>
+      <ref disa="CCI-001274" nist="SI-4(12)" stigid="DTBF050"/>
+      <oval id="firefox_preferences-verification"/>
+      <ocil clause="it is not enabled">To verify that certificate verification is enabled, run the following command:
+<pre>$ grep 'security.default_personal_cert' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("security.default_personal_cert", "Ask Every Time");</pre></ocil>
+    </Rule>
+    <Rule id="installed_firefox_version_supported" severity="high">
+      <title>Supported Version of Firefox Installed</title>
+      <description>If the system is joined to the Red Hat Network, a Red Hat Satellite Server,
+or a yum server, run the following command to install updates:
+<pre>$ sudo yum update</pre>
+If the system is not configured to use one of these sources, updates (in the form of RPM packages)
+can be manually downloaded and installed using <tt>rpm</tt>.</description>
+      <rationale>Use of versions of an application which are not supported by the vendor
+are not permitted. Vendors respond to security flaws with updates and
+patches. These updates are not available for unsupported version which
+can leave the application vulnerable to attack.</rationale>
+      <ref disa="CCI-003376" nist="SA-22" stigid="DTBF003"/>
+      <oval id="installed_firefox_version_supported"/>
+      <ocil clause="it is not updated">If the system is joined to the Red Hat Network, a Red Hat Satellite Server, or
+a yum server which provides updates, invoking the following command will
+indicate if updates are available:
+<pre>$ sudo yum check-update</pre>
+If the system is not configured to update from one of these sources,
+run the following command to list when each package was last updated:
+<pre>$ rpm -qa -last</pre>
+Compare this to Red Hat Security Advisories (RHSA) listed at
+
+    <html:a href="https://access.redhat.com/security/updates/active/">https://access.redhat.com/security/updates/active/</html:a>
+to determine if the system is missing applicable updates.</ocil>
+    </Rule>
+    <Group id="firefox_preferences-cookies">
+      <title>Clearing Cookies And Other Data</title>
+      <description>Browser preferences should be set to perform a Clear Private Data
+operation when closing the browser in order to clear cookies and other
+data installed by websites visited during the session.</description>
+      <Rule id="firefox_preferences-cookies_clear" severity="medium">
+        <title>Clear Data When Firefox Closes</title>
+        <description>When a user browses to a website, cookies and other types of data
+get stored on the system. This can be disabled by setting
+<tt>privacy.sanitize.sanitizeOnShutdown</tt> to <tt>true</tt>.</description>
+        <rationale>Cookies can help websites perform better but can also be part of spyware.
+To mitigate this risk, set browser preferences to perform a Clear Private
+Data operation when closing the browser in order to clear cookies and
+other data installed by websites visited during the session.</rationale>
+        <ref nist="ECSC-1" stigid="DTBF170"/>
+        <oval id="firefox_preferences-cookies_clear"/>
+        <ocil clause="it is not set to clear">To verify that Firefox clears data on exit,
+run the following command:
+<pre>$ grep 'privacy.sanitize.sanitizeOnShutdown' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("privacy.sanitize.sanitizeOnShutdown", true);</pre></ocil>
+      </Rule>
+      <Rule id="firefox_preferences-cookies_user_notice" severity="medium">
+        <title>Disable User Prompt When Data Is Cleared</title>
+        <description>By default, users are asked if it is okay to clear out cookies and data
+when Firefox closes. This can be disabled by 
+setting <tt>privacy.sanitize.promptOnSanitize</tt> to <tt>false</tt>.</description>
+        <rationale>Cookies can help websites perform better but can also be part of spyware.
+To mitigate this risk, set browser preferences to perform a Clear Private
+Data operation when closing the browser in order to clear cookies and
+other data installed by websites visited during the session.</rationale>
+        <ref nist="ECSC-1" stigid="DTBF170"/>
+        <oval id="firefox_preferences-cookies_user_notice"/>
+        <ocil clause="it is not disabled">To verify that Firefox does not prompt users about data being cleared,
+run the following command:
+<pre>$ grep 'privacy.sanitize.promptOnSanitize' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+The output should return:
+<pre>lockPref("privacy.sanitize.promptOnSanitize", false);</pre></ocil>
+      </Rule>
+    </Group>
+    <Group id="firefox_preferences-dod_root_certificate">
+      <title>The DoD Root Certificate Is Required</title>
+      <description>The Shared System Certificates store contains certificates that
+applications can access for a single certificate repository.
+If enabled, Firefox can access that single system certificate
+repository. If the DoD root certificate is also installed into
+the shared system certificate repository, Firefox will see and 
+use the DoD root certificate as a valid certificate authority.</description>
+      <Rule id="firefox_preferences-dod_root_certificate_installed" severity="medium">
+        <title>The DoD Root Certificate Exists</title>
+        <description>The DoD root certificate should be installed in the Shared System Certificates store
+for Firefox to be able to access the DoD certificate. To install the root certificated
+into the Shared System Certificates store, copy the DoD root certificate into
+<tt>/etc/pki/ca-trust/source/anchors</tt>. Once the file is copied, run the following
+command:
+<pre>$ sudo update-ca-trust extract</pre></description>
+        <rationale>The DOD root certificate will ensure that the trust chain is
+established for server certificates issued from the DOD CA.</rationale>
+        <ident cce="CCE-82056-3"/>
+        <ref disa="CCI-000054" nist="AC-10"/>
+        <oval id="firefox_preferences-dod_root_certificate_installed"/>
+        <ocil clause="it is not installed">To verify that the DoD root certificate is installed,
+list all certificates in <tt>/etc/pki/ca-trust/source/anchors</tt>
+and compare them to the DoD root certificate. If there is a match
+to the DoD root certificate, then the DoD root certificate is 
+installed.</ocil>
+      </Rule>
+      <Rule id="firefox_preferences-enable_ca_trust" severity="medium">
+        <title>Enable Shared System Certificates</title>
+        <description>The Shared System Certificates store makes NSS, GnuTLS, OpenSSL, and Java
+share a default source for retrieving system certificate anchors and blacklist
+information. Firefox has the capability of using this centralized store for its
+CA certificates. If the Shared System Certificates store is disabled, it can
+be enabled by running the following command:
+<pre>$ sudo update-ca-trust enable</pre></description>
+        <rationale>The DOD root certificate will ensure that the trust chain is
+established for server certificates issued from the DOD CA.</rationale>
+        <ident cce="CCE-82057-1"/>
+        <ref disa="CCI-000054" nist="AC-10"/>
+        <oval id="firefox_preferences-enable_ca_trust"/>
+        <ocil clause="it is not enabled">To verify that the central system cerificate authority store is enabled,
+run the following command:
+<pre>$ ls -l /etc/alternatives/libnssckbi.so.x86_64</pre>
+The output should return something similar to:
+<pre>lrwxrwxrwx. 1 root root 34 Apr 30 09:19 /etc/alternatives/libnssckbi.so.x86_64 -&gt; /usr/lib64/pkcs11/p11-kit-trust.so</pre></ocil>
+      </Rule>
+    </Group>
+    <Group id="firefox_preferences-lock_settings">
+      <title>Prevent Users from Changing Firefox Configuration Settings</title>
+      <description>Firefox required security preferences cannot be changed by users.</description>
+      <Rule id="firefox_preferences-lock_settings_config_file" severity="medium">
+        <title>Set Firefox Configuration File Location</title>
+        <description>Specify the Firefox configuration file location by setting 
+<tt>general.config.filename</tt> to the configuration (i.e. <tt>mozilla.cfg</tt>)
+filename that contains the Firefox security preferences.</description>
+        <rationale>Locked settings prevents users from accessing about:config and changing
+the security settings set by the system administrator.</rationale>
+        <ref disa="CCI-000366" nist="CM-6" stigid="DTBF070"/>
+        <oval id="firefox_preferences-lock_settings_config_file"/>
+        <ocil clause="users can change mandatory settings">To verify that configuration filename is set, run the following command:
+<pre>$ grep 'filename' <i>FIREFOX_INSTALL_DIR</i>/defaults/preferences/*.js</pre>
+The output should return something similar to:
+<pre>pref("general.config.filename", "mozilla.cfg");</pre></ocil>
+      </Rule>
+      <Rule id="firefox_preferences-lock_settings_obscure" severity="medium">
+        <title>Disable Firefox Configuration File ROT-13 Encoding</title>
+        <description>Disable ROT-13 encoding by setting <tt>general.config.obscure_value</tt>
+to <tt>0</tt>.</description>
+        <rationale>ROT-13 encoded prevents system adminstrators from easily configuring
+and deploying Firefox configuration settings. It also prevents validating
+settings easily from automated security tools.</rationale>
+        <ref nist="ECSC-1" stigid="DTBF070"/>
+        <oval id="firefox_preferences-lock_settings_obscure"/>
+        <ocil clause="users can change mandatory settings">To verify that ROT-13 encoding is disabled, run the following command:
+<pre>$ grep 'obscure_value' <i>FIREFOX_INSTALL_DIR</i>/defaults/preferences/*.js</pre>
+The output should return something similar to:
+<pre>pref("general.config.obscure_value", 0);</pre></ocil>
+      </Rule>
+    </Group>
+  </Group>
+</Benchmark>

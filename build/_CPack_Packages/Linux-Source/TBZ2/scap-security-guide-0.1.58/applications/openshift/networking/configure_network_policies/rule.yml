@@ -1,0 +1,31 @@
+documentation_complete: true
+
+prodtype: ocp4
+
+title: 'Ensure that the CNI in use supports Network Policies'
+
+description: |-
+    There are a variety of CNI plugins available for Kubernetes. If the CNI in
+    use does not support Network Policies it may not be possible to effectively
+    restrict traffic in the cluster. OpenShift supports Kubernetes NetworkPolicy
+    using a Kubernetes Container Network Interface (CNI) plug-in.
+
+rationale: |-
+    Kubernetes network policies are enforced by the CNI plugin in use. As such
+    it is important to ensure that the CNI plugin supports both Ingress and
+    Egress network policies.
+
+severity: high
+
+ocil_clause: 'Support for Network Policies needs review'
+
+ocil: |-
+    Verify on OpenShift that the NetworkPolicy plugin is being used:
+    <pre>$ oc explain networkpolicy</pre>
+    The resulting output should be an explanation of the NetworkPolicy resource.
+
+references:
+    cis@ocp4: 5.3.1
+    nerc-cip: CIP-003-3 R6,CIP-004-3 R3,CIP-007-3 R6.1
+    nist: CM-6,CM-6(1)
+    pcidss: Req-1.1.4,Req-1.2

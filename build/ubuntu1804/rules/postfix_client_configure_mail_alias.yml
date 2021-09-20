@@ -1,0 +1,49 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/mail/postfix_client/postfix_client_configure_mail_alias/rule.yml
+description: 'Make sure that mails delivered to root user are forwarded to a monitored
+
+  email address. Make sure that the address
+
+  <sub idref="var_postfix_root_mail_alias" /> is a valid email address
+
+  reachable from the system in question. Use the following command to
+
+  configure the alias:
+
+  <pre>$ sudo echo "root: <sub idref="var_postfix_root_mail_alias" />" &gt;&gt; /etc/aliases
+
+  $ sudo newaliases</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'Find the list of alias maps used by the Postfix mail server:
+
+  <pre>$ sudo postconf alias_maps</pre>
+
+  Query the Postfix alias maps for an alias for the <i>root</i> user:
+
+  <pre>$ sudo postmap -q root hash:/etc/aliases</pre>
+
+  The output should return an alias.'
+ocil_clause: it is not
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: 'A number of system services utilize email messages sent to the root user
+  to
+
+  notify system administrators of active or impending issues.  These messages must
+
+  be forwarded to at least one monitored email address.'
+references:
+  anssi: BP28(R49)
+  disa: CCI-000139,CCI-000366
+  nist: CM-6(a)
+  srg: SRG-OS-000046-GPOS-00022
+requires: []
+severity: low
+template: null
+title: Configure System to Forward All Mail For The Root Account
+warnings: []

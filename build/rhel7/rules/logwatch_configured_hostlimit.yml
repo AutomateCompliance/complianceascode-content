@@ -1,0 +1,29 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/logging/configure_logwatch_on_logserver/logwatch_configured_hostlimit/rule.yml
+description: 'On a central logserver, you want Logwatch to summarize all syslog entries,
+
+  including those which did not originate on the logserver itself. The
+
+  <tt>HostLimit</tt> setting tells Logwatch to report on all hosts, not just
+
+  the one on which it is running.
+
+  <pre> HostLimit = no </pre>'
+identifiers:
+  cce: CCE-80196-9
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,rhel7,rhel8
+rationale: ''
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Configure Logwatch HostLimit Line
+warnings: []

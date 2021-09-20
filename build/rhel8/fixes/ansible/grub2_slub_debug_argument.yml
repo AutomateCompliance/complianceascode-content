@@ -1,0 +1,59 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv,multi_platform_sle
+# reboot = true
+# strategy = restrict
+# complexity = medium
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-80945-9
+    - DISA-STIG-RHEL-08-010423
+    - NIST-800-53-CM-6(a)
+    - grub2_slub_debug_argument
+    - low_disruption
+    - medium_complexity
+    - medium_severity
+    - reboot_required
+    - restrict_strategy
+
+- name: get current kernel parameters
+  ansible.builtin.shell:
+    cmd: /usr/bin/grub2-editenv - list | grep "kernelopts="
+  register: kernelopts
+  changed_when: false
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '"grub2-common" in ansible_facts.packages'
+  tags:
+    - CCE-80945-9
+    - DISA-STIG-RHEL-08-010423
+    - NIST-800-53-CM-6(a)
+    - grub2_slub_debug_argument
+    - low_disruption
+    - medium_complexity
+    - medium_severity
+    - reboot_required
+    - restrict_strategy
+
+- name: Update the bootloader menu
+  command: /usr/bin/grub2-editenv - set "{{ item }} slub_debug=P"
+  with_items: '{{ kernelopts.stdout_lines | select(''match'', ''^kernelopts.*'') |
+    list }}'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '"grub2-common" in ansible_facts.packages'
+    - kernelopts.stdout_lines is defined
+    - kernelopts.stdout_lines | length > 0
+    - kernelopts.stdout | regex_search('^kernelopts=(?:.*\s)?slub_debug=P(?:\s.*)?$',
+      multiline=True) is none
+  tags:
+    - CCE-80945-9
+    - DISA-STIG-RHEL-08-010423
+    - NIST-800-53-CM-6(a)
+    - grub2_slub_debug_argument
+    - low_disruption
+    - medium_complexity
+    - medium_severity
+    - reboot_required
+    - restrict_strategy

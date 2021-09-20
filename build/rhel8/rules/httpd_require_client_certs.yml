@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_modules_improve_security/httpd_deploy_mod_ssl/httpd_require_client_certs/rule.yml
+description: '<tt>SSLVerifyClient</tt> should be set and configured to <tt>require</tt>
+  by
+
+  setting the following in <tt>/etc/httpd/conf/httpd.conf</tt>:
+
+  <pre>SSLVerifyClient require</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify if <tt>SSLVerifyClient</tt> is configured correctly in
+
+  <tt>/etc/httpd/conf/httpd.conf</tt>, run the following command:
+
+  <pre>$ grep -i sslverifyclient /etc/httpd/conf/httpd.conf</pre>
+
+  The command should return the following:
+
+  <pre>SSLVerifyClient require</pre>'
+ocil_clause: it is not
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: 'Web sites requiring authentication within the DoD must utilize PKI as
+  an
+
+  authentication mechanism for web users. Information systems residing behind web
+
+  servers requiring authorization based on individual identity must use the
+
+  identity provided by certificate-based authentication to support access control
+
+  decisions.'
+references:
+  stigid: WG140
+requires: []
+severity: medium
+template: null
+title: Require Client Certificates
+warnings: []

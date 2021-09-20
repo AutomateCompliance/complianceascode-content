@@ -1,0 +1,743 @@
+<?xml version="1.0"?>
+<ocil xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://scap.nist.gov/schema/ocil/2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <generator>
+    <product_name>xccdf-create-ocil.xslt from SCAP Security Guide</product_name>
+    <product_version>ssg: 0.1.58</product_version>
+    <schema_version>2.0</schema_version>
+    <timestamp>2021-09-19T21:50:42-05:00</timestamp>
+  </generator>
+  <questionnaires>
+    <questionnaire id="dats_auto_update_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to receive automatic updates</title>
+      <actions>
+        <test_action_ref>dats_auto_update_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="dats_updated_ocil">
+      <title>The anti-virus signature file age must not exceed 7 days</title>
+      <actions>
+        <test_action_ref>dats_updated_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="virus_notification_ocil">
+      <title>A notification mechanism or process must be in place to notify Administrators of out of date DAT, detected malware and error codes</title>
+      <actions>
+        <test_action_ref>virus_notification_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="web_client_disabled_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux Web interface must be disabled unless the system is on a segregated network</title>
+      <actions>
+        <test_action_ref>web_client_disabled_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_action_app_primary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Clean as first action when a virus or Trojan is detected</title>
+      <actions>
+        <test_action_ref>oas_action_app_primary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_action_app_secondary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Quarantine if first action fails when a virus or Trojan is detected</title>
+      <actions>
+        <test_action_ref>oas_action_app_secondary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_action_default_primary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Clean as first action when programs and jokes are found</title>
+      <actions>
+        <test_action_ref>oas_action_default_primary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_action_default_secondary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Quarantine if first action fails when programs and jokes are found</title>
+      <actions>
+        <test_action_ref>oas_action_default_secondary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_action_error_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to deny access to the file if an error occurs during scanning</title>
+      <actions>
+        <test_action_ref>oas_action_error_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_action_timeout_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to allow access to files if scanning times out</title>
+      <actions>
+        <test_action_ref>oas_action_timeout_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_allFiles_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan all file types</title>
+      <actions>
+        <test_action_ref>oas_allFiles_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_decompArchive_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to decompress archives when scanning</title>
+      <actions>
+        <test_action_ref>oas_decompArchive_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_enabled_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to enable On-Access scanning</title>
+      <actions>
+        <test_action_ref>oas_enabled_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_exclusions_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must only be configured with exclusions that are documented and approved by the ISSO/ISSM/AO</title>
+      <actions>
+        <test_action_ref>oas_exclusions_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_heuristicAnalysis_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find unknown program viruses</title>
+      <actions>
+        <test_action_ref>oas_heuristicAnalysis_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_macroAnalysis_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find unknown macro viruses</title>
+      <actions>
+        <test_action_ref>oas_macroAnalysis_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_program_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find potentially unwanted programs</title>
+      <actions>
+        <test_action_ref>oas_program_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_scanMaxTmo_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner maximum scan time must not be less than 45 seconds</title>
+      <actions>
+        <test_action_ref>oas_scanMaxTmo_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_scanNWFiles_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be enabled to scan mounted volumes when mounted volumes point to a network server without an anti-virus solution installed</title>
+      <actions>
+        <test_action_ref>oas_scanNWFiles_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_scanOnRead_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan files when being read from disk</title>
+      <actions>
+        <test_action_ref>oas_scanOnRead_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="oas_scanOnWrite_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan files when being written to disk</title>
+      <actions>
+        <test_action_ref>oas_scanOnWrite_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_action_app_primary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Clean as first action when a virus or Trojan is detected</title>
+      <actions>
+        <test_action_ref>ods_action_app_primary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_action_app_secondary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Quarantine if first action fails when a virus or Trojan is detected</title>
+      <actions>
+        <test_action_ref>ods_action_app_secondary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_action_default_primary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Clean as first action when programs and jokes are found</title>
+      <actions>
+        <test_action_ref>ods_action_default_primary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_action_default_secondary_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Quarantine if first action fails when programs and jokes are found</title>
+      <actions>
+        <test_action_ref>ods_action_default_secondary_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_allFiles_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to scan all file types</title>
+      <actions>
+        <test_action_ref>ods_allFiles_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_decompArchive_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to decompress archives when scanning</title>
+      <actions>
+        <test_action_ref>ods_decompArchive_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_extensions_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to include all local drives and their sub-directories</title>
+      <actions>
+        <test_action_ref>ods_extensions_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_heuristicAnalysis_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find unknown program viruses</title>
+      <actions>
+        <test_action_ref>ods_heuristicAnalysis_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_macroAnalysis_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find unknown macro viruses</title>
+      <actions>
+        <test_action_ref>ods_macroAnalysis_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_mime_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to decode MIME encoded files.</title>
+      <actions>
+        <test_action_ref>ods_mime_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_program_ocil">
+      <title>The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find potentially unwanted programs</title>
+      <actions>
+        <test_action_ref>ods_program_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ods_scanNWFiles_local_ocil">
+      <title> The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be enabled to scan mounted volumes when mounted volumes point to a network server without an anti-virus solution installed</title>
+      <actions>
+        <test_action_ref>ods_scanNWFiles_local_action</test_action_ref>
+      </actions>
+    </questionnaire>
+  </questionnaires>
+  <test_actions>
+    <boolean_question_test_action id="dats_auto_update_action" question_ref="dats_auto_update_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="dats_updated_action" question_ref="dats_updated_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="virus_notification_action" question_ref="virus_notification_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="web_client_disabled_action" question_ref="web_client_disabled_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_action_app_primary_action" question_ref="oas_action_app_primary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_action_app_secondary_action" question_ref="oas_action_app_secondary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_action_default_primary_action" question_ref="oas_action_default_primary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_action_default_secondary_action" question_ref="oas_action_default_secondary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_action_error_action" question_ref="oas_action_error_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_action_timeout_action" question_ref="oas_action_timeout_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_allFiles_action" question_ref="oas_allFiles_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_decompArchive_action" question_ref="oas_decompArchive_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_enabled_action" question_ref="oas_enabled_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_exclusions_action" question_ref="oas_exclusions_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_heuristicAnalysis_action" question_ref="oas_heuristicAnalysis_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_macroAnalysis_action" question_ref="oas_macroAnalysis_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_program_action" question_ref="oas_program_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_scanMaxTmo_action" question_ref="oas_scanMaxTmo_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_scanNWFiles_action" question_ref="oas_scanNWFiles_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_scanOnRead_action" question_ref="oas_scanOnRead_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="oas_scanOnWrite_action" question_ref="oas_scanOnWrite_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_action_app_primary_action" question_ref="ods_action_app_primary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_action_app_secondary_action" question_ref="ods_action_app_secondary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_action_default_primary_action" question_ref="ods_action_default_primary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_action_default_secondary_action" question_ref="ods_action_default_secondary_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_allFiles_action" question_ref="ods_allFiles_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_decompArchive_action" question_ref="ods_decompArchive_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_extensions_action" question_ref="ods_extensions_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_heuristicAnalysis_action" question_ref="ods_heuristicAnalysis_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_macroAnalysis_action" question_ref="ods_macroAnalysis_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_mime_action" question_ref="ods_mime_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_program_action" question_ref="ods_program_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="ods_scanNWFiles_local_action" question_ref="ods_scanNWFiles_local_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+  </test_actions>
+  <questions>
+    <boolean_question id="dats_auto_update_question">
+      <question_text>To verify that anti-virus signature files are updated, login to VSEL Web Monitor and verify the following:
+Under View, select Scheduled Tasks.
+Under Scheduled Tasks, under Task Summaries, with the assistance of the McAfee VSEL SA, identify the VirusScan DAT update task.
+Verify the Type is Update and the Status is Completed with Results of Update Finished.
+Under Task Details for the task, click on the Modify button.
+Choose 2. Choose what to update and verify the Virus definition files (also known as DAT files) is selected.
+      Is it the case that the VirusScan DAT update task doesn't exist or &lt;tt&gt;2. Choose what to update&lt;/tt&gt; does not have &lt;tt&gt;Virus definition files (also known as DAT files)&lt;/tt&gt; selected?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="dats_updated_question">
+      <question_text>To verify that anti-virus signature files are updated, login to VSEL Web Monitor and verify the following:
+Under View, select Host Summary.
+In the Host Summary, verify the DAT Date: is within the last 7 days.
+      Is it the case that the &lt;tt&gt;DAT Date:&lt;/tt&gt; is older than 7 days?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="virus_notification_question">
+      <question_text>To verify that Administrators will be notified of events detected, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the notifications.virusDetected.active: true line:
+grep 'notifications.virusDetected.active: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;notifications.virusDetected.active: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="web_client_disabled_question">
+      <question_text>To verify that the WEB GUI will be disabled by default, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.disableCltWebUI: true line:
+grep 'nailsd.disableCltWebUI: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.disableCltWebUI: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_action_app_primary_question">
+      <question_text>To verify that files will attempted to be cleaned first, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.action.App.primary: Clean line:
+grep 'nailsd.profile.OAS.action.App.primary: Clean' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.App.primary: Clean&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_action_app_secondary_question">
+      <question_text>To verify that files that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.action.App.secondary: Quarantine line:
+grep 'nailsd.profile.OAS.action.App.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.App.secondary: Quarantine&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_action_default_primary_question">
+      <question_text>To verify that programs/jokes will attempted to be cleaned first, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.action.Default.primary: Clean line:
+grep 'nailsd.profile.OAS.action.Default.primary: Clean' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.Default.primary: Clean&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_action_default_secondary_question">
+      <question_text>To verify that programs/jokes that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.action.Default.secondary: Quarantine line:
+grep 'nailsd.profile.OAS.action.Default.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.Default.secondary: Quarantine&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_action_error_question">
+      <question_text>To verify that any file resulting in an error reading the file will be blocked, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.action.error: Block line:
+grep 'nailsd.profile.OAS.action.error: Block' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.error: Block&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_action_timeout_question">
+      <question_text>To verify that any file resulting in a timeout reading the file will be passed, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.action.timeout: Pass line:
+grep 'nailsd.profile.OAS.action.timeout: Pass' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.action.timeout: Pass&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_allFiles_question">
+      <question_text>To verify that all file types will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.allFiles: true line:
+grep 'nailsd.profile.OAS.allFiles: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.allFiles: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_decompArchive_question">
+      <question_text>To verify that compressed archives will be decompressed before being scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.decompArchive: true line:
+grep 'nailsd.profile.OAS.decompArchive: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.decompArchive: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_enabled_question">
+      <question_text>To verify that the antivirus software will be running at initial startup of the system, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.oasEnabled: true line:
+grep 'nailsd.oasEnabled: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.oasEnabled: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_exclusions_question">
+      <question_text>To verify that all file types will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.filter.varlog.type: exclude-path and nailsd.profile.OAS.filter.varlog.path: /var/log lines:
+grep 'nailsd.profile.OAS.filter.varlog.type: exclude-path' /var/opt/NAI/LinuxShield/etc/nailsd.cfg
+grep 'nailsd.profile.OAS.filter.varlog.path' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the lines &lt;pre&gt;nailsd.profile.OAS.filter.varlog.type: exclude-path&lt;/pre&gt; and &lt;tt&gt;nailsd.profile.OAS.filter.varlog.path: /var/log&lt;/tt&gt;?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_heuristicAnalysis_question">
+      <question_text>To verify that unknown virus programs will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.heuristicAnalysis: true line:
+grep 'nailsd.profile.OAS.heuristicAnalysis: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.heuristicAnalysis: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_macroAnalysis_question">
+      <question_text>To verify that unknown macro viruses will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.macroAnalysis: true line:
+grep 'nailsd.profile.OAS.macroAnalysis: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.macroAnalysis: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_program_question">
+      <question_text>To verify that potentially unwanted programs will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.program: true line:
+grep 'nailsd.profile.OAS.program: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.program: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_scanMaxTmo_question">
+      <question_text>To verify that a scan will not timeout in less than 45 seconds of scanning a file, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.scanMaxTmo: 45 line:
+grep 'nailsd.profile.OAS.scanMaxTmo: 45' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanMaxTmo: 45&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_scanNWFiles_question">
+      <question_text>To verify that files on network mounts are scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.scanNWFiles: true line:
+grep 'nailsd.profile.OAS.scanNWFiles: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanNWFiles: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_scanOnRead_question">
+      <question_text>To verify that files will be scanned when read from disk, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.scanOnRead: true line:
+grep 'nailsd.profile.OAS.scanOnRead: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanOnRead: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="oas_scanOnWrite_question">
+      <question_text>To verify that files will be scanned when written to disk, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/nailsd.cfg contains the nailsd.profile.OAS.scanOnWrite: true line:
+grep 'nailsd.profile.OAS.scanOnWrite: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg.
+      Is it the case that the &lt;pre&gt;nailsd.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.OAS.scanOnWrite: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_action_app_primary_question">
+      <question_text>To verify that files will attempted to be cleaned first, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.action.App.primary: Clean line:
+grep 'nailsd.profile.ODS.action.App.primary: Clean' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.App.primary: Clean&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_action_app_secondary_question">
+      <question_text>To verify that files that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.action.App.secondary: Quarantine line:
+grep 'nailsd.profile.ODS.action.App.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.App.secondary: Quarantine&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_action_default_primary_question">
+      <question_text>To verify that programs/jokes will attempted to be cleaned first, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.action.Default.primary: Clean line:
+grep 'nailsd.profile.ODS.action.Default.primary: Clean' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.Default.primary: Clean&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_action_default_secondary_question">
+      <question_text>To verify that programs/jokes that cannot be cleaned will be quarantined, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.action.Default.secondary: Quarantine line:
+grep 'nailsd.profile.ODS.action.Default.secondary: Quarantine' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.action.Default.secondary: Quarantine&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_allFiles_question">
+      <question_text>To verify that all file types will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.allFiles: true line:
+grep 'nailsd.profile.ODS.allFiles: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.allFiles: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_decompArchive_question">
+      <question_text>To verify that compressed archives will be decompressed before being scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.decompArchive: true line:
+grep 'nailsd.profile.ODS.decompArchive: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.decompArchive: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_extensions_question">
+      <question_text>To verify that various extensions are not ignored by the scanner, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains lines with extensions.mode: all:
+grep 'extensions.mode: all' /var/opt/NAI/LinuxShield/etc/ods.cfg
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; contains lines with extensions.mode occurences with settings other than &lt;pre&gt;extensions.mode: all&lt;/pre&gt; ?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_heuristicAnalysis_question">
+      <question_text>To verify that unknown virus programs will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.heuristicAnalysis: true line:
+grep 'nailsd.profile.ODS.heuristicAnalysis: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.heuristicAnalysis: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_macroAnalysis_question">
+      <question_text>To verify that unknown macro viruses will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.macroAnalysis: true line:
+grep 'nailsd.profile.ODS.macroAnalysis: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.macroAnalysis: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_mime_question">
+      <question_text>To verify that potentially unwanted programs will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.mime: true line:
+grep 'nailsd.profile.ODS.mime: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.mime: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_program_question">
+      <question_text>To verify that potentially unwanted programs will be scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.program: true line:
+grep 'nailsd.profile.ODS.program: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.program: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="ods_scanNWFiles_local_question">
+      <question_text>To verify that files on network mounts are scanned, 
+check the respective VSEL config file
+/var/opt/NAI/LinuxShield/etc/ods.cfg contains the nailsd.profile.ODS.scanNWFiles: true line:
+grep 'nailsd.profile.ODS.scanNWFiles: true' /var/opt/NAI/LinuxShield/etc/ods.cfg.
+      Is it the case that the &lt;pre&gt;ods.cfg&lt;/pre&gt; doesn't contain the &lt;pre&gt;nailsd.profile.ODS.scanNWFiles: true&lt;/pre&gt; line?
+      </question_text>
+    </boolean_question>
+  </questions>
+</ocil>

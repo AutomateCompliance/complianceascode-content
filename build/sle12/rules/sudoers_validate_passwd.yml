@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/sudo/sudoers_validate_passwd/rule.yml
+description: "The sudoers security policy requires that users authenticate themselves\
+  \ before they can use sudo.\nWhen sudoers requires authentication, it validates\
+  \ the invoking user's credentials.\nThe expected output for:\n<pre>sudo egrep -i\
+  \ '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/* | grep -v '#'</pre>\n\
+  <pre> /etc/sudoers:Defaults !targetpw\n      /etc/sudoers:Defaults !rootpw\n   \
+  \   /etc/sudoers:Defaults !runaspw </pre>"
+identifiers:
+  cce: CCE-83230-3
+inherited_platforms: []
+ocil: 'Run the following command to Verify that the sudoers security policy is configured
+  to use the invoking user''s password for privilege escalation:
+
+  <pre> sudo egrep -i ''(!rootpw|!targetpw|!runaspw)'' /etc/sudoers /etc/sudoers.d/*
+  | grep -v ''#''</pre>
+
+  If no results are returned, this is a finding
+
+  If "Defaults !targetpw" is not defined, this is a finding.
+
+  If "Defaults !rootpw" is not defined, this is a finding.
+
+  If "Defaults !runaspw" is not defined, this is a finding.'
+ocil_clause: invoke user passwd when using sudo
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,sle12,sle15
+rationale: 'If the rootpw, targetpw, or runaspw flags are defined and not disabled,
+  by default the operating system will prompt
+
+  the invoking user for the "root" user password.'
+references:
+  disa: CCI-000366,CCI-002227
+  nist: CM-6(b),CM-6.1(iv)
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: SLES-12-010112
+requires: []
+severity: medium
+template: null
+title: Ensure invoking users password for privilege escalation when using sudo
+warnings: []

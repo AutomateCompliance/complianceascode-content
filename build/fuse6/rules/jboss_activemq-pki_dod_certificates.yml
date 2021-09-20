@@ -1,0 +1,22 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/amq/jboss_activemq-pki_dod_certificates/rule.yml
+description: 'All PKI Certificates in use should be valid at the
+
+  time of use.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: PKI certificates are not DoD
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'By using invalid certificates the server may allow unauthorized
+
+  users access to the system.'
+references: {}
+requires: []
+severity: high
+template: null
+title: All PKI Certificates Are Valid DoD Certificates
+warnings: []

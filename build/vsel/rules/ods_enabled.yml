@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_demand_settings/ods_enabled/rule.yml
+description: "Real-time scanning of files as they are read from disk is a crucial\
+  \ first line of defense from malware attacks but to ensure all files \nare frequently\
+  \ scanned, a regularly scheduled full scan will ensure malware missed by the real-time\
+  \ scanning will be detected and mitigated.\n\nTo check that VSEL settings are configured\
+  \ correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor\
+  \ (WEB interface) \nof the Linux system being reviewed from a desktop browser window\
+  \ and logon with the nails user account.\n\nIn the VSEL WEB Monitor, review tasks\
+  \ under <tt>View</tt>, <tt>Scheduled Tasks</tt>.\nWith the System Administrator's\
+  \ assistance, determine which task is intended as the regularly scheduled scan task.\n\
+  \nClick on the task and review the details under <tt>Task Details for</tt>.\n\n\
+  If <tt>Next run</tt> does not specify <tt>every 1 week</tt>, or more frequently,\
+  \ this is a finding.\n\nTo validate without the Web interface, access the Linux\
+  \ system being reviewed, either at the console or by a SSH connection.\nAt the command\
+  \ line, navigate to <tt>/var/opt/NAI/LinuxShield/etc</tt>.\nEnter the command <tt>/opt/NAI/LinuxShield/bin/nails\
+  \ task --list</tt>.\n\nIf the return does not show a task for the LinuxShield On-Demand\
+  \ Scan, this is a finding."
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Anti-virus software is the most commonly used technical control for malware
+  threat mitigation. '
+references:
+  disa: CCI-001241
+  nist: SI-3
+  srg: SRG-APP-000277
+  stigid: DTAVSEL-100
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to
+  run a scheduled On-Demand scan at least once a week
+warnings: []

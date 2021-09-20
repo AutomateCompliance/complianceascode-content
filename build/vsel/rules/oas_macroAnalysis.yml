@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_macroAnalysis/rule.yml
+description: "Interpreted viruses are executed by an application. Within this subcategory,\
+  \ macro viruses take advantage of the capabilities of \napplications' macro programming\
+  \ language to infect application documents and document templates, while scripting\
+  \ viruses infect \nscripts that are understood by scripting languages processed\
+  \ by services on the OS.  \n\nTo check that VSEL settings are configured correctly,\
+  \ you have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.profile.OAS.macroAnalysis: true</tt>,\n\
+  unknown macro viruses will be scanned."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that unknown macro viruses will be scanned, \ncheck the respective\
+  \ VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains\
+  \ the <pre>nailsd.profile.OAS.macroAnalysis: true</pre> line:\n<pre>grep 'nailsd.profile.OAS.macroAnalysis:\
+  \ true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.profile.OAS.macroAnalysis:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Many attackers use toolkits containing several different types of utilities
+  and scripts that can be used to probe and attack hosts.
+
+  Scanning for unknown macro viruses will mitigate zero-day attacks.'
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-006
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  be configured to find unknown macro viruses
+warnings: []

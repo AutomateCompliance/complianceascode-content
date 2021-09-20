@@ -1,0 +1,27 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-policies_and_procedures/jboss_karaf-backup_schedule/rule.yml
+description: 'JBoss applications and configuration files should
+
+  be backed up at least weekly, possibly more if needed by the
+
+  environment.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: there are no regular backups scheduled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Failure to regularly backup JBoss configuration files and deployed
+
+  applications can result in extensive downtime or information losses
+
+  in the event of a disaster or other system outage.'
+references:
+  nist: CP-9
+requires: []
+severity: medium
+template: null
+title: Ensure Regular Backup Schedule
+warnings: []

@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/web_client_disabled/rule.yml
+description: "The McAfee VirusScan Enterprise for Linux WEB GUI is the method for\
+  \ configuring the McAfee VSEL on a non-managed Linux system. \nThe WEB GUI on the\
+  \ system could be used maliciously to gain unauthorized access to the system. \n\
+  \nTo check that VSEL settings are configured correctly, you have to examine the\
+  \ config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.disableCltWebUI: true</tt>,\nthe\
+  \ WEB GUI will be disabled by default."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that the WEB GUI will be disabled by default, \ncheck the respective\
+  \ VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains\
+  \ the <pre>nailsd.disableCltWebUI: true</pre> line:\n<pre>grep 'nailsd.disableCltWebUI:\
+  \ true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.disableCltWebUI:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: By restricting access to interface by implementing firewall rules, the
+  risk of unauthorized access will be mitigated.
+references:
+  disa: CCI-001813
+  nist: CM-5(1)
+  srg: SRG-APP-000380
+  stigid: DTAVSEL-000
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux Web interface must be disabled unless
+  the system is on a segregated network
+warnings: []

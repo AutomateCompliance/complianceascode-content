@@ -1,0 +1,44 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_selinuxuser_direct_dri_enabled/rule.yml
+description: 'By default, the SELinux boolean <tt>selinuxuser_direct_dri_enabled</tt>
+  is enabled.
+
+  If XWindows is not installed or used on the system, this setting should be disabled.
+
+  Otherwise, enable it.
+
+
+  To disable the <code>selinuxuser_direct_dri_enabled</code> SELinux boolean, run
+  the following command:
+
+  <pre>$ sudo setsebool -P selinuxuser_direct_dri_enabled off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>selinuxuser_direct_dri_enabled</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool selinuxuser_direct_dri_enabled</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>selinuxuser_direct_dri_enabled --> off</code>'
+ocil_clause: selinuxuser_direct_dri_enabled is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9,rhv4
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: selinuxuser_direct_dri_enabled
+title: Configure the selinuxuser_direct_dri_enabled SELinux Boolean
+warnings: []

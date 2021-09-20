@@ -1,0 +1,27 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-dod_cns_certificates/rule.yml
+description: 'The server must use DoD or CNS approved PKI Class 3
+
+  or Class 4 certificates.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: DoD or CNS approved PKI Class 3 and Class 4 certificates are not configured
+  or in use
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Class 3 PKI certificates are used for servers and software signing
+
+  rather than for identifying individuals. Class 4 certificates are used
+
+  for business-to-business transactions. Utilizing unapproved certificates
+
+  not issued or approved by DoD or CNS creates an integrity risk.'
+references: {}
+requires: []
+severity: high
+template: null
+title: Configure DoD or CNS approved PKI Class 3 and Class 4 Certificates
+warnings: []

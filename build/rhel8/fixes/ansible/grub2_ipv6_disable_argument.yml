@@ -1,0 +1,50 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv,multi_platform_sle
+# reboot = true
+# strategy = restrict
+# complexity = medium
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-82887-1
+    - grub2_ipv6_disable_argument
+    - low_disruption
+    - low_severity
+    - medium_complexity
+    - reboot_required
+    - restrict_strategy
+
+- name: get current kernel parameters
+  ansible.builtin.shell:
+    cmd: /usr/bin/grub2-editenv - list | grep "kernelopts="
+  register: kernelopts
+  changed_when: false
+  when: '"grub2-common" in ansible_facts.packages'
+  tags:
+    - CCE-82887-1
+    - grub2_ipv6_disable_argument
+    - low_disruption
+    - low_severity
+    - medium_complexity
+    - reboot_required
+    - restrict_strategy
+
+- name: Update the bootloader menu
+  command: /usr/bin/grub2-editenv - set "{{ item }} ipv6.disable=1"
+  with_items: '{{ kernelopts.stdout_lines | select(''match'', ''^kernelopts.*'') |
+    list }}'
+  when:
+    - '"grub2-common" in ansible_facts.packages'
+    - kernelopts.stdout_lines is defined
+    - kernelopts.stdout_lines | length > 0
+    - kernelopts.stdout | regex_search('^kernelopts=(?:.*\s)?ipv6.disable=1(?:\s.*)?$',
+      multiline=True) is none
+  tags:
+    - CCE-82887-1
+    - grub2_ipv6_disable_argument
+    - low_disruption
+    - low_severity
+    - medium_complexity
+    - reboot_required
+    - restrict_strategy

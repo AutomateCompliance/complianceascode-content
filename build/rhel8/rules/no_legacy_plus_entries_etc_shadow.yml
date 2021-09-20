@@ -1,0 +1,32 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-restrictions/password_storage/no_legacy_plus_entries_etc_shadow/rule.yml
+description: 'The <tt>+</tt> character in <tt>/etc/shadow</tt> file marks a place
+  where
+
+  entries from a network information service (NIS) should be directly inserted.'
+identifiers:
+  cce: CCE-84290-6
+inherited_platforms: []
+ocil: 'To check for legacy lines in <tt>/etc/shadow</tt>, run the following command:
+
+  <pre> grep ''^\+'' /etc/shadow</pre>
+
+  The command should not return any output.'
+ocil_clause: the file contains legacy lines
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9,rhv4,sle15
+rationale: 'Using this method to include entries into <tt>/etc/shadow</tt> is considered
+  legacy
+
+  and should be avoided. These entries may provide a way for an attacker
+
+  to gain access to the system.'
+references:
+  cis: 6.2.4
+requires: []
+severity: medium
+template: null
+title: Ensure there are no legacy + NIS entries in /etc/shadow
+warnings: []

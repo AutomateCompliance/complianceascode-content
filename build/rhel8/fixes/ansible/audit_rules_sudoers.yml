@@ -1,0 +1,104 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-90175-1
+    - DISA-STIG-RHEL-08-030171
+    - audit_rules_sudoers
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Search /etc/audit/rules.d for audit rule entries for sysadmin actions
+  find:
+    paths: /etc/audit/rules.d
+    recurse: false
+    contains: ^.*/etc/sudoers\s.*$
+    patterns: '*.rules'
+  register: find_audit_sysadmin_actions
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - CCE-90175-1
+    - DISA-STIG-RHEL-08-030171
+    - audit_rules_sudoers
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Use /etc/audit/rules.d/actions.rules as the recipient for the rule
+  set_fact:
+    all_sysadmin_actions_files:
+      - /etc/audit/rules.d/actions.rules
+  when:
+    - '"audit" in ansible_facts.packages'
+    - find_audit_sysadmin_actions.matched is defined and find_audit_sysadmin_actions.matched
+      == 0
+  tags:
+    - CCE-90175-1
+    - DISA-STIG-RHEL-08-030171
+    - audit_rules_sudoers
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Use matched file as the recipient for the rule
+  set_fact:
+    all_sysadmin_actions_files:
+      - '{{ find_audit_sysadmin_actions.files | map(attribute=''path'') | list | first
+        }}'
+  when:
+    - '"audit" in ansible_facts.packages'
+    - find_audit_sysadmin_actions.matched is defined and find_audit_sysadmin_actions.matched
+      > 0
+  tags:
+    - CCE-90175-1
+    - DISA-STIG-RHEL-08-030171
+    - audit_rules_sudoers
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Inserts/replaces audit rule for /etc/sudoers rule in rules.d
+  lineinfile:
+    path: '{{ all_sysadmin_actions_files[0] }}'
+    line: -w /etc/sudoers -p wa -k actions
+    create: true
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - CCE-90175-1
+    - DISA-STIG-RHEL-08-030171
+    - audit_rules_sudoers
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+
+- name: Inserts/replaces audit rule for /etc/sudoers in audit.rules
+  lineinfile:
+    path: /etc/audit/audit.rules
+    line: -w /etc/sudoers -p wa -k actions
+    create: true
+  when: '"audit" in ansible_facts.packages'
+  tags:
+    - CCE-90175-1
+    - DISA-STIG-RHEL-08-030171
+    - audit_rules_sudoers
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy

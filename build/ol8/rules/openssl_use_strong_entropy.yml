@@ -1,0 +1,48 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/integrity/crypto/openssl_use_strong_entropy/rule.yml
+description: "By default, OpenSSL doesn't always use a SP800-90A compliant random\
+  \ number generator.\nA way to configure OpenSSL to always use a strong source is\
+  \ to setup a wrapper that\ndefines a shell function that shadows the actual <tt>openssl</tt>\
+  \ binary,\nand that ensures that the <tt>-rand /dev/random</tt> option is added\
+  \ to every <tt>openssl</tt> invocation.\n\nTo do so, place the following shell snippet\
+  \ exactly as-is to <tt>/etc/profile.d/openssl-rand.sh</tt>:\n<pre>\n# provide a\
+  \ default -rand /dev/random option to openssl commands that\n# support it\n\n# written\
+  \ inefficiently for maximum shell compatibility\nopenssl()\n(\n  openssl_bin=/usr/bin/openssl\n\
+  \n  case \"$*\" in\n    # if user specified -rand, honor it\n    *\\ -rand\\ *|*\\\
+  \ -help*) exec $openssl_bin \"$@\" ;;\n  esac\n\n  cmds=`$openssl_bin list -digest-commands\
+  \ -cipher-commands | tr '\\n' ' '`\n  for i in `$openssl_bin list -commands`; do\n\
+  \    if $openssl_bin list -options \"$i\" | grep -q '^rand '; then\n      cmds=\"\
+  \ $i $cmds\"\n    fi\n  done\n\n  case \"$cmds\" in\n    *\\ \"$1\"\\ *)\n     \
+  \ cmd=\"$1\"; shift\n      exec $openssl_bin \"$cmd\" -rand /dev/random \"$@\" ;;\n\
+  \  esac\n\n  exec $openssl_bin \"$@\"\n)\n</pre>"
+identifiers: {}
+inherited_platforms: []
+ocil: 'To determine whether OpenSSL is wrapped by a shell function that ensures that
+  every invocation
+
+  uses a SP800-90A compliant entropy source,
+
+  make sure that the <tt>/etc/profile.d/openssl-rand.sh</tt> file contents exactly
+  match those
+
+  that are included in the rule''s description.'
+ocil_clause: there is no <tt>/etc/profile.d/openssl-rand.sh</tt> file, or its contents
+  don't match those in the description
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol8,rhel8
+rationale: This rule ensures that <tt>openssl</tt> invocations always uses SP800-90A
+  compliant random number generator as a default behavior.
+references:
+  ism: 1277,1552
+  ospp: FCS_RBG_EXT.1.2
+  srg: SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template: null
+title: OpenSSL uses strong entropy source
+warnings:
+- general: This setting can cause problems on computers without the hardware random
+    generator, because insufficient entropy blocks the program until enough entropy
+    is available.

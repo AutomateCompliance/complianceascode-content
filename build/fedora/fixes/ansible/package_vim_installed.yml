@@ -1,0 +1,16 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure vim-enhanced is installed
+  package:
+    name: vim-enhanced
+    state: present
+  tags:
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - low_severity
+    - no_reboot_needed
+    - package_vim_installed

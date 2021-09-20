@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/apparmor/package_pam_apparmor_installed/rule.yml
+description: 'The <code>pam_apparmor</code> package can be installed with the following
+  command:
+
+  <pre>
+
+  $ sudo zypper install pam_apparmor</pre>'
+identifiers:
+  cce: CCE-85765-6
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>pam_apparmor</code> package
+  is installed: <pre>$ rpm -q pam_apparmor</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: sle12,sle15
+rationale: 'Protection of system integrity using AppArmor depends on this package
+  being
+
+  installed.'
+references:
+  cis: 1.7.1.1
+  disa: CCI-001764,CCI-001774,CCI-002165,CCI-002233,CCI-002235
+  nist: AC-3(4),AC-6(8),AC-6(10),CM-7(5)(b),CM-7(2),SC-7(21),CM-6(a)
+  srg: SRG-OS-000312-GPOS-00122,SRG-OS-000312-GPOS-00123SRG-OS-000312-GPOS-00124,SRG-OS-000324-GPOS-00125,SRG-OS-000326-GPOS-00126,SRG-OS-000370-GPOS-00155,SRG-OS-000480-GPOS-00230,SRG-OS-000480-GPOS-00227,SRG-OS-000480-GPOS-00231,SRG-OS-000480-GPOS-00232
+  stigid: SLES-15-010390
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: pam_apparmor
+title: Install the pam_apparmor Package
+warnings: []

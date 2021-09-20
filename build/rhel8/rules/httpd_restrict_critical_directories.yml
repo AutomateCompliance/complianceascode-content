@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_directory_restrictions/httpd_restrict_critical_directories/rule.yml
+description: 'All accessible web directories should be configured with similarly restrictive
+  settings.
+
+  The <tt>Options</tt> directive should be limited to necessary functionality and
+  the <tt>AllowOverride</tt>
+
+  directive should be used only if needed. The <tt>Order</tt> and <tt>Deny</tt> access
+  control tags
+
+  should be used to deny access by default, allowing access only where necessary.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: 'Directories accessible from a web client should be configured with the
+  least amount of
+
+  access possible in order to avoid unauthorized access to restricted content or server
+  information.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Restrict Other Critical Directories
+warnings: []

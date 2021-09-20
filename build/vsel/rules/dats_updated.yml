@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/dats_updated/rule.yml
+description: "Anti-virus signature files are updated almost daily by anti-virus software\
+  \ vendors. These files are made available to anti-virus \nclients as they are published.\
+  \ Keeping virus signature files as current as possible is vital to the security\
+  \ of any system.\n\nTo check that anti-virus signature files are updated, you have\
+  \ to login to the VSEL Web Monitor.\nIn the VSEL WEB Monitor, under <tt>View</tt>,\
+  \ select <tt>Host Summary</tt>.\nIn the <tt>Host Summary</tt>, verify the <tt>DAT\
+  \ Date:</tt> is within the last 7 days."
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that anti-virus signature files are updated, login to VSEL Web Monitor
+  and verify the following:
+
+  Under <tt>View</tt>, select <tt>Host Summary</tt>.
+
+  In the <tt>Host Summary</tt>, verify the <tt>DAT Date:</tt> is within the last 7
+  days.'
+ocil_clause: the <tt>DAT Date:</tt> is older than 7 days
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "By configuring a system to attempt an anti-virus update on a daily basis,\
+  \ the system is ensured of maintaining an anti-virus signature \nage of 7 days or\
+  \ less. If the update attempt were to be configured for only once a week, and that\
+  \ attempt failed, the system would be \nimmediately out of date."
+references:
+  disa: CCI-001240
+  nist: SI-3
+  srg: SRG-APP-000276
+  stigid: DTAVSEL-001
+requires: []
+severity: high
+template: null
+title: The anti-virus signature file age must not exceed 7 days
+warnings: []

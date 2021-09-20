@@ -1,0 +1,35 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- (xccdf-var var_selinuxuser_rw_noexattrfile)
+
+- name: Ensure libsemanage-python installed
+  package:
+    name: libsemanage-python
+    state: present
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-82320-3
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - sebool_selinuxuser_rw_noexattrfile
+
+- name: Set SELinux boolean selinuxuser_rw_noexattrfile accordingly
+  seboolean:
+    name: selinuxuser_rw_noexattrfile
+    state: '{{ var_selinuxuser_rw_noexattrfile }}'
+    persistent: true
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-82320-3
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - sebool_selinuxuser_rw_noexattrfile

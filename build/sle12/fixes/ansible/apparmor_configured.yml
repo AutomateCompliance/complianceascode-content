@@ -1,0 +1,19 @@
+# platform = multi_platform_sle
+- name: Start apparmor.service
+  systemd:
+    name: apparmor.service
+    state: started
+    enabled: true
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83194-1
+    - DISA-STIG-SLES-12-010600
+    - NIST-800-53-AC-3(4)
+    - NIST-800-53-AC-6(10)
+    - NIST-800-53-AC-6(8)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(2)
+    - NIST-800-53-CM-7(5)(b)
+    - NIST-800-53-SC-7(21)
+    - apparmor_configured
+    - medium_severity

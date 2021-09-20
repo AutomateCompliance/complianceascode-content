@@ -1,0 +1,32 @@
+documentation_complete: true
+
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+
+title: 'Uninstall gssproxy Package'
+
+description: |-
+    {{{ describe_package_remove(package="gssproxy") }}}
+
+rationale: |-
+    <tt>gssproxy</tt> is a proxy for GSS API credential handling.
+
+severity: low
+
+identifiers:
+    cce@rhel7: CCE-82944-0
+    cce@rhel8: CCE-82943-2
+    cce@rhel9: CCE-83516-5
+
+references:
+    disa: CCI-000381,CCI-000366
+    srg: SRG-OS-000095-GPOS-00049,SRG-OS-000480-GPOS-00227
+    stigid@rhel8: RHEL-08-040370
+
+{{{ complete_ocil_entry_package(package="gssproxy") }}}
+
+template:
+    name: package_removed
+    vars:
+        pkgname: gssproxy
+    backends:
+        anaconda: "off"

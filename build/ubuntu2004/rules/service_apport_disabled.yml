@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/apport/service_apport_disabled/rule.yml
+description: 'The Apport modifies certain kernel configuration values at
+
+  runtime which may decrease the overall security of the system and expose sensitive
+  data.
+
+
+  The <code>apport</code> service can be disabled with the following command:
+
+  <pre>$ sudo systemctl mask --now apport.service</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ubuntu2004
+rationale: 'The Apport service modifies the kernel
+
+  <tt>fs.suid_dumpable</tt> configuration at runtime which
+
+  prevents other hardening from being persistent. Disabling the
+
+  service prevents this behavior.'
+references: {}
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: service_disabled
+  vars:
+    servicename: apport
+title: Disable Apport Service
+warnings: []

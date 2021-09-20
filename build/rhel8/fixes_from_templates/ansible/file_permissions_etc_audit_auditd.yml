@@ -1,0 +1,18 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+
+
+- name: Test for existence /etc/audit/auditd.conf
+  stat:
+    path: "/etc/audit/auditd.conf"
+  register: file_exists
+  
+- name: Ensure permission 0640 on /etc/audit/auditd.conf
+  file:
+    path: "/etc/audit/auditd.conf"
+    mode: "0640"
+  when: file_exists.stat is defined and file_exists.stat.exists
+

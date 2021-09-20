@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_unconfined_chrome_sandbox_transition/rule.yml
+description: 'By default, the SELinux boolean <tt>unconfined_chrome_sandbox_transition</tt>
+  is enabled.
+
+  If this setting is disabled, it should be enabled.
+
+
+  To enable the <code>unconfined_chrome_sandbox_transition</code> SELinux boolean,
+  run the following command:
+
+  <pre>$ sudo setsebool -P unconfined_chrome_sandbox_transition on</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>unconfined_chrome_sandbox_transition</code>
+  SELinux boolean is enabled:
+
+  <pre>$ getsebool unconfined_chrome_sandbox_transition</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>unconfined_chrome_sandbox_transition --> on</code>'
+ocil_clause: unconfined_chrome_sandbox_transition is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: unconfined_chrome_sandbox_transition
+title: Enable the unconfined_chrome_sandbox_transition SELinux Boolean
+warnings: []

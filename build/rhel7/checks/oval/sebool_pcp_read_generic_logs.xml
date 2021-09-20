@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="sebool_pcp_read_generic_logs" version="1">
+    <metadata>
+        <title>Disable the pcp_read_generic_logs SELinux Boolean</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 7</platform>
+    </affected>
+        <description>The SELinux 'pcp_read_generic_logs' boolean should be set in the system configuration.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="pcp_read_generic_logs is configured correctly" test_ref="test_sebool_pcp_read_generic_logs" />
+    </criteria>
+  </definition>
+
+  <linux:selinuxboolean_test check="all" check_existence="all_exist" comment="pcp_read_generic_logs is configured correctly" id="test_sebool_pcp_read_generic_logs" version="1">
+    <linux:object object_ref="object_sebool_pcp_read_generic_logs" />
+    <linux:state state_ref="state_sebool_pcp_read_generic_logs" />
+  </linux:selinuxboolean_test>
+
+  <linux:selinuxboolean_object id="object_sebool_pcp_read_generic_logs" version="1">
+    <linux:name>pcp_read_generic_logs</linux:name>
+  </linux:selinuxboolean_object>
+
+  <linux:selinuxboolean_state id="state_sebool_pcp_read_generic_logs" version="1">
+    <linux:name>pcp_read_generic_logs</linux:name>
+    
+      <linux:current_status datatype="boolean" var_ref="var_pcp_read_generic_logs"/>
+      <linux:pending_status datatype="boolean" var_ref="var_pcp_read_generic_logs"/>
+    
+  </linux:selinuxboolean_state>
+
+  
+    <external_variable comment="external variable for pcp_read_generic_logs" datatype="boolean" id="var_pcp_read_generic_logs" version="1" />
+  
+</def-group>

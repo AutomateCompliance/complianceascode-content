@@ -1,0 +1,8 @@
+documentation_complete: true
+
+prodtype: ocp4
+
+title: 'OpenShift - Worker Node Settings'
+
+description: |-
+    Contains evaluations for the worker node configuration settings.

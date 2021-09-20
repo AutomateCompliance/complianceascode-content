@@ -1,0 +1,36 @@
+# platform = Java Runtime Environment
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000120
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure the Path to the exception.sites File
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.user.security.exception.sites=.*
+    line: deployment.user.security.exception.sites=/etc/.java/deployment/exception.sites
+  tags:
+    - DISA-STIG-JRE8-UX-000120
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

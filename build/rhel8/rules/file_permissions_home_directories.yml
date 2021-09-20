@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-session/file_permissions_home_directories/rule.yml
+description: 'Change the mode of interactive users home directories to <tt>0750</tt>.
+  To
+
+  change the mode of interactive users home directory, use the
+
+  following command:
+
+  <pre>$ sudo chmod 0750 /home/<i>USER</i></pre>'
+identifiers:
+  cce: CCE-84038-9
+inherited_platforms: []
+ocil: 'To verify the assigned home directory of all interactive user home directories
+
+  have a mode of <pre>0750</pre> or less permissive, run the following command:
+
+  <pre>$ sudo ls -l /home</pre>
+
+  Inspect the output for any directories with incorrect permissions.'
+ocil_clause: they are more permissive
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle12,sle15,ubuntu2004,wrlinux1019
+rationale: 'Excessive permissions on local interactive user home directories may allow
+
+  unauthorized access to user files by other users.'
+references:
+  disa: CCI-000366
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: RHEL-08-010730
+requires: []
+severity: medium
+template: null
+title: All Interactive User Home Directories Must Have mode 0750 Or Less Permissive
+warnings: []

@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_action_error/rule.yml
+description: 'Anti-virus software is the most commonly used technical control for
+  malware threat mitigation.
+
+
+  To check that VSEL settings are configured correctly, you have to examine the config
+  file
+
+  available under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.
+
+  If this config file contains the line <tt>nailsd.profile.OAS.action.error: Block</tt>,
+
+  any file resulting in an error reading the file will be blocked.'
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that any file resulting in an error reading the file will be blocked,\
+  \ \ncheck the respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\
+  \ contains the <pre>nailsd.profile.OAS.action.error: Block</pre> line:\n<pre>grep\
+  \ 'nailsd.profile.OAS.action.error: Block' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.profile.OAS.action.error:
+  Block</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Real-time scanning of files as they are read from disk is a crucial first
+  line of defense from malware attacks.
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-017
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  be configured to deny access to the file if an error occurs during scanning
+warnings: []

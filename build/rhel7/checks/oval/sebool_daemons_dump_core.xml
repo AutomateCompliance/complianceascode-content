@@ -1,0 +1,36 @@
+<def-group>
+  <definition class="compliance" id="sebool_daemons_dump_core" version="1">
+    <metadata>
+        <title>Disable the daemons_dump_core SELinux Boolean</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 7</platform>
+    </affected>
+        <description>The SELinux 'daemons_dump_core' boolean should be set in the system configuration.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="daemons_dump_core is configured correctly" test_ref="test_sebool_daemons_dump_core" />
+    </criteria>
+  </definition>
+
+  <linux:selinuxboolean_test check="all" check_existence="all_exist" comment="daemons_dump_core is configured correctly" id="test_sebool_daemons_dump_core" version="1">
+    <linux:object object_ref="object_sebool_daemons_dump_core" />
+    <linux:state state_ref="state_sebool_daemons_dump_core" />
+  </linux:selinuxboolean_test>
+
+  <linux:selinuxboolean_object id="object_sebool_daemons_dump_core" version="1">
+    <linux:name>daemons_dump_core</linux:name>
+  </linux:selinuxboolean_object>
+
+  <linux:selinuxboolean_state id="state_sebool_daemons_dump_core" version="1">
+    <linux:name>daemons_dump_core</linux:name>
+    
+      <linux:current_status datatype="boolean" var_ref="var_daemons_dump_core"/>
+      <linux:pending_status datatype="boolean" var_ref="var_daemons_dump_core"/>
+    
+  </linux:selinuxboolean_state>
+
+  
+    <external_variable comment="external variable for daemons_dump_core" datatype="boolean" id="var_daemons_dump_core" version="1" />
+  
+</def-group>

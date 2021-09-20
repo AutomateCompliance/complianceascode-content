@@ -1,0 +1,45 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-banners/file_permissions_etc_motd/rule.yml
+description: '
+
+  To properly set the permissions of <code>/etc/motd</code>, run the command:
+
+  <pre>$ sudo chmod 0644 /etc/motd</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/etc/motd</code>,
+
+  run the command:
+
+  <pre>$ ls -l /etc/motd</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r--r--</code>'
+ocil_clause: /etc/motd has unix mode -rw-r--r--
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle12,sle15,ubuntu2004,wrlinux1019
+rationale: 'Display of a standardized and approved use notification before granting
+
+  access to the operating system ensures privacy and security notification
+
+  verbiage used is consistent with applicable federal laws, Executive Orders,
+
+  directives, policies, regulations, standards, and guidance.<br />
+
+  Proper permissions will ensure that only root user can modify the banner.'
+references:
+  cis: 1.8.1.4
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0644'
+    filepath: /etc/motd
+    missing_file_pass: 'true'
+title: Verify permissions on Message of the Day Banner
+warnings: []

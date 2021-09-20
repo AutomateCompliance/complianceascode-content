@@ -1,0 +1,69 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_within_important_dirs/dir_group_ownership_library_dirs/rule.yml
+description: 'System-wide shared library files, which are linked to executables
+
+  during process load time or run time, are stored in the following directories
+
+  by default:
+
+  <pre>/lib
+
+  /lib64
+
+  /usr/lib
+
+  /usr/lib64
+
+  </pre>
+
+  Kernel modules, which can be added to the kernel during runtime, are also
+
+  stored in <tt>/lib/modules</tt>. All files in these directories should be
+
+  group-owned by the <tt>root</tt> user. If the  directories, is found to be owned
+
+  by a user other than root correct its
+
+  ownership with the following command:
+
+  <pre>$ sudo chgrp root <i>DIR</i></pre>'
+identifiers:
+  cce: CCE-83238-6
+inherited_platforms: []
+ocil: 'Shared libraries are stored in the following directories:
+
+  <pre>/lib
+
+  /lib64
+
+  /usr/lib
+
+  /usr/lib64</pre>
+
+  For each of these directories, run the following command to find files not
+
+  owned by root:
+
+  <pre>$ sudo find -L <i>$DIR</i> ! -user root -type d -exec chgrp root {} \;</pre>'
+ocil_clause: any of these directories are not group-owned by root
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,rhel8,sle12,sle15
+rationale: 'Files from shared library directories are loaded into the address
+
+  space of processes (including privileged ones) or of the kernel itself at
+
+  runtime. Proper ownership of library directories is necessary to protect
+
+  the integrity of the system.'
+references:
+  disa: CCI-001499
+  nist: CM-5(6),CM-5(6).1
+  srg: SRG-OS-000259-GPOS-00100
+  stigid: SLES-12-010876
+requires: []
+severity: medium
+template: null
+title: Verify that Shared Library Directories Have Root Group Ownership
+warnings: []

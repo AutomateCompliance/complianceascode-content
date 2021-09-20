@@ -1,0 +1,35 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = restrict
+# complexity = low
+# disruption = low
+
+
+
+- name: "Setting unquoted shell-style assignment of 'SSH_USE_STRONG_RNG' to '32' in '/etc/sysconfig/sshd'"
+  block:
+    - name: "Check for duplicate values"
+      lineinfile:
+        path: '/etc/sysconfig/sshd'
+        create: no
+        regexp: '^\s*SSH_USE_STRONG_RNG='
+        state: 'absent'
+      check_mode: yes
+      changed_when: no
+      register: 'dupes'
+    - name: "Deduplicate values from /etc/sysconfig/sshd"
+      lineinfile:
+        path: '/etc/sysconfig/sshd'
+        create: no
+        regexp: '^\s*SSH_USE_STRONG_RNG='
+        state: 'absent'
+      when: 'dupes.found is defined and dupes.found > 1'
+    - name: "Insert correct line to /etc/sysconfig/sshd"
+      lineinfile:
+        path: '/etc/sysconfig/sshd'
+        create: yes
+        regexp: '^\s*SSH_USE_STRONG_RNG='
+        line: 'SSH_USE_STRONG_RNG=32'
+        state: present
+        insertbefore: '^# SSH_USE_STRONG_RNG'
+        validate: '/usr/bin/bash -n %s'

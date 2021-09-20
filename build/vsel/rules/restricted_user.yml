@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/restricted_user/rule.yml
+description: "The McAfee VirusScan Enterprise for Linux software runs its processes\
+  \ under the nails user, which is part of the nailsgroup group. \nThe WEB GUI is\
+  \ also accessed using the nails user. \n\nTo check that nails and nailsgroup are\
+  \ configured correctly, access the Linux system console command line as root.\n\
+  Execute the following commands. This command will pipe the results to text files\
+  \ for easier review. \n\n<tt>find / -group nailsgroup >nailsgroup.txt</tt>\n<tt>find\
+  \ / -user nails >nails.txt</tt>\n\nExecute the following commands to individually\
+  \ review each of the text files of results, pressing space bar to move to each page\
+  \ \nuntil the end of the exported text. \n\n<tt>more nailsgroup.txt</tt>\n<tt>more\
+  \ nails.txt</tt>\n\nWhen reviewing the results, verify the nailsgroup group and\
+  \ nails user only own the following paths.\nThe following paths assume an INSTALLDIR\
+  \ of <tt>/opt/NAI/LinuxShield</tt> and a RUNTIMEDIR of <tt>/var/opt/NAI/LinuxShield</tt>.\
+  \ \nIf alternative folders were used, replace the following paths accordingly when\
+  \ validating.\n\n<tt>/var/opt/NAI</tt> and sub-folders\n<tt>/opt/NAI</tt> and sub-folders\n\
+  <tt>/McAfee/lib</tt>\n<tt>/var/spool/mail/nails</tt>\n<tt>/proc/#####</tt> (where\
+  \ ##### represents the various process IDs for the VSEL processes.)\n\nIf any other\
+  \ folder is owned by either the nailsgroup group or the nails user, this is a finding."
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: "Ensuring the nails user/nailsgroup group only has access to the required\
+  \ functions necessary for its \nintended role will mitigate the possibility of the\
+  \ nails user/nailsgroup group from being used to perform malicious destruction to\
+  \ the \nsystem in the event of a compromise."
+references:
+  disa: CCI-002235
+  nist: AC-6(10)
+  srg: SRG-APP-000340
+  stigid: DTAVSEL-202
+requires: []
+severity: medium
+template: null
+title: The nails user and nailsgroup group must be restricted to the least privilege
+  access required for the intended role
+warnings: []

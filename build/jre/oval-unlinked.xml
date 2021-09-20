@@ -1,0 +1,602 @@
+<?xml version="1.0"?>
+<ns0:oval_definitions xmlns:ns0="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ns2="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:ns3="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:ns4="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix" xmlns:ns5="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <ns0:generator>
+    <ns2:product_name>combine_ovals.py from SCAP Security Guide</ns2:product_name>
+    <ns2:product_version>ssg: [0, 1, 58], python: 3.8.10</ns2:product_version>
+    <ns2:schema_version>5.11</ns2:schema_version>
+    <ns2:timestamp>2021-09-20T02:48:02</ns2:timestamp>
+  </ns0:generator>
+  <ns0:definitions>
+    <ns0:definition class="compliance" id="java_jre_blacklist_check" version="1">
+      <ns0:metadata>
+        <ns0:title>Prevent the Download of Prohibited Mobile Code</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>Configure setting to ensure Java prevents 
+      prohibited mobile code from being downloaded.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.blacklist.check" test_ref="test_java_jre_blacklist_check"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_blacklist_check_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Prohibited Mobile Code Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting that ensures Java prevents prohibited 
+      mobile code from being downloaded must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.blacklist.check.locked" test_ref="test_java_jre_blacklist_check_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_deployment_properties_exists" version="1">
+      <ns0:metadata>
+        <ns0:title>The Java deployment.properties File Exists</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>A properties file must be present to hold all the keys
+      that establish properties within the Java control panel.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.properties file exists" test_ref="test_java_jre_deployment_properties"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_disable_untrusted_sources" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Execution of Signed Java Applets From Untrusted Sources Feature</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The dialog to enable users to grant permissions to execute 
+      signed content from an un-trusted authority must be disabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.askgrantdialog.notinca" test_ref="test_java_jre_disable_untrusted_sources"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_disable_untrusted_sources_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Untrusted Sources Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The dialog enabling users to grant permissions to execute signed
+      content from an un-trusted authority must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.askgrantdialog.notinca.locked" test_ref="test_java_jre_disable_untrusted_sources_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_enable_jws" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Java Web Start Applications to Run</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>Configure setting to ensure Java allows 
+      Java Web Start (JWS) applications to run.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.webjava.enabled" test_ref="test_java_jre_enable_jws"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_enable_jws_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Java Web Start Application Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting that ensures Java allows Java 
+      Web Start applications to run must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.webjava.enabled.locked" test_ref="test_java_jre_enable_jws_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_insecure_prompt" version="1">
+      <ns0:metadata>
+        <ns0:title>Prompt User Prior to Executing Mobile Code</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>Configure setting to ensure Java prevents 
+      mobile code from executing without prompting the user.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.insecure.jres" test_ref="test_java_jre_insecure_prompt"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_insecure_prompt_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Insecure Prompt of Mobile Code Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The mobile code setting for insecure prompts must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.insecure.jres.locked" test_ref="test_java_jre_insecure_prompt_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_lock_untrusted_sources" version="1">
+      <ns0:metadata>
+        <ns0:title>Lock Execution of Signed Java Applets From Untrusted Sources Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The dialog to enable users to grant permissions to execute 
+      signed content from an un-trusted authority must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.askgrantdialog.show" test_ref="test_java_jre_lock_untrusted_sources"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_lock_untrusted_sources_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Locking Untrusted Sources Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The dialog enabling users to grant permissions to execute signed
+      content from an un-trusted authority must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.askgrantdialog.show.locked" test_ref="test_java_jre_lock_untrusted_sources_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_security_revocation_check" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Revocation Checks for Publisher Certificates</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting for users to check publisher certificates
+      for revocation must be enabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.revocation.check" test_ref="test_java_jre_security_revocation_check"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_security_revocation_check_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Revocation Check Settings</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting enabling users to configure the check publisher
+      certificates for revocation must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.revocation.check.locked" test_ref="test_java_jre_security_revocation_check_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_unsigned_applications" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Execution of Unsigned Applications</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>Configure setting to ensure that Java does not allow 
+      unsigned applications to run.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.level" test_ref="test_java_jre_unsigned_applications"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_unsigned_applications_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable Execution of Unsigned Applications</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting that ensures Java does not allow 
+      unsigned applications to run must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.level.locked" test_ref="test_java_jre_unsigned_applications_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_validation_crl" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Use of Certificate Revocation Lists</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting for users to check publisher certificates
+      for revocation must be enabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.validation.crl" test_ref="test_java_jre_validation_crl"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_validation_crl_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Certificate Revocation List Settings</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The setting enabling users to configure the check publisher
+      certificates for revocation must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.validation.crl.locked" test_ref="test_java_jre_validation_crl_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_validation_ocsp" version="1">
+      <ns0:metadata>
+        <ns0:title>Enable Online Certificate Validation</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The option to enable online certificate validation
+      must be enabled.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.validation.ocsp" test_ref="test_java_jre_validation_ocsp"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_validation_ocsp_locked" version="1">
+      <ns0:metadata>
+        <ns0:title>Disable User Access to Online Certificate Validation Settings</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The option to enable online certificate
+      validation must be locked.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.security.validation.ocsp.locked" test_ref="test_java_jre_validation_ocsp_locked"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_accepted_sites_exists" version="1">
+      <ns0:metadata>
+        <ns0:title>The Java exception.sites File Exists</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The accepted sites file must be present to identify authorized 
+      software programs and permit execution of authorized software.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check exception.sites file" test_ref="test_java_jre_accepted_sites_exists"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_accepted_sites_properties" version="1">
+      <ns0:metadata>
+        <ns0:title>Configure the Path to the exception.sites File</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The properties file must point to a valid accepted sites list file.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.user.security.exception.sites" test_ref="test_java_jre_accepted_sites_properties"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_deployment_config_exists" version="1">
+      <ns0:metadata>
+        <ns0:title>The Java deployment.config File Exists</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>A configuration file must be present to deploy properties for JRE.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.config file" test_ref="test_java_jre_deployment_config_exists"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_deployment_config_mandatory" version="1">
+      <ns0:metadata>
+        <ns0:title>Configure The Java Deployment Mandatory Setting</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The configuration file must contain proper keys and values to
+      deploy settings correctly.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.system.config.mandatory" test_ref="test_java_jre_deployment_system_config_mandatory"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="java_jre_deployment_config_properties" version="1">
+      <ns0:metadata>
+        <ns0:title>Configure the Path to the deployment.properties File</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>The configuration file must contain proper keys and values to
+      deploy settings correctly.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria>
+        <ns0:criterion comment="Check deployment.system.config" test_ref="test_java_jre_deployment_config_properties"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="inventory" id="installed_app_is_java" version="1">
+      <ns0:metadata>
+        <ns0:title>Java Runtime Environment</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:reference ref_id="installed_app_is_java" source="CPE"/>
+        <ns0:description>The application installed on the system is Java.</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria operator="OR">
+        <ns0:criterion comment="Oracle Java is installed" test_ref="test_oracle_java"/>
+        <ns0:criterion comment="Oracle Java from Red Hat" test_ref="test_oracle_java_rhel"/>
+        <ns0:criterion comment="IBM Java is installed" test_ref="test_ibm_java"/>
+        <ns0:criterion comment="IBM Java from Red Hat" test_ref="test_ibm_java_rhel"/>
+        <ns0:criterion comment="Sun Java from Red Hat" test_ref="test_sun_java_rhel"/>
+        <ns0:criterion comment="OpenJDK is installed" test_ref="test_openjdk_java"/>
+      </ns0:criteria>
+    </ns0:definition>
+    <ns0:definition class="compliance" id="sshd_includes_config_files" version="1">
+      <ns0:metadata>
+        <ns0:title>sshd_includes_config_files</ns0:title>
+        <ns0:affected family="unix">
+          <ns0:product>Java Runtime Environment</ns0:product>
+        </ns0:affected>
+        <ns0:description>Check presence of Include /etc/ssh/sshd_config.d/*.conf in /etc/ssh/sshd_config</ns0:description>
+      </ns0:metadata>
+      <ns0:criteria operator="AND" comment="Test conditions - presence of the file plus 0 extra definitions.">
+        <ns0:criterion comment="Check that /etc/ssh/sshd_config contains a line with certain text" test_ref="test_sshd_includes_config_files"/>
+      </ns0:criteria>
+    </ns0:definition>
+  </ns0:definitions>
+  <ns0:tests>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled" id="test_java_jre_blacklist_check" version="1">
+      <ns3:object object_ref="object_java_jre_blacklist_check"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.blacklist.check.locked" id="test_java_jre_blacklist_check_locked" version="1">
+      <ns3:object object_ref="object_java_jre_blacklist_check_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns4:file_test check="all" comment="Check deployment.properties file exists" id="test_java_jre_deployment_properties" version="1">
+      <ns4:object object_ref="object_java_jre_deployment_properties"/>
+    </ns4:file_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.notinca" id="test_java_jre_disable_untrusted_sources" version="1">
+      <ns3:object object_ref="object_java_jre_disable_untrusted_sources"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.notinca.lock" id="test_java_jre_disable_untrusted_sources_locked" version="1">
+      <ns3:object object_ref="object_java_jre_disable_untrusted_sources_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled" id="test_java_jre_enable_jws" version="1">
+      <ns3:object object_ref="object_java_jre_enable_jws"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled.locked" id="test_java_jre_enable_jws_locked" version="1">
+      <ns3:object object_ref="object_java_jre_enable_jws_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled" id="test_java_jre_insecure_prompt" version="1">
+      <ns3:object object_ref="object_java_jre_insecure_prompt"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.insecure.jres.locked" id="test_java_jre_insecure_prompt_locked" version="1">
+      <ns3:object object_ref="object_java_jre_insecure_prompt_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.show" id="test_java_jre_lock_untrusted_sources" version="1">
+      <ns3:object object_ref="object_java_jre_lock_untrusted_sources"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.show.lock" id="test_java_jre_lock_untrusted_sources_locked" version="1">
+      <ns3:object object_ref="object_java_jre_lock_untrusted_sources_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.revocation.check" id="test_java_jre_security_revocation_check" version="1">
+      <ns3:object object_ref="object_java_jre_security_revocation_check"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.revocation.check.locked" id="test_java_jre_security_revocation_check_locked" version="1">
+      <ns3:object object_ref="object_java_jre_security_revocation_check_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.level" id="test_java_jre_unsigned_applications" version="1">
+      <ns3:object object_ref="object_java_jre_unsigned_applications"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.level.locked" id="test_java_jre_unsigned_applications_locked" version="1">
+      <ns3:object object_ref="object_java_jre_unsigned_applications_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.validation.crl" id="test_java_jre_validation_crl" version="1">
+      <ns3:object object_ref="object_java_jre_validation_crl"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.validation.crl.locked" id="test_java_jre_validation_crl_locked" version="1">
+      <ns3:object object_ref="object_java_jre_validation_crl_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.validation.ocsp" id="test_java_jre_validation_ocsp" version="1">
+      <ns3:object object_ref="object_java_jre_validation_ocsp"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.security.validation.ocsp.locked" id="test_java_jre_validation_ocsp_locked" version="1">
+      <ns3:object object_ref="object_java_jre_validation_ocsp_locked"/>
+    </ns3:textfilecontent54_test>
+    <ns4:file_test check="all" comment="Check exception.sites file" id="test_java_jre_accepted_sites_exists" version="1">
+      <ns4:object object_ref="object_java_jre_accepted_sites_exists"/>
+    </ns4:file_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.user.security.exception.sites" id="test_java_jre_accepted_sites_properties" version="1">
+      <ns3:object object_ref="object_java_jre_accepted_sites_properties"/>
+    </ns3:textfilecontent54_test>
+    <ns4:file_test check="all" comment="Check deployment.config file" id="test_java_jre_deployment_config_exists" version="1">
+      <ns4:object object_ref="object_java_jre_deployment_config_exists"/>
+    </ns4:file_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.system.config.mandatory" id="test_java_jre_deployment_system_config_mandatory" version="1">
+      <ns3:object object_ref="object_java_jre_deployment_system_config_mandatory"/>
+    </ns3:textfilecontent54_test>
+    <ns3:textfilecontent54_test check="all" comment="Check deployment.system.config" id="test_java_jre_deployment_config_properties" version="1">
+      <ns3:object object_ref="object_java_jre_deployment_config_properties"/>
+    </ns3:textfilecontent54_test>
+    <ns5:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Oracle JRE is installed" id="test_oracle_java" version="1">
+      <ns5:object object_ref="obj_oracle_java"/>
+      <ns5:state state_ref="state_java_version_minimum"/>
+      <ns5:state state_ref="state_java_version_maximum"/>
+    </ns5:rpminfo_test>
+    <ns5:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Oracle JRE from Red Hat is installed" id="test_oracle_java_rhel" version="1">
+      <ns5:object object_ref="obj_oracle_java_rhel"/>
+      <ns5:state state_ref="state_java_version"/>
+    </ns5:rpminfo_test>
+    <ns5:rpminfo_test check="all" check_existence="at_least_one_exists" comment="IBM JRE is installed" id="test_ibm_java" version="1">
+      <ns5:object object_ref="obj_ibm_java"/>
+      <ns5:state state_ref="state_java_version"/>
+    </ns5:rpminfo_test>
+    <ns5:rpminfo_test check="all" check_existence="at_least_one_exists" comment="IBM JRE from Red Hat is installed" id="test_ibm_java_rhel" version="1">
+      <ns5:object object_ref="obj_ibm_java_rhel"/>
+      <ns5:state state_ref="state_java_version"/>
+    </ns5:rpminfo_test>
+    <ns5:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Sun JRE from Red Hat is installed" id="test_sun_java_rhel" version="1">
+      <ns5:object object_ref="obj_sun_java_rhel"/>
+      <ns5:state state_ref="state_java_version"/>
+    </ns5:rpminfo_test>
+    <ns5:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Red Hat OpenJDK is installed" id="test_openjdk_java" version="1">
+      <ns5:object object_ref="obj_openjdk_java"/>
+      <ns5:state state_ref="state_java_version"/>
+    </ns5:rpminfo_test>
+    <ns3:textfilecontent54_test check="all" comment="tests the presence of 'Include /etc/ssh/sshd_config.d/*.conf' setting in the /etc/ssh/sshd_config file" id="test_sshd_includes_config_files" version="1">
+      <ns3:object object_ref="obj_sshd_includes_config_files"/>
+    </ns3:textfilecontent54_test>
+  </ns0:tests>
+  <ns0:objects>
+    <ns3:textfilecontent54_object id="object_java_jre_blacklist_check" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.blacklist.check=true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_blacklist_check_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.blacklist.check.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns4:file_object id="object_java_jre_deployment_properties" version="1">
+      <ns4:filepath>/etc/.java/deployment/deployment.properties</ns4:filepath>
+    </ns4:file_object>
+    <ns3:textfilecontent54_object id="object_java_jre_disable_untrusted_sources" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.askgrantdialog.notinca=false$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_disable_untrusted_sources_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.askgrantdialog.notinca.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_enable_jws" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.webjava.enabled=true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_enable_jws_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.webjava.enabled.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_insecure_prompt" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.insecure.jres=PROMPT$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_insecure_prompt_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.insecure.jres.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_lock_untrusted_sources" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.askgrantdialog.show=false$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_lock_untrusted_sources_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.askgrantdialog.show.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_security_revocation_check" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.revocation.check=ALL_CERTIFICATES$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_security_revocation_check_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.revocation.check.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_unsigned_applications" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.level=VERY_HIGH$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_unsigned_applications_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.level.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_validation_crl" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.validation.crl=true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_validation_crl_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.validation.crl.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_validation_ocsp" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.validation.ocsp=true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_validation_ocsp_locked" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.security.validation.ocsp.locked$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns4:file_object id="object_java_jre_accepted_sites_exists" version="1">
+      <ns4:filepath>/etc/.java/deployment/exception.sites</ns4:filepath>
+    </ns4:file_object>
+    <ns3:textfilecontent54_object id="object_java_jre_accepted_sites_properties" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.properties</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.user.security.exception.sites=/etc/.java/deployment/exception.sites$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns4:file_object id="object_java_jre_deployment_config_exists" version="1">
+      <ns4:filepath>/etc/.java/deployment/deployment.config</ns4:filepath>
+    </ns4:file_object>
+    <ns3:textfilecontent54_object id="object_java_jre_deployment_system_config_mandatory" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.config</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.system.config.mandatory=true$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns3:textfilecontent54_object id="object_java_jre_deployment_config_properties" version="1">
+      <ns3:filepath>/etc/.java/deployment/deployment.config</ns3:filepath>
+      <ns3:pattern operation="pattern match">^deployment.system.config=file:///etc/.java/deployment/deployment.properties$</ns3:pattern>
+      <ns3:instance datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+    <ns5:rpminfo_object id="obj_oracle_java" version="1">
+      <ns5:name datatype="string" operation="pattern match">^jre.*$</ns5:name>
+    </ns5:rpminfo_object>
+    <ns5:rpminfo_object id="obj_oracle_java_rhel" version="1">
+      <ns5:name datatype="string" operation="pattern match">^java.*oracle.*$</ns5:name>
+    </ns5:rpminfo_object>
+    <ns5:rpminfo_object id="obj_ibm_java" version="1">
+      <ns5:name datatype="string" operation="pattern match">^ibm-java.*$</ns5:name>
+    </ns5:rpminfo_object>
+    <ns5:rpminfo_object id="obj_ibm_java_rhel" version="1">
+      <ns5:name datatype="string" operation="pattern match">^java.*ibm.*$</ns5:name>
+    </ns5:rpminfo_object>
+    <ns5:rpminfo_object id="obj_sun_java_rhel" version="1">
+      <ns5:name datatype="string" operation="pattern match">^java.*sun.*$</ns5:name>
+    </ns5:rpminfo_object>
+    <ns5:rpminfo_object id="obj_openjdk_java" version="1">
+      <ns5:name datatype="string" operation="pattern match">^java.*openjdk.*$</ns5:name>
+    </ns5:rpminfo_object>
+    <ns3:textfilecontent54_object id="obj_sshd_includes_config_files" version="1">
+      <ns3:filepath>/etc/ssh/sshd_config</ns3:filepath>
+      <ns3:pattern operation="pattern match">^[\s]*Include /etc/ssh/sshd_config\.d/\*\.conf[\s]*$</ns3:pattern>
+      <ns3:instance operation="greater than or equal" datatype="int">1</ns3:instance>
+    </ns3:textfilecontent54_object>
+  </ns0:objects>
+  <ns0:states>
+    <ns5:rpminfo_state id="state_java_version" version="1">
+      <ns5:version datatype="version" operation="equals">1.8.0</ns5:version>
+    </ns5:rpminfo_state>
+    <ns5:rpminfo_state id="state_java_version_minimum" version="1">
+      <ns5:version datatype="version" operation="greater than or equal">1.8.0</ns5:version>
+    </ns5:rpminfo_state>
+    <ns5:rpminfo_state id="state_java_version_maximum" version="1">
+      <ns5:version datatype="version" operation="less than">1.9.0</ns5:version>
+    </ns5:rpminfo_state>
+  </ns0:states>
+</ns0:oval_definitions>

@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/usbguard/service_usbguard_enabled/rule.yml
+description: 'The USBGuard service should be enabled.
+
+
+  The <code>usbguard</code> service can be enabled with the following command:
+
+  <pre>$ sudo systemctl enable usbguard.service</pre>'
+identifiers:
+  cce: CCE-84205-4
+inherited_platforms:
+- not_s390x_arch
+ocil: '
+
+
+  Run the following command to determine the current status of the
+
+  <code>usbguard</code> service:
+
+  <pre>$ systemctl is-active usbguard</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>'
+ocil_clause: the service is not enabled
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+rationale: 'The <tt>usbguard</tt> service must be running in order to
+
+  enforce the USB device authorization policy for all USB devices.'
+references:
+  disa: CCI-000416,CCI-001958
+  ism: '1418'
+  nist: CM-8(3)(a),IA-3
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000378-GPOS-00163
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_enabled
+  vars:
+    servicename: usbguard
+title: Enable the USBGuard Service
+warnings: []

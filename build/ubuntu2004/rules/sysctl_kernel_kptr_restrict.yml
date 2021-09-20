@@ -1,0 +1,62 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/restrictions/enable_execshield_settings/sysctl_kernel_kptr_restrict/rule.yml
+description: 'To set the runtime status of the <code>kernel.kptr_restrict</code> kernel
+  parameter, run the following command: <pre>$ sudo sysctl -w kernel.kptr_restrict=1</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>kernel.kptr_restrict = 1</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: "The runtime status of the <code>kernel.kptr_restrict</code> kernel parameter\
+  \ can be queried\nby running the following command:\n<pre>$ sysctl kernel.kptr_restrict</pre>\n\
+  The output of the command should indicate a value of <code>1</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*kernel.kptr_restrict\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>kernel.kptr_restrict\
+  \ = 1</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>kernel.kptr_restrict = 1</code>, and that one assignment\nis returned\
+  \ when \n<pre>$ grep -r kernel.kptr_restrict /etc/sysctl.conf /etc/sysctl.d</pre>\n\
+  is executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: 'Exposing kernel pointers (through procfs or <tt>seq_printf()</tt>) exposes
+
+  kernel writeable structures that can contain functions pointers. If a write vulnereability
+  occurs
+
+  in the kernel allowing a write access to any of this structure, the kernel can be
+  compromise. This
+
+  option disallow any program withtout the CAP_SYSLOG capability from getting the
+  kernel pointers addresses,
+
+  replacing them with 0.'
+references:
+  anssi: BP28(R23)
+  disa: CCI-002824,CCI-000366
+  nerc-cip: CIP-002-3 R1.1,CIP-002-3 R1.2,CIP-003-3 R5.1.1,CIP-003-3 R5.3,CIP-004-3
+    4.1,CIP-004-3 4.2,CIP-004-3 R2.2.3,CIP-004-3 R2.2.4,CIP-004-3 R2.3,CIP-004-3 R4,CIP-005-3a
+    R1,CIP-005-3a R1.1,CIP-005-3a R1.2,CIP-007-3 R3,CIP-007-3 R3.1,CIP-007-3 R5.1,CIP-007-3
+    R5.1.2,CIP-007-3 R5.1.3,CIP-007-3 R5.2.1,CIP-007-3 R5.2.3,CIP-007-3 R8.4,CIP-009-3
+    R.1.1,CIP-009-3 R4
+  nist: SC-30,SC-30(2),SC-30(5),CM-6(a)
+  srg: SRG-OS-000132-GPOS-00067,SRG-OS-000433-GPOS-00192,SRG-OS-000480-GPOS-00227
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlval: '1'
+    sysctlvar: kernel.kptr_restrict
+title: Restrict Exposed Kernel Pointer Addresses Access
+warnings: []

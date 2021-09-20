@@ -1,0 +1,35 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Test for existence /etc/gshadow
+  stat:
+    path: /etc/gshadow
+  register: file_exists
+  tags:
+    - CCE-80797-4
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - configure_strategy
+    - file_groupowner_etc_gshadow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure group owner 0 on /etc/gshadow
+  file:
+    path: /etc/gshadow
+    group: '0'
+  when: file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - CCE-80797-4
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - configure_strategy
+    - file_groupowner_etc_gshadow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

@@ -1,0 +1,38 @@
+documentation_complete: true
+
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9
+
+title: 'Restrict usage of ptrace to descendant processes'
+
+description: '{{{ describe_sysctl_option_value(sysctl="kernel.yama.ptrace_scope", value="1") }}}'
+
+rationale: |
+    Unrestricted usage of ptrace allows compromised binaries to run ptrace
+    on another processes of the user. Like this, the attacker can steal
+    sensitive information from the target processes (e.g. SSH sessions, web browser, ...)
+    without any additional assistance from the user (i.e. without resorting to phishing).
+
+severity: medium
+
+identifiers:
+    cce@rhcos4: CCE-82501-8
+    cce@rhel7: CCE-81058-0
+    cce@rhel8: CCE-80953-3
+    cce@rhel9: CCE-83965-4
+
+references:
+    anssi: BP28(R25)
+    disa: CCI-000366
+    srg: SRG-OS-000132-GPOS-00067,SRG-OS-000480-GPOS-00227
+    stigid@rhel8: RHEL-08-040282
+
+{{{ complete_ocil_entry_sysctl_option_value(sysctl="kernel.yama.ptrace_scope", value="1") }}}
+
+platform: machine
+
+template:
+    name: sysctl
+    vars:
+        sysctlvar: kernel.yama.ptrace_scope
+        sysctlval: '1'
+        datatype: int

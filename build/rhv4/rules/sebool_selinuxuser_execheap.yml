@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_selinuxuser_execheap/rule.yml
+description: 'By default, the SELinux boolean <tt>selinuxuser_execheap</tt> is disabled.
+
+  When enabled this boolean is enabled it allows selinuxusers to execute code from
+  the heap.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>selinuxuser_execheap</code> SELinux boolean, run the following
+  command:
+
+  <pre>$ sudo setsebool -P selinuxuser_execheap off</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>selinuxuser_execheap</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool selinuxuser_execheap</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>selinuxuser_execheap --> off</code>'
+ocil_clause: selinuxuser_execheap is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,rhv4
+rationale: Disabling code execution from the heap blocks buffer overflow attacks.
+references:
+  anssi: BP28(R67)
+  hipaa: 164.308(a)(1)(ii)(D),164.308(a)(3),164.308(a)(4),164.310(b),164.310(c),164.312(a),164.312(e)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: selinuxuser_execheap
+title: Disable the selinuxuser_execheap SELinux Boolean
+warnings: []

@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/auditing/package_audit-audispd-plugins_installed/rule.yml
+description: The audit-audispd-plugins package should be installed.
+identifiers:
+  cce: CCE-83033-1
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: Information stored in one location is vulnerable to accidental or incidental
+  deletion or alteration. Off-loading is a common process in information systems with
+  limited audit storage capacity.
+references:
+  disa: CCI-001851
+  nist: AU-4(1)
+  srg: SRG-OS-000342-GPOS-00133
+  stigid: SLES-12-020070
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: audit-audispd-plugins
+title: Ensure the default plugins for the audit dispatcher are Installed
+warnings: []

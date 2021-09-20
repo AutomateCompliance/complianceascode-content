@@ -1,0 +1,48 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_var_tmp_nosuid/rule.yml
+description: 'The <tt>nosuid</tt> mount option can be used to prevent
+
+  execution of setuid programs in <tt>/var/tmp</tt>. The SUID and SGID permissions
+
+  should not be required in these world-writable directories.
+
+  Add the <code>nosuid</code> option to the fourth column of
+
+  <tt>/etc/fstab</tt> for the line which controls mounting of
+
+  <code>/var/tmp</code>.'
+identifiers:
+  cce: CCE-82154-6
+inherited_platforms: []
+ocil: "To verify the <tt>nosuid</tt> option is configured for the <tt>/var/tmp</tt>\
+  \ mount point,\n    run the following command:\n    <pre>$ mount | grep '\\s/var/tmp\\\
+  s'</pre>\n    The output should show the corresponding mount point along with the\
+  \ <tt>nosuid</tt> setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhcos4,rhel7,rhel8,rhel9,sle12,sle15,ubuntu1804
+rationale: 'The presence of SUID and SGID executables should be tightly controlled.
+  Users
+
+  should not be able to execute SUID or SGID binaries from temporary storage partitions.'
+references:
+  anssi: BP28(R12)
+  cis: 1.1.9
+  disa: CCI-001764
+  srg: SRG-OS-000368-GPOS-00154
+  stigid: RHEL-08-040133
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: nosuid
+    mountpoint: /var/tmp
+title: Add nosuid Option to /var/tmp
+warnings: []

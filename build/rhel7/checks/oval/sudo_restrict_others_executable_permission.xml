@@ -1,0 +1,40 @@
+
+    
+  <def-group>
+  <definition class="compliance" id="sudo_restrict_others_executable_permission" version="1">
+    <metadata>
+        <title>Ensure only owner and members of group owner of /usr/bin/sudo can execute it</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 7</platform>
+    </affected>
+        <description>This test makes sure that /usr/bin/sudo has mode 4110.
+      If the target file or directory has an extended ACL, then it will fail the mode check.
+      </description>
+    </metadata>
+    <criteria>
+      <criterion comment="Check file mode of /usr/bin/sudo" test_ref="test_file_permissionssudo_restrict_others_executable_permission" negate="true"/>
+    </criteria>
+  </definition>
+      <unix:file_test check="all" check_existence="at_least_one_exists" comment="Testing mode of /usr/bin/sudo" id="test_file_permissionssudo_restrict_others_executable_permission" version="2">
+      <unix:object object_ref="object_file_permissionssudo_restrict_others_executable_permission" />
+      <unix:state state_ref="state_file_permissionssudo_restrict_others_executable_permission_mode_not_4110" />
+    </unix:file_test>
+    <unix:file_state id="state_file_permissionssudo_restrict_others_executable_permission_mode_not_4110" operator="OR" version="2">
+      <unix:sgid datatype="boolean">true</unix:sgid>
+      <unix:sticky datatype="boolean">true</unix:sticky>
+      <unix:uread datatype="boolean">true</unix:uread>
+      <unix:uwrite datatype="boolean">true</unix:uwrite>
+      <unix:gread datatype="boolean">true</unix:gread>
+      <unix:gwrite datatype="boolean">true</unix:gwrite>
+      <unix:oread datatype="boolean">true</unix:oread>
+      <unix:owrite datatype="boolean">true</unix:owrite>
+      <unix:oexec datatype="boolean">true</unix:oexec>
+    </unix:file_state>
+    <unix:file_object comment="/usr/bin/sudo" id="object_file_permissionssudo_restrict_others_executable_permission" version="1">
+      <unix:filepath>/usr/bin/sudo</unix:filepath>
+      
+      <filter action="include">state_file_permissionssudo_restrict_others_executable_permission_mode_not_4110</filter>
+
+    </unix:file_object>
+</def-group>

@@ -1,0 +1,34 @@
+documentation_complete: true
+
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,sle15
+
+title: 'Disable Squid'
+
+description: |-
+    {{{ describe_service_disable(service="squid") }}}
+
+rationale: |-
+    Running proxy server software provides a network-based avenue
+    of attack, and should be removed if not needed.
+
+severity: unknown
+
+identifiers:
+    cce@rhel7: CCE-80285-0
+    cce@rhel8: CCE-82190-0
+    cce@rhel9: CCE-84239-3
+
+references:
+    cis@rhel7: 2.2.13
+    cis@rhel8: 2.2.6
+    cis@sle15: 2.2.13
+
+ocil: |-
+    {{{ ocil_service_disabled(service="squid") }}}
+
+platform: machine
+
+template:
+    name: service_disabled
+    vars:
+        servicename: squid

@@ -1,0 +1,2149 @@
+<xccdf-1.1:Benchmark xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" id="JRE" resolved="1" xml:lang="en-US" style="SCAP_1.1">
+  <xccdf-1.1:status date="2021-09-19">draft</xccdf-1.1:status>
+  <xccdf-1.1:title xml:lang="en-US">Guide to the Secure Configuration of Java Runtime Environment</xccdf-1.1:title>
+  <xccdf-1.1:description xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for Java Runtime Environment. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <html:code>scap-security-guide</html:code> package which is developed at
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<html:br /><html:br />
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <html:em>catalog, not a
+checklist</html:em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <html:em>Profiles</html:em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for Java Runtime Environment,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</xccdf-1.1:description>
+  <xccdf-1.1:notice xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</xccdf-1.1:notice>
+  <xccdf-1.1:front-matter xml:lang="en-US">The SCAP Security Guide Project<html:br />
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</xccdf-1.1:front-matter>
+  <xccdf-1.1:rear-matter xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</xccdf-1.1:rear-matter>
+  <xccdf-1.1:platform idref="cpe:/a:sun:jre:" />
+  <xccdf-1.1:platform idref="cpe:/a:ibm:jre:" />
+  <xccdf-1.1:platform idref="cpe:/a:redhat:openjdk:" />
+  <xccdf-1.1:version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</xccdf-1.1:version>
+  <xccdf-1.1:metadata>
+    <dc:publisher>SCAP Security Guide Project</dc:publisher>
+    <dc:creator>SCAP Security Guide Project</dc:creator>
+    <dc:contributor>Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor>0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor>Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor>angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor>anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor>Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor>Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor>Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor>Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor>Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor>Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor>Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor>Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor>Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor>George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor>Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor>James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor>Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor>Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor>Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor>Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor>cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor>dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor>Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor>dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor>Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor>drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Fran&#231;ois Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor>eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor>Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor>ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor>Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor>Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor>Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor>Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor>Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor>hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor>Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor>Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor>Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor>Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor>Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor>Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor>Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor>Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Peter 'Pessoft' Kol&#237;nek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor>Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor>Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor>Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor>kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor>Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor>Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor>Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor>Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor>&#352;imon Luka&#353;&#237;k &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Fredrik Lys&#233;n &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor>Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor>Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor>Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor>Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor>Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor>Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Renaud M&#233;trich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor>Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor>Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor>Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor>Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor>Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor>Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor>pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor>Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor>Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor>Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor>piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor>Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor>T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor>Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor>Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor>rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor>Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor>Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor>rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor>Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor>rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor>Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor>rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor>Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor>Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor>Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor>Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor>shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor>Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Thomas Sj&#246;gren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor>David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor>Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor>Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor>teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor>Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor>tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor>Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor>tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor>Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor>Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor>Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor>Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Mat&#283;j T&#253;&#269; &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor>Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor>Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor>Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor>Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor>Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor>Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor>yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor>Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor>Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor>Jan &#268;ern&#253; &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Michal &#352;ruba&#345; &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source>https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </xccdf-1.1:metadata>
+  <xccdf-1.1:model system="urn:xccdf:scoring:default" />
+  <xccdf-1.1:Profile id="stig">
+    <xccdf-1.1:title xml:lang="en-US" override="true">Java Runtime Environment (JRE) STIG</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US" override="true">The Java Runtime Environment (JRE) is a bundle developed
+and offered by Oracle Corporation which includes the Java Virtual Machine
+(JVM), class libraries, and other components necessary to run Java
+applications and applets. Certain default settings within the JRE pose
+a security risk so it is necessary to deploy system wide properties to
+ensure a higher degree of security when utilizing the JRE.
+
+The IBM Corporation also develops and bundles the Java Runtime Environment
+(JRE) as well as Red Hat with OpenJDK.</xccdf-1.1:description>
+    <xccdf-1.1:select idref="java_jre_accepted_sites_exists" selected="true" />
+    <xccdf-1.1:select idref="java_jre_accepted_sites_properties" selected="true" />
+    <xccdf-1.1:select idref="java_jre_blacklist_check" selected="true" />
+    <xccdf-1.1:select idref="java_jre_blacklist_check_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_clean_previous_version" selected="true" />
+    <xccdf-1.1:select idref="java_jre_deployment_config_exists" selected="true" />
+    <xccdf-1.1:select idref="java_jre_deployment_config_mandatory" selected="true" />
+    <xccdf-1.1:select idref="java_jre_deployment_config_properties" selected="true" />
+    <xccdf-1.1:select idref="java_jre_deployment_properties_exists" selected="true" />
+    <xccdf-1.1:select idref="java_jre_disable_untrusted_sources" selected="true" />
+    <xccdf-1.1:select idref="java_jre_disable_untrusted_sources_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_enable_jws" selected="true" />
+    <xccdf-1.1:select idref="java_jre_enable_jws_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_insecure_prompt" selected="true" />
+    <xccdf-1.1:select idref="java_jre_insecure_prompt_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_lock_untrusted_sources" selected="true" />
+    <xccdf-1.1:select idref="java_jre_lock_untrusted_sources_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_security_revocation_check" selected="true" />
+    <xccdf-1.1:select idref="java_jre_security_revocation_check_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_unsigned_applications" selected="true" />
+    <xccdf-1.1:select idref="java_jre_unsigned_applications_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_updated" selected="true" />
+    <xccdf-1.1:select idref="java_jre_validation_crl" selected="true" />
+    <xccdf-1.1:select idref="java_jre_validation_crl_locked" selected="true" />
+    <xccdf-1.1:select idref="java_jre_validation_ocsp" selected="true" />
+    <xccdf-1.1:select idref="java_jre_validation_ocsp_locked" selected="true" />
+  </xccdf-1.1:Profile>
+  <xccdf-1.1:Group id="remediation_functions">
+    <xccdf-1.1:title xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</xccdf-1.1:description>
+  </xccdf-1.1:Group>
+  <xccdf-1.1:Group id="java">
+    <xccdf-1.1:title xml:lang="en-US">Java</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US">Java is a general-purpose computer programming language. It is intended to
+let application developers "write once, run anywhere." Java applications are
+typically compiled to bytecode that can run on any Java virtual machine (JVM)
+regardless of computer architecture. As such, the Java runtime environment (JRE)
+is required to be installed so that Java applications can run. This section
+provides settings for configuring Java policies to meet compliance
+settings for Java running on Red Hat Enterprise Linux systems.
+<html:br /><html:br />
+<html:ul>Refer to <html:li><html:a href="https://docs.oracle.com/javase/6/docs/technotes/guides/deployment/deployment-guide/properties.html">https://docs.oracle.com/javase/6/docs/technotes/guides/deployment/deployment-guide/properties.html</html:a></html:li>
+for a list of currently supported Java version 6 settings.</html:ul>
+<html:ul>Refer to <html:li><html:a href="https://docs.oracle.com/javase/7/docs/technotes/guides/jweb/jcp/properties.html">https://docs.oracle.com/javase/7/docs/technotes/guides/jweb/jcp/properties.html</html:a></html:li>
+for a list of currently supported Java version 7 settings.</html:ul>
+<html:ul>Refer to <html:li><html:a href="https://docs.oracle.com/javase/8/docs/technotes/guides/deploy/properties.html">https://docs.oracle.com/javase/8/docs/technotes/guides/deploy/properties.html</html:a></html:li>
+for a list of currently supported Java version 8 settings.</html:ul></xccdf-1.1:description>
+    <xccdf-1.1:Rule id="java_jre_blacklist_check" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Prevent the Download of Prohibited Mobile Code</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that Java prevents the download of prohibited mobile code, set
+<html:code>deployment.security.blacklist.check</html:code> to equal <html:code>true</html:code> in
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001169</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(3)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000209</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000110</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. Therefore it is important to allow vetted
+mobile code and prevent potentially malicious execution of mobile code.
+Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. Therefore it is important to allow vetted
+mobile code and prevent potentially malicious execution of mobile code.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_blacklist_check">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.blacklist.check=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.blacklist.check=.*/deployment.security.blacklist.check=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.blacklist.check=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_blacklist_check" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Prevent the Download of Prohibited Mobile Code
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.blacklist.check=.*
+    line: deployment.security.blacklist.check=true
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_blacklist_check:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_blacklist_check_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_blacklist_check_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Prohibited Mobile Code Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the download of prohibited mobile code
+setting, add <html:code>deployment.security.blacklist.check.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001169</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(3)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000209</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000110</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. Therefore, it is important to allow vetted
+mobile code and prevent potentially malicious execution of mobile code.
+As such, ensuring
+users cannot change the permission settings which control the downloading of
+prohibited mobile code contributes to a more consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_blacklist_check_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.webjava.enabled.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.webjava.enabled.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_blacklist_check_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Prohibited Mobile Code Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.blacklist.check.locked
+    line: deployment.security.blacklist.check.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000110
+    - NIST-800-53-SC-18(3)
+    - configure_strategy
+    - java_jre_blacklist_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_blacklist_check_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_blacklist_check_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_clean_previous_version" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Ensure yum Removes Previous Package Versions</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US"><html:code>yum</html:code> should be configured to remove previous versions of Java after
+new versions have been installed. To configure <html:code>yum</html:code> to remove the
+previous versions of Java after updating, set the <html:code>clean_requirements_on_remove</html:code>
+to <html:code>1</html:code> in <html:code>/etc/yum.conf</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-002617</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-2(6)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000454</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000190</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Previous versions of software components that are not removed from the information
+system after updates have been installed may be exploited by some adversaries.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_clean_previous_version">
+if grep --silent ^clean_requirements_on_remove /etc/yum.conf ; then
+        sed -i "s/^clean_requirements_on_remove.*/clean_requirements_on_remove=1/g" /etc/yum.conf
+else
+        echo -e "\n# Set clean_requirements_on_remove to 1 per security requirements" &gt;&gt; /etc/yum.conf
+        echo "clean_requirements_on_remove=1" &gt;&gt; /etc/yum.conf
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_clean_previous_version" complexity="low" disruption="low" reboot="false" strategy="restrict">- name: Ensure YUM Removes Previous Package Versions
+  lineinfile:
+    dest: /etc/yum.conf
+    regexp: ^#?clean_requirements_on_remove
+    line: clean_requirements_on_remove=1
+    insertafter: \[main\]
+    create: true
+  tags:
+    - DISA-STIG-JRE8-UX-000190
+    - NIST-800-53-SI-2(6)
+    - java_jre_clean_previous_version
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - restrict_strategy
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_clean_previous_version_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_configure_crypto_policy" selected="false" severity="unknown">
+      <xccdf-1.1:title xml:lang="en-US">Configure Java Runtime to use System Crypto Policy</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">Crypto Policies provide a centralized control over crypto algorithms usage of many packages.
+Java is supported by crypto policy, but the Java configuration may be
+set up to ignore it.
+
+To check that Crypto Policies settings are configured correctly, you have to examine the JRE config file
+available under <html:code>/usr/lib/jvm/jre/lib/security/java.security</html:code>.
+If this config file contains the line <html:code>security.useSystemPropertiesFile=true</html:code>,
+settings that are part of the system-wide crypto policy take precedence.</xccdf-1.1:description>
+      <xccdf-1.1:rationale xml:lang="en-US">Overriding the system crypto policy makes the behavior of the Java runtime violates expectations,
+and makes system configuration more fragmented.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_configure_crypto_policy">
+
+JRE_CONFIG_FILE="/usr/lib/jvm/jre/lib/security/java.security"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$JRE_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^security.useSystemPropertiesFile")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s=%s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^security.useSystemPropertiesFile\\&gt;" "$JRE_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^security.useSystemPropertiesFile\\&gt;.*/$formatted_output/gi" "$JRE_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$JRE_CONFIG_FILE" &gt;&gt; "$JRE_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$JRE_CONFIG_FILE"
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_configure_crypto_policy" complexity="low" disruption="medium" reboot="true" strategy="disable">- name: Configure Java Runtime to use System Crypto Policy
+  lineinfile:
+    create: true
+    dest: /usr/lib/jvm/jre/lib/security/java.security
+    regexp: ^\s*#?\s*security.useSystemPropertiesFile=true
+    line: security.useSystemPropertiesFile=true
+  tags:
+    - disable_strategy
+    - java_jre_configure_crypto_policy
+    - low_complexity
+    - medium_disruption
+    - reboot_required
+    - unknown_severity
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_configure_crypto_policy_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_deployment_properties_exists" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">The Java deployment.properties File Exists</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">If the Java deployment properties file does not exist, it can be added
+by running:
+<html:pre>$ sudo mkdir -p -m 755 /etc/.java/deployment
+$ sudo touch /etc/.java/deployment/deployment.properties
+$ sudo chmod 644 /etc/.java/deployment/deployment.properties</html:pre></xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000030</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Each option in the Java control panel is represented by property keys.
+These keys adjust the options in the Java control panel based on the value
+assigned to that key. By default no deployment.properties file exists; thus,
+no system-wide deployment exists. Without the deployment.properties file, setting particular
+options for the Java control panel is impossible.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_deployment_properties_exists">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+chmod 644 ${JAVA_PROPERTIES}
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_deployment_properties_exists" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000030
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_properties_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java deployment.properties File Exists
+  file:
+    path: /etc/.java/deployment/deployment.properties
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000030
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_properties_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_deployment_properties_exists:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_deployment_properties_exists_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_disable_untrusted_sources" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable Execution of Signed Java Applets From Untrusted Sources Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that Java cannot execute from untrusted sources, set
+<html:code>deployment.security.askgrantdialog.notinca</html:code> to equal <html:code>false</html:code>
+in <html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000080</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in acquiring malware, and risks system modification, invasion of
+privacy, or denial of service. Block users from granting permissions to
+certificates that are not issued by a CA in the Root/JSSE CA certificate
+store.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_disable_untrusted_sources">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.notinca=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.askgrantdialog.notinca=.*/deployment.security.askgrantdialog.notinca=false/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.notinca=false" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_disable_untrusted_sources" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable Execution of Signed Java Applets From Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.notinca=.*
+    line: deployment.security.askgrantdialog.notinca=false
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_disable_untrusted_sources:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_disable_untrusted_sources_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_disable_untrusted_sources_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Disabling Untrusted Sources Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the untrusted sources settings,
+add <html:code>deployment.security.askgrantdialog.notinca.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000080</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in malware running on the system, and risks system modification,
+invasion of privacy, or denial of service. As such, ensuring users cannot
+change the permission settings which control the execution of signed Java
+applets contributes to a more consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_disable_untrusted_sources_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.notinca.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.notinca.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_disable_untrusted_sources_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Disabling Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.notinca.locked
+    line: deployment.security.askgrantdialog.notinca.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000080
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_disable_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_disable_untrusted_sources_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_disable_untrusted_sources_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_enable_jws" selected="false" severity="high">
+      <xccdf-1.1:title xml:lang="en-US">Enable Java Web Start Applications to Run</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that Java allows applets or Java Web Start (JWS) applications to
+run, set <html:code>deployment.webjava.enabled</html:code> to equal <html:code>true</html:code> in
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000070</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Due to the popularity of Java Web Start (JWS) applications, denying these
+applications could have a negative impact to the user experience. Whitelisting,
+blacklisting, and signing of applications help mitigate the risk of running
+JWS applications.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_enable_jws">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.webjava.enabled=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.webjava.enabled=.*/deployment.webjava.enabled=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.webjava.enabled=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_enable_jws" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Enable Java Web Start Applications to Run
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.webjava.enabled=.*
+    line: deployment.webjava.enabled=true
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_enable_jws:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_enable_jws_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_enable_jws_locked" selected="false" severity="high">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Java Web Start Application Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the Java Web Start (JWS) application
+setting, add <html:code>deployment.webjava.enabled.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000070</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Due to the popularity of Java Web Start (JWS) applications, denying these
+applications could have a negative impact to the user experience. Whitelisting,
+blacklisting, and signing of applications help mitigate the risk of running
+JWS applications.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_enable_jws_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.webjava.enabled.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.webjava.enabled.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_enable_jws_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable User Access to Java Web Start Application Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.webjava.enabled.locked
+    line: deployment.webjava.enabled.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000070
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_enable_jws_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_enable_jws_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_enable_jws_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_insecure_prompt" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Prompt User Prior to Executing Mobile Code</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that Java prevents mobile code from executing without prompting
+the user, set <html:code>deployment.insecure.jres</html:code> to equal
+<html:code>PROMPT</html:code> in <html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-002460</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(4)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000488</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000170</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. It can execute without explicit action
+from, or notification to, a user. Requiring Java to enforce prompting the user prior
+to executing mobile code will strenghten the security posture of the system.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_insecure_prompt">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.insecure.jres=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.insecure.jres=.*/deployment.insecure.jres=PROMPT/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.insecure.jres=PROMPT" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_insecure_prompt" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Prompt User Prior to Executing Mobile Code
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.insecure.jres=.*
+    line: deployment.insecure.jres=PROMPT
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_insecure_prompt:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_insecure_prompt_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_insecure_prompt_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Insecure Prompt of Mobile Code Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the mobile code setting for insecure
+prompts, add <html:code>deployment.insecure.jres.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-002460</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18(4)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000488</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000170</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Mobile code has the potential to cause damage to information systems within
+an organization if used maliciously. It can execute without explicit action
+from, or notification to, a user. Requiring Java to enforce prompting the user
+prior to executing mobile code will strengthen the security posture of the
+system. As such, ensuring users cannot change the permission settings which
+control the insecure prompts for mobile code execution contributes to a more
+consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_insecure_prompt_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.insecure.jres.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.insecure.jres.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_insecure_prompt_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Insecure Prompt of Mobile Code Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.insecure.jres.locked
+    line: deployment.insecure.jres.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000170
+    - NIST-800-53-SC-18(4)
+    - configure_strategy
+    - java_jre_insecure_prompt_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_insecure_prompt_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_insecure_prompt_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_lock_untrusted_sources" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Lock Execution of Signed Java Applets From Untrusted Sources Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that Java cannot execute from untrusted sources, set
+<html:code>deployment.security.askgrantdialog.show</html:code> to equal <html:code>false</html:code>
+in <html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000090</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in acquiring malware, and risks system modification, invasion of
+privacy, or denial of service. Block users from granting permissions to
+applets and JWS applications.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_lock_untrusted_sources">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.show=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.askgrantdialog.show=.*/deployment.security.askgrantdialog.show=false/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.show=false" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_lock_untrusted_sources" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Lock Execution of Signed Java Applets From Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.show=.*
+    line: deployment.security.askgrantdialog.show=false
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_lock_untrusted_sources:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_lock_untrusted_sources_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_lock_untrusted_sources_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Locking Untrusted Sources Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the untrusted sources settings,
+add <html:code>deployment.security.askgrantdialog.show.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001695</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-18 (3)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000112</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000090</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Permitting execution of signed Java applets from un-trusted sources may
+result in malware running on the system, and risks system modification,
+invasion of privacy, or denial of service. As such, ensuring users cannot
+change the permission settings which control the execution of signed Java
+applets contributes to a more consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_lock_untrusted_sources_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.askgrantdialog.show.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.askgrantdialog.show.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_lock_untrusted_sources_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Locking Untrusted Sources Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.askgrantdialog.show.locked
+    line: deployment.security.askgrantdialog.show.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000090
+    - NIST-800-53-SC-18 (3)
+    - configure_strategy
+    - java_jre_lock_untrusted_sources_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_lock_untrusted_sources_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_lock_untrusted_sources_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_security_revocation_check" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Enable Revocation Checks for Publisher Certificates</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that certificate revocation checks are enabled, set
+<html:code>deployment.security.revocation.check</html:code> to equal <html:code>ALL_CERTIFICATES</html:code>
+in <html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000160</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Certificates may be revoked due to improper issuance, compromise of the certificate,
+and failure to adhere to policy. Therefore, any certificate found on a CRL
+should not be trusted. Permitting execution of an applet published with a
+revoked certificate may result in spoofing, malware, system modification,
+invasion of privacy, and denial of service.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_security_revocation_check">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.revocation.check=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.revocation.check=.*/deployment.security.revocation.check=ALL_CERTIFICATES/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.revocation.check=ALL_CERTIFICATES" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_security_revocation_check" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Enable Revocation Checks for Publisher Certificates
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.revocation.check=.*
+    line: deployment.security.revocation.check=ALL_CERTIFICATES
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_security_revocation_check:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_security_revocation_check_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_security_revocation_check_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Revocation Check Settings</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change certificate revocation check settings,
+add <html:code>deployment.security.revocation.check.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000160</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Permitting execution of an applet published with a revoked certificate may
+result in spoofing, malware, system modification, invasion of privacy,
+and denial of service. As such, ensuring users cannot change settings
+contributes to a more consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_security_revocation_check_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.revocation.check.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.revocation.check.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_security_revocation_check_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Revocation Check Settings
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.revocation.check.locked
+    line: deployment.security.revocation.check.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000160
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_security_revocation_check_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_security_revocation_check_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_security_revocation_check_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_unsigned_applications" selected="false" severity="high">
+      <xccdf-1.1:title xml:lang="en-US">Disable Execution of Unsigned Applications</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that Java does not allow unsigned applications to run, set
+<html:code>deployment.security.level</html:code> to equal <html:code>VERY_HIGH</html:code> in
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000060</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Unsigned applications could perform numerous types of attacks on a system.
+Applications that are signed with a valid certificate and include the
+permissions attribute in the manifest for the main JAR file are allowed to
+run with security prompts. All other applications are blocked.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_unsigned_applications">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.level=.*$" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.level=.*/deployment.security.level=VERY_HIGH/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.level=VERY_HIGH" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_unsigned_applications" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable Execution of Unsigned Applications
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.level=.*
+    line: deployment.security.level=VERY_HIGH
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_unsigned_applications:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_unsigned_applications_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_unsigned_applications_locked" selected="false" severity="high">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Unsigned Applications Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the unsigned applications setting, add
+<html:code>deployment.security.level.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000060</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Unsigned applications could perform numerous types of attacks on a system.
+As such, ensuring users cannot change the permission settings which control
+the execution of unsigned Java applications contributes to a more consistent
+security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_unsigned_applications_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.level.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.level.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_unsigned_applications_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+
+- name: Disable User Access to Unsigned Applications Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.level.locked
+    line: deployment.security.level.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000060
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - high_severity
+    - java_jre_unsigned_applications_locked
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_unsigned_applications_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_unsigned_applications_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_updated" selected="false" severity="low">
+      <xccdf-1.1:title xml:lang="en-US">Ensure Java Patches Installed</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">If the system is joined to the Red Hat Network, a Red Hat Satellite Server,
+or a yum server, run the following command to install updates:
+<html:pre>$ sudo yum update</html:pre>
+If the system is not configured to use one of these sources, updates (in the form of RPM packages)
+can be manually downloaded and installed using <html:code>rpm</html:code>.
+<html:br /><html:br />
+NOTE: U.S. Defense systems are required to be patched within 30 days or sooner as local policy
+dictates.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-002605</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-2(c)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000456</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000180</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Running an older version of the JRE can introduce security
+vulnerabilities to the system.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_updated">
+
+yum -y update
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_updated" complexity="low" disruption="high" reboot="true" strategy="patch">- name: Security patches are up to date
+  package:
+    name: '*'
+    state: latest
+  tags:
+    - DISA-STIG-JRE8-UX-000180
+    - NIST-800-53-SI-2(c)
+    - high_disruption
+    - java_jre_updated
+    - low_complexity
+    - low_severity
+    - patch_strategy
+    - reboot_required
+    - skip_ansible_lint
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_updated_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_validation_crl" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Enable Use of Certificate Revocation Lists</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that certificate revocation lists are enabled, set
+<html:code>deployment.security.validation.crl</html:code> to equal <html:code>true</html:code>
+in <html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000150</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">A certificate revocation list is a directory which contains a list of
+certificates that have been revoked for various reasons. Certificates may be
+revoked due to improper issuance, compromise of the certificate, and failure
+to adhere to policy. Therefore, any certificate found on a CRL should not be
+trusted. Permitting execution of an applet published with a revoked
+certificate may result in spoofing, malware, system modification, invasion
+of privacy, and denial of service.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_validation_crl">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.crl=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.validation.crl=.*/deployment.security.validation.crl=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.crl=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_validation_crl" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Enable Use of Certificate Revocation Lists
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.crl=.*
+    line: deployment.security.validation.crl=true
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_validation_crl:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_validation_crl_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_validation_crl_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Certificate Revocation List Settings</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change certificate revocation list settings,
+add <html:code>deployment.security.validation.crl.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001991</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(d)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000401</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000150</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Permitting execution of an applet published with a revoked certificate may
+result in spoofing, malware, system modification, invasion of privacy, and
+denial of service. This is why it is important to ensure to check against a
+Certificate Revocation List. As such, ensuring users cannot change settings
+contributes to a more consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_validation_crl_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.crl.locked$" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.crl.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_validation_crl_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Certificate Revocation List Settings
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.crl.locked
+    line: deployment.security.validation.crl.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000150
+    - NIST-800-53-IA-5(2)(d)
+    - configure_strategy
+    - java_jre_validation_crl_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_validation_crl_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_validation_crl_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_validation_ocsp" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Enable Online Certificate Validation</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that online certificate verification is enabled, set
+<html:code>deployment.security.validation.ocsp</html:code> to equal <html:code>true</html:code>
+in <html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000185</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(a)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000175</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000100</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Online certificate validation provides a greater degree of validation of certificates
+when running a signed Java applet. Permitting execution of an applet with an invalid
+certificate may result in malware execution , system modification, invasion of privacy,
+and denial of service.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_validation_ocsp">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.ocsp=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s/deployment.security.validation.ocsp=.*/deployment.security.validation.ocsp=true/g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.ocsp=true" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_validation_ocsp" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Enable Online Certificate Validation
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.ocsp=.*
+    line: deployment.security.validation.ocsp=true
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_validation_ocsp:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_validation_ocsp_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Rule id="java_jre_validation_ocsp_locked" selected="false" severity="medium">
+      <xccdf-1.1:title xml:lang="en-US">Disable User Access to Online Certificate Validation Setting</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">To ensure that users cannot change the online certificate verification setting,
+add <html:code>deployment.security.validation.ocsp.locked</html:code> to
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000185</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5(2)(a)</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000175</xccdf-1.1:reference>
+      <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000100</xccdf-1.1:reference>
+      <xccdf-1.1:rationale xml:lang="en-US">Online certificate validation provides a greater degree of validation of certificates
+when running a signed Java applet. Permitting execution of an applet with an invalid
+certificate may result in malware execution , system modification, invasion of privacy,
+and denial of service. As such, ensuring users cannot change settings contributes to
+a more consistent security profile.</xccdf-1.1:rationale>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_validation_ocsp_locked">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+grep -q "^deployment.security.validation.ocsp.locked$" ${JAVA_PROPERTIES}
+
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.security.validation.ocsp.locked" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+      <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_validation_ocsp_locked" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Disable User Access to Online Certificate Validation Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.security.validation.ocsp.locked
+    line: deployment.security.validation.ocsp.locked
+  tags:
+    - DISA-STIG-JRE8-UX-000100
+    - NIST-800-53-IA-5(2)(a)
+    - configure_strategy
+    - java_jre_validation_ocsp_locked
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+      <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_validation_ocsp_locked:def:1" href="oval-linked.xml" />
+      </xccdf-1.1:check>
+      <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+        <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_validation_ocsp_locked_ocil:questionnaire:1" />
+      </xccdf-1.1:check>
+    </xccdf-1.1:Rule>
+    <xccdf-1.1:Group id="java_jre_accepted_sites_configured">
+      <xccdf-1.1:title xml:lang="en-US">Configure the exception.sites File</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">Utilizing a whitelist provides a configuration management method for
+allowing the execution of only authorized software. Using only authorized
+software decreases risk by limiting the number of potential vulnerabilities.
+The <html:code>exception.sites</html:code> file is used for ensuring that authorized
+software is allowed to be executed. To ensure that the Java
+<html:code>/etc/.java/deployment/deployment.properties</html:code> file is configured
+correctly, <html:code>deployment.user.security.exception.sites</html:code> must be configured
+to point to a valid <html:code>exception.sites</html:code> file.</xccdf-1.1:description>
+      <xccdf-1.1:Rule id="java_jre_accepted_sites_exists" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">The Java exception.sites File Exists</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">By default, no <html:code>exception.sites</html:code> file exists which means that there is no prevention of
+unauthorized software. The <html:code>exception.sites</html:code> file is a text file containing single-line URLs for
+accepted risk sites. If the Java accepted sites list file does not exist, it can be added
+by running:
+<html:pre>$ sudo mkdir -p -m 755 /etc/.java/deployment
+$ sudo touch /etc/.java/deployment/exception.sites
+$ sudo chmod 644 /etc/.java/deployment/exception.sites</html:pre></xccdf-1.1:description>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001774</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7(5)(b)</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000386</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000130</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Utilizing a
+whitelist provides a configuration management method for allowing the
+execution of only authorized software. Using only authorized software
+decreases risk by limiting the number of potential vulnerabilities.</xccdf-1.1:rationale>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_accepted_sites_exists">JAVA_FILE="/etc/.java/deployment/exception.sites"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_FILE} ]; then
+  touch ${JAVA_FILE} &amp;&amp; chmod 644 ${JAVA_FILE}
+fi
+
+chmod 644 ${JAVA_FILE}
+</xccdf-1.1:fix>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_accepted_sites_exists" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000130
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java exception.sites File Exists
+  file:
+    path: /etc/.java/deployment/exception.sites
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000130
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+        <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_accepted_sites_exists:def:1" href="oval-linked.xml" />
+        </xccdf-1.1:check>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_accepted_sites_exists_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="java_jre_accepted_sites_properties" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Configure the Path to the exception.sites File</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">To ensure that the accepted sites list file is set in
+<html:code>/etc/.java/deployment/deployment.properties</html:code>, add or modify
+<html:code>deployment.user.security.exception.sites</html:code> to equal
+<html:code>/etc/.java/deployment/exception.sites</html:code>.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-001774</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7(5)(b)</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000386</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000120</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Without a proper path for the accepted sites list file, unauthorized
+software programs are able to be executed. Using only authorized software
+decreases risk by limiting the number of potential vulnerabilities.</xccdf-1.1:rationale>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_accepted_sites_properties">JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_PROPERTIES} ]; then
+  touch ${JAVA_PROPERTIES} &amp;&amp; chmod 644 ${JAVA_PROPERTIES}
+fi
+
+JAVA_FILE="/etc/.java/deployment/exception.sites"
+
+grep -q "^deployment.user.security.exception.sites=.*" ${JAVA_PROPERTIES} &amp;&amp; \
+sed -i "s;deployment.user.security.exception.sites=.*;deployment.user.security.exception.sites=${JAVA_FILE};g" ${JAVA_PROPERTIES}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.user.security.exception.sites=${JAVA_FILE}" &gt;&gt; ${JAVA_PROPERTIES}
+fi
+</xccdf-1.1:fix>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_accepted_sites_properties" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000120
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure the Path to the exception.sites File
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.properties
+    regexp: ^\s*#?\s*deployment.user.security.exception.sites=.*
+    line: deployment.user.security.exception.sites=/etc/.java/deployment/exception.sites
+  tags:
+    - DISA-STIG-JRE8-UX-000120
+    - NIST-800-53-CM-7(5)(b)
+    - configure_strategy
+    - java_jre_accepted_sites_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+        <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_accepted_sites_properties:def:1" href="oval-linked.xml" />
+        </xccdf-1.1:check>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_accepted_sites_properties_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+    </xccdf-1.1:Group>
+    <xccdf-1.1:Group id="java_jre_deployment_config_configured">
+      <xccdf-1.1:title xml:lang="en-US">Configure the deployment.config File</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">The <html:code>deployment.config</html:code> file if used for specifying the System-level
+<html:code>deployment.properties</html:code> file. The System-level configuration for Java is
+configured in <html:code>/etc/.java/deployment</html:code>. By default, no <html:code>deployment.config</html:code>
+file exists. To ensure that the Java <html:code>/etc/.java/deployment/deployment.config</html:code> file
+is configured correctly, <html:code>deployment.system.config</html:code> and
+<html:code>deployment.system.config.mandatory</html:code> need to be set correctly.</xccdf-1.1:description>
+      <xccdf-1.1:Rule id="java_jre_deployment_config_exists" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">The Java deployment.config File Exists</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">If the Java deployment configuration file does not exist, it can be added
+by running:
+<html:pre>$ sudo mkdir -p -m 755 /etc/.java/deployment
+$ sudo touch /etc/.java/deployment/deployment.config
+$ sudo chmod 644 /etc/.java/deployment/deployment.config</html:pre></xccdf-1.1:description>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000010</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">By default no deployment.config file exists; thus, no system-wide deployment.properties file
+exists. The file must be created. The deployment.config file is used for specifying the
+location and execution of system-level properties for the Java Runtime Environment. Without
+the deployment.config file, setting particular options for the Java control panel is
+not possible.</xccdf-1.1:rationale>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_deployment_config_exists">JAVA_CONFIG="/etc/.java/deployment/deployment.config"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_CONFIG} ]; then
+  touch ${JAVA_CONFIG} &amp;&amp; chmod 644 ${JAVA_CONFIG}
+fi
+
+chmod 644 ${JAVA_CONFIG}
+</xccdf-1.1:fix>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_deployment_config_exists" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000010
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure Java Config File Exists
+  file:
+    path: /etc/.java/deployment/deployment.config
+    state: touch
+    mode: '0644'
+  tags:
+    - DISA-STIG-JRE8-UX-000010
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_exists
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+        <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_deployment_config_exists:def:1" href="oval-linked.xml" />
+        </xccdf-1.1:check>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_deployment_config_exists_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="java_jre_deployment_config_mandatory" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Configure The Java Deployment Mandatory Setting</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">To configure the Java mandatory deployment setting, add or modify
+<html:code>deployment.system.config.mandatory</html:code> to equal <html:code>true</html:code>
+in <html:code>/etc/.java/deployment/deployment.config</html:code>.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000020</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Without a proper path for the properties file, deployment would not be possible.
+If the path specified does not lead to a properties file, the value of the
+<html:code>deployment.system.config.mandatory</html:code> key determines how to handle the situation.
+If the value of this key is true, JRE will not allow Java applications to run if
+the path to the properties file is invalid.</xccdf-1.1:rationale>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_deployment_config_mandatory">JAVA_CONFIG="/etc/.java/deployment/deployment.config"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_CONFIG} ]; then
+  touch ${JAVA_CONFIG} &amp;&amp; chmod 644 ${JAVA_CONFIG}
+fi
+
+grep -q "^deployment.system.config.mandatory=.*" ${JAVA_CONFIG} &amp;&amp; \
+sed -i "s/deployment.system.config.mandatory=.*/deployment.system.config.mandatory=true/g" ${JAVA_CONFIG}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.system.config.mandatory=true" &gt;&gt; ${JAVA_CONFIG}
+fi
+</xccdf-1.1:fix>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_deployment_config_mandatory" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_mandatory
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure The Java Deployment Mandatory Setting
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.config
+    regexp: ^\s*#?\s*deployment.system.config.mandatory=.*
+    line: deployment.system.config.mandatory=true
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_mandatory
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+        <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_deployment_config_mandatory:def:1" href="oval-linked.xml" />
+        </xccdf-1.1:check>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_deployment_config_mandatory_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="java_jre_deployment_config_properties" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Configure the Path to the deployment.properties File</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">To ensure that the Java properties file is set in
+<html:code>/etc/.java/deployment/deployment.config</html:code>, add or modify
+<html:code>deployment.system.config</html:code> to equal
+<html:code>/etc/.java/deployment/deployment.properties</html:code>.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/cci/">CCI-000366</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6(b)</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000516</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">JRE8-UX-000020</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Without a proper path for the properties file, deployment would not be possible.
+If the path specified does not lead to a properties file, the value of the
+<html:code>deployment.system.config.mandatory</html:code> key determines how to handle the situation.
+If the value of this key is true, JRE will not allow Java applications to run if
+the path to the properties file is invalid.</xccdf-1.1:rationale>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:sh" id="java_jre_deployment_config_properties">JAVA_CONFIG="/etc/.java/deployment/deployment.config"
+JAVA_DIR="/etc/.java/deployment"
+
+if [ ! -d ${JAVA_DIR} ] ; then
+  mkdir -p -m 755 ${JAVA_DIR}
+fi
+
+if [ ! -e ${JAVA_CONFIG} ]; then
+  touch ${JAVA_CONFIG} &amp;&amp; chmod 644 ${JAVA_CONFIG}
+fi
+
+JAVA_PROPERTIES="/etc/.java/deployment/deployment.properties"
+
+grep -q "^deployment.system.config=.*" ${JAVA_CONFIG} &amp;&amp; \
+sed -i "s;deployment.system.config=.*;deployment.system.config=file:\/\/${JAVA_PROPERTIES};g" ${JAVA_CONFIG}
+if ! [ $? -eq 0 ] ; then
+  echo "deployment.system.config=file://${JAVA_PROPERTIES}" &gt;&gt; ${JAVA_CONFIG}
+fi
+</xccdf-1.1:fix>
+        <xccdf-1.1:fix system="urn:xccdf:fix:script:ansible" id="java_jre_deployment_config_properties" complexity="low" disruption="low" reboot="false" strategy="configure">- name: Ensure Java Deployment Directory Exists
+  file:
+    path: /etc/.java/deployment
+    state: directory
+    mode: '0755'
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Configure the Path to the deployment.properties File
+  lineinfile:
+    create: true
+    mode: '0644'
+    dest: /etc/.java/deployment/deployment.config
+    regexp: ^\s*#?\s*deployment.system.config=.*
+    line: deployment.system.config=file:///etc/.java/deployment/deployment.properties
+  tags:
+    - DISA-STIG-JRE8-UX-000020
+    - NIST-800-53-CM-6(b)
+    - configure_strategy
+    - java_jre_deployment_config_properties
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+</xccdf-1.1:fix>
+        <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf-1.1:check-content-ref name="oval:ssg-java_jre_deployment_config_properties:def:1" href="oval-linked.xml" />
+        </xccdf-1.1:check>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-java_jre_deployment_config_properties_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+    </xccdf-1.1:Group>
+  </xccdf-1.1:Group>
+</xccdf-1.1:Benchmark>

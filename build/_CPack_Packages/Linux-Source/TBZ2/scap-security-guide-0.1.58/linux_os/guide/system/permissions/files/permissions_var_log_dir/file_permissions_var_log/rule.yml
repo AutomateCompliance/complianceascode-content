@@ -1,0 +1,34 @@
+documentation_complete: true
+
+title: 'Verify Permissions on /var/log Directory'
+
+description: |-
+    {{{ describe_file_permissions(file="/var/log", perms="0755") }}}
+
+rationale: |-
+    The <tt>/var/log</tt> directory contains files with logs of error
+    messages in the system and should only be accessed by authorized
+    personnel.
+
+severity: medium
+
+identifiers:
+    cce@rhel8: CCE-83663-5
+    cce@rhel9: CCE-83917-5
+
+references:
+    disa: CCI-001314
+    srg: SRG-OS-000206-GPOS-00084
+    stigid@rhel8: RHEL-08-010240
+    stigid@ubuntu2004: UBTU-20-010419
+
+ocil_clause: '{{{ ocil_clause_file_permissions(file="/var/log", perms="drwxr-xr-x") }}}'
+
+ocil: |-
+    {{{ ocil_file_permissions(file="/var/log", perms="drwxr-xr-x") }}}
+
+template:
+    name: file_permissions
+    vars:
+        filepath: /var/log/
+        filemode: '0755'

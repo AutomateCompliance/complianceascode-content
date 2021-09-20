@@ -1,0 +1,28 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = high
+- (xccdf-var var_removable_partition)
+
+- name: Ensure permission noexec are set on var_removable_partition
+  lineinfile:
+    path: /etc/fstab
+    regexp: ^\s*({{ var_removable_partition }})\s+([^\s]*)\s+([^\s]*)\s+([^\s]*)(.*)$
+    backrefs: true
+    line: \1 \2 \3 \4,noexec \5
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83883-9
+    - NIST-800-53-AC-6
+    - NIST-800-53-AC-6(1)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(a)
+    - NIST-800-53-CM-7(b)
+    - NIST-800-53-MP-7
+    - configure_strategy
+    - high_disruption
+    - low_complexity
+    - medium_severity
+    - mount_option_noexec_removable_partitions
+    - no_reboot_needed

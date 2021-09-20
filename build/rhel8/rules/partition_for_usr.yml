@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/disk_partitioning/partition_for_usr/rule.yml
+description: 'It is recommended that the <tt>/usr</tt> directory resides on a separate
+
+  partition.'
+identifiers:
+  cce: CCE-83343-4
+inherited_platforms: []
+ocil: 'Run the following command to determine if <code>/usr</code>
+
+  is on its own partition or logical volume:
+
+  <pre>$ mount | grep "on /usr"</pre>
+
+  If <code>/usr</code> has its own partition or volume group, a line will be returned.
+
+  '
+ocil_clause: no line is returned
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8
+rationale: 'The <tt>/usr</tt> partition contains system software, utilities and files.
+
+  Putting it on a separate partition allows limiting its size and applying
+
+  restrictions through mount options.'
+references:
+  anssi: BP28(R12)
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount
+  vars:
+    mountpoint: /usr
+title: Ensure /usr Located On Separate Partition
+warnings: []

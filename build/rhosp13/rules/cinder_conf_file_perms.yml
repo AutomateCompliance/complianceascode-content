@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/applications/openstack/cinder/cinder_conf_file_perms/rule.yml
+description: ' To properly set the permissions of <code>/etc/cinder/*.conf</code>,
+  run the command: <pre>$ sudo chmod 0640 /etc/cinder/*.conf</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/etc/cinder/*.conf</code>,
+
+  run the command:
+
+  <pre>$ ls -l /etc/cinder/*.conf</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r-----</code>'
+ocil_clause: /etc/cinder/*.conf has unix mode -rw-r-----
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhosp10,rhosp13
+rationale: 'Due to the nature of the cinder config files, normal users should not
+  be
+
+  able to view contents'
+references:
+  cui: 3.1.5
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    file_regex: ^.*.conf$
+    filemode: '0640'
+    filepath: /etc/cinder/
+title: 'Check-Block-02: Are strict permissions set for cinder config files?'
+warnings: []

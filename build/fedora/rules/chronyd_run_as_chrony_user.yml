@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/chronyd_run_as_chrony_user/rule.yml
+description: "chrony is a daemon which implements the Network Time Protocol (NTP).\
+  \ It is designed to\nsynchronize system clocks across a variety of systems and use\
+  \ a source that is highly\naccurate. More information on chrony can be found at\n\
+  \n    <a xmlns='http://www.w3.org/1999/xhtml' href='http://chrony.tuxfamily.org/'>http://chrony.tuxfamily.org/</a>.\n\
+  Chrony can be configured to be a client and/or a server.\nTo ensure that chronyd\
+  \ is running under chrony user account, Add or edit the\n<tt>OPTIONS</tt> variable\
+  \ in <tt>/etc/sysconfig/chronyd</tt> to include <tt>-u chrony</tt>:\n<pre>OPTIONS=\"\
+  -u chrony\"</pre>\nThis recommendation only applies if chrony is in use on the system."
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'Run the following command and verify that <tt>-u chrony</tt> is included in
+  <tt>OPTIONS</tt>:
+
+  <pre># grep "^OPTIONS" /etc/sysconfig/chronyd
+
+  OPTIONS="-u chrony"</pre>'
+ocil_clause: chronyd is not running under chrony user account
+oval_external_content: null
+platform: chrony
+platforms: !!set
+  chrony: null
+prodtype: fedora,rhel7,rhel8,rhel9,sle12,sle15,ubuntu2004
+rationale: 'If chrony is in use on the system proper configuration is vital to ensuring
+  time synchronization
+
+  is working properly.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Ensure that chronyd is running under chrony user account
+warnings: []

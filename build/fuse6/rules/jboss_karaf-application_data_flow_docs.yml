@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-policies_and_procedures/jboss_karaf-application_data_flow_docs/rule.yml
+description: 'It is recommended to identify and document
+
+  application data flows. This will allow insight into what paths
+
+  sensitive information takes through the application environment
+
+  and what data source connections need to be encrypted.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: no application data flow documentation exists
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Failure to document an application''s data flows reduces security,
+
+  increases the chance for architectural and configuration errors,
+
+  and can impede performance. Many applications use network services
+
+  that are not immediately apparent.'
+references:
+  nist: SC-8,SC-9,SC-23
+requires: []
+severity: medium
+template: null
+title: Identify and Document Application Data Flows
+warnings: []

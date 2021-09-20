@@ -1,0 +1,41 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/partitions/mount_option_var_nosuid/rule.yml
+description: 'The <tt>nosuid</tt> mount option can be used to prevent
+
+  execution of setuid programs in <tt>/var</tt>. The SUID and SGID permissions
+
+  should not be required for this directory.
+
+  Add the <code>nosuid</code> option to the fourth column of
+
+  <tt>/etc/fstab</tt> for the line which controls mounting of
+
+  <code>/var</code>.'
+identifiers:
+  cce: CCE-83378-0
+inherited_platforms: []
+ocil: "To verify the <tt>nosuid</tt> option is configured for the <tt>/var</tt> mount\
+  \ point,\n    run the following command:\n    <pre>$ mount | grep '\\s/var\\s'</pre>\n\
+  \    The output should show the corresponding mount point along with the <tt>nosuid</tt>\
+  \ setting in parentheses.\n"
+ocil_clause: the  is not present in the output line, or there is no output line at
+  all
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9
+rationale: The presence of SUID and SGID executables should be tightly controlled.
+references:
+  anssi: BP28(R12)
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: mount_option
+  vars:
+    mount_has_to_exist: 'yes'
+    mountoption: nosuid
+    mountpoint: /var
+title: Add nosuid Option to /var
+warnings: []

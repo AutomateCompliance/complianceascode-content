@@ -1,0 +1,29 @@
+<def-group>
+  <definition class="compliance" id="mount_option_boot_noexec" version="1">
+    <metadata>
+        <title>Add noexec Option to /boot</title>
+        
+    <affected family="unix">
+    <platform>Oracle Linux 7</platform>
+    </affected>
+        <description>/boot should be mounted with mount option noexec.</description>
+    </metadata>
+    <criteria operator="OR">
+      <criterion comment="noexec on /boot" test_ref="test_boot_partition_noexec_optional_yes" />
+
+    </criteria>
+  </definition>
+
+  <linux:partition_test check="all" check_existence="all_exist"
+  id="test_boot_partition_noexec_optional_yes" version="1" comment="noexec on /boot optional yes">
+    <linux:object object_ref="object_boot_partition_noexec_optional_yes" />
+    <linux:state state_ref="state_boot_partition_noexec_optional_yes" />
+  </linux:partition_test>
+
+  <linux:partition_object id="object_boot_partition_noexec_optional_yes" version="1">
+    <linux:mount_point>/boot</linux:mount_point>
+  </linux:partition_object>
+  <linux:partition_state id="state_boot_partition_noexec_optional_yes" version="1">
+    <linux:mount_options datatype="string" entity_check="at least one" operation="equals">noexec</linux:mount_options>
+  </linux:partition_state>
+</def-group>

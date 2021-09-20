@@ -1,0 +1,44 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_authlogin_radius/rule.yml
+description: 'By default, the SELinux boolean <tt>authlogin_radius</tt> is disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>authlogin_radius</code> SELinux boolean, run the following
+  command:
+
+  <pre>$ sudo setsebool -P authlogin_radius off</pre>'
+identifiers:
+  cce: CCE-84294-8
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>authlogin_radius</code> SELinux
+  boolean is disabled:
+
+  <pre>$ getsebool authlogin_radius</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>authlogin_radius --> off</code>'
+ocil_clause: authlogin_radius is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references:
+  cui: 3.7.2
+  ism: 0421,0422,0431,0974,1173,1401,1504,1505,1546,1557,1558,1559,1560,1561
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: authlogin_radius
+title: Disable the authlogin_radius SELinux Boolean
+warnings: []

@@ -1,0 +1,2248 @@
+<?xml version="1.0"?>
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="VSEL" resolved="1" xml:lang="en-US" style="SCAP_1.1">
+  <status date="2021-09-19">draft</status>
+  <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Guide to the Secure Configuration of McAfee VirusScan Enterprise for Linux</title>
+  <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for McAfee VirusScan Enterprise for Linux. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <xhtml:code>scap-security-guide</xhtml:code> package which is developed at
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<br xmlns="http://www.w3.org/1999/xhtml"/><br xmlns="http://www.w3.org/1999/xhtml"/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <em xmlns="http://www.w3.org/1999/xhtml">catalog, not a
+checklist</em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <em xmlns="http://www.w3.org/1999/xhtml">Profiles</em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for McAfee VirusScan Enterprise for Linux,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</description>
+  <notice xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</notice>
+  <front-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The SCAP Security Guide Project<br xmlns="http://www.w3.org/1999/xhtml"/>
+
+    <html:a xmlns:html="http://www.w3.org/1999/xhtml" href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</front-matter>
+  <rear-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</rear-matter>
+  <platform idref="cpe:/a:mcafee:virusscan_enterprise_for_linux:1.9"/>
+  <platform idref="cpe:/a:mcafee:virusscan_enterprise_for_linux:2.0"/>
+  <version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</version>
+  <metadata xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:publisher>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">SCAP Security Guide Project</dc:creator>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fran&#xE7;ois Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Peter 'Pessoft' Kol&#xED;nek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">&#x160;imon Luka&#x161;&#xED;k &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Fredrik Lys&#xE9;n &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Renaud M&#xE9;trich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Thomas Sj&#xF6;gren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Mat&#x11B;j T&#xFD;&#x10D; &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Jan &#x10C;ern&#xFD; &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Michal &#x160;ruba&#x159; &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </metadata>
+  <model system="urn:xccdf:scoring:default"/>
+  <Profile id="stig">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">McAfee VirusScan Enterprise for Linux (VSEL) STIG</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" override="true">The McAfee VirusScan Enterprise for Linux software provides a realtime virus scanner for Linux systems.</description>
+    <select idref="dats_auto_update" selected="true"/>
+    <select idref="dats_updated" selected="true"/>
+    <select idref="oas_action_app_primary" selected="true"/>
+    <select idref="oas_action_app_secondary" selected="true"/>
+    <select idref="oas_action_default_primary" selected="true"/>
+    <select idref="oas_action_default_secondary" selected="true"/>
+    <select idref="oas_action_error" selected="true"/>
+    <select idref="oas_action_timeout" selected="true"/>
+    <select idref="oas_allFiles" selected="true"/>
+    <select idref="oas_decompArchive" selected="true"/>
+    <select idref="oas_enabled" selected="true"/>
+    <select idref="oas_exclusions" selected="true"/>
+    <select idref="oas_heuristicAnalysis" selected="true"/>
+    <select idref="oas_macroAnalysis" selected="true"/>
+    <select idref="oas_program" selected="true"/>
+    <select idref="oas_scanMaxTmo" selected="true"/>
+    <select idref="oas_scanNWFiles" selected="true"/>
+    <select idref="oas_scanOnRead" selected="true"/>
+    <select idref="oas_scanOnWrite" selected="true"/>
+    <select idref="ods_action_app_primary" selected="true"/>
+    <select idref="ods_action_app_secondary" selected="true"/>
+    <select idref="ods_action_default_primary" selected="true"/>
+    <select idref="ods_action_default_secondary" selected="true"/>
+    <select idref="ods_allFiles" selected="true"/>
+    <select idref="ods_decompArchive" selected="true"/>
+    <select idref="ods_enabled" selected="true"/>
+    <select idref="ods_exclusions" selected="true"/>
+    <select idref="ods_extensions" selected="true"/>
+    <select idref="ods_heuristicAnalysis" selected="true"/>
+    <select idref="ods_macroAnalysis" selected="true"/>
+    <select idref="ods_mime" selected="true"/>
+    <select idref="ods_program" selected="true"/>
+    <select idref="ods_scanNWFiles_local" selected="true"/>
+    <select idref="restricted_user" selected="true"/>
+    <select idref="scanned_media" selected="true"/>
+    <select idref="updates_source" selected="true"/>
+    <select idref="virus_notification" selected="true"/>
+    <select idref="web_client_disabled" selected="true"/>
+    <select idref="web_client_firewalled" selected="true"/>
+  </Profile>
+  <Group id="remediation_functions">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</description>
+  </Group>
+  <Group id="vsel">
+    <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">McAfee VirusScan Enterprise for Linux (VSEL)</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux software provides a realtime virus scanner for Linux systems.</description>
+    <Group id="general_settings">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">General VSEL Settings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">To support a secured and compliant configuration, a number of 
+settings need to be modified from their default configuration and locked so 
+that they are prevented from being changed.</description>
+      <Rule id="dats_auto_update" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to receive automatic updates</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus signature files are updated almost daily by anti-virus software vendors. These files are made available to anti-virus 
+clients as they are published. Keeping virus signature files as current as possible is vital to the security of any system.
+
+To check that anti-virus signature files are updated, you have to login to the VSEL Web Monitor.
+In the VSEL WEB Monitor, under <xhtml:code>View</xhtml:code>, select <xhtml:code>Scheduled Tasks</xhtml:code>.
+Under <xhtml:code>Scheduled Tasks</xhtml:code>, under <xhtml:code>Task Summaries</xhtml:code>, with the assistance of the McAfee VSEL SA, identify the VirusScan DAT update task.
+Verify the <xhtml:code>Type</xhtml:code> is <xhtml:code>Update</xhtml:code> and the <xhtml:code>Status</xhtml:code> is <xhtml:code>Completed</xhtml:code> with Results of <xhtml:code>Update Finished</xhtml:code>.
+Under <xhtml:code>Task Details</xhtml:code> for the task, click on the <xhtml:code>Modify</xhtml:code> button.
+Choose <xhtml:code>2. Choose what to update</xhtml:code> and verify the <xhtml:code>Virus definition files (also known as DAT files)</xhtml:code> is selected.    </description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-002</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The anti-virus software product must be configured to receive those updates automatically in order to afford the expected protection.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="dats_auto_update" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="dats_auto_update_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="dats_updated" selected="false" severity="high">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The anti-virus signature file age must not exceed 7 days</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus signature files are updated almost daily by anti-virus software vendors. These files are made available to anti-virus 
+clients as they are published. Keeping virus signature files as current as possible is vital to the security of any system.
+
+To check that anti-virus signature files are updated, you have to login to the VSEL Web Monitor.
+In the VSEL WEB Monitor, under <xhtml:code>View</xhtml:code>, select <xhtml:code>Host Summary</xhtml:code>.
+In the <xhtml:code>Host Summary</xhtml:code>, verify the <xhtml:code>DAT Date:</xhtml:code> is within the last 7 days.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001240</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000276</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-001</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By configuring a system to attempt an anti-virus update on a daily basis, the system is ensured of maintaining an anti-virus signature 
+age of 7 days or less. If the update attempt were to be configured for only once a week, and that attempt failed, the system would be 
+immediately out of date.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="dats_updated" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="dats_updated_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="restricted_user" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The nails user and nailsgroup group must be restricted to the least privilege access required for the intended role</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux software runs its processes under the nails user, which is part of the nailsgroup group. 
+The WEB GUI is also accessed using the nails user. 
+
+To check that nails and nailsgroup are configured correctly, access the Linux system console command line as root.
+Execute the following commands. This command will pipe the results to text files for easier review. 
+
+<xhtml:code>find / -group nailsgroup &gt;nailsgroup.txt</xhtml:code>
+<xhtml:code>find / -user nails &gt;nails.txt</xhtml:code>
+
+Execute the following commands to individually review each of the text files of results, pressing space bar to move to each page 
+until the end of the exported text. 
+
+<xhtml:code>more nailsgroup.txt</xhtml:code>
+<xhtml:code>more nails.txt</xhtml:code>
+
+When reviewing the results, verify the nailsgroup group and nails user only own the following paths.
+The following paths assume an INSTALLDIR of <xhtml:code>/opt/NAI/LinuxShield</xhtml:code> and a RUNTIMEDIR of <xhtml:code>/var/opt/NAI/LinuxShield</xhtml:code>. 
+If alternative folders were used, replace the following paths accordingly when validating.
+
+<xhtml:code>/var/opt/NAI</xhtml:code> and sub-folders
+<xhtml:code>/opt/NAI</xhtml:code> and sub-folders
+<xhtml:code>/McAfee/lib</xhtml:code>
+<xhtml:code>/var/spool/mail/nails</xhtml:code>
+<xhtml:code>/proc/#####</xhtml:code> (where ##### represents the various process IDs for the VSEL processes.)
+
+If any other folder is owned by either the nailsgroup group or the nails user, this is a finding.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-002235</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6(10)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000340</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-202</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Ensuring the nails user/nailsgroup group only has access to the required functions necessary for its 
+intended role will mitigate the possibility of the nails user/nailsgroup group from being used to perform malicious destruction to the 
+system in the event of a compromise.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="restricted_user" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="scanned_media" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must scan all media used for system maintenance prior to use</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">It is imperative to protect Linux systems from malware introduced from removable media by ensuring they are scanned before use.
+
+Consult with the System Administrator of the Linux system being reviewed.
+
+Verify procedures are documented which require the manual scanning of all media used for system maintenance before media is used.
+
+If a procedure is not documented requiring the manual scanning of all media used for system maintenance before media is used, 
+this is a finding.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-000870</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">MA-3(2)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000073</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-200</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Removable media such as CD/DVDs allow a path for malware to be introduced to a Linux System.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="scanned_media" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="updates_source" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise must be configured to receive all patches, service packs and updates from a DoD-managed source</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus signature files are updated almost daily by anti-virus software vendors. 
+These files are made available to anti-virus clients as they are published. 
+Keeping virus signature files as current as possible is vital to the security of any system. 
+The anti-virus software product must be configured to receive those updates automatically in order to afford the expected protection.
+
+To check that VSEL settings are configured correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor (WEB interface) 
+of the Linux system being reviewed from a desktop browser window and logon with the nails user account.
+
+In the VSEL WEB Monitor, under <xhtml:code>Configure</xhtml:code>, select <xhtml:code>Repositories</xhtml:code>.
+Under <xhtml:code>Repository List</xhtml:code>, verify all repositories listed point to a local or DoD-managed repository.
+
+If all repositories listed do not point to local or DoD-managed repository, this is a finding.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001749</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-5</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000131</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-201</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">While obtaining updates, patches, service packs and updates from the vendor are timelier, 
+the possibility of corruption or malware being introduced to the system is higher. 
+By obtaining these from an official DoD source and/or downloading them to a separate system 
+first and validating them before making them available to systems, the possibility of 
+malware being introduced is mitigated.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="updates_source" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="virus_notification" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A notification mechanism or process must be in place to notify Administrators of out of date DAT, detected malware and error codes</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Failure of anti-virus signature updates will eventually render the software to be useless in protecting the Linux system from malware. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>notifications.virusDetected.active: true</xhtml:code>,
+Administrators will be notified of events detected.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001240</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000276</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-205</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Administration notification for failed updates, via SMTP, will ensure timely remediation of errors causing DATs to not be updated.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="virus_notification">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^notifications.virusDetected.active")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^notifications.virusDetected.active\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^notifications.virusDetected.active\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="virus_notification" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="virus_notification_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="web_client_disabled" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux Web interface must be disabled unless the system is on a segregated network</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux WEB GUI is the method for configuring the McAfee VSEL on a non-managed Linux system. 
+The WEB GUI on the system could be used maliciously to gain unauthorized access to the system. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.disableCltWebUI: true</xhtml:code>,
+the WEB GUI will be disabled by default.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001813</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-5(1)</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000380</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-000</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By restricting access to interface by implementing firewall rules, the risk of unauthorized access will be mitigated.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="web_client_disabled">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.disableCltWebUI")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.disableCltWebUI\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.disableCltWebUI\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="web_client_disabled" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="web_client_disabled_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="web_client_firewalled" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Access to the McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x Web UI must be enforced by firewall rules</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux WEB GUI is the method for configuring the McAfee VSEL on a non-managed Linux system. 
+The WEB GUI on the system could be used maliciously to gain unauthorized access to the system. 
+
+To check that the WEB GUI is restricted, review the iptables configuration and confirm that access is restricted to authorized hosts</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001813</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-5</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000380</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-301</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By restricting access to interface by implementing firewall rules, the risk of unauthorized access will be mitigated.</rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="web_client_firewalled" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="on_access_settings">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">On Access VSEL Settings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This section defines the settings required for on access scans.</description>
+      <Rule id="oas_action_app_primary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Clean as first action when a virus or Trojan is detected</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, deleting the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.action.App.primary: Clean</xhtml:code>,
+files will attempted to be cleaned first, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-013</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_action_app_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.App.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.App.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.App.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_action_app_primary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_action_app_primary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_action_app_secondary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Quarantine if first action fails when a virus or Trojan is detected</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.action.App.secondary: Quarantine</xhtml:code>,
+files that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-014</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_action_app_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.App.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.App.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.App.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_action_app_secondary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_action_app_secondary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_action_default_primary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Clean as first action when programs and jokes are found</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.action.Default.primary: Clean</xhtml:code>,
+programs/jokes will attempted to be cleaned first, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-015</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_action_default_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.Default.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.Default.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.Default.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_action_default_primary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_action_default_primary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_action_default_secondary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to Quarantine if first action fails when programs and jokes are found</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.action.Default.secondary: Quarantine</xhtml:code>,
+programs/jokes that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-016</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_action_default_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.Default.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.Default.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.Default.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_action_default_secondary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_action_default_secondary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_action_error" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to deny access to the file if an error occurs during scanning</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus software is the most commonly used technical control for malware threat mitigation.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.action.error: Block</xhtml:code>,
+any file resulting in an error reading the file will be blocked.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-017</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_action_error">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.error")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Block"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.error\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.error\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_action_error" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_action_error_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_action_timeout" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to allow access to files if scanning times out</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus software is the most commonly used technical control for malware threat mitigation.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.action.timeout: Pass</xhtml:code>,
+any file resulting in a timeout reading the file will be passed.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-018</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_action_timeout">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.action.timeout")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Pass"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.action.timeout\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.action.timeout\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_action_timeout" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_action_timeout_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_allFiles" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan all file types</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When scanning for malware, excluding specific file types will increase the risk of a malware-infected file going undetected.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.allFiles: true</xhtml:code>,
+all file types will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-010</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By configuring anti-virus software to scan all file types, the scanner has a higher success rate at detecting and eradicating malware.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_allFiles">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.allFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.allFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.allFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_allFiles" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_allFiles_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_decompArchive" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to decompress archives when scanning</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware can be hidden within archived files and passed from system to system undetected unless the archive is decompressed and each file scanned. 
+By disabling the archive scanning capability, archives such as .tar and .tgz files will not be decompressed and any infected files in the archives would go undetected. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.decompArchive: true</xhtml:code>,
+compressed archives will be decompressed before being scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-004</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Decompression can slow performance, however; any virus-infected file inside an archive cannot become active until it has been extracted.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_decompArchive">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.decompArchive")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.decompArchive\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.decompArchive\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_decompArchive" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_decompArchive_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_enabled" selected="false" severity="high">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to enable On-Access scanning</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">For anti-virus software to be effective, it must be running at all times, beginning from the point of the system's initial startup. 
+Otherwise, the risk is greater for viruses, Trojans, and other malware infecting the system during that startup phase.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.oasEnabled: true</xhtml:code>,
+the antivirus software will be running at initial startup of the system.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-003</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">For anti-virus software to be effective, it must be running at all times, beginning from the point of the system's initial startup.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_enabled">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.oasEnabled")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.oasEnabled\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.oasEnabled\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_enabled" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_enabled_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_exclusions" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must only be configured with exclusions that are documented and approved by the ISSO/ISSM/AO</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When scanning for malware, excluding specific files will increase the risk of a malware-infected file going undetected.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.filter.varlog.type: exclude-path</xhtml:code>, and the line <xhtml:code>nailsd.profile.OAS.filter.varlog.path: /var/log</xhtml:code>
+no unapproved exclusions are defined.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-012</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By configuring anti-virus software without any exclusions, the scanner has a higher success rate at detecting and eradicating malware. </rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_exclusions" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_exclusions_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_heuristicAnalysis" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find unknown program viruses</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Due to the ability of malware to mutate after infection, standard anti-virus signatures may not be able to catch new strains or variants of the malware. 
+Typically, these strains and variants will share unique characteristics with others in their virus family.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.heuristicAnalysis: true</xhtml:code>,
+unknown virus programs will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-005</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By using a generic signature to detect the shared characteristics, using wildcards where differences lie, the generic signature can detect viruses 
+even if they are padded with extra, meaningless code. This method of detection is Heuristic detection.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_heuristicAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.heuristicAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.heuristicAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.heuristicAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_heuristicAnalysis" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_heuristicAnalysis_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_macroAnalysis" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find unknown macro viruses</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Interpreted viruses are executed by an application. Within this subcategory, macro viruses take advantage of the capabilities of 
+applications' macro programming language to infect application documents and document templates, while scripting viruses infect 
+scripts that are understood by scripting languages processed by services on the OS.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.macroAnalysis: true</xhtml:code>,
+unknown macro viruses will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-006</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Many attackers use toolkits containing several different types of utilities and scripts that can be used to probe and attack hosts.
+Scanning for unknown macro viruses will mitigate zero-day attacks.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_macroAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.macroAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.macroAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.macroAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_macroAnalysis" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_macroAnalysis_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_program" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to find potentially unwanted programs</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.program: true</xhtml:code>,
+potentially unwanted programs will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-007</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_program">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.program")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.program\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.program\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_program" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_program_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_scanMaxTmo" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner maximum scan time must not be less than 45 seconds</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When anti-virus software is not configured to limit the amount of time spent trying to scan a file, the total effectiveness of 
+the anti-virus software, and performance on the system being scanned, will be degraded. By limiting the amount of time the anti-virus 
+software uses when scanning a file, the scan will be able to complete in a timely manner.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.scanMaxTmo: 45</xhtml:code>,
+a scan will not timeout in less than 45 seconds of scanning a file.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-010</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Although the description of this requirement indicates a "maximum scan time", the intent of this requirement is to explicitly set a 
+maximum scan time without impacting the effectiveness of the scan. Left unconfigured, the scan could run indefinitely on one file. 
+If configured with a value of less than 45 seconds, the scanning of some files will be skipped. If configured with 45 or more seconds, 
+the success rate of files being completely scanned is higher.  </rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_scanMaxTmo">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanMaxTmo")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "45"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanMaxTmo\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanMaxTmo\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_scanMaxTmo" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_scanMaxTmo_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_scanNWFiles" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be enabled to scan mounted volumes when mounted volumes point to a network server without an anti-virus solution installed</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">It is imperative to protect Linux systems from malware introduced from those other network systems by either ensuring the remote systems are protected or by scanning files from those systems when they are accessed.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.scanNWFiles: true</xhtml:code>,
+files on network mounts are scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001242</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000278</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-019</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Mounting network volumes to other network systems introduces a path for malware to be introduced. </rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_scanNWFiles">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanNWFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanNWFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanNWFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_scanNWFiles" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_scanNWFiles_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_scanOnRead" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan files when being read from disk</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus software is the most commonly used technical control for malware threat mitigation. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.scanOnRead: true</xhtml:code>,
+files will be scanned when read from disk.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-009</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_scanOnRead">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanOnRead")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanOnRead\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanOnRead\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_scanOnRead" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_scanOnRead_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="oas_scanOnWrite" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must be configured to scan files when being written to disk</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus software is the most commonly used technical control for malware threat mitigation. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.OAS.scanOnWrite: true</xhtml:code>,
+files will be scanned when written to disk.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001243</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000279</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-008</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Real-time scanning of files as they are written to disk is a crucial first line of defense from malware attacks.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="oas_scanOnWrite">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/nailsd.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.OAS.scanOnWrite")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.OAS.scanOnWrite\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.OAS.scanOnWrite\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="oas_scanOnWrite" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="oas_scanOnWrite_ocil"/>
+        </check>
+      </Rule>
+    </Group>
+    <Group id="on_demand_settings">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">On Demand VSEL Settings</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This section defines the settings required for on demand scans.</description>
+      <Rule id="ods_action_app_primary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Clean as first action when a virus or Trojan is detected</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, deleting the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.action.App.primary: Clean</xhtml:code>,
+files will attempted to be cleaned first, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-106</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_action_app_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.App.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.App.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.App.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_action_app_primary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_action_app_primary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_action_app_secondary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Quarantine if first action fails when a virus or Trojan is detected</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.action.App.secondary: Quarantine</xhtml:code>,
+files that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-107</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_action_app_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.App.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.App.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.App.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_action_app_secondary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_action_app_secondary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_action_default_primary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Clean as first action when programs and jokes are found</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.action.Default.primary: Clean</xhtml:code>,
+programs/jokes will attempted to be cleaned first, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-110</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_action_default_primary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.Default.primary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Clean"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.Default.primary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.Default.primary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_action_default_primary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_action_default_primary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_action_default_secondary" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to Quarantine if first action fails when programs and jokes are found</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user. By configuring the anti-virus software to first attempt cleaning the infected file, availability to the file is not sacrificed. 
+If a cleaning attempt is not successful, however, quarantining the file is the only safe option to ensure the malware is not introduced onto the system or network.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.action.Default.secondary: Quarantine</xhtml:code>,
+programs/jokes that cannot be cleaned will be quarantined, preserving the file data.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-111</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware may have infected a file that is necessary to the user.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_action_default_secondary">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.action.Default.secondary")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "Quarantine"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.action.Default.secondary\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.action.Default.secondary\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_action_default_secondary" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_action_default_secondary_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_allFiles" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to scan all file types</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When scanning for malware, excluding specific file types will increase the risk of a malware-infected file going undetected.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.allFiles: true</xhtml:code>,
+all file types will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-105</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By configuring anti-virus software to scan all file types, the scanner has a higher success rate at detecting and eradicating malware.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_allFiles">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.allFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.allFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.allFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_allFiles" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_allFiles_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_decompArchive" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to decompress archives when scanning</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware can be hidden within archived files and passed from system to system undetected unless the archive is decompressed and each file scanned. 
+By disabling the archive scanning capability, archives such as .tar and .tgz files will not be decompressed and any infected files in the archives would go undetected. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.decompArchive: true</xhtml:code>,
+compressed archives will be decompressed before being scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-101</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Decompression can slow performance, however; any virus-infected file inside an archive cannot become active until it has been extracted.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_decompArchive">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.decompArchive")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.decompArchive\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.decompArchive\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_decompArchive" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_decompArchive_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_enabled" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must be configured to run a scheduled On-Demand scan at least once a week</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Real-time scanning of files as they are read from disk is a crucial first line of defense from malware attacks but to ensure all files 
+are frequently scanned, a regularly scheduled full scan will ensure malware missed by the real-time scanning will be detected and mitigated.
+
+To check that VSEL settings are configured correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor (WEB interface) 
+of the Linux system being reviewed from a desktop browser window and logon with the nails user account.
+
+In the VSEL WEB Monitor, review tasks under <xhtml:code>View</xhtml:code>, <xhtml:code>Scheduled Tasks</xhtml:code>.
+With the System Administrator's assistance, determine which task is intended as the regularly scheduled scan task.
+
+Click on the task and review the details under <xhtml:code>Task Details for</xhtml:code>.
+
+If <xhtml:code>Next run</xhtml:code> does not specify <xhtml:code>every 1 week</xhtml:code>, or more frequently, this is a finding.
+
+To validate without the Web interface, access the Linux system being reviewed, either at the console or by a SSH connection.
+At the command line, navigate to <xhtml:code>/var/opt/NAI/LinuxShield/etc</xhtml:code>.
+Enter the command <xhtml:code>/opt/NAI/LinuxShield/bin/nails task --list</xhtml:code>.
+
+If the return does not show a task for the LinuxShield On-Demand Scan, this is a finding.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-100</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Anti-virus software is the most commonly used technical control for malware threat mitigation. </rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_enabled" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="ods_exclusions" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must only be configured with exclusions that are documented and approved by the ISSO/ISSM/AO</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When scanning for malware, excluding specific files will increase the risk of a malware-infected file going undetected. 
+
+To check that VSEL settings are configured correctly, connect to the McAfee VirusScan Enterprise for Linux (VSEL) Monitor (WEB interface) 
+of the Linux system being reviewed from a desktop browser window and logon with the nails user account.
+
+In the VSEL WEB Monitor, review tasks under <xhtml:code>View</xhtml:code>, <xhtml:code>Scheduled Tasks</xhtml:code>.
+With the System Administrator's assistance, determine which task is intended as the regularly scheduled scan task.
+Click on the task, and then click <xhtml:code>Modify</xhtml:code>.
+Under <xhtml:code>2. What to Scan</xhtml:code>, click <xhtml:code>Next</xhtml:code>.
+Under <xhtml:code>3. Choose Scan Settings</xhtml:code>, <xhtml:code>Paths Excluded From Scanning</xhtml:code>.
+
+If any paths other than the following paths are excluded, and the exclusions have not been documented and approved by the ISSO/ISSM/AO, this is a finding.
+
+<xhtml:code>/var/log</xhtml:code>
+<xhtml:code>/_admin/Manage_NSS</xhtml:code>
+<xhtml:code>/mnt/system/log</xhtml:code>
+<xhtml:code>/media/nss/.*/(\._NETWARE|\._ADMIN)</xhtml:code>
+<xhtml:code>/.*\.(vmdk|VMDK|dbl|DBL|ctl|CTL|log|LOG|jar|JAR|war|WAR|dtx|DTX|dbf|DBF|frm|FRM|myd|MYD|myi|MYI|rdo|RDO|arc|ARC)</xhtml:code>
+<xhtml:code>/cgroup</xhtml:code>
+<xhtml:code>/dev</xhtml:code>
+<xhtml:code>/proc</xhtml:code>
+<xhtml:code>/selinux</xhtml:code>
+<xhtml:code>/sys</xhtml:code></description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-108</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By configuring anti-virus software without any exclusions, the scanner has a higher success rate at detecting and eradicating malware. </rationale>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_exclusions" href="oval-unlinked.xml"/>
+        </check>
+      </Rule>
+      <Rule id="ods_extensions" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to include all local drives and their sub-directories</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">When scanning for malware, excluding specific file types will increase the risk of a malware-infected file going undetected. By configuring anti-virus software to scan all file types, the scanner has a higher success rate at detecting and eradicating malware.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains a line with "extensions.mode" with values set to anything other than <xhtml:code>extensions.mode: all</xhtml:code>, 
+associated scans may ignore certain file extensions.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-113</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Excluding file types from scans introduces the possibility for infected files to go undetected by the scanner. </rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_extensions">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+
+if  ! grep -q extensions.mode "$NAILS_CONFIG_FILE"; then
+	sed -i '$a nailsd.profile.ODS_default.filter.extensions.mode: all' "$NAILS_CONFIG_FILE"
+
+else
+	# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "extensions.mode")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "all"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "extensions.mode\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/extensions.mode\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_extensions" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_extensions_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_heuristicAnalysis" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find unknown program viruses</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Due to the ability of malware to mutate after infection, standard anti-virus signatures may not be able to catch new strains or variants of the malware. 
+Typically, these strains and variants will share unique characteristics with others in their virus family.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.heuristicAnalysis: true</xhtml:code>,
+unknown virus programs will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-102</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">By using a generic signature to detect the shared characteristics, using wildcards where differences lie, the generic signature can detect viruses 
+even if they are padded with extra, meaningless code. This method of detection is Heuristic detection.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_heuristicAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.heuristicAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.heuristicAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.heuristicAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_heuristicAnalysis" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_heuristicAnalysis_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_macroAnalysis" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find unknown macro viruses</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Interpreted viruses are executed by an application. Within this subcategory, macro viruses take advantage of the capabilities of 
+applications' macro programming language to infect application documents and document templates, while scripting viruses infect 
+scripts that are understood by scripting languages processed by services on the OS.  
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.macroAnalysis: true</xhtml:code>,
+unknown macro viruses will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-103</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Many attackers use toolkits containing several different types of utilities and scripts that can be used to probe and attack hosts.
+Scanning for unknown macro viruses will mitigate zero-day attacks.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_macroAnalysis">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.macroAnalysis")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.macroAnalysis\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.macroAnalysis\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_macroAnalysis" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_macroAnalysis_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_mime" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to decode MIME encoded files.</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Malware is often packaged within an archive. In addition, archives might have other archives within. 
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.mime: true</xhtml:code>,
+potentially unwanted programs will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-112</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Not scanning archive files introduces the risk of infected files being introduced into the environment.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_mime">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.mime")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.mime\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.mime\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_mime" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_mime_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_program" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be configured to find potentially unwanted programs</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Potentially Unwanted Programs (PUPs) include Spyware, Adware, Remote Administration Tools, Dialers, Password Crackers, Jokes, and Key Loggers. 
+While PUPs do not typically have any infection capability on their own, they rely on malware or other attach mechanisms to be installed onto target hosts, 
+after which they will collect and transfer data from the host to an external host and/or will be used as attach mechanisms.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.program: true</xhtml:code>,
+potentially unwanted programs will be scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001241</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000277</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-104</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Configuring the anti-virus software to attempt to clean the file first will allow for the possibility of a false positive. 
+In most cases, however, the secondary action of delete will be used, mitigating the risk of the PUPs being installed and used maliciously.</rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_program">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.program")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.program\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.program\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_program" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_program_ocil"/>
+        </check>
+      </Rule>
+      <Rule id="ods_scanNWFiles_local" selected="false" severity="medium">
+        <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"> The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must be enabled to scan mounted volumes when mounted volumes point to a network server without an anti-virus solution installed</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">It is imperative to protect Linux systems from malware introduced from those other network systems by either ensuring the remote systems are protected or by scanning files from those systems when they are accessed.
+
+To check that VSEL settings are configured correctly, you have to examine the config file
+available under <xhtml:code>/var/opt/NAI/LinuxShield/etc/ods.cfg</xhtml:code>.
+If this config file contains the line <xhtml:code>nailsd.profile.ODS.scanNWFiles: true</xhtml:code>,
+files on network mounts are scanned.</description>
+        <reference href="https://public.cyber.mil/stigs/cci/">CCI-001242</reference>
+        <reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SI-3</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=application-servers">SRG-APP-000278</reference>
+        <reference href="https://public.cyber.mil/stigs/downloads/?_dl_facet_stigs=app-security%2Capp-security-dev">DTAVSEL-019</reference>
+        <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Mounting network volumes to other network systems introduces a path for malware to be introduced. </rationale>
+        <fix system="urn:xccdf:fix:script:sh" id="ods_scanNWFiles_local">
+
+NAILS_CONFIG_FILE="/var/opt/NAI/LinuxShield/etc/ods.cfg"
+# Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
+# Otherwise, regular sed command will do.
+sed_command=('sed' '-i')
+if test -L "$NAILS_CONFIG_FILE"; then
+    sed_command+=('--follow-symlinks')
+fi
+
+# If the cce arg is empty, CCE is not assigned.
+if [ -z "" ]; then
+    cce="CCE"
+else
+    cce=""
+fi
+
+# Strip any search characters in the key arg so that the key can be replaced without
+# adding any search characters to the config file.
+stripped_key=$(sed 's/[\^=\$,;+]*//g' &lt;&lt;&lt; "^nailsd.profile.ODS.scanNWFiles")
+
+# shellcheck disable=SC2059
+printf -v formatted_output "%s: %s" "$stripped_key" "true"
+
+# If the key exists, change it. Otherwise, add it to the config_file.
+# We search for the key string followed by a word boundary (matched by \&gt;),
+# so if we search for 'setting', 'setting2' won't match.
+if LC_ALL=C grep -q -m 1 -i -e "^nailsd.profile.ODS.scanNWFiles\\&gt;" "$NAILS_CONFIG_FILE"; then
+    "${sed_command[@]}" "s/^nailsd.profile.ODS.scanNWFiles\\&gt;.*/$formatted_output/gi" "$NAILS_CONFIG_FILE"
+else
+    # \n is precaution for case where file ends without trailing newline
+    printf '\n# Per %s: Set %s in %s\n' "$cce" "$formatted_output" "$NAILS_CONFIG_FILE" &gt;&gt; "$NAILS_CONFIG_FILE"
+    printf '%s\n' "$formatted_output" &gt;&gt; "$NAILS_CONFIG_FILE"
+fi
+</fix>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref name="ods_scanNWFiles_local" href="oval-unlinked.xml"/>
+        </check>
+        <check system="http://scap.nist.gov/schema/ocil/2">
+          <check-content-ref href="ocil-unlinked.xml" name="ods_scanNWFiles_local_ocil"/>
+        </check>
+      </Rule>
+    </Group>
+  </Group>
+</Benchmark>

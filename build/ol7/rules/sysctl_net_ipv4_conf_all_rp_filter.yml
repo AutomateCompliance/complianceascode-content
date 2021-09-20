@@ -1,0 +1,63 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-kernel/network_host_and_router_parameters/sysctl_net_ipv4_conf_all_rp_filter/rule.yml
+description: 'To set the runtime status of the <code>net.ipv4.conf.all.rp_filter</code>
+  kernel parameter, run the following command: <pre>$ sudo sysctl -w net.ipv4.conf.all.rp_filter=1</pre>
+
+  To make sure that the setting is persistent, add the following line to a file in
+  the directory <tt>/etc/sysctl.d</tt>: <pre>net.ipv4.conf.all.rp_filter = 1</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: "The runtime status of the <code>net.ipv4.conf.all.rp_filter</code> kernel parameter\
+  \ can be queried\nby running the following command:\n<pre>$ sysctl net.ipv4.conf.all.rp_filter</pre>\n\
+  The output of the command should indicate a value of <code>1</code>.\nThe preferable\
+  \ way how to assure the runtime compliance is to have\ncorrect persistent configuration,\
+  \ and rebooting the system.\n\nThe persistent kernel parameter configuration is\
+  \ performed by specifying the appropriate\nassignment in any file located in the\
+  \ <pre>/etc/sysctl.d</pre> directory.\nVerify that there is not any existing incorrect\
+  \ configuration by executing the following command:\n<pre>$ grep -r '^\\s*net.ipv4.conf.all.rp_filter\\\
+  s*=' /etc/sysctl.conf /etc/sysctl.d</pre>\nIf any assignments other than\n<pre>net.ipv4.conf.all.rp_filter\
+  \ = 1</pre>\nare found, or the correct assignment is duplicated, remove those offending\
+  \ lines from respective files,\nand make sure that exactly one file in \n<code>/etc/sysctl.d</code>\
+  \ contains <code>net.ipv4.conf.all.rp_filter = 1</code>, and that one assignment\n\
+  is returned when \n<pre>$ grep -r net.ipv4.conf.all.rp_filter /etc/sysctl.conf /etc/sysctl.d</pre>\n\
+  is executed.\n"
+ocil_clause: the correct value is not returned
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhel9,rhv4,sle12,sle15,ubuntu2004
+rationale: 'Enabling reverse path filtering drops packets with source addresses
+
+  that should not have been able to be received on the interface they were
+
+  received on. It should not be used on systems which are routers for
+
+  complicated networks, but is helpful for end hosts and routers serving small
+
+  networks.'
+references:
+  anssi: BP28(R22)
+  cis-csc: 1,12,13,14,15,16,18,2,4,6,7,8,9
+  cobit5: APO01.06,APO13.01,BAI04.04,DSS01.03,DSS01.05,DSS03.01,DSS03.05,DSS05.02,DSS05.04,DSS05.07,DSS06.02
+  cui: 3.1.20
+  disa: CCI-000366,CCI-001551
+  isa-62443-2009: 4.2.3.4,4.3.3.4,4.4.3.3
+  isa-62443-2013: SR 3.1,SR 3.5,SR 3.8,SR 4.1,SR 4.3,SR 5.1,SR 5.2,SR 5.3,SR 6.2,SR
+    7.1,SR 7.2,SR 7.6
+  iso27001-2013: A.10.1.1,A.11.1.4,A.11.1.5,A.11.2.1,A.12.1.1,A.12.1.2,A.12.1.3,A.13.1.1,A.13.1.2,A.13.1.3,A.13.2.1,A.13.2.2,A.13.2.3,A.13.2.4,A.14.1.2,A.14.1.3,A.17.2.1,A.6.1.2,A.7.1.1,A.7.1.2,A.7.3.1,A.8.2.2,A.8.2.3,A.9.1.1,A.9.1.2,A.9.2.3,A.9.4.1,A.9.4.4,A.9.4.5
+  nist: CM-7(a),CM-7(b),CM-6(a),SC-7(a)
+  nist-csf: DE.AE-1,DE.CM-1,ID.AM-3,PR.AC-5,PR.DS-4,PR.DS-5,PR.PT-4
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: OL07-00-040611
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sysctl
+  vars:
+    datatype: int
+    sysctlvar: net.ipv4.conf.all.rp_filter
+title: Enable Kernel Parameter to Use Reverse Path Filtering on all IPv4 Interfaces
+warnings: []

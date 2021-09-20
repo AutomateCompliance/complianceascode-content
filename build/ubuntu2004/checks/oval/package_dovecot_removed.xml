@@ -1,0 +1,26 @@
+<def-group>
+  <definition class="compliance" id="package_dovecot_removed"
+  version="1">
+    <metadata>
+        <title>Uninstall dovecot Package</title>
+            <affected family="unix">
+                <platform>multi_platform_all</platform>
+            </affected>
+        <description>The DPKG package dovecot-core should be removed.</description>
+    </metadata>
+    <criteria>
+      <criterion comment="package dovecot-core is removed"
+      test_ref="test_package_dovecot-core_removed" />
+    </criteria>
+  </definition>
+
+  <linux:dpkginfo_test check="all" check_existence="none_exist"
+  id="test_package_dovecot-core_removed" version="1"
+  comment="package dovecot-core is removed">
+    <linux:object object_ref="obj_test_package_dovecot-core_removed" />
+  </linux:dpkginfo_test>
+  <linux:dpkginfo_object id="obj_test_package_dovecot-core_removed" version="1">
+    <linux:name>dovecot-core</linux:name>
+  </linux:dpkginfo_object>
+
+</def-group>

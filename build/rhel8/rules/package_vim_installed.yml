@@ -1,0 +1,29 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/system-tools/package_vim_installed/rule.yml
+description: 'The <code>vim-enhanced</code> package can be installed with the following
+  command:
+
+  <pre>
+
+  $ sudo yum install vim-enhanced</pre>'
+identifiers:
+  cce: CCE-82956-4
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>vim-enhanced</code> package
+  is installed: <pre>$ rpm -q vim-enhanced</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhv4
+rationale: 'Vim (Vi IMproved) is an almost compatible version of the UNIX editor <tt>vi</tt>. '
+references: {}
+requires: []
+severity: low
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: vim-enhanced
+title: Install vim Package
+warnings: []

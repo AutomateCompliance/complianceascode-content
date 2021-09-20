@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-development_tools/rule.yml
+description: "Firefox provides development tools which identify detailed information\
+  \ \nabout the browser and its configuration. These details are often also \nrecorded\
+  \ into a log file, giving an attacker the ability to capture \ndetailed information\
+  \ about the system.\nThis can be disabled by setting <tt>devtools.policy.disabled</tt>\
+  \ to\n<tt>true</tt>."
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that Autofill Form Assistance is disabled,
+
+  run the following command:
+
+  <pre>$ grep ''devtools.policy.disabled'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("devtools.policy.disabled", true);</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'In order to protect privacy and sensitive data, Mozilla provides
+
+  the ability to configure Firefox so that development tools are prevented from being
+  used.'
+references:
+  disa: CCI-001312
+  nist: SI-11
+  stigid: DTBF195
+requires: []
+severity: low
+template: null
+title: Disable Firefox Development Tools
+warnings: []

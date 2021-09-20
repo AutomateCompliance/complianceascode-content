@@ -1,0 +1,32 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_demand_settings/ods_mime/rule.yml
+description: "Malware is often packaged within an archive. In addition, archives might\
+  \ have other archives within. \n\nTo check that VSEL settings are configured correctly,\
+  \ you have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.profile.ODS.mime: true</tt>,\n\
+  potentially unwanted programs will be scanned."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that potentially unwanted programs will be scanned, \ncheck the respective\
+  \ VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the\
+  \ <pre>nailsd.profile.ODS.mime: true</pre> line:\n<pre>grep 'nailsd.profile.ODS.mime:\
+  \ true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>."
+ocil_clause: 'the <pre>ods.cfg</pre> doesn''t contain the <pre>nailsd.profile.ODS.mime:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Not scanning archive files introduces the risk of infected files being
+  introduced into the environment.
+references:
+  disa: CCI-001241
+  nist: SI-3
+  srg: SRG-APP-000277
+  stigid: DTAVSEL-112
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must
+  be configured to decode MIME encoded files.
+warnings: []

@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/applications/openstack/neutron/neutron_api_use_ssl/rule.yml
+description: 'Similar to the previous check, it is recommended to enable secure communication
+  on API server.
+
+
+  <br />
+
+  <br />
+
+  Pass: If value of parameter use_ssl under [DEFAULT] section in /etc/neutron/neutron.conf
+  is set to True.
+
+
+  <br />
+
+  <br />
+
+  Fail: If value of parameter use_ssl under [DEFAULT] section in /etc/neutron/neutron.conf
+  is set to False.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhosp10,rhosp13
+rationale: ''
+references:
+  cui: 3.13.8
+requires: []
+severity: unknown
+template: null
+title: 'Check-Neutron-05: Is SSL enabled on Neutron API server?'
+warnings: []

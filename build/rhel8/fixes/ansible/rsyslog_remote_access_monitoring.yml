@@ -1,0 +1,124 @@
+# platform = Red Hat Enterprise Linux 8,multi_platform_fedora
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = medium
+- name: 'Ensure remote access methods are monitored in Rsyslog: Set facts'
+  set_fact:
+    conf_files:
+      - /etc/rsyslog.conf
+    remote_methods:
+      - selector: auth.*
+        regexp: ^.*auth\.\*.*$
+      - selector: authpriv.*
+        regexp: ^.*authpriv\.\*.*$
+      - selector: daemon.*
+        regexp: ^.*daemon\.\*.*$
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83426-7
+    - DISA-STIG-RHEL-08-010070
+    - NIST-800-53-AC-17(1)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_remote_access_monitoring
+
+- name: 'Ensure remote access methods are monitored in Rsyslog: Ensure rsyslog.conf
+    exists'
+  file:
+    path: '{{ conf_files.0 }}'
+    state: touch
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83426-7
+    - DISA-STIG-RHEL-08-010070
+    - NIST-800-53-AC-17(1)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_remote_access_monitoring
+
+- name: 'Ensure remote access methods are monitored in Rsyslog: Gather conf.d files'
+  find:
+    patterns:
+      - '*.conf'
+    paths:
+      - /etc/rsyslog.d
+  register: rsyslogd
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83426-7
+    - DISA-STIG-RHEL-08-010070
+    - NIST-800-53-AC-17(1)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_remote_access_monitoring
+
+- name: 'Ensure remote access methods are monitored in Rsyslog: Set conf file(s)'
+  set_fact:
+    conf_files: '{{ conf_files + [item.path] }}'
+  loop: '{{ rsyslogd.files }}'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - rsyslogd.matched > 0
+  tags:
+    - CCE-83426-7
+    - DISA-STIG-RHEL-08-010070
+    - NIST-800-53-AC-17(1)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_remote_access_monitoring
+
+- name: 'Ensure remote access methods are monitored in Rsyslog: Check for existing
+    values'
+  lineinfile:
+    path: '{{ item.1 }}'
+    regexp: '{{ item.0.regexp }}'
+    state: absent
+  check_mode: true
+  changed_when: false
+  register: remote_method_values
+  loop: '{{ remote_methods|product(conf_files)|list }}'
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-83426-7
+    - DISA-STIG-RHEL-08-010070
+    - NIST-800-53-AC-17(1)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_remote_access_monitoring
+
+- name: 'Ensure remote access methods are monitored in Rsyslog: Configure'
+  lineinfile:
+    path: /etc/rsyslog.conf
+    line: '{{ item.item.0.selector }} /var/log/secure'
+    insertafter: ^.*\/var\/log\/secure.*$
+    create: true
+  loop: '{{ remote_method_values.results }}'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - item.found == 0
+  tags:
+    - CCE-83426-7
+    - DISA-STIG-RHEL-08-010070
+    - NIST-800-53-AC-17(1)
+    - configure_strategy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - rsyslog_remote_access_monitoring

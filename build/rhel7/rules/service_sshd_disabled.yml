@@ -1,0 +1,39 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ssh/service_sshd_disabled/rule.yml
+description: 'The SSH server service, sshd, is commonly needed.
+
+  However, if it can be disabled, do so.
+
+
+
+  The <code>sshd</code> service can be disabled with the following command:
+
+  <pre>$ sudo systemctl mask --now sshd.service</pre>
+
+
+  This is unusual, as SSH is a common method for encrypted and authenticated
+
+  remote access.'
+identifiers:
+  cce: CCE-80217-3
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: all
+rationale: ''
+references: {}
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: service_disabled
+  vars:
+    packagename: openssh-server
+    servicename: sshd
+title: Disable SSH Server If Possible (Unusual)
+warnings: []

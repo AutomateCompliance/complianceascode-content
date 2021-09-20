@@ -1,0 +1,31 @@
+documentation_complete: true
+
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+
+title: 'Install rear Package'
+
+description: |-
+    {{{ describe_package_install(package="rear") }}}
+
+rationale: |-
+    <tt>rear</tt> contains the Relax-and-Recover (ReaR) utility. ReaR produces a bootable
+    image of a system and restores from backup using this image.
+
+severity: medium
+
+identifiers:
+    cce@rhel7: CCE-82882-2
+    cce@rhel8: CCE-82883-0
+    cce@rhel9: CCE-83503-3
+
+ocil_clause: 'the package is not installed'
+
+ocil: '{{{ ocil_package(package="rear") }}}'
+
+# The package is not available for s309x on RHEL<8.5
+# platform: not_s390x_arch
+
+template:
+    name: package_installed
+    vars:
+        pkgname: rear

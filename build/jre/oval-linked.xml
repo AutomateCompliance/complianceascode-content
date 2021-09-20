@@ -1,0 +1,601 @@
+<oval-def:oval_definitions xmlns:ind="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:linux="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:unix="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd         http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <oval-def:generator>
+    <oval:product_name>combine_ovals.py from SCAP Security Guide</oval:product_name>
+    <oval:product_version>ssg: [0, 1, 58], python: 3.8.10</oval:product_version>
+    <oval:schema_version>5.11</oval:schema_version>
+    <oval:timestamp>2021-09-20T02:48:02</oval:timestamp>
+  </oval-def:generator>
+  <oval-def:definitions>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_blacklist_check:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Prevent the Download of Prohibited Mobile Code</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>Configure setting to ensure Java prevents 
+      prohibited mobile code from being downloaded.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_blacklist_check" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.blacklist.check" test_ref="oval:ssg-test_java_jre_blacklist_check:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_blacklist_check_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Prohibited Mobile Code Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting that ensures Java prevents prohibited 
+      mobile code from being downloaded must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_blacklist_check_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.blacklist.check.locked" test_ref="oval:ssg-test_java_jre_blacklist_check_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_deployment_properties_exists:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The Java deployment.properties File Exists</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>A properties file must be present to hold all the keys
+      that establish properties within the Java control panel.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_deployment_properties_exists" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.properties file exists" test_ref="oval:ssg-test_java_jre_deployment_properties:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_disable_untrusted_sources:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable Execution of Signed Java Applets From Untrusted Sources Feature</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The dialog to enable users to grant permissions to execute 
+      signed content from an un-trusted authority must be disabled.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_disable_untrusted_sources" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.askgrantdialog.notinca" test_ref="oval:ssg-test_java_jre_disable_untrusted_sources:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_disable_untrusted_sources_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Untrusted Sources Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The dialog enabling users to grant permissions to execute signed
+      content from an un-trusted authority must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_disable_untrusted_sources_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.askgrantdialog.notinca.locked" test_ref="oval:ssg-test_java_jre_disable_untrusted_sources_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_enable_jws:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Enable Java Web Start Applications to Run</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>Configure setting to ensure Java allows 
+      Java Web Start (JWS) applications to run.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_enable_jws" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.webjava.enabled" test_ref="oval:ssg-test_java_jre_enable_jws:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_enable_jws_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Java Web Start Application Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting that ensures Java allows Java 
+      Web Start applications to run must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_enable_jws_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.webjava.enabled.locked" test_ref="oval:ssg-test_java_jre_enable_jws_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_insecure_prompt:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Prompt User Prior to Executing Mobile Code</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>Configure setting to ensure Java prevents 
+      mobile code from executing without prompting the user.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_insecure_prompt" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.insecure.jres" test_ref="oval:ssg-test_java_jre_insecure_prompt:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_insecure_prompt_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Insecure Prompt of Mobile Code Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The mobile code setting for insecure prompts must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_insecure_prompt_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.insecure.jres.locked" test_ref="oval:ssg-test_java_jre_insecure_prompt_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_lock_untrusted_sources:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Lock Execution of Signed Java Applets From Untrusted Sources Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The dialog to enable users to grant permissions to execute 
+      signed content from an un-trusted authority must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_lock_untrusted_sources" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.askgrantdialog.show" test_ref="oval:ssg-test_java_jre_lock_untrusted_sources:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_lock_untrusted_sources_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Locking Untrusted Sources Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The dialog enabling users to grant permissions to execute signed
+      content from an un-trusted authority must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_lock_untrusted_sources_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.askgrantdialog.show.locked" test_ref="oval:ssg-test_java_jre_lock_untrusted_sources_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_security_revocation_check:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Enable Revocation Checks for Publisher Certificates</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting for users to check publisher certificates
+      for revocation must be enabled.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_security_revocation_check" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.revocation.check" test_ref="oval:ssg-test_java_jre_security_revocation_check:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_security_revocation_check_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Revocation Check Settings</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting enabling users to configure the check publisher
+      certificates for revocation must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_security_revocation_check_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.revocation.check.locked" test_ref="oval:ssg-test_java_jre_security_revocation_check_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_unsigned_applications:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable Execution of Unsigned Applications</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>Configure setting to ensure that Java does not allow 
+      unsigned applications to run.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_unsigned_applications" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.level" test_ref="oval:ssg-test_java_jre_unsigned_applications:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_unsigned_applications_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable Execution of Unsigned Applications</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting that ensures Java does not allow 
+      unsigned applications to run must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_unsigned_applications_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.level.locked" test_ref="oval:ssg-test_java_jre_unsigned_applications_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_validation_crl:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Enable Use of Certificate Revocation Lists</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting for users to check publisher certificates
+      for revocation must be enabled.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_validation_crl" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.validation.crl" test_ref="oval:ssg-test_java_jre_validation_crl:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_validation_crl_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Certificate Revocation List Settings</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The setting enabling users to configure the check publisher
+      certificates for revocation must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_validation_crl_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.validation.crl.locked" test_ref="oval:ssg-test_java_jre_validation_crl_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_validation_ocsp:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Enable Online Certificate Validation</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The option to enable online certificate validation
+      must be enabled.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_validation_ocsp" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.validation.ocsp" test_ref="oval:ssg-test_java_jre_validation_ocsp:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_validation_ocsp_locked:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Disable User Access to Online Certificate Validation Settings</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The option to enable online certificate
+      validation must be locked.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_validation_ocsp_locked" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.security.validation.ocsp.locked" test_ref="oval:ssg-test_java_jre_validation_ocsp_locked:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_accepted_sites_exists:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The Java exception.sites File Exists</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The accepted sites file must be present to identify authorized 
+      software programs and permit execution of authorized software.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_accepted_sites_exists" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check exception.sites file" test_ref="oval:ssg-test_java_jre_accepted_sites_exists:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_accepted_sites_properties:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Configure the Path to the exception.sites File</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The properties file must point to a valid accepted sites list file.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_accepted_sites_properties" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.user.security.exception.sites" test_ref="oval:ssg-test_java_jre_accepted_sites_properties:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_deployment_config_exists:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>The Java deployment.config File Exists</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>A configuration file must be present to deploy properties for JRE.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_deployment_config_exists" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.config file" test_ref="oval:ssg-test_java_jre_deployment_config_exists:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_deployment_config_mandatory:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Configure The Java Deployment Mandatory Setting</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The configuration file must contain proper keys and values to
+      deploy settings correctly.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_deployment_config_mandatory" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.system.config.mandatory" test_ref="oval:ssg-test_java_jre_deployment_system_config_mandatory:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-java_jre_deployment_config_properties:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Configure the Path to the deployment.properties File</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>The configuration file must contain proper keys and values to
+      deploy settings correctly.</oval-def:description>
+      <oval-def:reference ref_id="java_jre_deployment_config_properties" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria>
+        <oval-def:criterion comment="Check deployment.system.config" test_ref="oval:ssg-test_java_jre_deployment_config_properties:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="inventory" id="oval:ssg-installed_app_is_java:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>Java Runtime Environment</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:reference ref_id="installed_app_is_java" source="CPE" />
+        <oval-def:description>The application installed on the system is Java.</oval-def:description>
+      <oval-def:reference ref_id="installed_app_is_java" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria operator="OR">
+        <oval-def:criterion comment="Oracle Java is installed" test_ref="oval:ssg-test_oracle_java:tst:1" />
+        <oval-def:criterion comment="Oracle Java from Red Hat" test_ref="oval:ssg-test_oracle_java_rhel:tst:1" />
+        <oval-def:criterion comment="IBM Java is installed" test_ref="oval:ssg-test_ibm_java:tst:1" />
+        <oval-def:criterion comment="IBM Java from Red Hat" test_ref="oval:ssg-test_ibm_java_rhel:tst:1" />
+        <oval-def:criterion comment="Sun Java from Red Hat" test_ref="oval:ssg-test_sun_java_rhel:tst:1" />
+        <oval-def:criterion comment="OpenJDK is installed" test_ref="oval:ssg-test_openjdk_java:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+    <oval-def:definition class="compliance" id="oval:ssg-sshd_includes_config_files:def:1" version="1">
+      <oval-def:metadata>
+        <oval-def:title>sshd_includes_config_files</oval-def:title>
+        <oval-def:affected family="unix">
+          <oval-def:product>Java Runtime Environment</oval-def:product>
+        </oval-def:affected>
+        <oval-def:description>Check presence of Include /etc/ssh/sshd_config.d/*.conf in /etc/ssh/sshd_config</oval-def:description>
+      <oval-def:reference ref_id="sshd_includes_config_files" source="ssg" /></oval-def:metadata>
+      <oval-def:criteria operator="AND" comment="Test conditions - presence of the file plus 0 extra definitions.">
+        <oval-def:criterion comment="Check that /etc/ssh/sshd_config contains a line with certain text" test_ref="oval:ssg-test_sshd_includes_config_files:tst:1" />
+      </oval-def:criteria>
+    </oval-def:definition>
+  </oval-def:definitions>
+  <oval-def:tests>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled" id="oval:ssg-test_java_jre_blacklist_check:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_blacklist_check:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.blacklist.check.locked" id="oval:ssg-test_java_jre_blacklist_check_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_blacklist_check_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" comment="Check deployment.properties file exists" id="oval:ssg-test_java_jre_deployment_properties:tst:1" version="1">
+      <unix:object object_ref="oval:ssg-object_java_jre_deployment_properties:obj:1" />
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.notinca" id="oval:ssg-test_java_jre_disable_untrusted_sources:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_disable_untrusted_sources:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.notinca.lock" id="oval:ssg-test_java_jre_disable_untrusted_sources_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_disable_untrusted_sources_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled" id="oval:ssg-test_java_jre_enable_jws:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_enable_jws:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled.locked" id="oval:ssg-test_java_jre_enable_jws_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_enable_jws_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.webjava.enabled" id="oval:ssg-test_java_jre_insecure_prompt:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_insecure_prompt:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.insecure.jres.locked" id="oval:ssg-test_java_jre_insecure_prompt_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_insecure_prompt_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.show" id="oval:ssg-test_java_jre_lock_untrusted_sources:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_lock_untrusted_sources:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.askgrantdialog.show.lock" id="oval:ssg-test_java_jre_lock_untrusted_sources_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_lock_untrusted_sources_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.revocation.check" id="oval:ssg-test_java_jre_security_revocation_check:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_security_revocation_check:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.revocation.check.locked" id="oval:ssg-test_java_jre_security_revocation_check_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_security_revocation_check_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.level" id="oval:ssg-test_java_jre_unsigned_applications:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_unsigned_applications:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.level.locked" id="oval:ssg-test_java_jre_unsigned_applications_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_unsigned_applications_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.validation.crl" id="oval:ssg-test_java_jre_validation_crl:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_validation_crl:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.validation.crl.locked" id="oval:ssg-test_java_jre_validation_crl_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_validation_crl_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.validation.ocsp" id="oval:ssg-test_java_jre_validation_ocsp:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_validation_ocsp:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.security.validation.ocsp.locked" id="oval:ssg-test_java_jre_validation_ocsp_locked:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_validation_ocsp_locked:obj:1" />
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" comment="Check exception.sites file" id="oval:ssg-test_java_jre_accepted_sites_exists:tst:1" version="1">
+      <unix:object object_ref="oval:ssg-object_java_jre_accepted_sites_exists:obj:1" />
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.user.security.exception.sites" id="oval:ssg-test_java_jre_accepted_sites_properties:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_accepted_sites_properties:obj:1" />
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" comment="Check deployment.config file" id="oval:ssg-test_java_jre_deployment_config_exists:tst:1" version="1">
+      <unix:object object_ref="oval:ssg-object_java_jre_deployment_config_exists:obj:1" />
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.system.config.mandatory" id="oval:ssg-test_java_jre_deployment_system_config_mandatory:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_deployment_system_config_mandatory:obj:1" />
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Check deployment.system.config" id="oval:ssg-test_java_jre_deployment_config_properties:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-object_java_jre_deployment_config_properties:obj:1" />
+    </ind:textfilecontent54_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Oracle JRE is installed" id="oval:ssg-test_oracle_java:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_oracle_java:obj:1" />
+      <linux:state state_ref="oval:ssg-state_java_version_minimum:ste:1" />
+      <linux:state state_ref="oval:ssg-state_java_version_maximum:ste:1" />
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Oracle JRE from Red Hat is installed" id="oval:ssg-test_oracle_java_rhel:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_oracle_java_rhel:obj:1" />
+      <linux:state state_ref="oval:ssg-state_java_version:ste:1" />
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="IBM JRE is installed" id="oval:ssg-test_ibm_java:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_ibm_java:obj:1" />
+      <linux:state state_ref="oval:ssg-state_java_version:ste:1" />
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="IBM JRE from Red Hat is installed" id="oval:ssg-test_ibm_java_rhel:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_ibm_java_rhel:obj:1" />
+      <linux:state state_ref="oval:ssg-state_java_version:ste:1" />
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Sun JRE from Red Hat is installed" id="oval:ssg-test_sun_java_rhel:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_sun_java_rhel:obj:1" />
+      <linux:state state_ref="oval:ssg-state_java_version:ste:1" />
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="at_least_one_exists" comment="Red Hat OpenJDK is installed" id="oval:ssg-test_openjdk_java:tst:1" version="1">
+      <linux:object object_ref="oval:ssg-obj_openjdk_java:obj:1" />
+      <linux:state state_ref="oval:ssg-state_java_version:ste:1" />
+    </linux:rpminfo_test>
+    <ind:textfilecontent54_test check="all" comment="tests the presence of 'Include /etc/ssh/sshd_config.d/*.conf' setting in the /etc/ssh/sshd_config file" id="oval:ssg-test_sshd_includes_config_files:tst:1" version="1">
+      <ind:object object_ref="oval:ssg-obj_sshd_includes_config_files:obj:1" />
+    </ind:textfilecontent54_test>
+  </oval-def:tests>
+  <oval-def:objects>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_blacklist_check:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.blacklist.check=true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_blacklist_check_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.blacklist.check.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object id="oval:ssg-object_java_jre_deployment_properties:obj:1" version="1">
+      <unix:filepath>/etc/.java/deployment/deployment.properties</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_disable_untrusted_sources:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.askgrantdialog.notinca=false$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_disable_untrusted_sources_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.askgrantdialog.notinca.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_enable_jws:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.webjava.enabled=true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_enable_jws_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.webjava.enabled.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_insecure_prompt:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.insecure.jres=PROMPT$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_insecure_prompt_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.insecure.jres.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_lock_untrusted_sources:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.askgrantdialog.show=false$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_lock_untrusted_sources_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.askgrantdialog.show.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_security_revocation_check:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.revocation.check=ALL_CERTIFICATES$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_security_revocation_check_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.revocation.check.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_unsigned_applications:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.level=VERY_HIGH$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_unsigned_applications_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.level.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_validation_crl:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.validation.crl=true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_validation_crl_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.validation.crl.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_validation_ocsp:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.validation.ocsp=true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_validation_ocsp_locked:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.security.validation.ocsp.locked$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object id="oval:ssg-object_java_jre_accepted_sites_exists:obj:1" version="1">
+      <unix:filepath>/etc/.java/deployment/exception.sites</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_accepted_sites_properties:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.properties</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.user.security.exception.sites=/etc/.java/deployment/exception.sites$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object id="oval:ssg-object_java_jre_deployment_config_exists:obj:1" version="1">
+      <unix:filepath>/etc/.java/deployment/deployment.config</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_deployment_system_config_mandatory:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.config</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.system.config.mandatory=true$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg-object_java_jre_deployment_config_properties:obj:1" version="1">
+      <ind:filepath>/etc/.java/deployment/deployment.config</ind:filepath>
+      <ind:pattern operation="pattern match">^deployment.system.config=file:///etc/.java/deployment/deployment.properties$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <linux:rpminfo_object id="oval:ssg-obj_oracle_java:obj:1" version="1">
+      <linux:name datatype="string" operation="pattern match">^jre.*$</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg-obj_oracle_java_rhel:obj:1" version="1">
+      <linux:name datatype="string" operation="pattern match">^java.*oracle.*$</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg-obj_ibm_java:obj:1" version="1">
+      <linux:name datatype="string" operation="pattern match">^ibm-java.*$</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg-obj_ibm_java_rhel:obj:1" version="1">
+      <linux:name datatype="string" operation="pattern match">^java.*ibm.*$</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg-obj_sun_java_rhel:obj:1" version="1">
+      <linux:name datatype="string" operation="pattern match">^java.*sun.*$</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg-obj_openjdk_java:obj:1" version="1">
+      <linux:name datatype="string" operation="pattern match">^java.*openjdk.*$</linux:name>
+    </linux:rpminfo_object>
+    <ind:textfilecontent54_object id="oval:ssg-obj_sshd_includes_config_files:obj:1" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*Include /etc/ssh/sshd_config\.d/\*\.conf[\s]*$</ind:pattern>
+      <ind:instance operation="greater than or equal" datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+  </oval-def:objects>
+  <oval-def:states>
+    <linux:rpminfo_state id="oval:ssg-state_java_version:ste:1" version="1">
+      <linux:version datatype="version" operation="equals">1.8.0</linux:version>
+    </linux:rpminfo_state>
+    <linux:rpminfo_state id="oval:ssg-state_java_version_minimum:ste:1" version="1">
+      <linux:version datatype="version" operation="greater than or equal">1.8.0</linux:version>
+    </linux:rpminfo_state>
+    <linux:rpminfo_state id="oval:ssg-state_java_version_maximum:ste:1" version="1">
+      <linux:version datatype="version" operation="less than">1.9.0</linux:version>
+    </linux:rpminfo_state>
+  </oval-def:states>
+</oval-def:oval_definitions>

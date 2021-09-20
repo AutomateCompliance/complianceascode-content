@@ -1,0 +1,45 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_authlogin_nsswitch_use_ldap/rule.yml
+description: 'By default, the SELinux boolean <tt>authlogin_nsswitch_use_ldap</tt>
+  is disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>authlogin_nsswitch_use_ldap</code> SELinux boolean, run the
+  following command:
+
+  <pre>$ sudo setsebool -P authlogin_nsswitch_use_ldap off</pre>'
+identifiers:
+  cce: CCE-84296-3
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>authlogin_nsswitch_use_ldap</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool authlogin_nsswitch_use_ldap</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>authlogin_nsswitch_use_ldap --> off</code>'
+ocil_clause: authlogin_nsswitch_use_ldap is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references:
+  cui: 3.7.2
+  ism: 0421,0422,0431,0974,1173,1401,1504,1505,1546,1557,1558,1559,1560,1561
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: authlogin_nsswitch_use_ldap
+title: Disable the authlogin_nsswitch_use_ldap SELinux Boolean
+warnings: []

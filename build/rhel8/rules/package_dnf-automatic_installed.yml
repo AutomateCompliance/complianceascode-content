@@ -1,0 +1,33 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/updating/package_dnf-automatic_installed/rule.yml
+description: 'The <code>dnf-automatic</code> package can be installed with the following
+  command:
+
+  <pre>
+
+  $ sudo yum install dnf-automatic</pre>'
+identifiers:
+  cce: CCE-82985-3
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>dnf-automatic</code> package
+  is installed: <pre>$ rpm -q dnf-automatic</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol8,rhel8,rhel9
+rationale: '<tt>dnf-automatic</tt> is an alternative command line interface (CLI)
+
+  to <tt>dnf upgrade</tt> suitable for automatic, regular execution.'
+references:
+  anssi: BP28(R8)
+  srg: SRG-OS-000191-GPOS-00080
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: dnf-automatic
+title: Install dnf-automatic Package
+warnings: []

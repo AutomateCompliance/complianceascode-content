@@ -1,0 +1,31 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Enable service usbguard
+  block:
+
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+
+    - name: Enable service usbguard
+      service:
+        name: usbguard
+        enabled: 'yes'
+        state: started
+        masked: 'no'
+      when:
+        - '"usbguard" in ansible_facts.packages'
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - CCE-84205-4
+    - NIST-800-53-CM-8(3)(a)
+    - NIST-800-53-IA-3
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - service_usbguard_enabled

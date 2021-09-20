@@ -1,0 +1,46 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/sudo/sudoers_no_command_negation/rule.yml
+description: 'Policies applied by sudo through the sudoers file should not involve
+  negation.
+
+
+  Each user specification in the <code>sudoers</code> file contains a comma-delimited
+  list of command specifications.
+
+  The definition can make use glob patterns, as well as of negations.
+
+  Indirect definition of those commands by means of exclusion of a set of commands
+  is trivial to bypass, so it is not allowed to use such constructs.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To determine if negation is used to define commands users are allowed to execute
+  using <tt>sudo</tt>, run the following command:
+
+  <pre>$ sudo grep -PR ''^(?:\s*[^#=]+)=(?:\s*(?:\([^\)]+\))?\s*(?!\s*\()[^,!\n][^,\n]+,)*\s*(?:\([^\)]+\))?\s*(?!\s*\()(!\S+).*''
+  /etc/sudoers /etc/sudoers.d/</pre>
+
+  The command should return no output.'
+ocil_clause: /etc/sudoers file contains rules that define the set of allowed commands
+  using negation
+oval_external_content: null
+platform: sudo
+platforms: !!set
+  sudo: null
+prodtype: all
+rationale: "Specifying access right using negation is inefficient and can be easily\
+  \ circumvented.\nFor example, it is expected that a specification like <pre>\n#\
+  \ To avoid absolutely , this rule can be easily circumvented!\nuser ALL = ALL ,!/\
+  \ bin/sh\n</pre> prevents the execution of the shell\nbut that\u2019s not the case:\
+  \ just copy the binary <code>/bin/sh</code> to a different name to make it executable\n\
+  again through the rule keyword <code>ALL</code>."
+references:
+  anssi: BP28(R61)
+requires: []
+severity: medium
+template: null
+title: Don't define allowed commands in sudoers by means of exclusion
+warnings:
+- general: This rule doesn't come with a remediation, as negations indicate design
+    issues with the sudoers user specifications design. Just removing negations doesn't
+    increase the security - you typically have to rethink the definition of allowed
+    commands to fix the issue.

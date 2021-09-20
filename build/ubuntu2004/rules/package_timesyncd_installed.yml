@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/package_timesyncd_installed/rule.yml
+description: The systemd_timesyncd service should be installed.
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ubuntu2004
+rationale: Time synchronization (using NTP) is required by almost all network and
+  administrative tasks (syslog, cryptographic based services (authentication, etc.),
+  etc.). systemd_timesyncd is a part of the systemd suite and acts as a NTP client.
+references:
+  anssi: NT012(R03)
+  cis: 2.2.1.4
+  cis-csc: 1,14,15,16,3,5,6
+  cobit5: APO11.04,BAI03.05,DSS05.04,DSS05.07,MEA02.01
+  disa: CCI-000160
+  isa-62443-2009: 4.3.3.3.9,4.3.3.5.8,4.3.4.4.7,4.4.2.1,4.4.2.2,4.4.2.4
+  isa-62443-2013: SR 2.10,SR 2.11,SR 2.12,SR 2.8,SR 2.9
+  iso27001-2013: A.12.4.1,A.12.4.2,A.12.4.3,A.12.4.4,A.12.7.1
+  nist: CM-6(a)
+  nist-csf: PR.PT-1
+  pcidss: Req-10.4
+requires: []
+severity: high
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: systemd-timesyncd
+title: Install the systemd_timesyncd Service
+warnings: []

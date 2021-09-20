@@ -1,0 +1,36 @@
+<def-group>
+    <definition class="compliance" id="audit_immutable_login_uids" version="1">
+      <metadata>
+        <title>Configure immutable Audit login UIDs</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 8</platform>
+    </affected>
+        <description>Inspect the contents of /etc/audit/rules.d/11-loginuid.rules</description>
+    </metadata>
+      <criteria>
+          <criterion comment="Check contents of file" test_ref="test_whole_file_contents_tc_audit_rules_d_11_loginuid_rules" />
+      </criteria>
+    </definition>
+
+    <ind:textfilecontent54_test check="all" check_existence="all_exist"
+    comment="Tests if contents of /etc/audit/rules.d/11-loginuid.rules is exactly what is defined in rule description"
+    id="test_whole_file_contents_tc_audit_rules_d_11_loginuid_rules" version="1">
+      <ind:object object_ref="object_whole_file_contents_tc_audit_rules_d_11_loginuid_rules" />
+      <ind:state state_ref="state_whole_file_contents_tc_audit_rules_d_11_loginuid_rules" />
+    </ind:textfilecontent54_test>
+
+    <ind:textfilecontent54_object id="object_whole_file_contents_tc_audit_rules_d_11_loginuid_rules" version="1">
+      <ind:behaviors singleline="true" multiline="false" />
+      <ind:filepath>/etc/audit/rules.d/11-loginuid.rules</ind:filepath>
+      <ind:pattern operation="pattern match">^.*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+
+    <ind:textfilecontent54_state id="state_whole_file_contents_tc_audit_rules_d_11_loginuid_rules" version="1">
+      <ind:text operation="equals">## Make the loginuid immutable. This prevents tampering with the auid.
+--loginuid-immutable
+</ind:text>
+    </ind:textfilecontent54_state>
+
+  </def-group>

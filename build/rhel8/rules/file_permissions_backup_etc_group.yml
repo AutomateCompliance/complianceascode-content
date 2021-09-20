@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/permissions_important_account_files/file_permissions_backup_etc_group/rule.yml
+description: '
+
+  To properly set the permissions of <code>/etc/group-</code>, run the command:
+
+  <pre>$ sudo chmod 0644 /etc/group-</pre>'
+identifiers:
+  cce: CCE-83483-8
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/etc/group-</code>,
+
+  run the command:
+
+  <pre>$ ls -l /etc/group-</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r--r--</code>'
+ocil_clause: /etc/group- has unix mode -rw-r--r--
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'The <tt>/etc/group-</tt> file is a backup file of <tt>/etc/group</tt>,
+  and as such,
+
+  it contains information regarding groups that are configured on the system.
+
+  Protection of this file is important for system security.'
+references:
+  cis: 6.1.9
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_permissions
+  vars:
+    filemode: '0644'
+    filepath: /etc/group-
+    missing_file_pass: 'true'
+title: Verify Permissions on Backup group File
+warnings: []

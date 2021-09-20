@@ -1,0 +1,33 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-pop-up_windows/rule.yml
+description: 'The pop-up blocker can be enabled by setting
+
+  <tt>dom.disable_window_open_feature.status</tt> to <tt>true</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that pop-up blocker is enabled,
+
+  run the following command:
+
+  <pre>$ grep ''dom.disable_window_open_feature.status'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("dom.disable_window_open_feature.status", "true");</pre>'
+ocil_clause: it is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Popup windows may be used to launch an attack within a new browser window
+
+  with altered settings.'
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF180
+requires: []
+severity: medium
+template: null
+title: Enable Firefox Pop-up Blocker
+warnings: []

@@ -1,0 +1,33 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/virus_notification/rule.yml
+description: "Failure of anti-virus signature updates will eventually render the software\
+  \ to be useless in protecting the Linux system from malware. \n\nTo check that VSEL\
+  \ settings are configured correctly, you have to examine the config file\navailable\
+  \ under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\nIf this config file contains\
+  \ the line <tt>notifications.virusDetected.active: true</tt>,\nAdministrators will\
+  \ be notified of events detected."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that Administrators will be notified of events detected, \ncheck\
+  \ the respective VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>\
+  \ contains the <pre>notifications.virusDetected.active: true</pre> line:\n<pre>grep\
+  \ 'notifications.virusDetected.active: true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>notifications.virusDetected.active:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Administration notification for failed updates, via SMTP, will ensure timely
+  remediation of errors causing DATs to not be updated.
+references:
+  disa: CCI-001240
+  nist: SI-3
+  srg: SRG-APP-000276
+  stigid: DTAVSEL-205
+requires: []
+severity: medium
+template: null
+title: A notification mechanism or process must be in place to notify Administrators
+  of out of date DAT, detected malware and error codes
+warnings: []

@@ -1,0 +1,5 @@
+# platform = multi_platform_all
+
+[[packages]]
+name = "opensc-pkcs11"
+version = "*"

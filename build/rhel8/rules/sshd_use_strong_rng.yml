@@ -1,0 +1,58 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ssh/ssh_server/sshd_use_strong_rng/rule.yml
+description: 'To set up SSH server to use entropy from a high-quality source, edit
+  the <tt>/etc/sysconfig/sshd</tt> file.
+
+  The <tt>SSH_USE_STRONG_RNG</tt> configuration value determines how many bytes of
+  entropy to use, so
+
+  make sure that the file contains line
+
+  <pre>SSH_USE_STRONG_RNG=32</pre>'
+identifiers:
+  cce: CCE-82462-3
+inherited_platforms:
+- machine
+ocil: 'To determine whether the SSH service is configured to use strong entropy seed,
+
+  run <pre>$ sudo grep SSH_USE_STRONG_RNG /etc/sysconfig/sshd</pre>
+
+  If a line indicating that SSH_USE_STRONG_RNG is set to 32 is returned,
+
+  then the option is set correctly.'
+ocil_clause: The SSH_USE_STRONG_RNG is not set to 32 in /etc/sysconfig/sshd
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol8,rhel8
+rationale: 'SSH implementation in RHEL8 uses the openssl library, which doesn''t use
+  high-entropy sources by default.
+
+  Randomness is needed to generate data-encryption keys, and as plaintext padding
+  and initialization vectors
+
+  in encryption algorithms, and high-quality entropy elliminates the possibility that
+  the output of
+
+  the random number generator used by SSH would be known to potential attackers.'
+references:
+  disa: CCI-000366
+  ospp: FCS_RBG_EXT.1.2
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: RHEL-08-010292
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: shell_lineinfile
+  vars:
+    no_quotes: 'true'
+    parameter: SSH_USE_STRONG_RNG
+    path: /etc/sysconfig/sshd
+    value: '32'
+title: SSH server uses strong entropy to seed
+warnings:
+- general: This setting can cause problems on computers without the hardware random
+    generator, because insufficient entropy causes the connection to be blocked until
+    enough entropy is available.

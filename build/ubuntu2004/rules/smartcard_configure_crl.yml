@@ -1,0 +1,45 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-physical/screen_locking/smart_card_login/smartcard_configure_crl/rule.yml
+description: 'Configure the operating system for PKI-based authentication to use
+
+  local revocation data when unable to access the network to obtain it
+
+  remotely. Modify all of the <tt>cert_policy</tt> lines in
+
+  <tt>/etc/pam_pkcs11/pam_pkcs11.conf</tt> to include <tt>crl_auto</tt>
+
+  or <tt>crl_offline</tt> like so:
+
+  <pre>cert_policy = ca,signature,ocsp_on,crl_auto;</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: 'To verify the operating system implements local cache of revocation
+
+  data for PKI authentication, run the following command:
+
+  <pre>sudo grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf | grep -E -- ''crl_auto|crl_offline''</pre>
+
+  The output should return multiple lines similar to the following:
+
+  <pre>cert_policy = ca,signature,ocsp_on,crl_auto;</pre>'
+ocil_clause: crl_auto or crl_offline is not configured
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ubuntu2004
+rationale: 'Without configuring a local cache of revocation data, there is the
+
+  potential to allow access to users who are no longer authorized
+
+  (users with revoked certificates).'
+references:
+  disa: CCI-001991
+  srg: SRG-OS-000384-GPOS-00167
+  stigid: UBTU-20-010066
+requires: []
+severity: medium
+template: null
+title: Configure Smart Card Local Cache of Revocation Data
+warnings: []

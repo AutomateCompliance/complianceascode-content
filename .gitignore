@@ -6,30 +6,17 @@
 *.pyc
 
 # Build files
-rpmbuild
-scap-security-guide.spec
-container_build/
-build/
 
 # Ignore docs tmp directories
-docs/Developer_Guide/tmp
-docs/SCAP_and_STIG_Workshop/tmp
-docs/User_Guide/tmp
 
 # Ignore docs publish directories
-docs/Developer_Guide/publish
-docs/SCAP_and_STIG_Workshop/publish
-docs/User_Guide/publish
 
 # Ignore docs SCAP_Security_Guide directory
-docs/html/en-US/SCAP_Security_Guide
 
 # Ignore PCI_DSS_v3-1.pdf
 shared/transforms/pcidss/PCI_DSS_v3-1.pdf
 
 # Ignore zipfile and tarball dirs
-zipfile/
-tarball/
 
 # Ignore QtCreator files
 CMakeLists.txt.user
@@ -48,7 +35,6 @@ release_tools/.env
 release_tools/.jenkins_builds
 release_tools/*.log
 release_tools/release_notes.txt
-release_tools/artifacts
 
 # Ignore the test profile that utils/add_platform_rule.py creates
 ocp4/profiles/test.profile

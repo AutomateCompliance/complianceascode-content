@@ -1,0 +1,79 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/permissions_local/file_permissions_local_var_log_messages/rule.yml
+description: 'Files containing sensitive informations should be protected by restrictive
+
+  permissions. Most of the time, there is no need that these files need to be read
+  by any non-root user
+
+
+  To properly set the permissions of <code>/var/log/messages</code>, run the command:
+
+  <pre>$ sudo chmod 0640 /var/log/messages</pre>
+
+
+  Check that "permissions.local" file contains the correct permissions rules with
+  the following command:
+
+
+  <pre># grep -i messages /etc/permissions.local
+
+
+  /var/log/messages root:root 640</pre>'
+identifiers:
+  cce: CCE-83285-7
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/var/log/messages</code>,
+
+  run the command:
+
+  <pre>$ ls -l /var/log/messages</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rw-r-----</code>
+
+
+  Check that <tt>permissions.local</tt> file contains the correct permissions rules
+  with the following command:
+
+
+  <pre># grep -i messages /etc/permissions.local
+
+
+  /var/log/messages root:root 640</pre>
+
+
+  If the command does not return any or different output, this is a finding.
+
+
+  Run the following command to correct the permissions after adding the missing entry:
+
+
+  <pre># sudo chkstat --set --system</pre>'
+ocil_clause: Make sure /var/log/messages is not world-readable
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: sle12,sle15
+rationale: 'The <tt>/var/log/messages</tt> file contains system error messages. Only
+
+  authorized personnel should be aware of errors and the details of the
+
+  errors. Error messages are an indicator of an organization''s operational
+
+  state or can identify the SUSE operating system or platform. Additionally,
+
+  Personally Identifiable Information (PII) and operational information must
+
+  not be revealed through error messages to unauthorized personnel or their
+
+  designated representatives.'
+references:
+  disa: CCI-001314
+  srg: SRG-OS-000206-GPOS-00084
+  stigid: SLES-15-010350
+requires: []
+severity: medium
+template: null
+title: Verify that local /var/log/messages is not world-readable
+warnings: []

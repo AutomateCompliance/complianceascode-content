@@ -1,0 +1,29 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/general_settings/scanned_media/rule.yml
+description: "It is imperative to protect Linux systems from malware introduced from\
+  \ removable media by ensuring they are scanned before use.\n\nConsult with the System\
+  \ Administrator of the Linux system being reviewed.\n\nVerify procedures are documented\
+  \ which require the manual scanning of all media used for system maintenance before\
+  \ media is used.\n\nIf a procedure is not documented requiring the manual scanning\
+  \ of all media used for system maintenance before media is used, \nthis is a finding."
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Removable media such as CD/DVDs allow a path for malware to be introduced
+  to a Linux System.
+references:
+  disa: CCI-000870
+  nist: MA-3(2)
+  srg: SRG-APP-000073
+  stigid: DTAVSEL-200
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x must scan all media used
+  for system maintenance prior to use
+warnings: []

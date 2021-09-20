@@ -1,0 +1,50 @@
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv,multi_platform_sle
+# reboot = true
+# strategy = restrict
+# complexity = medium
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - grub2_kernel_trust_cpu_rng
+    - low_disruption
+    - medium_complexity
+    - medium_severity
+    - reboot_required
+    - restrict_strategy
+
+- name: get current kernel parameters
+  ansible.builtin.shell:
+    cmd: /usr/bin/grub2-editenv - list | grep "kernelopts="
+  register: kernelopts
+  changed_when: false
+  when:
+    - '"grub2-common" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - grub2_kernel_trust_cpu_rng
+    - low_disruption
+    - medium_complexity
+    - medium_severity
+    - reboot_required
+    - restrict_strategy
+
+- name: Update the bootloader menu
+  command: /usr/bin/grub2-editenv - set "{{ item }} random.trust_cpu=on"
+  with_items: '{{ kernelopts.stdout_lines | select(''match'', ''^kernelopts.*'') |
+    list }}'
+  when:
+    - '"grub2-common" in ansible_facts.packages'
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - kernelopts.stdout_lines is defined
+    - kernelopts.stdout_lines | length > 0
+    - kernelopts.stdout | regex_search('^kernelopts=(?:.*\s)?random.trust_cpu=on(?:\s.*)?$',
+      multiline=True) is none
+  tags:
+    - grub2_kernel_trust_cpu_rng
+    - low_disruption
+    - medium_complexity
+    - medium_severity
+    - reboot_required
+    - restrict_strategy

@@ -1,0 +1,42 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_nscd_use_shm/rule.yml
+description: 'By default, the SELinux boolean <tt>nscd_use_shm</tt> is enabled.
+
+  If this setting is disabled, it should be enabled to allow <tt>nscd</tt>
+
+  to use shared memory.
+
+
+  To enable the <code>nscd_use_shm</code> SELinux boolean, run the following command:
+
+  <pre>$ sudo setsebool -P nscd_use_shm on</pre>'
+identifiers: {}
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>nscd_use_shm</code> SELinux
+  boolean is enabled:
+
+  <pre>$ getsebool nscd_use_shm</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>nscd_use_shm --> on</code>'
+ocil_clause: nscd_use_shm is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: nscd_use_shm
+title: Enable the nscd_use_shm SELinux Boolean
+warnings: []

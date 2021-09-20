@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/http/securing_httpd/httpd_configure_os_protect_web_server/httpd_restrict_file_dir_access/dir_perms_etc_httpd_conf/rule.yml
+description: ' To properly set the permissions of <code>/etc/http/conf</code>, run
+  the command: <pre>$ sudo chmod 0750 /etc/http/conf</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the permissions of <code>/etc/http/conf</code>,
+
+  run the command:
+
+  <pre>$ ls -l /etc/http/conf</pre>
+
+  If properly configured, the output should indicate the following permissions:
+
+  <code>-rwxr-x---</code>'
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8
+rationale: 'Access to the web server''s configuration files may allow an unauthorized
+  user or attacker
+
+  to access information about the web server or alter the server''s configuration
+  files.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Set Permissions on the /etc/httpd/conf/ Directory
+warnings: []

@@ -1,0 +1,44 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/selinux-booleans/sebool_awstats_purge_apache_log_files/rule.yml
+description: 'By default, the SELinux boolean <tt>awstats_purge_apache_log_files</tt>
+  is disabled.
+
+  If this setting is enabled, it should be disabled.
+
+
+  To disable the <code>awstats_purge_apache_log_files</code> SELinux boolean, run
+  the following command:
+
+  <pre>$ sudo setsebool -P awstats_purge_apache_log_files off</pre>'
+identifiers:
+  cce: CCE-80428-6
+inherited_platforms:
+- machine
+ocil: '
+
+  Run the following command to determine if the <code>awstats_purge_apache_log_files</code>
+  SELinux boolean is disabled:
+
+  <pre>$ getsebool awstats_purge_apache_log_files</pre>
+
+  If properly configured, the output should show the following:
+
+  <code>awstats_purge_apache_log_files --> off</code>'
+ocil_clause: awstats_purge_apache_log_files is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: rhel7,rhel8,rhel9
+rationale: ''
+references:
+  cui: 3.7.2
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: sebool
+  vars:
+    seboolid: awstats_purge_apache_log_files
+title: Disable the awstats_purge_apache_log_files SELinux Boolean
+warnings: []

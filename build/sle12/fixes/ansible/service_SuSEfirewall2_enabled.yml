@@ -1,0 +1,32 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Enable service SuSEfirewall2
+  block:
+
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+
+    - name: Enable service SuSEfirewall2
+      service:
+        name: SuSEfirewall2
+        enabled: 'yes'
+        state: started
+        masked: 'no'
+      when:
+        - '"SuSEfirewall2" in ansible_facts.packages'
+  tags:
+    - CCE-83164-4
+    - DISA-STIG-SLES-12-030030
+    - NIST-800-53-AC-17(1)
+    - NIST-800-53-CA-3(5)
+    - NIST-800-53-CM-7
+    - enable_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - service_SuSEfirewall2_enabled

@@ -1,0 +1,47 @@
+<def-group>
+    <definition class="compliance" id="audit_create_failed" version="1">
+      <metadata>
+        <title>Configure auditing of unsuccessful file creations</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 8</platform>
+    </affected>
+        <description>Inspect the contents of /etc/audit/rules.d/30-ospp-v42-1-create-failed.rules</description>
+    </metadata>
+      <criteria>
+          <criterion comment="Check contents of file" test_ref="test_whole_file_contents_tc_audit_rules_d_30_ospp_v42_1_create_failed_rules" />
+      </criteria>
+    </definition>
+
+    <ind:textfilecontent54_test check="all" check_existence="all_exist"
+    comment="Tests if contents of /etc/audit/rules.d/30-ospp-v42-1-create-failed.rules is exactly what is defined in rule description"
+    id="test_whole_file_contents_tc_audit_rules_d_30_ospp_v42_1_create_failed_rules" version="1">
+      <ind:object object_ref="object_whole_file_contents_tc_audit_rules_d_30_ospp_v42_1_create_failed_rules" />
+      <ind:state state_ref="state_whole_file_contents_tc_audit_rules_d_30_ospp_v42_1_create_failed_rules" />
+    </ind:textfilecontent54_test>
+
+    <ind:textfilecontent54_object id="object_whole_file_contents_tc_audit_rules_d_30_ospp_v42_1_create_failed_rules" version="1">
+      <ind:behaviors singleline="true" multiline="false" />
+      <ind:filepath>/etc/audit/rules.d/30-ospp-v42-1-create-failed.rules</ind:filepath>
+      <ind:pattern operation="pattern match">^.*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+
+    <ind:textfilecontent54_state id="state_whole_file_contents_tc_audit_rules_d_30_ospp_v42_1_create_failed_rules" version="1">
+      <ind:text operation="equals">## Unsuccessful file creation (open with O_CREAT)
+-a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b32 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b64 -S openat,open_by_handle_at -F a2&amp;0100 -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b32 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b64 -S open -F a1&amp;0100 -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b32 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+-a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid&gt;=1000 -F auid!=unset -F key=unsuccessful-create
+</ind:text>
+    </ind:textfilecontent54_state>
+
+  </def-group>

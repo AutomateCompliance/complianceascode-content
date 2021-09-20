@@ -1,0 +1,1461 @@
+<xccdf-1.1:Benchmark xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" id="Jboss-Fuse-6" resolved="1" xml:lang="en-US" style="SCAP_1.1">
+  <xccdf-1.1:status date="2021-09-19">draft</xccdf-1.1:status>
+  <xccdf-1.1:title xml:lang="en-US">Guide to the Secure Configuration of JBoss Fuse 6</xccdf-1.1:title>
+  <xccdf-1.1:description xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for JBoss Fuse 6. It is a rendering of
+content structured in the eXtensible Configuration Checklist Description Format (XCCDF)
+in order to support security automation.  The SCAP content is
+is available in the <html:code>scap-security-guide</html:code> package which is developed at
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>.
+<html:br /><html:br />
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles. Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation. This guide is a <html:em>catalog, not a
+checklist</html:em>, and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios. However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability. Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives. Some example
+XCCDF <html:em>Profiles</html:em>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide. They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP). The DISA STIG for JBoss Fuse 6,
+which provides required settings for US Department of Defense systems, is
+one example of a baseline created from this guidance.
+</xccdf-1.1:description>
+  <xccdf-1.1:notice xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.
+</xccdf-1.1:notice>
+  <xccdf-1.1:front-matter xml:lang="en-US">The SCAP Security Guide Project<html:br />
+
+    <html:a href="https://www.open-scap.org/security-policies/scap-security-guide">https://www.open-scap.org/security-policies/scap-security-guide</html:a>
+</xccdf-1.1:front-matter>
+  <xccdf-1.1:rear-matter xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.
+</xccdf-1.1:rear-matter>
+  <xccdf-1.1:platform idref="cpe:/a:redhat:jboss_fuse:6.0" />
+  <xccdf-1.1:version update="https://github.com/ComplianceAsCode/content/releases/latest">0.1.58</xccdf-1.1:version>
+  <xccdf-1.1:metadata>
+    <dc:publisher>SCAP Security Guide Project</dc:publisher>
+    <dc:creator>SCAP Security Guide Project</dc:creator>
+    <dc:contributor>Frank J Cameron (CAM1244) &lt;cameron@ctc.com&gt;</dc:contributor>
+    <dc:contributor>0x66656c6978 &lt;0x66656c6978@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Jack Adolph &lt;jack.adolph@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Gabe Alford &lt;redhatrises@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Firas AlShafei &lt;firas.alshafei@us.abb.com&gt;</dc:contributor>
+    <dc:contributor>Rodrigo Alvares &lt;ralvares@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Christopher Anderson &lt;cba@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor>angystardust &lt;angystardust@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>anivan-suse &lt;anastasija.ivanovic@suse.com&gt;</dc:contributor>
+    <dc:contributor>anixon-rh &lt;55244503+anixon-rh@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Chuck Atkins &lt;chuck.atkins@kitware.com&gt;</dc:contributor>
+    <dc:contributor>Ryan Ballanger &lt;root@rballang-admin-2.fastenal.com&gt;</dc:contributor>
+    <dc:contributor>Alex Baranowski &lt;alex@euro-linux.com&gt;</dc:contributor>
+    <dc:contributor>Eduardo Barretto &lt;eduardo.barretto@canonical.com&gt;</dc:contributor>
+    <dc:contributor>Molly Jo Bault &lt;Molly.Jo.Bault@ballardtech.com&gt;</dc:contributor>
+    <dc:contributor>Gabriel Becker &lt;ggasparb@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Alexander Bergmann &lt;abergmann@suse.com&gt;</dc:contributor>
+    <dc:contributor>Dale Bewley &lt;dale@bewley.net&gt;</dc:contributor>
+    <dc:contributor>Jose Luis BG &lt;bgjoseluis@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Joseph Bisch &lt;joseph.bisch@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jeffrey Blank &lt;blank@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Olivier Bonhomme &lt;ptitoliv@ptitoliv.net&gt;</dc:contributor>
+    <dc:contributor>Lance Bragstad &lt;lbragstad@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ted Brunell &lt;tbrunell@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Matthew Burket &lt;mburket@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Blake Burkhart &lt;blake.burkhart@us.af.mil&gt;</dc:contributor>
+    <dc:contributor>Patrick Callahan &lt;pmc@patrickcallahan.com&gt;</dc:contributor>
+    <dc:contributor>George Campbell &lt;gcampbell@palantir.com&gt;</dc:contributor>
+    <dc:contributor>Nick Carboni &lt;ncarboni@redhat.com&gt;</dc:contributor>
+    <dc:contributor>James Cassell &lt;james.cassell@ll.mit.edu&gt;</dc:contributor>
+    <dc:contributor>Frank Caviggia &lt;fcaviggi@ra.iad.redhat.com&gt;</dc:contributor>
+    <dc:contributor>Eric Christensen &lt;echriste@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jayson Cofell &lt;1051437+70k10@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Caleb Cooper &lt;coopercd@ornl.gov&gt;</dc:contributor>
+    <dc:contributor>Richard Maciel Costa &lt;richard.maciel.costa@canonical.com&gt;</dc:contributor>
+    <dc:contributor>Deric Crago &lt;deric.crago@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Will Cushen &lt;wcushen@redhat.com&gt;</dc:contributor>
+    <dc:contributor>cyarbrough76 &lt;42849651+cyarbrough76@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Maura Dailey &lt;maura@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Klaas Demter &lt;demter@atix.de&gt;</dc:contributor>
+    <dc:contributor>dhanushkar-wso2 &lt;dhanushkar@wso2.com&gt;</dc:contributor>
+    <dc:contributor>Andrew DiPrinzio &lt;andrew.diprinzio@jhuapl.edu&gt;</dc:contributor>
+    <dc:contributor>dom &lt;dominique.blaze@devinci.fr&gt;</dc:contributor>
+    <dc:contributor>Jean-Baptiste Donnette &lt;jean-baptiste.donnette@epita.fr&gt;</dc:contributor>
+    <dc:contributor>drax &lt;applezip@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Sebastian Dunne &lt;sdunne@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Fran&#231;ois Duthilleul &lt;francoisduthilleul@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Greg Elin &lt;gregelin@gitmachines.com&gt;</dc:contributor>
+    <dc:contributor>eradot4027 &lt;jrtonmac@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Alexis Facques &lt;alexis.facques@mythalesgroup.io&gt;</dc:contributor>
+    <dc:contributor>Leah Fisher &lt;lfisher047@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Alijohn Ghassemlouei &lt;alijohn@secureagc.com&gt;</dc:contributor>
+    <dc:contributor>ghylock &lt;ghylock@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Andrew Gilmore &lt;agilmore2@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Joshua Glemza &lt;jglemza@nasa.gov&gt;</dc:contributor>
+    <dc:contributor>Nick Gompper &lt;forestgomp@yahoo.com&gt;</dc:contributor>
+    <dc:contributor>Loren Gordon &lt;lorengordon@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Patrik Greco &lt;sikevux@sikevux.se&gt;</dc:contributor>
+    <dc:contributor>Steve Grubb &lt;sgrubb@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Marek Haicman &lt;mhaicman@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Alex Haydock &lt;alex@alexhaydock.co.uk&gt;</dc:contributor>
+    <dc:contributor>Rebekah Hayes &lt;rhayes@corp.rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor>Trey Henefield &lt;thenefield@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Henning Henkel &lt;henning.henkel@helvetia.ch&gt;</dc:contributor>
+    <dc:contributor>hex2a &lt;hex2a@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>John Hooks &lt;jhooks@starscream.pa.jhbcomputers.com&gt;</dc:contributor>
+    <dc:contributor>Jakub Hrozek &lt;jhrozek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>De Huo &lt;De.Huo@windriver.com&gt;</dc:contributor>
+    <dc:contributor>Robin Price II &lt;robin@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Yasir Imam &lt;yimam@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jiri Jaburek &lt;jjaburek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Keith Jackson &lt;keithkjackson@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jeremiah Jahn &lt;jeremiah@goodinassociates.com&gt;</dc:contributor>
+    <dc:contributor>Jakub Jelen &lt;jjelen@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jessicahfy &lt;Jessicahfy@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Stephan Joerrens &lt;Stephan.Joerrens@fiduciagad.de&gt;</dc:contributor>
+    <dc:contributor>Jono &lt;jono@ubuntu-18.localdomain&gt;</dc:contributor>
+    <dc:contributor>Kai Kang &lt;kai.kang@windriver.com&gt;</dc:contributor>
+    <dc:contributor>Charles Kernstock &lt;charles.kernstock@ultra-ats.com&gt;</dc:contributor>
+    <dc:contributor>Yuli Khodorkovskiy &lt;ykhodorkovskiy@tresys.com&gt;</dc:contributor>
+    <dc:contributor>Nathan Kinder &lt;nkinder@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Lee Kinser &lt;lee.kinser@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Evgeny Kolesnikov &lt;ekolesni@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Peter 'Pessoft' Kol&#237;nek &lt;github@pessoft.com&gt;</dc:contributor>
+    <dc:contributor>Luke Kordell &lt;luke.t.kordell@lmco.com&gt;</dc:contributor>
+    <dc:contributor>Malte Kraus &lt;malte.kraus@suse.com&gt;</dc:contributor>
+    <dc:contributor>Seth Kress &lt;seth.kress@dsainc.com&gt;</dc:contributor>
+    <dc:contributor>kspargur &lt;kspargur@kspargur.csb&gt;</dc:contributor>
+    <dc:contributor>Amit Kumar &lt;amitkuma@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Fen Labalme &lt;fen@civicactions.com&gt;</dc:contributor>
+    <dc:contributor>Ade Lee &lt;alee@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Christopher Lee &lt;Crleekwc@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ian Lee &lt;lee1001@llnl.gov&gt;</dc:contributor>
+    <dc:contributor>Jarrett Lee &lt;jarrettl@umd.edu&gt;</dc:contributor>
+    <dc:contributor>Joseph Lenox &lt;lordofhyphens@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jan Lieskovsky &lt;jlieskov@redhat.com&gt;</dc:contributor>
+    <dc:contributor>&#352;imon Luka&#353;&#237;k &lt;slukasik@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Milan Lysonek &lt;mlysonek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Fredrik Lys&#233;n &lt;fredrik@pipemore.se&gt;</dc:contributor>
+    <dc:contributor>Caitlin Macleod &lt;caitelatte@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Nick Maludy &lt;nmaludy@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</dc:contributor>
+    <dc:contributor>Matus Marhefka &lt;mmarhefk@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jamie Lorwey Martin &lt;jlmartin@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Carlos Matos &lt;cmatos@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Robert McAllister &lt;rmcallis@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Michael McConachie &lt;michael@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Marcus Meissner &lt;meissner@suse.de&gt;</dc:contributor>
+    <dc:contributor>Khary Mendez &lt;kmendez@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Rodney Mercer &lt;rmercer@harris.com&gt;</dc:contributor>
+    <dc:contributor>Matt Micene &lt;nzwulfin@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Brian Millett &lt;bmillett@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Takuya Mishina &lt;tmishina@jp.ibm.com&gt;</dc:contributor>
+    <dc:contributor>Mixer9 &lt;35545791+Mixer9@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>mmosel &lt;mmosel@kde.example.com&gt;</dc:contributor>
+    <dc:contributor>Zbynek Moravec &lt;zmoravec@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Kazuo Moriwaka &lt;moriwaka@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Michael Moseley &lt;michael@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Renaud M&#233;trich &lt;rmetrich@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Joe Nall &lt;joe@nall.com&gt;</dc:contributor>
+    <dc:contributor>Neiloy &lt;neiloy@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Axel Nennker &lt;axel@nennker.de&gt;</dc:contributor>
+    <dc:contributor>Michele Newman &lt;mnewman@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Sean O'Keeffe &lt;seanokeeffe797@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ilya Okomin &lt;ilya.okomin@oracle.com&gt;</dc:contributor>
+    <dc:contributor>Kaustubh Padegaonkar &lt;theTuxRacer@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Michael Palmiotto &lt;mpalmiotto@tresys.com&gt;</dc:contributor>
+    <dc:contributor>Eryx Paredes &lt;eryxp@lyft.com&gt;</dc:contributor>
+    <dc:contributor>Max R.D. Parmer &lt;maxp@trystero.is&gt;</dc:contributor>
+    <dc:contributor>Jan Pazdziora &lt;jpazdziora@redhat.com&gt;</dc:contributor>
+    <dc:contributor>pcactr &lt;paul.c.arnold4.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor>Kenneth Peeples &lt;kennethwpeeples@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Nathan Peters &lt;Nathaniel.Peters@ca.com&gt;</dc:contributor>
+    <dc:contributor>Frank Lin PIAT &lt;fpiat@klabs.be&gt;</dc:contributor>
+    <dc:contributor>Stefan Pietsch &lt;mail.ipv4v6+gh@gmail.com&gt;</dc:contributor>
+    <dc:contributor>piggyvenus &lt;piggyvenus@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Vojtech Polasek &lt;vpolasek@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Orion Poplawski &lt;orion@nwra.com&gt;</dc:contributor>
+    <dc:contributor>Nick Poyant &lt;npoyant@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Martin Preisler &lt;mpreisle@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Wesley Ceraso Prudencio &lt;wcerasop@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Raphael Sanchez Prudencio &lt;rsprudencio@redhat.com&gt;</dc:contributor>
+    <dc:contributor>T.O. Radzy Radzykewycz &lt;radzy@windriver.com&gt;</dc:contributor>
+    <dc:contributor>Kenyon Ralph &lt;kenyon@kenyonralph.com&gt;</dc:contributor>
+    <dc:contributor>Mike Ralph &lt;mralph@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Federico Ramirez &lt;federico.r.ramirez@oracle.com&gt;</dc:contributor>
+    <dc:contributor>rchikov &lt;rumen.chikov@suse.com&gt;</dc:contributor>
+    <dc:contributor>Rick Renshaw &lt;Richard_Renshaw@xtoenergy.com&gt;</dc:contributor>
+    <dc:contributor>Chris Reynolds &lt;c.reynolds82@gmail.com&gt;</dc:contributor>
+    <dc:contributor>rhayes &lt;rhayes@rivierautilities.com&gt;</dc:contributor>
+    <dc:contributor>Pat Riehecky &lt;riehecky@fnal.gov&gt;</dc:contributor>
+    <dc:contributor>rlucente-se-jboss &lt;rlucente@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Juan Antonio Osorio Robles &lt;jaosorior@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Matt Rogers &lt;mrogers@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Jesse Roland &lt;jesse.roland@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor>Joshua Roys &lt;roysjosh@gmail.com&gt;</dc:contributor>
+    <dc:contributor>rrenshaw &lt;bofh69@yahoo.com&gt;</dc:contributor>
+    <dc:contributor>Chris Ruffalo &lt;chris.ruffalo@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ray Shaw (Cont ARL/CISD) rvshaw &lt;rvshaw@esme.arl.army.mil&gt;</dc:contributor>
+    <dc:contributor>Earl Sampson &lt;ESampson@suse.com&gt;</dc:contributor>
+    <dc:contributor>Willy Santos &lt;wsantos@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Gautam Satish &lt;gautams@hpe.com&gt;</dc:contributor>
+    <dc:contributor>Watson Sato &lt;wsato@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Satoru SATOH &lt;satoru.satoh@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Alexander Scheel &lt;ascheel@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Bryan Schneiders &lt;pschneiders@trisept.com&gt;</dc:contributor>
+    <dc:contributor>shaneboulden &lt;shane.boulden@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Spencer Shimko &lt;sshimko@tresys.com&gt;</dc:contributor>
+    <dc:contributor>Mark Shoger &lt;mshoger@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Thomas Sj&#246;gren &lt;konstruktoid@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Francisco Slavin &lt;fslavin@tresys.com&gt;</dc:contributor>
+    <dc:contributor>David Smith &lt;dsmith@eclipse.ncsc.mil&gt;</dc:contributor>
+    <dc:contributor>Kevin Spargur &lt;kspargur@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Kenneth Stailey &lt;kstailey.lists@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Leland Steinke &lt;leland.j.steinke.ctr@mail.mil&gt;</dc:contributor>
+    <dc:contributor>Justin Stephenson &lt;jstephen@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Brian Stinson &lt;brian@bstinson.com&gt;</dc:contributor>
+    <dc:contributor>Jake Stookey &lt;jakestookey@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Jonathan Sturges &lt;jsturges@redhat.com&gt;</dc:contributor>
+    <dc:contributor>teacup-on-rockingchair &lt;strandjata@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Ian Tewksbury &lt;itewk@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Philippe Thierry &lt;phil@reseau-libre.net&gt;</dc:contributor>
+    <dc:contributor>Derek Thurston &lt;thegrit@gmail.com&gt;</dc:contributor>
+    <dc:contributor>tianzhenjia &lt;jiatianzhen@cmss.chinamobile.com&gt;</dc:contributor>
+    <dc:contributor>Greg Tinsley &lt;gtinsley@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Paul Tittle &lt;ptittle@cmf.nrl.navy.mil&gt;</dc:contributor>
+    <dc:contributor>tomas.hudik &lt;tomas.hudik@embedit.cz&gt;</dc:contributor>
+    <dc:contributor>Jeb Trayer &lt;jeb.d.trayer@uscg.mil&gt;</dc:contributor>
+    <dc:contributor>Viktors Trubovics &lt;viktors.trubovics@suse.com&gt;</dc:contributor>
+    <dc:contributor>Nico Truzzolino &lt;nico.truzzolino@gmx.de&gt;</dc:contributor>
+    <dc:contributor>Brian Turek &lt;brian.turek@gmail.com&gt;</dc:contributor>
+    <dc:contributor>Mat&#283;j T&#253;&#269; &lt;matyc@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Trevor Vaughan &lt;tvaughan@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor>Samuel Warren &lt;swarren@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Shawn Wells &lt;shawn@shawndwells.io&gt;</dc:contributor>
+    <dc:contributor>Daniel E. White &lt;linuxdan@users.noreply.github.com&gt;</dc:contributor>
+    <dc:contributor>Bernhard M. Wiedemann &lt;bwiedemann@suse.de&gt;</dc:contributor>
+    <dc:contributor>Roy Williams &lt;roywilli@roywilli.redhat.com&gt;</dc:contributor>
+    <dc:contributor>Willumpie &lt;willumpie@xs4all.nl&gt;</dc:contributor>
+    <dc:contributor>Rob Wilmoth &lt;rwilmoth@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Lucas Yamanishi &lt;lucas.yamanishi@onyxpoint.com&gt;</dc:contributor>
+    <dc:contributor>Xirui Yang &lt;xirui.yang@oracle.com&gt;</dc:contributor>
+    <dc:contributor>yarunachalam &lt;yarunachalam@suse.com&gt;</dc:contributor>
+    <dc:contributor>Guang Yee &lt;guang.yee@suse.com&gt;</dc:contributor>
+    <dc:contributor>Kevin Zimmerman &lt;kevin.zimmerman@kitware.com&gt;</dc:contributor>
+    <dc:contributor>Jan &#268;ern&#253; &lt;jcerny@redhat.com&gt;</dc:contributor>
+    <dc:contributor>Michal &#352;ruba&#345; &lt;msrubar@redhat.com&gt;</dc:contributor>
+    <dc:source>https://github.com/ComplianceAsCode/content/releases/latest</dc:source>
+  </xccdf-1.1:metadata>
+  <xccdf-1.1:model system="urn:xccdf:scoring:default" />
+  <xccdf-1.1:Profile id="amq-stig">
+    <xccdf-1.1:title xml:lang="en-US" override="true">STIG for Apache ActiveMQ</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US" override="true">This is a *draft* profile for STIG. This profile is being developed under the DoD consensus model to become a STIG in coordination with DISA FSO.</xccdf-1.1:description>
+    <xccdf-1.1:select idref="jboss_activemq-cleartext_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-default_roles_removed" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-default_users_removed" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-encrypted_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-java_aaa_service" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-pki_dod_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-pki_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-security_config_attributes" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-ssl_enabled" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-access_control_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-application_data_flow_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-assign_administator" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-auditing_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-backup_schedule" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-config_file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_apps-java_perm_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_java_file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_java_network_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_runtime_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_socket_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disable_hot_deployment" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disable_services_ports" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disaster_recovery" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disaster_recovery_exerises" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-dod_cns_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-dod_hardware_pki_token" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-downloaded_software_valid" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_encrypted_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_fips_authentication" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_fips_modules" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_ldap_ssl" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_pki_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_secure_connections" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_ssl" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-files_ownership" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-incident_response" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-incident_response_exercises" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-java_aaa_service" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-java_vendor_supported" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-ldap_securely_fail" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-log_retention" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-logging_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-non-essential_bundles_features" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_complexity_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_expiration_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_length_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-physical_protections" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-pki_assocation_permission" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-process_owner_console_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-process_owner_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-reduce_logging" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_cleartext_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_default_roles" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_default_users" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_java_security_manager" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_jmx_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_logging" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_remote_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-security_config_attributes" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-stored_passwords_encrypted" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-system_admin_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-valid_dod_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-vender_supported_version" selected="true" />
+  </xccdf-1.1:Profile>
+  <xccdf-1.1:Profile id="standard">
+    <xccdf-1.1:title xml:lang="en-US" override="true">Standard System Security Profile for JBoss</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US" override="true">This profile contains rules to ensure standard security baseline
+of JBoss Fuse. Regardless of your system's workload
+all of these checks should pass.</xccdf-1.1:description>
+    <xccdf-1.1:select idref="jboss_activemq-cleartext_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-default_roles_removed" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-default_users_removed" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-encrypted_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-java_aaa_service" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-pki_dod_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-pki_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-security_config_attributes" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-ssl_enabled" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-access_control_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-application_data_flow_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-assign_administator" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-auditing_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-backup_schedule" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-config_file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_apps-java_perm_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_java_file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_java_network_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_runtime_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_socket_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disable_hot_deployment" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disable_services_ports" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disaster_recovery" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disaster_recovery_exerises" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-dod_cns_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-dod_hardware_pki_token" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-downloaded_software_valid" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_encrypted_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_fips_authentication" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_fips_modules" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_ldap_ssl" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_pki_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_secure_connections" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_ssl" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-files_ownership" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-incident_response" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-incident_response_exercises" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-java_aaa_service" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-java_vendor_supported" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-ldap_securely_fail" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-log_retention" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-logging_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-non-essential_bundles_features" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_complexity_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_expiration_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_length_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-physical_protections" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-pki_assocation_permission" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-process_owner_console_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-process_owner_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-reduce_logging" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_cleartext_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_default_roles" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_default_users" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_java_security_manager" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_jmx_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_logging" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_remote_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-security_config_attributes" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-stored_passwords_encrypted" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-system_admin_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-valid_dod_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-vender_supported_version" selected="true" />
+  </xccdf-1.1:Profile>
+  <xccdf-1.1:Profile id="stig">
+    <xccdf-1.1:title xml:lang="en-US" override="true">STIG for JBoss Fuse 6</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US" override="true">This is a *draft* profile for STIG. This profile is being developed under the DoD consensus model to become a STIG in coordination with DISA FSO.</xccdf-1.1:description>
+    <xccdf-1.1:select idref="jboss_activemq-cleartext_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-default_roles_removed" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-default_users_removed" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-encrypted_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-java_aaa_service" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-pki_dod_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-pki_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-security_config_attributes" selected="true" />
+    <xccdf-1.1:select idref="jboss_activemq-ssl_enabled" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-access_control_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-application_data_flow_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-assign_administator" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-auditing_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-backup_schedule" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-config_file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_apps-java_perm_docs" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_java_file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_java_network_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_runtime_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-deployed_socket_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disable_hot_deployment" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disable_services_ports" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disaster_recovery" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-disaster_recovery_exerises" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-dod_cns_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-dod_hardware_pki_token" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-downloaded_software_valid" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_encrypted_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_fips_authentication" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_fips_modules" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_ldap_ssl" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_pki_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_secure_connections" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-enable_ssl" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-file_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-files_ownership" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-incident_response" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-incident_response_exercises" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-java_aaa_service" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-java_vendor_supported" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-ldap_securely_fail" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-log_retention" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-logging_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-non-essential_bundles_features" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_complexity_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_expiration_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-password_length_policy" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-physical_protections" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-pki_assocation_permission" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-process_owner_console_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-process_owner_permissions" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-reduce_logging" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_cleartext_passwords" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_default_roles" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-remove_default_users" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_java_security_manager" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_jmx_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_logging" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_remote_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-secure_web_console" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-security_config_attributes" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-stored_passwords_encrypted" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-system_admin_access" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-valid_dod_certificates" selected="true" />
+    <xccdf-1.1:select idref="jboss_karaf-vender_supported_version" selected="true" />
+  </xccdf-1.1:Profile>
+  <xccdf-1.1:Group id="remediation_functions">
+    <xccdf-1.1:title xml:lang="en-US">Remediation functions used by the SCAP Security Guide Project</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US">XCCDF form of the various remediation functions as used by remediation scripts from the SCAP Security Guide Project.</xccdf-1.1:description>
+  </xccdf-1.1:Group>
+  <xccdf-1.1:Group id="fuse6">
+    <xccdf-1.1:title xml:lang="en-US">JBoss Fuse 6</xccdf-1.1:title>
+    <xccdf-1.1:description xml:lang="en-US">JBoss Fuse is an open source Enterprise Service Bus (ESB)
+with an elastic footprint that supports integration beyond the data
+center. The lack of license fees and the ability to deploy JBoss Fuse
+in several different configurations advances intelligent integration to
+all facets of your business &#8211; on premise or in the Cloud.
+<html:br /><html:br />
+JBoss Fuse combines Apache Camel, Apache CXF, Apache ActiveMQ,
+Apache Karaf and Fuse Fabric in a single integrated distribution. Core
+messaging is provided by Apache ActiveMQ, services framework (SOAP,
+XML/HTTP, RESTful HTTP) is provided by Apache CXF and integration
+framework is provided by Apache Camel. Apache Karaf provides a
+lightweight OSGI-based runtime container.</xccdf-1.1:description>
+    <xccdf-1.1:Group id="amq">
+      <xccdf-1.1:title xml:lang="en-US">Apache ActiveMQ Configuration</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">The rules in this group validate Apache ActiveMQ
+related items.</xccdf-1.1:description>
+      <xccdf-1.1:Rule id="jboss_activemq-cleartext_passwords" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Disable or Remove Clear-Text Passwords</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Eliminate clear-text passwords in JBoss configuration
+files. All passwords should be encrypted and all password files
+should have restricted file permissions.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-28</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Clear-text passwords are an unnecessary security vulnerability.
+While risk of exposure can be mitigated through configured
+permissions and file ownership, these methods do not completely
+remediate the risk.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-cleartext_passwords_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-default_roles_removed" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure No Default Roles Exist</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Remove, rename, or comment out the default roles
+defined in .properties files.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Default configurations are commonly leveraged by attackers to
+gain entry into closed systems. Removing, renaming, or commenting
+out default roles makes malicious exploitation more complex.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-default_roles_removed_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-default_users_removed" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure No Default User Accounts Exist</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Remove, rename, or comment out the default user
+accounts defined in .properties files.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Default configurations are commonly leveraged by attackers to
+gain entry into closed systems. Removing, renaming, or commenting
+out default user accounts makes malicious exploitation more
+complex.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-default_users_removed_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-encrypted_passwords" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Stored Passwords Must Be Encrypted</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Stored passwords must be encrypted.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Passwords need to be protected at all times and encryption is
+the standard method for protecting passwords. If passwords are
+not encrypted, they can be plainly read and easily compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-encrypted_passwords_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-file_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Only Administrators Can Modify Configuration
+Files</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Server should be protected with permission sets
+which allow only an application administrator to modify
+application resource configuration files.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">An access control flaw exists if users or processes can view
+or modify data to which they should not be permitted. This
+could result in situations ranging from information disclosure
+to system compromise and could potentially result in the
+compromise of other systems on the network.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-file_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-java_aaa_service" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Default System Java Authentication and Authorization
+Service Is In Use</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Using the default system JAAS configuration ensures
+user identification and authentication are performed by JBoss Fuse.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Using an administrator specified JAAS configuration enables a more
+rigorous security posture.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-java_aaa_service_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-pki_dod_certificates" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">All PKI Certificates Are Valid DoD Certificates</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">All PKI Certificates in use should be valid at the
+time of use.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">By using invalid certificates the server may allow unauthorized
+users access to the system.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-pki_dod_certificates_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-pki_web_console" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure ActiveMQ Web Console is using PKI</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">PKI should be enabled for the Web Console.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">All applications requiring user authentication to access sensitive
+data must be PKI-enabled in compliance with DoDI 8520.2 PKI and PKI
+Enabling and are required to credentials approved under the DoD PKI
+program.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-pki_web_console_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-security_config_attributes" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Administrators Can Only Change Security Related Configuration
+Attributes</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Security attributes are typically associated with internal
+data structures and configuration (e.g., application deployment, logging,
+monitoring) within the application server and are used to enable the
+implementation of access control and flow control policies, reflect
+special dissemination, handling or distribution instructions, or support
+other aspects of the organizational information security policy.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If unauthorized entities were able to change security attributes,
+the integrity and/or confidentiality of the server could be
+compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-security_config_attributes_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_activemq-ssl_enabled" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">SSL Is Enabled on the ActiveMQ Web Console</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must utilize cryptography to protect
+the confidentiality of remote access management sessions.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If cryptography is not used, then the session data traversing
+the remote connection could be intercepted and compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_activemq-ssl_enabled_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+    </xccdf-1.1:Group>
+    <xccdf-1.1:Group id="camel">
+      <xccdf-1.1:title xml:lang="en-US">Apache Camel Configuration</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">The rules in this group validate Apache Camel
+related items.</xccdf-1.1:description>
+    </xccdf-1.1:Group>
+    <xccdf-1.1:Group id="cxf">
+      <xccdf-1.1:title xml:lang="en-US">Apache CXF Configuration</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">The rules in this group validate Apache CXF
+related items.</xccdf-1.1:description>
+    </xccdf-1.1:Group>
+    <xccdf-1.1:Group id="karaf">
+      <xccdf-1.1:title xml:lang="en-US">Apache Karaf Configuration</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">The rules in this group validate Apache Karaf
+related items.</xccdf-1.1:description>
+      <xccdf-1.1:Rule id="jboss_karaf-config_file_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Only Administrators Can Modify Configuration Files</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Server should be protected with permission sets which allow
+only an application administrator to modify application resource
+configuration files.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">An access control flaw exists if users or processes can view or modify
+data to which they should not be permitted. This could result in situations
+ranging from information disclosure to system compromise and could potentially
+result in the compromise of other systems on the network.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-config_file_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-deployed_java_file_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Deployed Applications Have Restricted File Permissions</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Deployed applications must not be granted file permissions
+- except to those that are dedicated to the application only. These
+permissions are enforced by the Java Security Manager and the policies it
+loads at startup. These permissions can be assigned or restricted in an
+application-specific, granular manner.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Java permissions for deployed applications should be carefully restricted
+to enforce the least privilege principle. Granting unrestricted access to
+the host operating system creates a large attack vector for malicious
+users that have penetrated the JBoss server.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-deployed_java_file_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-deployed_java_network_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Deployed Applications Do Not Have Network Permissions</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Deployed applications must not be granted network permissions.
+These permissions are enforced by the Java Security Manager and the policies
+it loads at startup. These permissions can be assigned or restricted in an
+application-specific, granular manner.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Java permissions for deployed applications should be carefully restricted
+to enforce the least privilege principle.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-deployed_java_network_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-deployed_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Disable All Permission for Deployed Applications</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Deployed applications must not be granted all permissions.
+These permissions are enforced by the Java Security Manager and the policies
+it loads at startup. These permissions can be assigned or restricted in an
+application-specific, granular manner.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Java permissions for deployed applications should be carefully restricted
+to enforce the least privilege principle. Using AllPermissions is essentially
+disabling the Java security sandbox and is inadvisable in nearly every scenario.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-deployed_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-deployed_runtime_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Disable Runtime Permissions for Deployed Applications</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Deployed applications must not be granted runtime permissions.
+These permissions are enforced by the Java Security Manager and the policies
+it loads at startup. These permissions can be assigned or restricted in an
+application-specific, granular manner.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Java permissions for deployed applications should be carefully restricted
+to enforce the least privilege principle. Granting RuntimePermission to
+applications allows these applications to modify classloaders or modify
+the running security manager. Either of these actions can be used to
+elevate permissions and increase the number of potential damaging actions
+that can be taken.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-deployed_runtime_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-deployed_socket_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Disable Socket Permissions for Deployed Applications</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Deployed applications must not be granted any socket permissions.
+These permissions are enforced by the Java Security Manager and the policies
+it loads at startup. These permissions can be assigned or restricted in an
+application-specific, granular manner.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Java permissions for deployed applications should be carefully restricted
+to enforce the least privilege principle. Most well-designed applications
+will not need to directly manipulate sockets for network access (access to
+datasources should be handled through datasources, which can be
+assigned SocketPermission.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-deployed_socket_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-disable_hot_deployment" selected="false" severity="low">
+        <xccdf-1.1:title xml:lang="en-US">Disable Hot Deployment</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Hot deployment should be disabled on production
+servers. Hot Deployment allows for automatic deployment of Java
+applications by simply placing Java applications into the deploy
+directory.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-7</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Hot deployments are not a recommended best practice for production
+environments. By requiring the additional step of restarting the
+JBoss server, application deployments become more deliberate and
+purposeful.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-disable_hot_deployment_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-disable_services_ports" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Disable All Unused Ports, Protocols, And services</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must prohibit or restrict the use of
+unauthorized functions, ports, protocols, and/or services.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">The server provides numerous processes, features and functionalities
+that utilize TCP/IP ports. Some of these processes may be deemed to be
+unnecessary or too insecure to run on a production system.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-disable_services_ports_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-dod_cns_certificates" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Configure DoD or CNS approved PKI Class 3 and Class 4 Certificates</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must use DoD or CNS approved PKI Class 3
+or Class 4 certificates.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Class 3 PKI certificates are used for servers and software signing
+rather than for identifying individuals. Class 4 certificates are used
+for business-to-business transactions. Utilizing unapproved certificates
+not issued or approved by DoD or CNS creates an integrity risk.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-dod_cns_certificates_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-dod_hardware_pki_token" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Enable CAC Card Usage for Deployed Applications</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">JBoss applications implementing authentication should
+utilize the DoD Public Key Infrastructure. The DoD Public Key
+Infrastructure is designed to use hardware tokens such as the Common
+Access Card in conjunction with issued X.509 certificates. These tokens
+are typically protected with a PIN that unlocks access to the private
+certificate stored on the token.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Leveraging the DoD Public Key Infrastructure increases the security
+of an application because the DoD PKI raises the bar for exploitation
+of user identities. Applications that require authentication and do
+not utilize PKI must then rely on a less secure form of authentication,
+such as username and password. Additionally, current DoD guidance
+requires the use of DoD PKI over username and password.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-dod_hardware_pki_token_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-downloaded_software_valid" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure All Downloaded Software Is Validated</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Software and packages should be downloaded from
+redhat.com, and hash validated.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Without validating downloaded files are authentic, malicious users
+may compromise software before it has even been installed. Attackers
+may redirect traffic to alternate download locations and attempt to
+trick administrators into downloading modified software.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-downloaded_software_valid_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_encrypted_passwords" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Enable Encrypted Passwords</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Password hashing should be enabled in all security realms
+where plain-text passwords are currently in use.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-8</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-9</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Failure to enable password hashing within a login module can result in
+plain-text exposure client passwords used for authentication.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_encrypted_passwords_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_fips_authentication" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Enable FIPS for User and Process Authentication</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The Application Server must utilize FIPS 140-2 approved
+encryption modules when authenticating users and processes.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Encryption is only as good as the encryption modules utilized. Unapproved
+cryptographic module algorithms cannot be verified, and cannot be relied
+upon to provide confidentiality or integrity and DoD data may be
+compromised due to weak algorithms.&#160;FIPS 140-2 is the current standard for
+validating cryptographic modules and NSA Type-X (where X=1, 2, 3, 4)
+products are NSA certified hardware-based encryption modules.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_fips_authentication_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_fips_modules" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Enable FIPS Compliant Modules</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">While JBoss itself has no need to load FIPS compliant modules,
+the underlying technologies such as Java do. Utilizing only FIPS compliant
+modules decreases compatibility with applications that are not FIPS enabled.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-13</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Enabling FIPS compliant algorithms ensures that the underlying technologies
+that JBoss works through are using cryptographic modules that have been
+vetted by NIST for security, stability, and strength. Failure to utilize
+FIPS certified modules may cause the underlying technologies used by JBoss to
+utilize older, less secure algorithms. Failure to enable only FIPS compliant
+modules may also have regulatory consequences, as FIPS 140-2 requires the
+use of FIPS compliant modules by all federal agencies.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_fips_modules_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_ldap_ssl" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Enable SSL When LDAP Is Configured</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must utilize encryption when using
+LDAP for authentication.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Passwords need to be protected at all times and encryption is the
+standard method for protecting passwords during transmission.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_ldap_ssl_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_pki_web_console" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Enable The Web Console To Use PKI</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">PKI should be enabled for the Web Console.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">All applications requiring user authentication to access sensitive data
+must be PK-enabled in compliance with DoDI 8520.2 PKI and PK Enabling
+and are required to credentials approved under the DoD PKI program.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_pki_web_console_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_secure_connections" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Secure Remote Access Via SSH</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must utilize cryptography to protect the
+confidentiality of remote access management sessions.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If cryptography is not used, then the session data traversing the
+remote connection could be intercepted and compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_secure_connections_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-enable_ssl" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Enable SSL On The Web Console</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must utilize cryptography to protect the
+confidentiality of remote access management sessions.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If cryptography is not used, then the session data traversing the
+remote connection could be intercepted and compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-enable_ssl_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-file_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure JBoss Files Have Correct Permissions</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">All JBoss files within the installation directory should be
+readable by the JBoss process owner and JBoss administrators only.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-3</xccdf-1.1:reference>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">To prevent unauthorized modification or disclosure of JBoss configuration
+settings, access to all files within the installation directory should be
+restricted to the JBoss process owner account and Jboss administrators.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-file_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-files_ownership" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure JBoss Files Are Owned By Appropriate Users</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">All JBoss Fuse files within the installation directory should
+be owned by the JBoss process owner account.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-3</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">To prevent unauthorized modification or disclosure of JBoss configuration
+settings, all files within the installation directory should be owned by
+the JBoss process owner account.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-files_ownership_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-java_aaa_service" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Java Authentication and Authorization Service Is Configured</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Using the default system JAAS configuration ensures user
+identification and authentication are performed by JBoss Fuse.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Using an administrator specified JAAS configuration enables a more
+rigorous security posture.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-java_aaa_service_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-java_vendor_supported" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Java Runtime Environment Is A Vendor Supported Version</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Evaluated JBoss installation must use a vendor supported
+Java virtual machine - i.e., one that has not reached end-of-life.
+Migration strategies should be developed when end-of-life is impending.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Java installations should be a vendor supported version. If the Java
+virtual machine in use by JBoss is not supported by the vendor, this
+may result in outages, unresolvable problems, no access to security
+or functional updates, etc.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-java_vendor_supported_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-ldap_securely_fail" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Configure LDAP To Fail Securely</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must fail securely in the event of an
+operational failure.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Fail secure is a condition achieved by the server in order to ensure
+that in the event of an operational failure, the system does not
+enter into an unsecure state where intended security properties no
+longer hold.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-ldap_securely_fail_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-log_retention" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Configure JBoss Logs Number of Days Retained</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Logging should be configured to maintain logs for
+a organization defined continuous number of days.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If adequate online audit storage capacity is not maintained,
+intrusion monitoring, security investigations, and forensic
+analysis can be negatively affected.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-log_retention_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-logging_access" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Log Files Are Only Accessed By Authorized Users</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Only authorized personnel may view log files.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If the application provides too much information in error logs and
+administrative messages to the screen, this could lead to compromise.
+The structure and content of error messages need to be carefully considered
+by the organization and development team. The extent to which the
+information system is able to identify and handle error conditions is
+guided by organizational policy and operational requirements.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-logging_access_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-non-essential_bundles_features" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Remove All Non-Essential Bundles And Features</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">All non-essential bundles and features should be
+removed from production servers.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">The server provide a myriad of differing processes, features and
+functionalities. Some of these processes may be deemed to be
+unnecessary or too insecure to run on a production DoD system.
+Servers must provide the capability to disable or deactivate
+functionality and services that are deemed to be non-essential
+to the server mission or can adversely impact server performance.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-non-essential_bundles_features_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-pki_assocation_permission" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Only Authorized Users Can Associate PKI Information</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Throughout the course of normal usage, authorized users of
+application servers will have the need to associate security attributes
+in the form of PKI credentials with information. The server utilizes a
+role based authentication model when managing server resources and limits
+access according to user role.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">The server must ensure that only the users who are authorized to associate
+security attributes with information are allowed to do so.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-pki_assocation_permission_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-process_owner_console_access" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Deny JBoss Process Owner Console Access</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The JBoss process owner should not have interactive console
+login access.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">In order to limit access in the event of an exploitation of the Jboss or
+one of its deployed applications, the account owning the Jboss process should
+be limited in its ability to interact with the supporting operating system
+where possible. Thus, the JBoss process owner account should not have
+interactive console access.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-process_owner_console_access_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-process_owner_permissions" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure JBoss Process Owner Executes with Least Privilege</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Operating environment permissions assigned to the JBoss process
+owner should be in compliance with the principle of least privilege.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">In order to reduce the potential impact of exploitation against the JBoss
+application server (and the rest of the operating environment), the JBoss process
+owner should execute with as few permissions as possible in the environment
+(if the account is not local to the operating system or is distributed across
+multiple operating systems). Failure to limit permissions can dramatically
+increase the severity of exploits against the JBoss server, such as the
+execution of arbitrary code.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-process_owner_permissions_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-reduce_logging" selected="false" severity="low">
+        <xccdf-1.1:title xml:lang="en-US">Reduce Logging To Decrease Storage Capacity Limitations</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must configure auditing to reduce the
+likelihood of storage capacity being exceeded.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">The server auditing capability is critical for accurate
+forensic analysis. Alerting administrators when audit log
+size thresholds are exceeded helps ensure the administrators
+can respond to heavy activity in a timely manner. Failure to
+alert increases the probability that an adversary's actions
+will go undetected.&#160;The server or the configured Network
+Attached Storage Device (SAN) must alert administrators
+when audit log usage reaches a defined percentage of overall
+capacity.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-reduce_logging_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-remove_cleartext_passwords" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Disable and Remove Clear-Text Passwords</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Eliminate clear-text passwords in JBoss configuration files. All
+passwords should be encrypted and all password files should have restricted
+file permissions.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-28</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Clear-text passwords are an unnecessary security vulnerability. While risk
+of exposure can be mitigated through configured permissions and file ownership,
+these methods do not completely remediate the risk.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-remove_cleartext_passwords_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-remove_default_roles" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Default Roles Have Been Removed</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Remove, rename, or comment out the default roles
+defined in .properties files.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Default configurations are commonly leveraged by attackers to gain
+entry into closed systems. Removing, renaming, or commenting out
+default roles makes malicious exploitation more complex.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-remove_default_roles_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-remove_default_users" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Default User Accounts Have Benn Removed</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Remove, rename, or comment out the default user
+accounts defined in .properties files.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Default configurations are commonly leveraged by attackers to
+gain entry into closed systems. Removing, renaming, or commenting
+out default user accounts makes malicious exploitation more
+complex.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-remove_default_users_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-secure_java_security_manager" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Configure Java Security Manager To Use An Environment Policy</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The Java Security Manager is a crucial piece of the Java
+security infrastructure. JBoss Fuse should be configured to load a Java
+security policy that has been vetted for use in the environment.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SA-13</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">A weak, default, or incomplete Java Security Manager policy file can
+completely compromise the security of a Java installation by granting
+excessive permissions to applications running within the sandbox. These
+permissions can be leveraged (maliciously or not) to run code against the
+operating system.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-secure_java_security_manager_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-secure_jmx_access" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Secure or Disable JMX Access</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">JMX access must be secured so it is accessible by trusted
+administrators only. If this condition is not met, the access must be
+disabled from the deployment.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-3</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Failure to secure JMX against unauthorized access can quickly lead to
+system compromise. The default access included with JBoss is a well-known
+attack vector that can be leveraged to load malicious code to be executed
+on the server.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-secure_jmx_access_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-secure_logging" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure JBoss Logging Is Secured</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Only error messages that provide information necessary
+for corrective actions without revealing sensitive or potentially harmful
+information in error logs and administrative messages should be generated.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Any application providing too much information in error logs and in
+administrative messages to the screen risks compromising the data and
+security of the application and system. The structure and content of error
+messages needs to be carefully considered by the organization and
+development team.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-secure_logging_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-secure_remote_access" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Disable Or Secure Remote Access</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Remote access must be secured so it is accessible by trusted
+administrators only. If this condition is not met, the access must be
+disabled from the deployment.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-3</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Failure to secure against unauthorized access can quickly lead to system
+compromise. The default access included with JBoss is a well-known attack
+vector that can be leveraged to load malicious code to be executed on the
+server.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-secure_remote_access_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-secure_web_console" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Secure or Remove Web Console</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The Web Console application must be secured so it is
+accessible by trusted administrators only. If this condition is not met,
+the application must be removed (deleted) from deployment.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-3</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Failure to secure the default consoles against unauthorized access can
+quickly lead to system compromise. The default consoles included with JBoss
+are a well-known attack vector that can be leveraged to load malicious code
+to be executed on the server.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-secure_web_console_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-security_config_attributes" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Administrators Can Only Change Security Related
+Configuration Attributes</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Security attributes are typically associated with internal
+data structures and configuration (e.g., application deployment, logging,
+monitoring) within the application server and are used to enable the
+implementation of access control and flow control policies, reflect special
+dissemination, handling or distribution instructions, or support other
+aspects of the organizational information security policy.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">If unauthorized entities were able to change security attributes, the
+integrity and/or confidentiality of the server could be compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-security_config_attributes_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-stored_passwords_encrypted" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Stored Passwords Are Encrypted</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Stored passwords must be encrypted.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">Passwords need to be protected at all times and encryption is
+the standard method for protecting passwords. If passwords are
+not encrypted, they can be plainly read and easily compromised.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-stored_passwords_encrypted_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-system_admin_access" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">Ensure Only Approved Administrators Can Change System
+Configurations</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The server must enforce logical access restrictions
+associated with changes to application configuration.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">When dealing with access restrictions pertaining to change control,
+it should be noted that any changes to the hardware, software,
+and/or firmware components of the information system and/or
+application can potentially have significant effects on the overall
+security of the system.&#160;Accordingly, only qualified and authorized
+individuals should be allowed to obtain access to server components
+for the purposes of initiating changes, including upgrades and
+application modifications.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-system_admin_access_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-valid_dod_certificates" selected="false" severity="high">
+        <xccdf-1.1:title xml:lang="en-US">All PKI Certificates Are Valid DoD Certificates</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">All PKI Certificates in use should be valid at the time of use.</xccdf-1.1:description>
+        <xccdf-1.1:rationale xml:lang="en-US">By using invalid certificates the server may allow unauthorized users
+access to the system.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-valid_dod_certificates_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Rule id="jboss_karaf-vender_supported_version" selected="false" severity="medium">
+        <xccdf-1.1:title xml:lang="en-US">Ensure JBoss Fuse Is A Vendor Supported Version</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">Evaluated JBoss installation must be a vendor supported
+version of JBoss Fuse 6. Organizations using JBoss Fuse must use a vendor
+supported version with an active support contract.</xccdf-1.1:description>
+        <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CM-6</xccdf-1.1:reference>
+        <xccdf-1.1:rationale xml:lang="en-US">Failure to utilize a supported version of JBoss in a production environment
+can lead to outages, unresolvable problems, no access to security or
+functional updates, etc.</xccdf-1.1:rationale>
+        <xccdf-1.1:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf-1.1:check-content-ref name="oval:ssg-jboss_karaf-vender_supported_version:def:1" href="oval-linked.xml" />
+        </xccdf-1.1:check>
+        <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+          <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-vender_supported_version_ocil:questionnaire:1" />
+        </xccdf-1.1:check>
+      </xccdf-1.1:Rule>
+      <xccdf-1.1:Group id="jboss_karaf-policies_and_procedures">
+        <xccdf-1.1:title xml:lang="en-US">Apache Karaf Policies and Procedures</xccdf-1.1:title>
+        <xccdf-1.1:description xml:lang="en-US">The rules in this group validate Apache Karaf
+policies and procedures.</xccdf-1.1:description>
+        <xccdf-1.1:Rule id="jboss_karaf-access_control_docs" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Access Control Policy and Procedures</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">JBoss administrators must have access to guidance
+regarding account creation, permissions assignments, role assignments,
+etc.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-1</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">A consistent, cohesive access control policy is impossible to attain
+without a well-documented access control policy and related procedures.
+Failure to do so typically results in over-assignment of access
+permissions for users and applications, stale access for users and
+applications, and other access control misconfigurations that reduce
+the effectiveness of the security policy.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-access_control_docs_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-application_data_flow_docs" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Identify and Document Application Data Flows</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">It is recommended to identify and document
+application data flows. This will allow insight into what paths
+sensitive information takes through the application environment
+and what data source connections need to be encrypted.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-8</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-9</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">SC-23</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Failure to document an application's data flows reduces security,
+increases the chance for architectural and configuration errors,
+and can impede performance. Many applications use network services
+that are not immediately apparent.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-application_data_flow_docs_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-assign_administator" selected="false" severity="high">
+          <xccdf-1.1:title xml:lang="en-US">Assign A JBoss Administrator</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">There must be one or more competent individuals who
+are assigned to manage JBoss Fuse, its environment and the security
+of the information it contains.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AT-2</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AT-3</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AT-4</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Incompetent, careless, or negligent JBoss administrators can
+completely invalidate a secure JBoss configuration and create
+numberless problems for JBoss.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-assign_administator_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-auditing_policy" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Ensure Auditing Policy Exists</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">In order to effectively audit and review system logs,
+an audit policy should be written to identify data and trends of
+interest.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AU-1</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AU-2</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AU-3</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AU-5</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Without a comprehensive audit policy and review procedures,
+organizations risk missing critical events or event trends within
+their environment. These missed events may indicate system anomalies
+ranging from malicious attacks, system instabilities, system misuse,
+etc.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-auditing_policy_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-backup_schedule" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Ensure Regular Backup Schedule</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">JBoss applications and configuration files should
+be backed up at least weekly, possibly more if needed by the
+environment.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CP-9</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Failure to regularly backup JBoss configuration files and deployed
+applications can result in extensive downtime or information losses
+in the event of a disaster or other system outage.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-backup_schedule_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-deployed_apps-java_perm_docs" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Deployed Applications - Java Permission Deployment Docs</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Java permissions for applications should be documented
+and carefully reviewed prior to deployment. Developers and
+administrators should strive to balance application permissions and
+application functionality.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">AC-1</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Java permissions for deployed applications should be carefully
+restricted to enforce the least privilege principle. Careful
+documentation, along with a thorough review will help prevent
+needlessly insecure permission assignments for applications. An
+overabundance of Java permissions can allow applications to
+circumvent one of Java's strongest security features - the Java
+Security Manager sandbox.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-deployed_apps-java_perm_docs_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-disaster_recovery" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Document Disaster Recovery Procedures</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Robust disaster recovery documentation and procedures
+should exist. This documentation should include provisions for
+the JBoss platform, deployed applications, required source code,
+and supporting applications (such as authentication stores or
+database servers).</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CP-1</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CP-2</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Planning for disasters and extended outages prior to a real-life
+scenario helps mitigate losses associated with identified
+disasters. Failure to adequately prepare, plan, and exercise for
+these scenarios can result in extensive losses.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-disaster_recovery_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-disaster_recovery_exerises" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Perform Periodic Disaster Recovery Exercises</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Production environments should exercise disaster
+recovery procedures that include provisions for the JBoss
+platform, deployed applications, and any required source code
+at least annually. Environments requiring higher assurances
+of disaster recovery ability should test procedures more
+often, possibly quarterly or even monthly.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">CP-4</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Planning for disasters and extended outages prior to a real-life
+scenario helps mitigate losses associated with identified
+disasters. Failure to adequately prepare, plan, and exercise for
+these scenarios can result in extensive losses.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-disaster_recovery_exerises_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-incident_response" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Document Incident Response Procedures</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Ensure well developed procedures exist for incident
+handling. Incidents include any events that are anomalous to the
+environment.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IR-1</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IR-8</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Planning for incidents prior to real-life scenarios increases
+incident response time and mitigates damages. Failure to
+adequately prepare, plan, and exercise for these scenarios can
+result in extensive losses.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-incident_response_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-incident_response_exercises" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Perform Periodic Incident Response Exercises</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Production environments should exercise incident
+response procedures at least annually. Environments requiring
+higher assurances of security should test incident response
+procedures more often, possibly quarterly or even monthly.
+Incident response procedures should cover all anomalous events.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IR-3</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Planning for incidents and practicing procedures to be followed
+prior to real-life scenario improves response time and mitigates
+damages/losses that occur with incidents.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-incident_response_exercises_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-password_complexity_policy" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Define Minimum Password Complexity Requirement</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Organizations should create an authenticator management
+policy that defines a minimum level of complexity for user accounts
+accessing JBoss and its deployed applications. These requirements should
+also restrict passwords from containing dictionary words and reusing
+previous passwords.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Complex passwords increase password security and the length of time required
+to decrypt the password. Additionally, complex passwords are less likely to
+be found in password dictionaries. However, there are risks associated with
+requiring overly complex passwords, as users may take steps to circumvent
+policy; such as using repetitive passwords, writing password reminders, or
+writing down their passwords.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-password_complexity_policy_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-password_expiration_policy" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Define Minimum Password Expiration Interval</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Organizations should create an authenticator management policy
+that defines a maximum password age for user accounts accessing JBoss and
+its deployed applications.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">In combination with password length and complexity, regularly changing
+passwords can defeat many attacks. If a password or password hash is
+intercepted by a malicious party, changing the password can remove access
+or render invalid a cracking attempt on the hash. However, there are risks
+associated with frequently changing passwords. Users may take steps to
+circumvent policy such as using repetitive passwords or using password
+derivatives. Additionally, changing passwords for system or application
+accounts introduces an element of configuration risk. Poorly coordinated
+or documented changes can result in system outages or create other problems.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-password_expiration_policy_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-password_length_policy" selected="false" severity="medium">
+          <xccdf-1.1:title xml:lang="en-US">Define Minimum and Maximum Password Length Requirement</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">Organizations should create an authenticator management
+policy that defines minimum and maximum password sizes for user accounts
+accessing JBoss and its deployed applications.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">IA-5</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">In brute force scenarios, passwords of extended lengths increase
+password security and the length of time required to decrypt the password.
+However, there are risks associated with requiring passwords of great
+lengths, as users may take steps to circumvent policy; such as using
+repetitive passwords, writing password reminders, or writing down their
+passwords.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-password_length_policy_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+        <xccdf-1.1:Rule id="jboss_karaf-physical_protections" selected="false" severity="high">
+          <xccdf-1.1:title xml:lang="en-US">Ensure Adequate Physical Protections</xccdf-1.1:title>
+          <xccdf-1.1:description xml:lang="en-US">The hardware and software executing JBoss Fuse, as
+well as the software critical to security policy enforcement must
+be protected from unauthorized modification including unauthorized
+modifications by potentially hostile outsiders. Reasonable physical
+security measures to ensure that unauthorized personnel do not have
+physical access to the hardware running the JBoss Enterprise
+Application Platform software must be implemented.</xccdf-1.1:description>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">PE-1</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">PE-2</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">PE-3</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">PE-7</xccdf-1.1:reference>
+          <xccdf-1.1:reference href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf">PE-18</xccdf-1.1:reference>
+          <xccdf-1.1:rationale xml:lang="en-US">Many software security precautions can easily be bypassed by
+personnel with physical access to hardware storing data or
+executing an application.</xccdf-1.1:rationale>
+          <xccdf-1.1:check system="http://scap.nist.gov/schema/ocil/2">
+            <xccdf-1.1:check-content-ref href="ocil-linked.xml" name="ocil:ssg-jboss_karaf-physical_protections_ocil:questionnaire:1" />
+          </xccdf-1.1:check>
+        </xccdf-1.1:Rule>
+      </xccdf-1.1:Group>
+    </xccdf-1.1:Group>
+    <xccdf-1.1:Group id="policy">
+      <xccdf-1.1:title xml:lang="en-US">JBoss Fuse Policy Guidelines</xccdf-1.1:title>
+      <xccdf-1.1:description xml:lang="en-US">The rules in this group are used to
+manage Jboss servers in a secure manner. These
+rules are policy related.</xccdf-1.1:description>
+    </xccdf-1.1:Group>
+  </xccdf-1.1:Group>
+</xccdf-1.1:Benchmark>

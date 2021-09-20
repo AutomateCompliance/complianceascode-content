@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/permissions/files/dir_system_commands_root_owned/rule.yml
+description: "System commands are stored in the following directories by default:\n\
+  <pre>/bin \n/sbin \n/usr/bin \n/usr/sbin \n/usr/local/bin \n/usr/local/sbin\n</pre>\n\
+  All these directories should be owned by the <tt>root</tt> user. \nIf any system\
+  \ command directory is not owned by a user other than root \ncorrect its ownership\
+  \ with the following command:\n<pre>$ sudo chown root <i>DIR</i></pre>"
+identifiers:
+  cce: CCE-83242-8
+inherited_platforms: []
+ocil: "System commands are stored in the following directories:\n<pre>/bin \n/sbin\
+  \ \n/usr/bin \n/usr/sbin \n/usr/local/bin \n/usr/local/sbin</pre>\nFor each of these\
+  \ directories, run the following command to find directories not\nowned by root:\n\
+  <pre>$ sudo find -L <i>$DIR</i> ! -user root -type d</pre>"
+ocil_clause: any of these directories are not owned by root
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: sle12,sle15
+rationale: "If the operating system were to allow any user to make changes to \nsoftware\
+  \ libraries, then those changes might be implemented without \nundergoing the appropriate\
+  \ testing and approvals that are part of a \nrobust change management process.\n\
+  \nThis requirement applies to operating systems with software libraries\nthat are\
+  \ accessible and configurable, as in the case of interpreted languages. \nSoftware\
+  \ libraries also include privileged programs which execute with escalated \nprivileges.\
+  \ Only qualified and authorized individuals must be allowed to obtain \naccess to\
+  \ information system components for purposes of initiating changes, \nincluding\
+  \ upgrades and modifications."
+references:
+  disa: CCI-001499
+  nist: CM-5(6),CM-5(6).1
+  srg: SRG-OS-000259-GPOS-00100
+  stigid: SLES-15-010881
+requires: []
+severity: medium
+template: null
+title: Verify that system commands directories have root ownership
+warnings: []

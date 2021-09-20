@@ -1,0 +1,63 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-physical/screen_locking/smart_card_login/service_pcscd_enabled/rule.yml
+description: '
+
+  The <code>pcscd</code> service can be enabled with the following command:
+
+  <pre>$ sudo systemctl enable pcscd.service</pre>'
+identifiers:
+  cce: CCE-80881-6
+inherited_platforms:
+- machine
+ocil: '
+
+
+  Run the following command to determine the current status of the
+
+  <code>pcscd</code> service:
+
+  <pre>$ systemctl is-active pcscd</pre>
+
+  If the service is running, it should return the following: <pre>active</pre>'
+ocil_clause: the pcscd service is not enabled
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4,sle15
+rationale: 'Using an authentication device, such as a CAC or token that is separate
+  from
+
+  the information system, ensures that even if the information system is
+
+  compromised, that compromise will not affect credentials stored on the
+
+  authentication device.
+
+  <br /><br />
+
+  Multifactor solutions that require devices separate from
+
+  information systems gaining access include, for example, hardware tokens
+
+  providing time-based or challenge-response authenticators and smart cards such
+
+  as the U.S. Government Personal Identity Verification card and the DoD Common
+
+  Access Card.'
+references:
+  disa: CCI-001954
+  ism: 1382,1384,1386
+  nist: IA-2(1),IA-2(2),IA-2(3),IA-2(4),IA-2(6),IA-2(7),IA-2(11),CM-6(a)
+  srg: SRG-OS-000375-GPOS-00160
+  vmmsrg: SRG-OS-000377-VMM-001530
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: service_enabled
+  vars:
+    packagename: pcsc-lite
+    servicename: pcscd
+title: Enable the pcscd Service
+warnings: []

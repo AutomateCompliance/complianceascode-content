@@ -1,0 +1,40 @@
+documentation_complete: true
+
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+
+title: 'Enable the USBGuard Service'
+
+description: |-
+    The USBGuard service should be enabled.
+    {{{ describe_service_enable(service="usbguard") }}}
+
+rationale: |-
+    The <tt>usbguard</tt> service must be running in order to
+    enforce the USB device authorization policy for all USB devices.
+
+severity: medium
+
+platform: machine
+
+identifiers:
+    cce@rhcos4: CCE-82537-2
+    cce@rhel8: CCE-82853-3
+    cce@rhel9: CCE-84205-4
+
+references:
+    disa: CCI-000416,CCI-001958
+    ism: "1418"
+    nist: CM-8(3)(a),IA-3
+    ospp: FMT_SMF_EXT.1
+    srg: SRG-OS-000378-GPOS-00163
+    stigid@rhel8: RHEL-08-040141
+
+ocil_clause: 'the service is not enabled'
+
+ocil: |-
+    {{{ ocil_service_enabled(service="usbguard") }}}
+
+template:
+    name: service_enabled
+    vars:
+        servicename: usbguard

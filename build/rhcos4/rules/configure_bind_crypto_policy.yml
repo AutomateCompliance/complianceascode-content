@@ -1,0 +1,53 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/integrity/crypto/configure_bind_crypto_policy/rule.yml
+description: 'Crypto Policies provide a centralized control over crypto algorithms
+  usage of many packages.
+
+  BIND is supported by crypto policy, but the BIND configuration may be
+
+  set up to ignore it.
+
+
+  To check that Crypto Policies settings are configured correctly, ensure that the
+  <tt>/etc/named.conf</tt>
+
+  includes the appropriate configuration:
+
+  In the <tt>options</tt> section of <tt>/etc/named.conf</tt>, make sure that the
+  following line
+
+  is not commented out or superseded by later includes:
+
+  <tt>include "/etc/crypto-policies/back-ends/bind.config";</tt>'
+identifiers:
+  cce: CCE-82544-8
+inherited_platforms: []
+ocil: 'To verify that BIND uses the system crypto policy, check out that the BIND
+  config file
+
+  <pre>/etc/named.conf</pre> contains the <pre>include "/etc/crypto-policies/back-ends/bind.config";</pre>
+
+  directive: <pre>grep ''include "/etc/crypto-policies/back-ends/bind.config";'' /etc/named.conf</pre>,
+
+  and verify that the directive is at the bottom of the <pre>options</pre> section
+  of the config file.'
+ocil_clause: 'BIND is installed and the BIND config file doesn''t contain the
+
+  <pre>include "/etc/crypto-policies/back-ends/bind.config";</pre> directive'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9,rhv4
+rationale: 'Overriding the system crypto policy makes the behavior of the BIND service
+  violate expectations,
+
+  and makes system configuration more fragmented.'
+references:
+  nerc-cip: CIP-003-3 R4.2,CIP-007-3 R5.1
+  nist: SC-13,SC-12(2),SC-12(3)
+  srg: SRG-OS-000423-GPOS-00187,SRG-OS-000426-GPOS-00190
+requires: []
+severity: medium
+template: null
+title: Configure BIND to use System Crypto Policy
+warnings: []

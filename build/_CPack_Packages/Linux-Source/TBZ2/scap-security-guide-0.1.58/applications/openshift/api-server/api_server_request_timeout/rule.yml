@@ -1,0 +1,60 @@
+documentation_complete: true
+
+prodtype: ocp4
+
+title: 'Configure the API Server Minimum Request Timeout'
+
+description: |-
+    The API server minimum request timeout defines the minimum number of
+    seconds a handler must keep a request open before timing it out. To set this,
+    edit the <tt>openshift-kube-apiserver</tt> configmap and set
+    <tt>min-request-timeout</tt> under the <tt>apiServerArguments</tt> field:
+    <pre>
+    "apiServerArguments":{
+      ...
+      "min-request-timeout":[
+        {{{ xccdf_value("var_api_min_request_timeout") }}}
+      ],
+      ...
+    </pre>
+
+rationale: |-
+    Setting global request timout allows extending the API Server request
+    timeout limit to a duration appropriate to the user's connection speed.  By
+    default, it is set to 1800 seconds which might not be suitable for some
+    environments. Setting the limit too low may result in excessive timeouts,
+    and a limit that is too large may exhaust the API Server resources making
+    it prone to Denial-of-Service attack. It is recommended to set this limit
+    as appropriate and change the default limit of 1800 seconds only if needed.
+
+severity: medium
+
+references:
+    cis@ocp4: 1.2.26
+    nerc-cip: CIP-003-3 R6,CIP-004-3 R3,CIP-007-3 R6.1
+    nist: CM-6,CM-6(1)
+
+ocil_clause: '<tt>min-request-timeout</tt> is not set or is not set to an appropriate value'
+
+ocil: |-
+    Run the following command:
+    <pre>$ oc get configmap config -n openshift-kube-apiserver -ojson | jq -r '.data["config.yaml"]' | jq '.apiServerArguments["min-request-timeout"]'</pre>
+    The output should return <pre> {{{ xccdf_value("var_api_min_request_timeout") }}} </pre>.
+
+warnings:
+- general: |-
+    {{{ openshift_cluster_setting("/api/v1/namespaces/openshift-apiserver/configmaps/config") | indent(4) }}}
+
+template:
+  name: yamlfile_value
+  vars:
+    ocp_data: "true"
+    entity_check: "at least one"
+    filepath: /api/v1/namespaces/openshift-kube-apiserver/configmaps/config
+    yamlpath: '.data["config.yaml"]'
+    xccdf_variable: var_api_min_request_timeout
+    embedded_data: "true"
+    values:
+    - value: '"apiServerArguments":{.*"min-request-timeout":\["(\d*)"\]'
+      operation: "pattern match"
+      type: "string"

@@ -1,0 +1,77 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = unknown
+# complexity = low
+# disruption = medium
+- name: Test for crypto_policy group
+  command: grep '^\s*\[\s*crypto_policy\s*]' /etc/pki/tls/openssl.cnf
+  register: test_crypto_policy_group
+  ignore_errors: true
+  changed_when: false
+  check_mode: false
+  tags:
+    - CCE-83452-3
+    - NIST-800-53-AC-17(2)
+    - NIST-800-53-AC-17(a)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-MA-4(6)
+    - NIST-800-53-SC-12(2)
+    - NIST-800-53-SC-12(3)
+    - NIST-800-53-SC-13
+    - configure_openssl_crypto_policy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Add .include for opensslcnf.config to crypto_policy section
+  lineinfile:
+    create: true
+    insertafter: ^\s*\[\s*crypto_policy\s*]\s*
+    line: .include /etc/crypto-policies/back-ends/opensslcnf.config
+    path: /etc/pki/tls/openssl.cnf
+  when:
+    - test_crypto_policy_group.stdout is defined
+    - test_crypto_policy_group.stdout | length > 0
+  tags:
+    - CCE-83452-3
+    - NIST-800-53-AC-17(2)
+    - NIST-800-53-AC-17(a)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-MA-4(6)
+    - NIST-800-53-SC-12(2)
+    - NIST-800-53-SC-12(3)
+    - NIST-800-53-SC-13
+    - configure_openssl_crypto_policy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy
+
+- name: Add crypto_policy group and set include opensslcnf.config
+  lineinfile:
+    create: true
+    line: |-
+      [crypto_policy]
+      .include /etc/crypto-policies/back-ends/opensslcnf.config
+    path: /etc/pki/tls/openssl.cnf
+  when:
+    - test_crypto_policy_group.stdout is defined
+    - test_crypto_policy_group.stdout | length < 1
+  tags:
+    - CCE-83452-3
+    - NIST-800-53-AC-17(2)
+    - NIST-800-53-AC-17(a)
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-MA-4(6)
+    - NIST-800-53-SC-12(2)
+    - NIST-800-53-SC-12(3)
+    - NIST-800-53-SC-13
+    - configure_openssl_crypto_policy
+    - low_complexity
+    - medium_disruption
+    - medium_severity
+    - no_reboot_needed
+    - unknown_strategy

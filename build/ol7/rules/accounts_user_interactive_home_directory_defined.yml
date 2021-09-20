@@ -1,0 +1,34 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-session/accounts_user_interactive_home_directory_defined/rule.yml
+description: 'Assign home directories to all interactive users that currently do not
+
+  have a home directory assigned.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify interactive users on the system have a home directory assigned,
+
+  run the following command:
+
+  <pre>$ sudo awk -F":" ''{print $1 ":" $6}'' /etc/passwd</pre>
+
+  Inspect the output and verify that all interactive users have a home directory
+
+  defined.'
+ocil_clause: users home directory is not defined
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: ol7,ol8,rhel7,rhel8,rhv4,sle12,sle15,wrlinux1019
+rationale: 'If local interactive users are not assigned a valid home directory, there
+  is no
+
+  place for the storage and control of files they should own.'
+references:
+  disa: CCI-000366
+  srg: SRG-OS-000480-GPOS-00227
+  stigid: OL07-00-020600
+requires: []
+severity: medium
+template: null
+title: All Interactive Users Must Have A Home Directory Defined
+warnings: []

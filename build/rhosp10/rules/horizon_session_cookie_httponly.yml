@@ -1,0 +1,25 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/applications/openstack/horizon/horizon_session_cookie_httponly/rule.yml
+description: "The \u201CHTTPONLY\u201D cookie attribute instructs web browsers not\
+  \ to allow scripts (e.g. JavaScript or VBscript) an ability to access the cookies\
+  \ via the DOM document.cookie object. This session ID protection is mandatory to\
+  \ prevent session ID stealing through XSS attacks.\n<br />\n<br />\nPass: If value\
+  \ of parameter SESSION_COOKIE_HTTPONLY in /etc/openstack-dashboard/local_settings\
+  \ is set to True.\n\n<br />\n<br />\nFail: If value of parameter SESSION_COOKIE_HTTPONLY\
+  \ in /etc/openstack-dashboard/local_settings is set to False."
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhosp10,rhosp13
+rationale: ''
+references:
+  cui: 3.13.8
+requires: []
+severity: unknown
+template: null
+title: 'Check-Dashboard-06: Is SESSION_COOKIE_HTTPONLY parameter set to True?'
+warnings: []

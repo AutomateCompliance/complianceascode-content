@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/bootloader-zipl/zipl_bootmap_is_up_to_date/rule.yml
+description: 'Make sure that <tt>/boot/bootmap</tt> is up to date.<br />
+
+  Every time a boot entry or zIPL configuration is changed <tt>/boot/bootmap</tt>
+  needs to
+
+  be updated to reflect the changes.<br />
+
+  Run <tt>zipl</tt> command to generate an updated <tt>/boot/bootmap</tt>.'
+identifiers:
+  cce: CCE-84098-3
+inherited_platforms:
+- s390x_arch
+ocil: 'Make sure that <tt>/boot/bootmap</tt> is newer than <tt>/boot/loader/entries/*.conf</tt>
+
+  and <tt>/etc/zipl.conf</tt>:
+
+  <pre>find /boot/loader/entries/*.conf /etc/zipl.conf -newer /boot/bootmap</pre>
+
+  No line should be returned, if a line is returned <tt>/boot/bootmap</tt> is outdated
+  and needs to be regenerated.'
+ocil_clause: the bootmap is outdated
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: rhcos4,rhel8,rhel9
+rationale: 'The file <tt>/boot/bootmap</tt> contains all boot data, keeping it up
+  to date is crucial to
+
+  boot correct kernel and options.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Ensure zIPL bootmap is up to date
+warnings: []

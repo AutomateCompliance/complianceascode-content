@@ -1,0 +1,28 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-restrictions/root_logins/no_root_webbrowsing/rule.yml
+description: 'Enforce policy requiring administrative accounts use web browsers only
+  for
+
+  local service administration.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'Check the <tt>root</tt> home directory for a <tt>.mozilla</tt> directory. If
+
+  one exists, ensure browsing is limited to local service administration.'
+ocil_clause: this is not the case
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8
+rationale: 'If a browser vulnerability is exploited while running with administrative
+  privileges,
+
+  the entire system could be compromised. Specific exceptions for local service
+
+  administration should be documented in site-defined policy.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Restrict Web Browser Use for Administrative Accounts
+warnings: []

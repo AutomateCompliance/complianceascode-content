@@ -1,0 +1,74 @@
+
+
+
+
+<def-group>
+  <definition class="compliance" id="coreos_enable_selinux_kernel_argument" version="2">
+    <metadata>
+        <title>Ensure SELinux Not Disabled in the kernel arguments</title>
+        
+    <affected family="unix">
+    <platform>Red Hat Enterprise Linux 7</platform>
+    </affected>
+        <description>Ensure selinux=0 argument is not present in the 'options' line of /boot/loader/entries/ostree-2-*.conf (or ostree-1-*.conf if there is no ostree-2-*.conf as ostree has only two enries at the most, with *-2-*.conf entry always being the most recent). Also, ensure that kernel is currently running with this argument by checking /proc/cmdline.</description>
+    </metadata>
+    <criteria operator="AND">
+      <criteria operator="OR">
+        <criteria operator="AND"><criterion comment="Pass if there are no files matching pattern '/boot/loader/entries/ostree-2-.*.conf' exist in the system" test_ref="test_coreos_enable_selinux_kernel_argument_file_boot_loader_entries_ostree_2_conf_absent" /><criterion comment="Check if argument selinux=0 for Linux kernel is not present in /boot/loader/entries/ostree-1-.*.conf"
+  test_ref="test_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_1_conf" negate="true" />
+        </criteria>
+        <criteria operator="AND"><criterion comment="Check if argument selinux=0 for Linux kernel is not present in /boot/loader/entries/ostree-2-.*.conf"
+  test_ref="test_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_2_conf" negate="true" />
+        </criteria>
+      </criteria>
+      <criteria operator="AND"><criterion comment="Check if argument selinux=0 for Linux kernel is not present in /proc/cmdline"
+  test_ref="test_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_proc_cmdline" negate="true" />
+      </criteria>
+    </criteria>
+  </definition><unix:file_test check="all" check_existence="none_exist" id="test_coreos_enable_selinux_kernel_argument_file_boot_loader_entries_ostree_2_conf_absent"
+  comment="Check if /boot/loader/entries/ostree-2-.*.conf does not exist" version="1">
+    <unix:object object_ref="object_coreos_enable_selinux_kernel_argument_file_boot_loader_entries_ostree_2_conf_absent" />
+  </unix:file_test>
+  <unix:file_object id="object_coreos_enable_selinux_kernel_argument_file_boot_loader_entries_ostree_2_conf_absent" version="1">
+    <unix:filepath operation="pattern match">^/boot/loader/entries/ostree-2-.*.conf</unix:filepath>
+  </unix:file_object><ind:textfilecontent54_test id="test_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_1_conf"
+  comment="Check if argument selinux=0 is present in the line starting with 'options ' in /boot/loader/entries/ostree-1-.*.conf"
+  check="all" check_existence="all_exist" version="1">
+    <ind:object object_ref="object_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_1_conf" />
+    <ind:state state_ref="state_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_1_conf" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="object_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_1_conf" version="1">
+    <ind:filepath operation="pattern match">^/boot/loader/entries/ostree-1-.*.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^options (.*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="state_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_1_conf" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^(?:.*\s)?selinux=0(?:\s.*)?$</ind:subexpression>
+  </ind:textfilecontent54_state><ind:textfilecontent54_test id="test_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_2_conf"
+  comment="Check if argument selinux=0 is present in the line starting with 'options ' in /boot/loader/entries/ostree-2-.*.conf"
+  check="all" check_existence="all_exist" version="1">
+    <ind:object object_ref="object_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_2_conf" />
+    <ind:state state_ref="state_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_2_conf" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="object_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_2_conf" version="1">
+    <ind:filepath operation="pattern match">^/boot/loader/entries/ostree-2-.*.conf</ind:filepath>
+    <ind:pattern operation="pattern match">^options (.*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="state_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_boot_loader_entries_ostree_2_conf" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^(?:.*\s)?selinux=0(?:\s.*)?$</ind:subexpression>
+  </ind:textfilecontent54_state><ind:textfilecontent54_test id="test_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_proc_cmdline"
+  comment="Check if argument selinux=0 is present in the line starting with 'BOOT_IMAGE' in /proc/cmdline"
+  check="all" check_existence="all_exist" version="1">
+    <ind:object object_ref="object_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_proc_cmdline" />
+    <ind:state state_ref="state_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_proc_cmdline" />
+  </ind:textfilecontent54_test>
+  <ind:textfilecontent54_object id="object_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_proc_cmdline" version="1">
+    <ind:filepath operation="pattern match">^/proc/cmdline</ind:filepath>
+    <ind:pattern operation="pattern match">^BOOT_IMAGE(.*)$</ind:pattern>
+    <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+  </ind:textfilecontent54_object>
+  <ind:textfilecontent54_state id="state_coreos_enable_selinux_kernel_argument_selinux_0_argument_in_proc_cmdline" version="1">
+    <ind:subexpression datatype="string" operation="pattern match">^(?:.*\s)?selinux=0(?:\s.*)?$</ind:subexpression>
+  </ind:textfilecontent54_state>
+</def-group>

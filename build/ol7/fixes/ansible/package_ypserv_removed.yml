@@ -1,0 +1,21 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = disable
+# complexity = low
+# disruption = low
+- name: Ensure ypserv is removed
+  package:
+    name: ypserv
+    state: absent
+  tags:
+    - DISA-STIG-OL07-00-020010
+    - NIST-800-53-CM-6(a)
+    - NIST-800-53-CM-7(a)
+    - NIST-800-53-CM-7(b)
+    - NIST-800-53-IA-5(1)(c)
+    - disable_strategy
+    - high_severity
+    - low_complexity
+    - low_disruption
+    - no_reboot_needed
+    - package_ypserv_removed

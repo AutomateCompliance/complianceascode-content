@@ -1,0 +1,43 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-banners/file_groupowner_etc_issue/rule.yml
+description: '
+
+  To properly set the group owner of <code>/etc/issue</code>, run the command:
+
+  <pre>$ sudo chgrp root /etc/issue</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To check the group ownership of <code>/etc/issue</code>,
+
+  run the command:
+
+  <pre>$ ls -lL /etc/issue</pre>
+
+  If properly configured, the output should indicate the following group-owner:
+
+  <code>root</code>'
+ocil_clause: /etc/issue has group owner root
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhv4,sle12,sle15,ubuntu2004,wrlinux1019
+rationale: 'Display of a standardized and approved use notification before granting
+
+  access to the operating system ensures privacy and security notification
+
+  verbiage used is consistent with applicable federal laws, Executive Orders,
+
+  directives, policies, regulations, standards, and guidance.<br />
+
+  Proper group ownership will ensure that only root user can modify the banner.'
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: file_groupowner
+  vars:
+    filegid: '0'
+    filepath: /etc/issue
+title: Verify Group Ownership of System Login Banner
+warnings: []

@@ -1,0 +1,64 @@
+# platform = multi_platform_rhel
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+  tags:
+    - CCE-83774-0
+    - DISA-STIG-RHEL-08-040140
+    - NIST-800-53-CM-8(3)(a)
+    - NIST-800-53-IA-3
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - usbguard_generate_policy
+
+- name: Generate USBGuard Policy
+  block:
+
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+
+    - name: Check that the /etc/usbguard/rules.conf exists
+      stat:
+        path: /etc/usbguard/rules.conf
+      register: policy_file
+
+    - name: Create USBGuard Policy configuration
+      command: usbguard generate-policy
+      register: policy
+      when: not policy_file.stat.exists or policy_file.stat.size == 0
+
+    - name: Copy the Generated Policy configuration to a persistent file
+      copy:
+        content: '{{ policy.stdout }}'
+        dest: /etc/usbguard/rules.conf
+        mode: 384
+      when: not policy_file.stat.exists or policy_file.stat.size == 0
+
+    - name: Enable service usbguard
+      service:
+        name: usbguard
+        enabled: 'yes'
+        state: started
+        masked: 'no'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - '"usbguard" in ansible_facts.packages'
+  tags:
+    - CCE-83774-0
+    - DISA-STIG-RHEL-08-040140
+    - NIST-800-53-CM-8(3)(a)
+    - NIST-800-53-IA-3
+    - configure_strategy
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+    - usbguard_generate_policy

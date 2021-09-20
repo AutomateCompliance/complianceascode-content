@@ -1,0 +1,55 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/network/network-uncommon/kernel_module_can_disabled/rule.yml
+description: 'The Controller Area Network (CAN) is a serial communications
+
+  protocol which was initially developed for automotive and
+
+  is now also used in marine, industrial, and medical applications.
+
+
+  To configure the system to prevent the <code>can</code>
+
+  kernel module from being loaded, add the following line to a file in the directory
+  <code>/etc/modprobe.d</code>:
+
+  <pre>install can /bin/true</pre>'
+identifiers:
+  cce: CCE-82519-0
+inherited_platforms:
+- machine
+ocil: '
+
+  If the system is configured to prevent the loading of the <code>can</code> kernel
+  module,
+
+  it will contain lines inside any file in <code>/etc/modprobe.d</code> or the deprecated<code>/etc/modprobe.conf</code>.
+
+  These lines instruct the module loading system to run another program (such as <code>/bin/true</code>)
+  upon a module <code>install</code> event.
+
+  Run the following command to search for such lines in all files in <code>/etc/modprobe.d</code>
+  and the deprecated <code>/etc/modprobe.conf</code>:
+
+  <pre>$ grep -r can /etc/modprobe.conf /etc/modprobe.d</pre>'
+ocil_clause: no line is returned
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol8,rhcos4,rhel7,rhel8,rhel9
+rationale: 'Disabling CAN protects the system against exploitation of any
+
+  flaws in its implementation.'
+references:
+  disa: CCI-000381
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000095-GPOS-00049
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: kernel_module_disabled
+  vars:
+    kernmodule: can
+title: Disable CAN Support
+warnings: []

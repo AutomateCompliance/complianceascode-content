@@ -1,0 +1,45 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/jre/guide/java/java_jre_blacklist_check/rule.yml
+description: 'To ensure that Java prevents the download of prohibited mobile code,
+  set
+
+  <tt>deployment.security.blacklist.check</tt> to equal <tt>true</tt> in
+
+  <tt>/etc/.java/deployment/deployment.properties</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that Java prevents prohibited mobile code from being downloaded,
+
+  run the following command:
+
+  <pre>$ grep ''deployment.security.blacklist.check=true'' /etc/.java/deployment/deployment.properties</pre>
+
+  If properly configured, the output should return:
+
+  <pre>deployment.security.blacklist.check=true</pre>'
+ocil_clause: it is not configured
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Mobile code has the potential to cause damage to information systems within
+
+  an organization if used maliciously. Therefore it is important to allow vetted
+
+  mobile code and prevent potentially malicious execution of mobile code.
+
+  Mobile code has the potential to cause damage to information systems within
+
+  an organization if used maliciously. Therefore it is important to allow vetted
+
+  mobile code and prevent potentially malicious execution of mobile code.'
+references:
+  disa: CCI-001169
+  nist: SC-18(3)
+  srg: SRG-APP-000209
+  stigid: JRE8-UX-000110
+requires: []
+severity: medium
+template: null
+title: Prevent the Download of Prohibited Mobile Code
+warnings: []

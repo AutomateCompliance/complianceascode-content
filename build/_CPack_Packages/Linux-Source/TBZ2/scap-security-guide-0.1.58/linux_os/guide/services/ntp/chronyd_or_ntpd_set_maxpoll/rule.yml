@@ -1,0 +1,107 @@
+documentation_complete: true
+
+prodtype: fedora,ol7,ol8,rhcos4,rhel7,rhel8,rhv4,sle12,sle15,ubuntu2004,wrlinux1019
+
+title: 'Configure Time Service Maxpoll Interval'
+
+description: |-
+    The <tt>maxpoll</tt> should be configured to
+    {{{ xccdf_value("var_time_service_set_maxpoll") }}} in <tt>/etc/ntp.conf</tt> or
+    <tt>/etc/chrony.conf</tt> to continuously poll time servers. To configure
+    <tt>maxpoll</tt> in <tt>/etc/ntp.conf</tt> or <tt>/etc/chrony.conf</tt>
+    add the following:
+    <pre>maxpoll {{{ xccdf_value("var_time_service_set_maxpoll") }}}</pre>
+    {{% if product == "rhcos4" %}}
+    <p>
+    Note that if the remediation shipping with this content is being used, the
+    <b>MachineConfig</b> shipped does not include reference NTP servers to point
+    to. It is up to the admin to set these which will vary depending on the
+    cluster's requirements.
+    </p>
+
+    <p>
+    The aforementioned remediation does include the directory <tt>/etc/chrony.d</tt>
+    which would allow the creation of configuration files to set these servers.
+    </p>
+
+    If we'd like to set a configuration like the following:
+
+    <pre>
+    pool 2.rhel.pool.ntp.org iburst
+
+    server 0.rhel.pool.ntp.org minpoll 4 maxpoll 10
+    server 1.rhel.pool.ntp.org minpoll 4 maxpoll 10
+    server 2.rhel.pool.ntp.org minpoll 4 maxpoll 10
+    server 3.rhel.pool.ntp.org minpoll 4 maxpoll 10
+    </pre>
+
+    This could be done with to the following manifest:
+
+    <pre>
+    apiVersion: machineconfiguration.openshift.io/v1
+    kind: MachineConfig
+    metadata:
+      labels:
+        machineconfiguration.openshift.io/role: master
+      name: 75-master-chrony-servers
+    spec:
+      config:
+        ignition:
+          version: 3.1.0
+        storage:
+          files:
+          - contents:
+              source: data:,pool%202.rhel.pool.ntp.org%20iburst%0A%0Aserver%200.rhel.pool.ntp.org%20minpoll%204%20maxpoll%2010%0Aserver%201.rhel.pool.ntp.org%20minpoll%204%20maxpoll%2010%0Aserver%202.rhel.pool.ntp.org%20minpoll%204%20maxpoll%2010%0Aserver%203.rhel.pool.ntp.org%20minpoll%204%20maxpoll%2010
+            mode: 0600
+            path: /etc/chrony.d/10-rhel-pool-and-servers.conf
+            overwrite: true
+    </pre>
+
+    Note that this needs to be done for each <pre>MachineConfigPool</pre>
+    {{% endif %}}
+
+rationale: |-
+    Inaccurate time stamps make it more difficult to correlate
+    events and can lead to an inaccurate analysis. Determining the correct
+    time a particular event occurred on a system is critical when conducting
+    forensic analysis and investigating system events. Sources outside the
+    configured acceptable allowance (drift) may be inaccurate.
+
+severity: medium
+
+platforms:
+    - ntp
+    - chrony
+
+identifiers:
+    cce@rhcos4: CCE-82684-2
+    cce@rhel7: CCE-80439-3
+    cce@rhel8: CCE-84059-5
+    cce@sle12: CCE-83124-8
+    cce@sle15: CCE-83287-3
+
+references:
+    cis-csc: 1,14,15,16,3,5,6
+    cobit5: APO11.04,BAI03.05,DSS05.04,DSS05.07,MEA02.01
+    disa: CCI-001891,CCI-002046
+    isa-62443-2009: 4.3.3.3.9,4.3.3.5.8,4.3.4.4.7,4.4.2.1,4.4.2.2,4.4.2.4
+    isa-62443-2013: 'SR 2.10,SR 2.11,SR 2.12,SR 2.8,SR 2.9'
+    iso27001-2013: A.12.4.1,A.12.4.2,A.12.4.3,A.12.4.4,A.12.7.1
+    nist: CM-6(a),AU-8(1)(b)
+    nist-csf: PR.PT-1
+    nist@sle12: AU-8(1)(a),AU-8(1)(b)
+    srg: SRG-OS-000355-GPOS-00143,SRG-OS-000356-GPOS-00144,SRG-OS-000359-GPOS-00146
+    stigid@ol7: OL07-00-040500
+    stigid@rhel7: RHEL-07-040500
+    stigid@rhel8: RHEL-08-030740
+    stigid@sle12: SLES-12-030300
+    stigid@sle15: SLES-15-010400
+    stigid@ubuntu2004: UBTU-20-010435
+
+ocil_clause: 'it does not exist or maxpoll has not been set to the expected value'
+
+ocil: |-
+    To verify that <tt>maxpoll</tt> has been set properly, perform the following:
+    <pre>$ sudo grep maxpoll /etc/ntp.conf /etc/chrony.conf</pre>
+    The output should return
+    <pre>maxpoll {{{ xccdf_value("var_time_service_set_maxpoll") }}}</pre>.

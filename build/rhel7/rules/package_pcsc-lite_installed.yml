@@ -1,0 +1,38 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/accounts/accounts-physical/screen_locking/smart_card_login/package_pcsc-lite_installed/rule.yml
+description: 'The <code>pcsc-lite</code> package can be installed with the following
+  command:
+
+  <pre>
+
+  $ sudo yum install pcsc-lite</pre>'
+identifiers:
+  cce: CCE-82347-6
+inherited_platforms:
+- machine
+ocil: 'Run the following command to determine if the <code>pcsc-lite</code> package
+  is installed: <pre>$ rpm -q pcsc-lite</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9,rhv4
+rationale: 'The pcsc-lite package must be installed if it is to be available for
+
+  multifactor authentication using smartcards.'
+references:
+  disa: CCI-001954
+  ism: 1382,1384,1386
+  nist: CM-6(a)
+  srg: SRG-OS-000375-GPOS-00160
+  vmmsrg: SRG-OS-000377-VMM-001530
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: pcsc-lite
+title: Install the pcsc-lite package
+warnings: []

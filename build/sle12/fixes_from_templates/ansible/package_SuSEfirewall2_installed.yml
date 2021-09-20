@@ -1,0 +1,9 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = enable
+# complexity = low
+# disruption = low
+- name: Ensure SuSEfirewall2 is installed
+  package:
+    name: "SuSEfirewall2"
+    state: present

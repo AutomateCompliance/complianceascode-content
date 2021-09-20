@@ -1,0 +1,37 @@
+documentation_complete: true
+
+prodtype: ocp4
+
+platform: ocp4-node
+
+title: 'Verify Permissions on the Worker Kubeconfig File'
+
+description: |-
+    {{{ describe_file_permissions(file="/var/lib/kubelet/kubeconfig", perms="0600") }}}
+
+rationale: |-
+    If the worker kubeconfig file is writable by a group-owner or the
+    world the risk of its compromise is increased. The file contains the administration configuration of the
+    OpenShift cluster that is configured on the system. Protection of this file is
+    critical for OpenShift security.
+
+severity: medium
+
+identifiers:
+    cce@ocp4: CCE-83509-0
+
+references:
+    cis@ocp4: 4.1.9
+    nerc-cip: CIP-003-3 R6,CIP-004-3 R3,CIP-007-3 R6.1
+    nist: CM-6,CM-6(1)
+
+ocil_clause: '{{{ ocil_clause_file_permissions(file="/var/lib/kubelet/kubeconfig", perms="-rw-------") }}}'
+
+ocil: |-
+    {{{ ocil_file_permissions(file="/var/lib/kubelet/kubeconfig", perms="-rw-------") }}}
+
+template:
+    name: file_permissions
+    vars:
+        filepath: /var/lib/kubelet/kubeconfig
+        filemode: '0600'

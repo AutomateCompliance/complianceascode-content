@@ -1,0 +1,32 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/nfs_and_rpc/nfs_configuring_all_machines/nfs_configure_fixed_ports/nfs_fixed_lockd_tcp_port/rule.yml
+description: 'Configure the <tt>lockd</tt> daemon to use a static TCP port as
+
+  opposed to letting the RPC Bind service dynamically assign a port. Edit the
+
+  file <tt>/etc/sysconfig/nfs</tt>. Add or correct the following line:
+
+  <pre>LOCKD_TCPPORT=lockd-port</pre>
+
+  Where <tt>lockd-port</tt> is a port which is not used by any other service on
+
+  your network.'
+identifiers:
+  cce: CCE-80232-2
+inherited_platforms: []
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,rhel7,rhel8
+rationale: 'Restrict service to always use a given port, so that firewalling can be
+  done
+
+  effectively.'
+references: {}
+requires: []
+severity: unknown
+template: null
+title: Configure lockd to use static TCP port
+warnings: []

@@ -1,0 +1,30 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/system-tools/package_rear_installed/rule.yml
+description: 'The <code>rear</code> package can be installed with the following command:
+
+  <pre>
+
+  $ sudo dnf install rear</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: 'Run the following command to determine if the <code>rear</code> package is
+  installed: <pre>$ rpm -q rear</pre>'
+ocil_clause: the package is not installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: fedora,ol7,ol8,rhel7,rhel8,rhel9
+rationale: '<tt>rear</tt> contains the Relax-and-Recover (ReaR) utility. ReaR produces
+  a bootable
+
+  image of a system and restores from backup using this image.'
+references: {}
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: package_installed
+  vars:
+    pkgname: rear
+title: Install rear Package
+warnings: []

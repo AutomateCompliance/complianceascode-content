@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ocil xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://scap.nist.gov/schema/ocil/2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <generator>
+    <product_name>xccdf-create-ocil.xslt from SCAP Security Guide</product_name>
+    <product_version>ssg: 0.1.58</product_version>
+    <schema_version>2.0</schema_version>
+    <timestamp>2021-09-19T21:48:05-05:00</timestamp>
+  </generator>
+  <questionnaires>
+    <questionnaire id="service_com_apple_auditd_enabled_ocil">
+      <title>Enable audit Service</title>
+      <actions>
+        <test_action_ref>service_com_apple_auditd_enabled_action</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="audit_failure_halt_ocil">
+      <title>Shutdown System When Auditing Failures Occur</title>
+      <actions>
+        <test_action_ref>audit_failure_halt_action</test_action_ref>
+      </actions>
+    </questionnaire>
+  </questionnaires>
+  <test_actions>
+    <boolean_question_test_action id="service_com_apple_auditd_enabled_action" question_ref="service_com_apple_auditd_enabled_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <boolean_question_test_action id="audit_failure_halt_action" question_ref="audit_failure_halt_question">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+  </test_actions>
+  <questions>
+    <boolean_question id="service_com_apple_auditd_enabled_question">
+      <question_text>To verify that auditing is enabled and running, run the
+following command:
+$ sudo launchctl list com.apple.auditd
+The output should return process information for
+com.apple.auditd
+      Is it the case that auditing is not enabled or running?
+      </question_text>
+    </boolean_question>
+    <boolean_question id="audit_failure_halt_question">
+      <question_text>To verify that auditing is enabled and running, run the
+following command:
+$ sudo grep -E "^policy.*ahlt" /etc/security/audit_control
+The output should contain ahlt
+      Is it the case that auditing is not configured to shut down on audit failure?
+      </question_text>
+    </boolean_question>
+  </questions>
+</ocil>

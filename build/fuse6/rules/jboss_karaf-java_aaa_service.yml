@@ -1,0 +1,23 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-java_aaa_service/rule.yml
+description: 'Using the default system JAAS configuration ensures user
+
+  identification and authentication are performed by JBoss Fuse.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: JAAS is not configured or in use
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Using an administrator specified JAAS configuration enables a more
+
+  rigorous security posture.'
+references:
+  nist: CM-6
+requires: []
+severity: medium
+template: null
+title: Ensure Java Authentication and Authorization Service Is Configured
+warnings: []

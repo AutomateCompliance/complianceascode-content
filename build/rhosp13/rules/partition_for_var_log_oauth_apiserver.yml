@@ -1,0 +1,47 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/applications/openshift/logging/partition_for_var_log_oauth_apiserver/rule.yml
+description: 'OpenShift OAuth server audit logs are stored in the
+
+  <tt>/var/log/oauth-apiserver</tt> directory.
+
+
+  Ensure that <code>/var/log/oauth-apiserver</code> has its own partition or logical
+
+  volume at installation time, or migrate it using LVM.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'Run the following command to determine if <code>/var/log/oauth-apiserver</code>
+
+  is on its own partition or logical volume:
+
+  <pre>$ mount | grep "on /var/log/oauth-apiserver"</pre>
+
+  If <code>/var/log/oauth-apiserver</code> has its own partition or volume group,
+  a line will be returned.
+
+  '
+ocil_clause: no line is returned
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'Placing <tt>/var/log/oauth-apiserver</tt> in its own partition
+
+  enables better separation between OpenShift OAuth server audit
+
+  files and other log files, and helps ensure that
+
+  auditing cannot be halted due to the partition running out
+
+  of space.'
+references:
+  nist: AU-4
+requires: []
+severity: medium
+template:
+  backends: {}
+  name: mount
+  vars:
+    mountpoint: /var/log/oauth-apiserver
+title: Ensure /var/log/oauth-apiserver Located On Separate Partition
+warnings: []

@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/ntp/chronyd_no_chronyc_network/rule.yml
+description: 'The <tt>cmdport</tt> option in <tt>/etc/chrony.conf</tt> can be set
+  to
+
+  <tt>0</tt> to stop chrony daemon from listening on the UDP port 323
+
+  for management connections made by chronyc.'
+identifiers:
+  cce: CCE-88876-8
+inherited_platforms:
+- machine
+ocil: 'To verify that <tt>cmdport</tt> has been set properly, perform the following:
+
+  <pre>$ grep ''\bcmdport\b'' /etc/chrony.conf</pre>
+
+  The output should return
+
+  <pre>cmdport 0</pre>'
+ocil_clause: it does not exist or port is set to non-zero value
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: fedora,ol8,rhcos4,rhel8,rhel9
+rationale: 'Not exposing the management interface of the chrony daemon on
+
+  the network diminishes the attack space.'
+references:
+  disa: CCI-000381
+  ospp: FMT_SMF_EXT.1
+  srg: SRG-OS-000096-GPOS-00050,SRG-OS-000095-GPOS-00049
+requires: []
+severity: low
+template: null
+title: Disable network management of chrony daemon
+warnings: []

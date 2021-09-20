@@ -1,0 +1,35 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/bootloader-zipl/zipl_bls_entries_only/rule.yml
+description: 'Ensure that zIPL boot entries fully adheres to Boot Loader Specification
+  (BLS)
+
+  by checking that <tt>/etc/zipl.conf</tt> doesn''t contain <tt>image = </tt>.'
+identifiers:
+  cce: CCE-83485-3
+inherited_platforms:
+- s390x_arch
+ocil: 'Check that no boot image file is specified in <tt>/etc/zipl.conf</tt>:
+
+  <pre>grep -R "^image\s*=" /etc/zipl.conf</pre>
+
+  No line should be returned, if a line is returned non BLS compliant boot entries
+  are configured for zIPL.'
+ocil_clause: a non BLS boot entry is configured
+oval_external_content: null
+platform: machine
+platforms: !!set
+  machine: null
+prodtype: rhcos4,rhel8,rhel9
+rationale: 'Red Hat Enterprise Linux 8 adheres to Boot Loader Specification (BLS)
+  and is the prefered method of
+
+  configuration.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Ensure all zIPL boot entries are BLS compliant
+warnings:
+- general: 'To prevent breakage or removal of all boot entries oconfigured in /etc/zipl.conf
+
+    automated remediation for this rule is not available.'

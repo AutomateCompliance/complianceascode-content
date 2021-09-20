@@ -1,0 +1,37 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/selinux/package_mcstrans_removed/rule.yml
+description: 'The <tt>mcstransd</tt> daemon provides category label information
+
+  to client processes requesting information. The label translations are defined
+
+  in <tt>/etc/selinux/targeted/setrans.conf</tt>.
+
+  The <code>mcstrans</code> package can be removed with the following command:
+
+  <pre>
+
+  $ sudo dnf erase mcstrans</pre>'
+identifiers:
+  cce: CCE-84072-8
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: fedora,rhel7,rhel8,rhel9,sle15
+rationale: 'Since this service is not used very often, disable it to reduce the
+
+  amount of potentially vulnerable code running on the system.'
+references: {}
+requires: []
+severity: low
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: mcstrans
+title: Uninstall mcstrans Package
+warnings: []

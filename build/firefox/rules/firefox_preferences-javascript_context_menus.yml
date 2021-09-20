@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/firefox/guide/firefox/firefox_preferences-javascript_context_menus/rule.yml
+description: 'JavaScript can configure and make changes to the web browser''s appearance
+  by
+
+  specifically disabling or replacing context menus. This can be disabled by
+
+  setting <tt>dom.event.contextmenu.enabled</tt> to <tt>false</tt>.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To verify that JavaScript cannot change context menus,
+
+  run the following command:
+
+  <pre>$ grep ''dom.event.contextmenu.enabled'' <i>FIREFOX_INSTALL_DIR</i>/*.cfg</pre>
+
+  The output should return:
+
+  <pre>lockPref("dom.event.contextmenu.enabled", "false");</pre>'
+ocil_clause: it is not disabled
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'A website may execute JavaScript that can make changes to these
+
+  context menus. This can help disguise an attack.'
+references:
+  disa: CCI-000381
+  nist: CM-7
+  stigid: DTBF183
+requires: []
+severity: medium
+template: null
+title: Disable JavaScript Context Menus
+warnings: []

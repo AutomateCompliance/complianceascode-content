@@ -1,0 +1,44 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/nfs_and_rpc/disabling_nfs/disabling_nfs_services/service_rpcbind_disabled/rule.yml
+description: 'The rpcbind utility maps RPC services to the ports on which they listen.
+
+  RPC processes notify rpcbind when they start, registering the ports they
+
+  are listening on and the RPC program numbers they expect to serve. The
+
+  rpcbind service redirects the client to the proper port number so it can
+
+  communicate with the requested service. If the system does not require RPC
+
+  (such as for NFS servers) then this service should be disabled.
+
+
+  The <code>rpcbind</code> service can be disabled with the following command:
+
+  <pre>$ sudo systemctl mask --now rpcbind.service</pre>'
+identifiers:
+  cce: CCE-82858-2
+inherited_platforms:
+- machine
+ocil: null
+ocil_clause: null
+oval_external_content: null
+platform: null
+platforms: !!set
+  machine: null
+prodtype: ol7,ol8,rhel7,rhel8,rhel9,sle12,sle15
+rationale: 'If the system does not require rpc based services, it is recommended that
+
+  rpcbind be disabled to reduce the attack surface.'
+references:
+  cis: 2.2.13
+requires: []
+severity: low
+template:
+  backends: {}
+  name: service_disabled
+  vars:
+    packagename: nfs-utils
+    servicename: rpcbind
+title: Disable rpcbind Service
+warnings: []

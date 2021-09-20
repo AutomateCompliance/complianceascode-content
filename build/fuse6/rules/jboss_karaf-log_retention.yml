@@ -1,0 +1,24 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/fuse6/guide/fuse6/karaf/jboss_karaf-log_retention/rule.yml
+description: 'Logging should be configured to maintain logs for
+
+  a organization defined continuous number of days.'
+identifiers: {}
+inherited_platforms: []
+ocil: null
+ocil_clause: JBoss logs are not configured to retain for a defined period of days
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: 'If adequate online audit storage capacity is not maintained,
+
+  intrusion monitoring, security investigations, and forensic
+
+  analysis can be negatively affected.'
+references: {}
+requires: []
+severity: medium
+template: null
+title: Configure JBoss Logs Number of Days Retained
+warnings: []

@@ -1,0 +1,14 @@
+{{%- if product in ["rhel8", "rhel9", "sle12", "sle15"] %}}
+  {{%- set perm_x=" -F perm=x" %}}
+{{%- endif %}}
+# platform = multi_platform_rhel,multi_platform_fedora,multi_platform_ol,multi_platform_rhv,multi_platform_sle
+
+ACTION_ARCH_FILTERS="-a always,exit"
+OTHER_FILTERS="-F path={{{ PATH }}}{{{ perm_x }}}"
+AUID_FILTERS="-F auid>={{{ auid }}} -F auid!=unset"
+SYSCALL=""
+KEY="privileged"
+SYSCALL_GROUPING="{{{ SYSCALL_GROUPING }}}"
+# Perform the remediation for both possible tools: 'auditctl' and 'augenrules'
+{{{ bash_fix_audit_syscall_rule("augenrules", "$ACTION_ARCH_FILTERS", "$OTHER_FILTERS", "$AUID_FILTERS", "$SYSCALL", "$SYSCALL_GROUPING", "$KEY") }}}
+{{{ bash_fix_audit_syscall_rule("auditctl", "$ACTION_ARCH_FILTERS", "$OTHER_FILTERS", "$AUID_FILTERS", "$SYSCALL", "$SYSCALL_GROUPING", "$KEY") }}}

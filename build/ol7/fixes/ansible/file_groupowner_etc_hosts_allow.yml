@@ -1,0 +1,32 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Test for existence /etc/hosts.allow
+  stat:
+    path: /etc/hosts.allow
+  register: file_exists
+  when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+    - configure_strategy
+    - file_groupowner_etc_hosts_allow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure group owner 0 on /etc/hosts.allow
+  file:
+    path: /etc/hosts.allow
+    group: '0'
+  when:
+    - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+    - file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - configure_strategy
+    - file_groupowner_etc_hosts_allow
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

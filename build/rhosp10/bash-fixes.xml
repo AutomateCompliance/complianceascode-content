@@ -1,0 +1,6 @@
+<fix-content system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix-group id="bash" system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix rule="cinder_conf_file_perms">for file in /etc/cinder/cinder.conf \
+		/etc/cinder/rootwrap.conf; do
+	chown root "$file"
+	chgrp cinder "$file"
+done
+</fix></fix-group></fix-content>

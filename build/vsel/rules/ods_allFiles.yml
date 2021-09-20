@@ -1,0 +1,31 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_demand_settings/ods_allFiles/rule.yml
+description: "When scanning for malware, excluding specific file types will increase\
+  \ the risk of a malware-infected file going undetected.  \n\nTo check that VSEL\
+  \ settings are configured correctly, you have to examine the config file\navailable\
+  \ under <tt>/var/opt/NAI/LinuxShield/etc/ods.cfg</tt>.\nIf this config file contains\
+  \ the line <tt>nailsd.profile.ODS.allFiles: true</tt>,\nall file types will be scanned."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that all file types will be scanned, \ncheck the respective VSEL\
+  \ config file\n<pre>/var/opt/NAI/LinuxShield/etc/ods.cfg</pre> contains the <pre>nailsd.profile.ODS.allFiles:\
+  \ true</pre> line:\n<pre>grep 'nailsd.profile.ODS.allFiles: true' /var/opt/NAI/LinuxShield/etc/ods.cfg</pre>."
+ocil_clause: 'the <pre>ods.cfg</pre> doesn''t contain the <pre>nailsd.profile.ODS.allFiles:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: By configuring anti-virus software to scan all file types, the scanner
+  has a higher success rate at detecting and eradicating malware.
+references:
+  disa: CCI-001241
+  nist: SI-3
+  srg: SRG-APP-000277
+  stigid: DTAVSEL-105
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Demand scanner must
+  be configured to scan all file types
+warnings: []

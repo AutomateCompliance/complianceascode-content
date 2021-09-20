@@ -1,0 +1,31 @@
+# platform = multi_platform_all
+# reboot = false
+# strategy = configure
+# complexity = low
+# disruption = low
+- name: Test for existence /etc/passwd-
+  stat:
+    path: /etc/passwd-
+  register: file_exists
+  tags:
+    - CCE-83933-2
+    - configure_strategy
+    - file_groupowner_backup_etc_passwd
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed
+
+- name: Ensure group owner 0 on /etc/passwd-
+  file:
+    path: /etc/passwd-
+    group: '0'
+  when: file_exists.stat is defined and file_exists.stat.exists
+  tags:
+    - CCE-83933-2
+    - configure_strategy
+    - file_groupowner_backup_etc_passwd
+    - low_complexity
+    - low_disruption
+    - medium_severity
+    - no_reboot_needed

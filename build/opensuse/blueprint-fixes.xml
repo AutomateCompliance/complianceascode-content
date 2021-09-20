@@ -1,0 +1,49 @@
+<fix-content system="urn:xccdf:fix:script:sh" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix-group id="blueprint" system="urn:redhat:osbuild:blueprint" xmlns="http://checklists.nist.gov/xccdf/1.1"><fix rule="package_MFEhiplsm_installed">
+[[packages]]
+name = "MFEhiplsm"
+version = "*"
+</fix><fix rule="package_audit-audispd-plugins_installed">
+[[packages]]
+name = "audit-audispd-plugins"
+version = "*"
+</fix><fix rule="package_audit_installed">
+[[packages]]
+name = "audit"
+version = "*"
+</fix><fix rule="package_chrony_installed">
+[[packages]]
+name = "chrony"
+version = "*"
+</fix><fix rule="package_cron_installed">
+[[packages]]
+name = "cron"
+version = "*"
+</fix><fix rule="package_gnutls-utils_installed">
+[[packages]]
+name = "gnutls-utils"
+version = "*"
+</fix><fix rule="package_nss-tools_installed">
+[[packages]]
+name = "nss-tools"
+version = "*"
+</fix><fix rule="package_ntp_installed">
+[[packages]]
+name = "ntp"
+version = "*"
+</fix><fix rule="package_openssh-server_installed">
+[[packages]]
+name = "openssh-server"
+version = "*"
+</fix><fix rule="package_openssh_installed">
+[[packages]]
+name = "openssh"
+version = "*"
+</fix><fix rule="package_rsyslog_installed">
+[[packages]]
+name = "rsyslog"
+version = "*"
+</fix><fix rule="package_syslogng_installed">
+[[packages]]
+name = "syslogng"
+version = "*"
+</fix></fix-group></fix-content>

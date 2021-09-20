@@ -1,0 +1,36 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/services/imap/disabling_dovecot/package_dovecot_removed/rule.yml
+description: '
+
+  The <code>dovecot-core</code> package can be removed with the following command:
+
+  <pre>
+
+  $ apt-get remove dovecot-core</pre>'
+identifiers: {}
+inherited_platforms: []
+ocil: '
+
+  Run the following command to determine if the <code>dovecot-core</code> package
+  is installed:
+
+  <pre>$ dpkg -l  dovecot-core</pre>'
+ocil_clause: the package is installed
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: rhel7,rhel8,rhel9,sle12,sle15,ubuntu2004
+rationale: 'If there is no need to make the Dovecot software available,
+
+  removing it provides a safeguard against its activation.'
+references:
+  cis: 2.2.11
+requires: []
+severity: unknown
+template:
+  backends: {}
+  name: package_removed
+  vars:
+    pkgname: dovecot-core
+title: Uninstall dovecot Package
+warnings: []

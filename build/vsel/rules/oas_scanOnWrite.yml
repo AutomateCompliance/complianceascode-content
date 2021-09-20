@@ -1,0 +1,32 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/products/vsel/guide/vsel/on_access_settings/oas_scanOnWrite/rule.yml
+description: "Anti-virus software is the most commonly used technical control for\
+  \ malware threat mitigation. \n\nTo check that VSEL settings are configured correctly,\
+  \ you have to examine the config file\navailable under <tt>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</tt>.\n\
+  If this config file contains the line <tt>nailsd.profile.OAS.scanOnWrite: true</tt>,\n\
+  files will be scanned when written to disk."
+identifiers: {}
+inherited_platforms: []
+ocil: "To verify that files will be scanned when written to disk, \ncheck the respective\
+  \ VSEL config file\n<pre>/var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre> contains\
+  \ the <pre>nailsd.profile.OAS.scanOnWrite: true</pre> line:\n<pre>grep 'nailsd.profile.OAS.scanOnWrite:\
+  \ true' /var/opt/NAI/LinuxShield/etc/nailsd.cfg</pre>."
+ocil_clause: 'the <pre>nailsd.cfg</pre> doesn''t contain the <pre>nailsd.profile.OAS.scanOnWrite:
+  true</pre> line'
+oval_external_content: null
+platform: null
+platforms: !!set {}
+prodtype: all
+rationale: Real-time scanning of files as they are written to disk is a crucial first
+  line of defense from malware attacks.
+references:
+  disa: CCI-001243
+  nist: SI-3
+  srg: SRG-APP-000279
+  stigid: DTAVSEL-008
+requires: []
+severity: medium
+template: null
+title: The McAfee VirusScan Enterprise for Linux 1.9.x/2.0.x On-Access scanner must
+  be configured to scan files when being written to disk
+warnings: []

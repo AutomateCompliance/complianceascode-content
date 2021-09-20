@@ -1,0 +1,47 @@
+conflicts: []
+definition_location: /home/chase/_work/complianceascode-content/complianceascode-content/linux_os/guide/system/software/sudo/sudoers_no_root_target/rule.yml
+description: 'The targeted users of a user specification should be, as much as possible,
+  non privileged users (i.e.: non-root).
+
+
+  User specifications have to explicitly list the runas spec (i.e. the list of target
+  users that can be impersonated), and <tt>ALL</tt> or <tt>root</tt> should not be
+  used.'
+identifiers: {}
+inherited_platforms: []
+ocil: 'To determine if the users are allowed to run commands as root, run the following
+  commands:
+
+  <pre>$ sudo grep -PR ''^\s*((?!root\b)[\w]+)\s*(\w+)\s*=\s*(.*,)?\s*[^\(\s]'' /etc/sudoers
+  /etc/sudoers.d/</pre>
+
+  and
+
+  <pre>$ sudo grep -PR ''^\s*((?!root\b)[\w]+)\s*(\w+)\s*=\s*(.*,)?\s*\([\w\s]*\b(root|ALL)\b[\w\s]*\)''
+  /etc/sudoers /etc/sudoers.d/</pre>
+
+  Both commands should return no output.'
+ocil_clause: /etc/sudoers file contains rules that allow non-root users to run commands
+  as root
+oval_external_content: null
+platform: sudo
+platforms: !!set
+  sudo: null
+prodtype: all
+rationale: 'It is common that the command to be executed does not require superuser
+  rights (editing a file
+
+  whose the owner is not root, sending a signal to an unprivileged process,etc.).
+  In order to limit
+
+  any attempt of privilege escalation through a command, it is better to apply normal
+  user rights.'
+references:
+  anssi: BP28(R60)
+requires: []
+severity: medium
+template: null
+title: Don't target root user in the sudoers file
+warnings:
+- general: This rule doesn't come with a remediation, as the exact requirement allows
+    exceptions, and removing lines from the sudoers file can make the system non-administrable.
